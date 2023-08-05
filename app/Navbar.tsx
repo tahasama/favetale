@@ -1,7 +1,7 @@
 "use client";
 import { Cormorant, Work_Sans, Alegreya } from "next/font/google";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchModal from "./SearchModal";
 
 // const cormorant = Cormorant({ subsets: ["latin"] });
@@ -39,7 +39,7 @@ const Navbar = () => {
   };
   return (
     <nav
-      className={`p-4 flex justify-between items-center  fixed top-0 w-full`}
+      className={`bg-tealLight h-20 px-4 flex justify-between items-center  fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
@@ -95,7 +95,6 @@ const Navbar = () => {
       <div
         className={`flex items-center justify-between md:space-x-10 lg:space-x-20 text-xl ${alegreya.className}`}
       >
-        {" "}
         <SearchModal isOpen={isModalOpen} onClose={closeModal} />
         <div className="relative" onClick={openModal}>
           <input
