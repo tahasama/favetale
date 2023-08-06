@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import pet5 from "../images/5.jpg";
 import pet6 from "../images/6.jpg";
+import pet7 from "../images/7.jpg";
 
 const StorySection = () => {
   const stories = [
@@ -19,6 +20,13 @@ const StorySection = () => {
       title: "Heartwarming Pet Tales",
       description:
         " Discover touching stories that showcase the strong bonds between pets and their humans, leaving your heart warmed and inspired.",
+    },
+    {
+      id: 2,
+      image: pet7,
+      title: "Fast and Curious",
+      description:
+        " stories of pets and their ownersembarking, the strong bonds between pets and their humans.",
     },
   ];
   return (
