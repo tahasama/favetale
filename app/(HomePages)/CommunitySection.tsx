@@ -67,12 +67,12 @@ const CommunitySection = () => {
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mx-16 ">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mx-2 md:mx-16 place-items-center">
           {/* User Contributions */}
           {communityContributions.map((contribution: any, i: any) => (
             <div
-              className={`bg-tealLight rounded-lg shadow-xl flex  w-fit overflow-hidden justify-between  ${
-                i % 2 !== 0 ? "flex-row " : "flex-row-reverse"
+              className={`bg-tealLight rounded-lg shadow-xl flex w-fit overflow-hidden justify-between flex-col ${
+                i % 2 !== 0 ? "md:flex-row" : "md:flex-row-reverse"
               }`}
             >
               <div>
@@ -84,13 +84,15 @@ const CommunitySection = () => {
                 />
               </div>
 
-              <div className="p-4 flex items-center justify-center flex-col">
+              <div className="p-4 flex items-center justify-center flex-col space-y-16">
                 <h3
                   className={`text-xl font-semibold mb-2 ${vollkorn.className}`}
                 >
                   {contribution.title}
                 </h3>
-                <p className="text-gray-600">{contribution.description}</p>
+                <p className="text-gray-600 line-clamp-3">
+                  {contribution.description}
+                </p>
                 <button className="mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md shadow-md">
                   Explore Contribution
                 </button>
@@ -128,6 +130,9 @@ const CommunitySection = () => {
               </div>
             </div>
           </div>
+          <button className="mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-12 sm:py-4 shadow-xl rounded-3xl">
+            Go to Community
+          </button>
         </div>
       </div>
     </section>
