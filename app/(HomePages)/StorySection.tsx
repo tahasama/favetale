@@ -49,7 +49,7 @@ const StorySection = () => {
                   {story.description}
                 </p>
                 <div className="absolute -bottom-10 left-0 w-full flex justify-center items-center pt-5">
-                  <button className="bg-teal-500 text-white px-6 py-2 rounded-full">
+                  <button className="hover:animate-buttonHover bg-teal-500 text-white px-6 py-2 rounded-full">
                     Read More
                   </button>
                 </div>
@@ -57,7 +57,7 @@ const StorySection = () => {
             </div>
           ))}
         </div>
-        <button className="mt-8 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-16 sm:py-5 shadow-xl rounded-2xl">
+        <button className="hover:animate-buttonHover mt-8 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-16 sm:py-5 shadow-xl rounded-2xl">
           Check stories
         </button>
       </div>

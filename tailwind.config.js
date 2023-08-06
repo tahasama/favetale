@@ -28,10 +28,17 @@ module.exports = {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
+        button1: {
+          "0%": { translate: "0px" },
+          "50%": { translate: "3px" },
+          "100%": { translate: "0px" },
+        },
       },
       animation: {
         fadeInOut: "fade 2s linear ",
         fadeIn: "fade1 1s linear ",
+        buttonActive: "button1 1s linear ",
+        buttonHover: "button1 1s linear  ",
       },
     },
   },

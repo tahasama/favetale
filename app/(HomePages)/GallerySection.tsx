@@ -88,7 +88,7 @@ const GallerySection = () => {
                   <span className="text-gray-600 mr-2">❤️ Likes: 100</span>
                   <span className="text-gray-600">💬 Comments: 50</span>
                 </div>
-                <button className="mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
+                <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
                   Explore Gallery
                 </button>
               </div>

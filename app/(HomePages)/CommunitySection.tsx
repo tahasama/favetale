@@ -91,7 +91,7 @@ const CommunitySection = () => {
                 <p className="text-gray-600 line-clamp-3">
                   {contribution.description}
                 </p>
-                <button className="mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md shadow-md">
+                <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md shadow-md">
                   Explore Contribution
                 </button>
               </div>
@@ -151,7 +151,7 @@ const CommunitySection = () => {
               </div>
             </div>
           </div>
-          <button className="mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
+          <button className="hover:animate-buttonHover mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
             Go to Community
           </button>
         </div>
