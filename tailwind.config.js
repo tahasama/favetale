@@ -12,30 +12,26 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      // colors: {
-      //   beige: "#F5EFE3",
-      //   green: "#B5C99D",
-      //   terracotta: "#E07A5F",
-      //   rose: "#D2A3A9",
-      //   goldenrod: "#F9C22E",
-      // },
-      // colors: {
-      //   greenLight: "#C8E4B2",
-      //   greenMedium: "#9ED2BE",
-      //   greenDark: "#7EAA92",
-      //   orange: "#FFD9B7",
-      // },
-      // colors: {
-      //   purpleLight: "#6F61C0",
-      //   purpleMedium: "#A084E8",
-      //   tealLight: "#8BE8E5",
-      //   tealDark: "#D5FFE4",
-      // },
       colors: {
         tealDark: "#0EB29A",
         tealLight: "#F5FDFF",
         greenLight: "#DDF0C2",
         grayMedium: "#8C999A",
+      },
+      keyframes: {
+        fade: {
+          "0%": { opacity: 0 },
+          "50%": { opacity: 1 },
+          "100%": { opacity: 0 },
+        },
+        fade1: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+      animation: {
+        fadeInOut: "fade 2s linear ",
+        fadeIn: "fade1 1s linear ",
       },
     },
   },

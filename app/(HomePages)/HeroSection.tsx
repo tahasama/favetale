@@ -19,23 +19,23 @@ const HeroSection = () => {
       <div className="container text-center flex flex-col md:flex-row md:text-sm lg:text-lg">
         {/* Layout for larger screens (tablets and laptops) */}
         <div className="md:flex flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-1">
-          <div className="flex flex-col items-center group cursor-pointer">
+          <div className="animate-fadeIn flex flex-col items-center group cursor-pointer delay-1000">
             <span className="text-6xl sm:text-5xl mb-2">🐾</span>
             <p className="text-xl font-semibold">Explore Galleries</p>
             <p className="text-gray-600 mt-2">
               Find shared moments and memories of beloved companions.
             </p>
-            <button className="mt-4 lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-500 cursor-pointer">
+            <button className="mt-4 lg:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
               Discover
             </button>
           </div>
-          <div className="flex flex-col items-center group cursor-pointer">
+          <div className="animate-fadeIn flex flex-col items-center group">
             <span className="text-6xl sm:text-5xl mb-2">🌟</span>
             <p className="text-xl font-semibold">Share Your Tale</p>
             <p className="text-gray-600 mt-2">
               Share your heartwarming pet tales with the world.
             </p>
-            <button className="mt-4 lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-500 cursor-pointer">
+            <button className="mt-4 lg:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
               Inspire
             </button>
           </div>
@@ -50,23 +50,23 @@ const HeroSection = () => {
         </div>
 
         <div className="md:flex flex-col justify-between items-center mx-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-3">
-          <div className="flex flex-col items-center group cursor-pointer">
+          <div className="animate-fadeIn flex flex-col items-center group">
             <span className="text-6xl sm:text-5xl mb-2">🏆</span>
             <p className="text-xl font-semibold">Celebrate Bonds</p>
             <p className="text-gray-600 mt-2">
               Celebrate the special bond between pets and their humans.
             </p>
-            <button className="mt-4 lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-500 cursor-pointer">
+            <button className="mt-4 animate-fadeInOut lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
               Celebrate
             </button>
           </div>
-          <div className="flex flex-col items-center group ">
+          <div className="animate-fadeIn flex flex-col items-center group">
             <span className="text-6xl sm:text-5xl mb-2">🌐</span>
             <p className="text-xl font-semibold">Global Community</p>
             <p className="text-gray-600 mt-2">
               Join a global community of pet lovers and enthusiasts.
             </p>
-            <button className="mt-4 lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-500 cursor-pointer">
+            <button className="mt-4 animate-fadeInOut lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
               Connect
             </button>
           </div>
