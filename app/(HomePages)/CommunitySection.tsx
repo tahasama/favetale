@@ -15,39 +15,27 @@ const communityContributions = [
     title: "Rescue Story: Finding Hope",
     description:
       "Read about how our community member rescued a stray puppy and gave it a forever home.",
+    location: "Paris",
+    date: "24 Jun 2023",
+    writer: "Jon Smith",
   },
   {
     image: pet10,
     title: "DIY Pet Accessories: Creative Crafts",
     description:
       "Explore a step-by-step guide to making adorable pet accessories that our member created.",
+    location: "NY",
+    date: "15 Jan 2022",
+    writer: "Elena Cruz",
   },
   {
     image: pet9,
     title: "Training Tips: Happy Paws",
     description:
       "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
-  },
-];
-
-const contribution = [
-  {
-    image: pet8,
-    title: "Rescue Story: Finding Hope",
-    description:
-      "Read about how our community member rescued a stray puppy and gave it a forever home.",
-  },
-  {
-    image: pet10,
-    title: "DIY Pet Accessories: Creative Crafts",
-    description:
-      "Explore a step-by-step guide to making adorable pet accessories that our member created.",
-  },
-  {
-    image: pet9,
-    title: "Training Tips: Happy Paws",
-    description:
-      "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
+    location: "Tokyo",
+    date: "31 Mar 2023",
+    writer: "Sylvia Throne",
   },
 ];
 
@@ -68,31 +56,40 @@ const CommunitySection = () => {
           {/* User Contributions */}
           {communityContributions.map((contribution: any, i: any) => (
             <div
-              className={`bg-tealLight rounded-lg shadow-xl flex w-2/3 overflow-hidden justify-between flex-col ${
+              className={`bg-tealLight rounded-lg shadow-xl flex mx-2 sm:w-4/5 lg:w-2/3 overflow-hidden justify-between self-center flex-col ${
                 i % 2 !== 0
-                  ? "md:flex-row self-start"
-                  : "md:flex-row-reverse self-end"
+                  ? "md:flex-row sm:self-start"
+                  : "md:flex-row-reverse sm:self-end"
               }`}
             >
               <div>
                 <Image
                   src={contribution.image}
                   alt="Featured Story 2"
-                  className="w-full h-fit aspect-auto object-cover cursor-pointer"
+                  className="w-full h-full aspect-auto object-cover cursor-pointer"
                 />
               </div>
 
-              <div className="p-4 flex items-center justify-center flex-col space-y-16">
-                <h3
-                  className={`text-xl font-semibold mb-2 ${vollkorn.className}`}
-                >
-                  {contribution.title}
-                </h3>
-                <p className="text-gray-600 line-clamp-3">
+              <div className="p-4 flex  justify-evenly flex-col h-auto">
+                <span>
+                  <h3
+                    className={`text-md lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
+                  >
+                    {contribution.title}
+                  </h3>
+                  <p className="text-gray-400 text-xs mb-2">
+                    📅 {contribution.date} | 📌
+                    {contribution.location}
+                  </p>
+                </span>
+                <p className="text-gray-600 lg:line-clamp-3 sm:line-clamp-2">
                   {contribution.description}
                 </p>
+                <p className="text-gray-500 text-xs self-end">
+                  ~ {contribution.writer}
+                </p>
                 <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md shadow-md">
-                  Explore Contribution
+                  Read More
                 </button>
               </div>
             </div>
@@ -108,7 +105,7 @@ const CommunitySection = () => {
               What Our Community Members Say
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-tealLight p-4 rounded-lg shadow-md flex space-x-4">
+              <div className="bg-tealLight p-4 rounded-lg shadow-md flex flex-col sm:flex-row  space-x-4">
                 <div className="flex-shrink-0">
                   <Image
                     src={user}
@@ -128,7 +125,7 @@ const CommunitySection = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-tealLight p-4 rounded-lg shadow-md flex space-x-4">
+              <div className="bg-tealLight p-4 rounded-lg shadow-md flex flex-col sm:flex-row  space-x-4">
                 <div className="flex-shrink-0">
                   <Image
                     src={user2}
