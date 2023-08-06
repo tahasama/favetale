@@ -3,6 +3,8 @@ import { Cormorant, Work_Sans, Alegreya } from "next/font/google";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import SearchModal from "./SearchModal";
+import Image from "next/image";
+import logoPets from "./images/logoPets.png";
 
 // const cormorant = Cormorant({ subsets: ["latin"] });
 // const cormorant2 = Cormorant({ subsets: ["latin-ext"], weight: "600" });
@@ -91,7 +93,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        <Link href="/">
+        <Link href="/" className="flex items-center  p-3 gap-3">
+          <Image src={logoPets} alt="logoPets" className="h-12 w-12" />
           <span className="text-3xl md:5xl  font-semibold text-tealDark  cursor-pointer">
             FaveTale
           </span>
