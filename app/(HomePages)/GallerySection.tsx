@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import pet1 from "../images/1.jpg";
@@ -22,6 +22,22 @@ const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const GallerySection = () => {
   const pets = [pet1, pet2, pet3, pet11, pet12];
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // Update the window width state whenever the window is resized
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <section className="bg-tealDark py-12">
       <div className="container mx-auto text-center">
@@ -30,7 +46,9 @@ const GallerySection = () => {
         </h2>
         <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
           <Swiper
-            slidesPerView={3}
+            slidesPerView={
+              window.innerWidth < 700 ? 1 : window.innerWidth < 900 ? 2 : 3
+            }
             spaceBetween={20}
             keyboard={{
               enabled: true,
@@ -54,7 +72,7 @@ const GallerySection = () => {
           </Swiper>
         </div>
         <div className="mt-10 flex justify-center">
-          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden w-3/5">
+          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden mx-2 sm:w-3/5">
             <div className="p-4 flex flex-col items-center space-y-3">
               <p
                 className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}
