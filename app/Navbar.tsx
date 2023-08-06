@@ -41,7 +41,7 @@ const Navbar = () => {
   };
   return (
     <nav
-      className={`bg-tealLight h-20 px-4 flex justify-between items-center z-50 fixed top-0 w-full`}
+      className={`bg-tealLight h-20 px-2 flex justify-between items-center z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
@@ -113,7 +113,7 @@ const Navbar = () => {
           />
           <span
             onClick={toggleSearchModal}
-            className="cursor-pointer absolute top-1/2 -right-9  transform -translate-y-1/2  scale-[.27]"
+            className="cursor-pointer absolute top-1/2 -right-11  transform -translate-y-1/2  scale-[.27]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,16 @@ const Navbar = () => {
               onClick={toggleDropdown}
               className="cursor-pointer group-hover:text-tealDark"
             >
-              Me
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                id="avatar"
+                className="scale-90 p-0 m-0"
+              >
+                <path d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z"></path>
+                <path fill="none" d="M0 0h48v48H0z"></path>
+              </svg>
             </span>
             <div
               className={`absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg transition-opacity ${
