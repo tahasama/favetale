@@ -47,7 +47,7 @@ const Navbar = () => {
         <div>
           <span
             onClick={toggleDropdown2}
-            className="cursor-pointer pr-8 scale-[1] md:hidden block"
+            className="cursor-pointer sm:pr-8 scale-[1] md:hidden block"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
