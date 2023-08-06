@@ -23,15 +23,19 @@ const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 const GallerySection = () => {
   const pets = [pet1, pet2, pet3, pet11, pet12];
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      setWindowWidth(typeof window !== "undefined" ? window.innerWidth : 0);
     };
-    window.addEventListener("resize", handleResize);
+    typeof window !== "undefined" &&
+      window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      typeof window !== "undefined" &&
+        window.removeEventListener("resize", handleResize);
     };
   }, []);
   return (
@@ -42,9 +46,7 @@ const GallerySection = () => {
         </h2>
         <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
           <Swiper
-            slidesPerView={
-              window.innerWidth < 700 ? 1 : window.innerWidth < 900 ? 2 : 3
-            }
+            slidesPerView={windowWidth < 700 ? 1 : windowWidth < 900 ? 2 : 3}
             spaceBetween={20}
             keyboard={{
               enabled: true,
