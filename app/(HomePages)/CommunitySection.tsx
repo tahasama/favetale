@@ -28,8 +28,6 @@ const communityContributions = [
     description:
       "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
   },
-
-  // Add more contributions as needed
 ];
 
 const contribution = [
@@ -51,8 +49,6 @@ const contribution = [
     description:
       "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
   },
-
-  // Add more contributions as needed
 ];
 
 const CommunitySection = () => {

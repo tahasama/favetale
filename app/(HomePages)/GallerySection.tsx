@@ -8,7 +8,7 @@ import pet3 from "../images/3.jpg";
 import pet4 from "../images/4.jpg";
 import pet11 from "../images/11.jpg";
 import pet12 from "../images/12.jpg";
-import { Volkhov, Vollkorn } from "next/font/google";
+import { Vollkorn } from "next/font/google";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -26,14 +26,10 @@ const GallerySection = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    // Update the window width state whenever the window is resized
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener when the component is unmounted
     return () => {
       window.removeEventListener("resize", handleResize);
     };
