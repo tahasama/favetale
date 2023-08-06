@@ -12,7 +12,7 @@ const HeroSection = () => {
   return (
     <section className="hero-section bg-tealLight min-h-[calc(100vh-80px)] flex flex-col items-center justify-center">
       <h1
-        className={`text-3xl md:text-4xl lg:text-5xl mt-5 md:mt-0 lg:-mt-0 lg:mb-8 my-10 mx-2 md:mb-2 font-semibold text-teal-700 mb-8 ${ost.className}`}
+        className={`text-3xl md:text-4xl lg:text-5xl mt-5 mb-8 sm:mt-8 sm:-mb-4 lg:mt-6 lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
       >
         Embark on Your Pet's Journey
       </h1>
@@ -20,7 +20,7 @@ const HeroSection = () => {
         {/* Layout for larger screens (tablets and laptops) */}
         <div className="md:flex flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-1">
           <div className="flex flex-col items-center group cursor-pointer">
-            <span className="text-6xl mb-2">🐾</span>
+            <span className="text-6xl sm:text-5xl mb-2">🐾</span>
             <p className="text-xl font-semibold">Explore Galleries</p>
             <p className="text-gray-600 mt-2">
               Find shared moments and memories of beloved companions.
@@ -30,7 +30,7 @@ const HeroSection = () => {
             </button>
           </div>
           <div className="flex flex-col items-center group cursor-pointer">
-            <span className="text-6xl mb-2">🌟</span>
+            <span className="text-6xl sm:text-5xl mb-2">🌟</span>
             <p className="text-xl font-semibold">Share Your Tale</p>
             <p className="text-gray-600 mt-2">
               Share your heartwarming pet tales with the world.
@@ -51,7 +51,7 @@ const HeroSection = () => {
 
         <div className="md:flex flex-col justify-between items-center mx-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-3">
           <div className="flex flex-col items-center group cursor-pointer">
-            <span className="text-6xl mb-2">🏆</span>
+            <span className="text-6xl sm:text-5xl mb-2">🏆</span>
             <p className="text-xl font-semibold">Celebrate Bonds</p>
             <p className="text-gray-600 mt-2">
               Celebrate the special bond between pets and their humans.
@@ -61,7 +61,7 @@ const HeroSection = () => {
             </button>
           </div>
           <div className="flex flex-col items-center group ">
-            <span className="text-6xl mb-2">🌐</span>
+            <span className="text-6xl sm:text-5xl mb-2">🌐</span>
             <p className="text-xl font-semibold">Global Community</p>
             <p className="text-gray-600 mt-2">
               Join a global community of pet lovers and enthusiasts.
