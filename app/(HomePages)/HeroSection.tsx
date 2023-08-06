@@ -12,7 +12,7 @@ const HeroSection = () => {
   return (
     <section className="hero-section bg-tealLight min-h-[calc(100vh-80px)] flex flex-col items-center justify-center">
       <h1
-        className={`text-3xl md:text-4xl lg:text-5xl mt-5 mb-8 sm:mt-8 sm:-mb-4 lg:mt-2 lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
+        className={`mx-2 sm:mx-0 text-3xl md:text-4xl lg:text-5xl mt-5 mb-8 sm:mt-8 sm:-mb-4 lg:mt-2 lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
       >
         Embark on Your Pet's Journey
       </h1>

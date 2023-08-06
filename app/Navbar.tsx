@@ -81,6 +81,11 @@ const Navbar = () => {
                     Community
                   </span>
                 </Link>
+                <Link href="/questions">
+                  <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
+                    Questions
+                  </span>
+                </Link>
               </div>
             )}
           </div>
@@ -136,6 +141,11 @@ const Navbar = () => {
         <Link href="/community">
           <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
             Community
+          </span>
+        </Link>
+        <Link href="/questions">
+          <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
+            Questions
           </span>
         </Link>
         {loggedIn ? (

@@ -17,7 +17,7 @@ const GallerySection = () => {
         <h2 className={`text-3xl font-semibold mb-8 ${vollkorn.className}`}>
           Featured Pets
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-4 md:mx-2 sm:gap-4 lg:mx-2">
           {pets.map((pet: any) => (
             <div className="bg-tealDark eleva rounded-lg shadow-xl overflow-hidden">
               <Image
@@ -28,8 +28,8 @@ const GallerySection = () => {
             </div>
           ))}
         </div>
-        <div className="mt-10 sm:mx-60">
-          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden">
+        <div className="mt-10">
+          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden  lg:mx-36">
             <div className="p-4 flex flex-col items-center space-y-5">
               <p
                 className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}
@@ -40,14 +40,14 @@ const GallerySection = () => {
               <Image
                 src={pet4}
                 alt="Pet of the Week"
-                className="sm:w-8/12 h-auto rounded-lg cursor-pointer"
+                className="w-12/12 xl:w-8/12 h-auto rounded-lg cursor-pointer"
               />
-              <div className="mt-2 flex items-center justify-between w-full">
+              <div className="mt-2 flex flex-col items-center justify-between w-full">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-2">❤️ Likes: 100</span>
                   <span className="text-gray-600">💬 Comments: 50</span>
                 </div>
-                <button className="mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-8 py-3 shadow-xl rounded-3xl">
+                <button className="mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
                   Explore Gallery
                 </button>
               </div>
