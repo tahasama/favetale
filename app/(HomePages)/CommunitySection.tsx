@@ -5,6 +5,7 @@ import pet8 from "../images/8.jpg";
 import pet9 from "../images/9.jpg";
 import pet10 from "../images/10.jpg";
 import user from "../images/user.jpg";
+import user2 from "../images/user2.png";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
@@ -67,20 +68,21 @@ const CommunitySection = () => {
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mx-2 md:mx-16 place-items-center">
+        <div className="flex flex-col gap-8 mx-2 md:mx-6">
           {/* User Contributions */}
           {communityContributions.map((contribution: any, i: any) => (
             <div
-              className={`bg-tealLight rounded-lg shadow-xl flex w-fit overflow-hidden justify-between flex-col ${
-                i % 2 !== 0 ? "md:flex-row" : "md:flex-row-reverse"
+              className={`bg-tealLight rounded-lg shadow-xl flex w-2/3 overflow-hidden justify-between flex-col ${
+                i % 2 !== 0
+                  ? "md:flex-row self-start"
+                  : "md:flex-row-reverse self-end"
               }`}
             >
               <div>
                 <Image
                   src={contribution.image}
                   alt="Featured Story 2"
-                  className="w-full h-96 aspect-auto object-cover cursor-pointer"
-                  width={500}
+                  className="w-full h-fit aspect-auto object-cover cursor-pointer"
                 />
               </div>
 
@@ -100,37 +102,60 @@ const CommunitySection = () => {
             </div>
           ))}
         </div>
+
         {/* Testimonials or Quotes */}
         <div className="mt-10">
-          <div className="bg-tealLight lg:rounded-lg shadow-md overflow-hidden lg:mx-56">
-            <div className="p-4 flex flex-col items-center space-y-5">
-              <p
-                className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}
-              >
-                What Our Community Members Say
-              </p>
-              <div className="flex">
-                <Image
-                  src={user}
-                  alt="Featured Story 2"
-                  className="w-full h-16 aspect-auto object-cover cursor-pointer rounded-full"
-                  width={500}
-                />
-                <span className="text-5xl">💬</span>
+          <div className="p-5 flex flex-col items-center space-y-5 bg-teal-700 mx-2  rounded-lg shadow-md">
+            <p
+              className={`text-2xl tracking-wider text-slate-200 ${vollkorn.className}`}
+            >
+              What Our Community Members Say
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-tealLight p-4 rounded-lg shadow-md flex space-x-4">
+                <div className="flex-shrink-0">
+                  <Image
+                    src={user}
+                    alt="Featured Story 2"
+                    className="h-16 w-16 cursor-pointer rounded-full"
+                  />
+                </div>
+                <div className="flex-grow">
+                  <span className="text-4xl">💬</span>
+                  <p className={`text-gray-600 italic ${vollkorn.className}`}>
+                    "Being a part of this community has truly enriched my life.
+                    I've learned so much from fellow pet lovers and made
+                    lifelong friends."
+                  </p>
+                  <p className="text-gray-500 mt-2">
+                    - Dude Johnson, Pet Enthusiast
+                  </p>
+                </div>
               </div>
-              <div className="mt-4">
-                <p className={`text-gray-600 italic ${vollkorn.className}`}>
-                  "Being a part of this community has truly enriched my life.
-                  I've learned so much from fellow pet lovers and made lifelong
-                  friends."
-                </p>
-                <p className="text-gray-500 mt-2">
-                  - Dude Johnson, Pet Enthusiast
-                </p>
+              <div className="bg-tealLight p-4 rounded-lg shadow-md flex space-x-4">
+                <div className="flex-shrink-0">
+                  <Image
+                    src={user2}
+                    alt="Featured Story 3"
+                    className="h-16 w-16 cursor-pointer rounded-full"
+                  />
+                </div>
+                <div className="flex-grow">
+                  <span className="text-4xl py-4">💬</span>
+                  <p className={`text-gray-600 italic ${vollkorn.className}`}>
+                    "I have had am ncredible journey with this community. I've
+                    found valuable advice, shared heartwarming stories, and
+                    connected with people who share my passion for pets. This is
+                    more than just a community; it's a family."
+                  </p>
+                  <p className="text-gray-500 mt-2">
+                    - Jane Smith, Pet Enthusiast
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <button className="mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-12 sm:py-4 shadow-xl rounded-3xl">
+          <button className="mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
             Go to Community
           </button>
         </div>

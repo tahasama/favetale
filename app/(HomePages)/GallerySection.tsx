@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 
@@ -5,32 +6,56 @@ import pet1 from "../images/1.jpg";
 import pet2 from "../images/2.jpg";
 import pet3 from "../images/3.jpg";
 import pet4 from "../images/4.jpg";
+import pet11 from "../images/11.jpg";
+import pet12 from "../images/12.jpg";
 import { Volkhov, Vollkorn } from "next/font/google";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Keyboard, Navigation, Pagination } from "swiper/modules";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const GallerySection = () => {
-  const pets = [pet1, pet2, pet3];
+  const pets = [pet1, pet2, pet3, pet11, pet12];
   return (
     <section className="bg-tealDark py-12">
       <div className="container mx-auto text-center">
         <h2 className={`text-3xl font-semibold mb-8 ${vollkorn.className}`}>
           Featured Pets
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-4 md:mx-2 sm:gap-4 lg:mx-2">
-          {pets.map((pet: any) => (
-            <div className="bg-tealDark eleva rounded-lg shadow-xl overflow-hidden">
-              <Image
-                src={pet}
-                alt="pet"
-                className="w-full h-auto cursor-pointer "
-              />
-            </div>
-          ))}
+        <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={20}
+            keyboard={{
+              enabled: true,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Keyboard, Pagination, Navigation]}
+            className="my-swiper"
+          >
+            {pets.map((pet: any) => (
+              <SwiperSlide>
+                <Image
+                  src={pet}
+                  alt="pet"
+                  className="w-full h-auto cursor-pointer rounded-lg shadow-xl"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-        <div className="mt-10">
-          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden  lg:mx-36">
-            <div className="p-4 flex flex-col items-center space-y-5">
+        <div className="mt-10 flex justify-center">
+          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden w-3/5">
+            <div className="p-4 flex flex-col items-center space-y-3">
               <p
                 className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}
               >
@@ -40,7 +65,7 @@ const GallerySection = () => {
               <Image
                 src={pet4}
                 alt="Pet of the Week"
-                className="w-12/12 xl:w-8/12 h-auto rounded-lg cursor-pointer"
+                className="w-12/12 xl:w-10/12 h-auto rounded-lg cursor-pointer"
               />
               <div className="mt-2 flex flex-col items-center justify-between w-full">
                 <div className="flex items-center">

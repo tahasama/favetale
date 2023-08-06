@@ -39,7 +39,7 @@ const Navbar = () => {
   };
   return (
     <nav
-      className={`bg-tealLight h-20 px-4 flex justify-between items-center  fixed top-0 w-full`}
+      className={`bg-tealLight h-20 px-4 flex justify-between items-center z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>

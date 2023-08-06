@@ -3,6 +3,7 @@ import HeroSection from "./(HomePages)/HeroSection";
 import GallerySection from "./(HomePages)/GallerySection";
 import StorySection from "./(HomePages)/StorySection";
 import CommunitySection from "./(HomePages)/CommunitySection";
+import Footer from "./(HomePages)/Footer";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <GallerySection />
       <StorySection />
       <CommunitySection />
+      <Footer />
     </main>
   );
 }

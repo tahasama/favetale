@@ -9,3 +9,19 @@ Sage Green (#B5C99D)
 Terracotta (#E07A5F)
 Dusty Rose (#D2A3A9)
 Goldenrod (#F9C22E) */
+
+/* Customize navigation arrow styles */
+.my-swiper .swiper-button-next,
+.my-swiper .swiper-button-prev {
+  color: #ff9900; /* Change arrow color */
+  font-size: 74px !important; /* Change arrow size */
+  scale: 1.5;
+}
+
+/* Customize active pagination bullet styles */
+.my-swiper .swiper-pagination-bullet-active {
+  background-color: #ff9900; /* Change active bullet color */
+  width: 12px !important; /* Change active bullet width */
+  height: 12px !important; /* Change active bullet height */
+  opacity: 1 !important; /* Change active bullet opacity */
+}
