@@ -3,7 +3,7 @@ import { useState } from "react";
 import Gallery from "./components/Gallery";
 
 const ExplorePage = () => {
-  const [activeTab, setActiveTab] = useState<string>("Pet Images"); // Initial active tab
+  const [activeTab, setActiveTab] = useState<string>("Gallery"); // Initial active tab
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
@@ -12,11 +12,12 @@ const ExplorePage = () => {
   const tabs = ["Gallery", "Tips", "Blogs", "Stories"];
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 bg-tealLight">
       <div className="flex justify-center">
         <div className="flex bg-gray-100 rounded-lg">
-          {tabs.map((tab) => (
+          {tabs.map((tab, index) => (
             <TabButton
+              key={index}
               tabName={tab}
               isActive={activeTab === tab}
               onClick={() => handleTabClick(tab)}
