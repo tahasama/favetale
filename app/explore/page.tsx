@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Gallery from "./components/Gallery";
 
 const ExplorePage = () => {
   const [activeTab, setActiveTab] = useState<string>("Pet Images"); // Initial active tab
@@ -47,10 +48,10 @@ const TabButton = ({ tabName, isActive, onClick }: any) => {
 };
 
 // Define the content components for each tab
-const Gallery = () => {
-  // Render content for the "Pet Images" tab
-  return <div>HHHHHHHHh</div>;
-};
+// const Gallery = () => {
+//   // Render content for the "Pet Images" tab
+//   return <div>HHHHHHHHh</div>;
+// };
 
 const Tips = () => {
   // Render content for the "Advice & Tips" tab
