@@ -42,6 +42,7 @@ const Gallery = () => {
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           imageSrc={selectedImage?.src}
+          petImages={petImages}
         />
       </div>
     </div>
