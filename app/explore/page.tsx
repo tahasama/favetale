@@ -13,25 +13,23 @@ const ExplorePage = () => {
   const tabs = ["Gallery", "Tips", "Blogs", "Stories"];
 
   return (
-    <div className=" bg-tealLight">
-      <div className="flex sticky top-60  mx-10 z-50">
-        <div className="flex flex-col  bg-gray-100 rounded-lg gap-10 h-fit">
-          {tabs.map((tab, index) => (
-            <TabButton
-              key={index}
-              tabName={tab}
-              isActive={activeTab === tab}
-              onClick={() => handleTabClick(tab)}
-            />
-          ))}
-        </div>
+    <div className=" bg-tealLight gap-0 justify-stretch flex w-full">
+      <div className="sticky top-0 h-screen justify-center my-auto flex flex-col mt-20 ml-10 z-50 w-1/12">
+        {tabs.map((tab, index) => (
+          <TabButton
+            key={index}
+            tabName={tab}
+            isActive={activeTab === tab}
+            onClick={() => handleTabClick(tab)}
+          />
+        ))}
       </div>
-
-      {/* Content for the active tab */}
-      {activeTab === "Gallery" && <Gallery />}
-      {activeTab === "Tips" && <Tips />}
-      {activeTab === "Blogs" && <Blogs />}
-      {activeTab === "Stories" && <Stories />}
+      <div className="w-11/12 mr-40">
+        {activeTab === "Gallery" && <Gallery />}
+        {activeTab === "Tips" && <Tips />}
+        {activeTab === "Blogs" && <Blogs />}
+        {activeTab === "Stories" && <Stories />}
+      </div>
     </div>
   );
 };
@@ -39,9 +37,9 @@ const ExplorePage = () => {
 const TabButton = ({ tabName, isActive, onClick }: any) => {
   return (
     <button
-      className={`px-4 py-2 text-gray-600 rounded-t-lg ${
+      className={`px-4 py-4 bg-gray-100  text-gray-600 rounded-t-lg ${
         isActive ? "bg-white border-b-2 border-teal-500" : ""
-      }`}
+      } transition-colors duration-500 hover:bg-indigo-50`}
       onClick={onClick}
     >
       {tabName}

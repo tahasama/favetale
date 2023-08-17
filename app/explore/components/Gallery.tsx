@@ -23,9 +23,9 @@ const Gallery = () => {
   };
 
   return (
-    <div className="-mt-28 mx-auto max-w-6xl">
-      <h2 className="text-3xl font-semibold mb-20">Pet Images Gallery</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="mx-auto max-w-6xl">
+      <h2 className="text-3xl font-semibold">Pet Images Gallery</h2>
+      <div className="mt-28 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {petImages.map((image, index) => (
           <motion.div
             key={index}

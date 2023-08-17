@@ -31,35 +31,29 @@ function Image({ tip }: { tip: any }) {
   return (
     <section className="h-screen w-fit flex items-center justify-center snap-center">
       <motion.div
-        className="relative mb-8"
-        initial={{ opacity: 0, y: 200 }} // Initial state (hidden and slightly moved down)
-        animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
+        className="relative mb-8 "
+        initial={{ opacity: 0, y: 250 }} // Initial state (hidden and slightly moved down)
+        animate={{ opacity: 1, y: 50 }} // Animation state (visible and at normal position)
         transition={{ duration: 1 }} // Animation duration
       >
-        <div
-          ref={ref}
-          className="max-h-[90vh] w-fit flex items-center justify-center"
-        >
+        <div ref={ref} className=" w-fit flex items-center justify-center">
           <img
             src={tip.coverImage}
             alt="A London skyscraper"
-            className="h-[90vh] rounded-md"
+            className="max-h-[80vh] w-auto rounded-md"
           />
         </div>
         <motion.h2
-          style={{ y, marginLeft: "-120px" }}
+          style={{ y, marginTop: "-80px" }}
           className="bg-white bg-opacity-80 rounded-lg shadow-md p-6  transition-all duration-200 absolute right-20"
         >
           <h3 className="text-xl font-semibold mb-3">
             <span className="text-3xl">{tip.emoji}</span> {tip.title}
           </h3>
           <p className="text-gray-600">{tip.description}</p>
-          <Link
-            href={`/tips/${tip.id}`}
-            className="text-indigo-500 hover:underline mt-3 block"
-          >
-            Read More
-          </Link>
+          <button className="mt-3 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-10 sm:py-2 shadow-xl rounded-2xl">
+            <Link href={`/tips/${tip.id}`}>Read More</Link>
+          </button>
         </motion.h2>
       </motion.div>
     </section>
