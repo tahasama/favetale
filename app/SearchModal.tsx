@@ -35,7 +35,7 @@ const SearchModal = ({ isOpen, onClose }: any) => {
           />
           <span
             onClick={() => router.push("/search")}
-            className="cursor-pointer absolute top-1/2 right-4  transform -translate-y-1/2  scale-[.27]"
+            className="cursor-pointer absolute top-1/2 right-4   -translate-y-1/2  scale-[.27]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ const SearchModal = ({ isOpen, onClose }: any) => {
           </span>
         </div>
         <button
-          className=" text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 relative -top-6 -right-3 transition-all duration-500 rounded-full"
+          className=" text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 relative  -right-3 transition-all duration-500 rounded-full"
           onClick={onClose}
         >
           <svg

@@ -113,7 +113,7 @@ const Navbar = () => {
           />
           <span
             onClick={toggleSearchModal}
-            className="cursor-pointer absolute top-1/2 -right-11  transform -translate-y-1/2  scale-[.27]"
+            className="cursor-pointer absolute top-1/2 -right-11  -translate-y-1/2  scale-[.27]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Gallery from "./components/Gallery";
 import Tips from "./components/Tips";
+import Blogs from "./components/Blogs";
+import Stories from "./components/Stories";
 
 const ExplorePage = () => {
   const [activeTab, setActiveTab] = useState<string>("Gallery"); // Initial active tab
@@ -14,7 +16,7 @@ const ExplorePage = () => {
 
   return (
     <div className=" bg-tealLight gap-0 justify-stretch flex w-full">
-      <div className="sticky top-0 h-screen justify-center my-auto flex flex-col mt-20 ml-10 z-50 w-1/12">
+      <div className="sticky top-0 h-screen justify-center my-auto flex flex-col mt-20 ml-5 z-50 w-1/12">
         {tabs.map((tab, index) => (
           <TabButton
             key={index}
@@ -24,7 +26,7 @@ const ExplorePage = () => {
           />
         ))}
       </div>
-      <div className="w-11/12 mr-40">
+      <div className="w-11/12 ">
         {activeTab === "Gallery" && <Gallery />}
         {activeTab === "Tips" && <Tips />}
         {activeTab === "Blogs" && <Blogs />}
@@ -53,14 +55,14 @@ const TabButton = ({ tabName, isActive, onClick }: any) => {
 //   return <div>HHHHHHHHh</div>;
 // };
 
-const Blogs = () => {
-  // Render content for the "Blogs" tab
-  return <div>yaaay</div>;
-};
+// const Blogs = () => {
+//   // Render content for the "Blogs" tab
+//   return <div>yaaay</div>;
+// };
 
-const Stories = () => {
-  // Render content for the "Inspiring User Stories" tab
-  return <div>hahahaha</div>;
-};
+// const Stories = () => {
+//   // Render content for the "Inspiring User Stories" tab
+//   return <div>hahahaha</div>;
+// };
 
 export default ExplorePage;
