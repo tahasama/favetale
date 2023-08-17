@@ -30,31 +30,38 @@ function Image({ tip }: { tip: any }) {
 
   return (
     <section className="h-screen w-fit flex items-center justify-center snap-center">
-      <div
-        ref={ref}
-        className="max-h-[90vh] w-fit flex items-center justify-center"
+      <motion.div
+        className="relative mb-8"
+        initial={{ opacity: 0, y: 200 }} // Initial state (hidden and slightly moved down)
+        animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
+        transition={{ duration: 1 }} // Animation duration
       >
-        <img
-          src={tip.coverImage}
-          alt="A London skyscraper"
-          className="h-[90vh] rounded-md"
-        />
-      </div>
-      <motion.h2
-        style={{ y, marginLeft: "-120px" }}
-        className="bg-white bg-opacity-80 rounded-lg shadow-md p-6  transition-all duration-200 absolute right-20"
-      >
-        <h3 className="text-xl font-semibold mb-3">
-          <span className="text-3xl">{tip.emoji}</span> {tip.title}
-        </h3>
-        <p className="text-gray-600">{tip.description}</p>
-        <Link
-          href={`/tips/${tip.id}`}
-          className="text-indigo-500 hover:underline mt-3 block"
+        <div
+          ref={ref}
+          className="max-h-[90vh] w-fit flex items-center justify-center"
         >
-          Read More
-        </Link>
-      </motion.h2>
+          <img
+            src={tip.coverImage}
+            alt="A London skyscraper"
+            className="h-[90vh] rounded-md"
+          />
+        </div>
+        <motion.h2
+          style={{ y, marginLeft: "-120px" }}
+          className="bg-white bg-opacity-80 rounded-lg shadow-md p-6  transition-all duration-200 absolute right-20"
+        >
+          <h3 className="text-xl font-semibold mb-3">
+            <span className="text-3xl">{tip.emoji}</span> {tip.title}
+          </h3>
+          <p className="text-gray-600">{tip.description}</p>
+          <Link
+            href={`/tips/${tip.id}`}
+            className="text-indigo-500 hover:underline mt-3 block"
+          >
+            Read More
+          </Link>
+        </motion.h2>
+      </motion.div>
     </section>
   );
 }
