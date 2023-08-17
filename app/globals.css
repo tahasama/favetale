@@ -38,3 +38,14 @@ Goldenrod (#F9C22E) */
     opacity: 1 !important; /* Change active bullet opacity */
   }
 }
+
+
+
+html {
+  scroll-snap-type: y mandatory;
+}
+
+
+
+
+

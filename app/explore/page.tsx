@@ -13,9 +13,9 @@ const ExplorePage = () => {
   const tabs = ["Gallery", "Tips", "Blogs", "Stories"];
 
   return (
-    <div className="mt-20 bg-tealLight">
-      <div className="flex justify-center">
-        <div className="flex bg-gray-100 rounded-lg">
+    <div className=" bg-tealLight">
+      <div className="flex sticky top-60  mx-10 z-50">
+        <div className="flex flex-col  bg-gray-100 rounded-lg gap-10 h-fit">
           {tabs.map((tab, index) => (
             <TabButton
               key={index}
@@ -39,7 +39,7 @@ const ExplorePage = () => {
 const TabButton = ({ tabName, isActive, onClick }: any) => {
   return (
     <button
-      className={`px-4 py-2 text-gray-600 ${
+      className={`px-4 py-2 text-gray-600 rounded-t-lg ${
         isActive ? "bg-white border-b-2 border-teal-500" : ""
       }`}
       onClick={onClick}

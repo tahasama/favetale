@@ -9,6 +9,7 @@ import i18 from "../../images/18.jpg";
 import i19 from "../../images/19.jpg";
 import Image from "next/image";
 import ImageModal from "./ImageModal";
+import { motion } from "framer-motion";
 
 const Gallery = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,21 +23,28 @@ const Gallery = () => {
   };
 
   return (
-    <div className="mt-8 mx-auto max-w-6xl">
-      <h2 className="text-3xl font-semibold mb-6">Pet Images Gallery</h2>
+    <div className="-mt-28 mx-auto max-w-6xl">
+      <h2 className="text-3xl font-semibold mb-20">Pet Images Gallery</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {petImages.map((image, index) => (
-          <div
+          <motion.div
             key={index}
-            className="overflow-hidden rounded-lg shadow-md"
-            onClick={() => handleImageClick(image)}
+            className="relative mb-8"
+            initial={{ opacity: 0, y: index * 50 + 100 }} // Initial state (hidden and slightly moved down)
+            animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
+            transition={{ duration: 0.75 }} // Animation duration
           >
-            <Image
-              src={image}
-              alt={`Pet Image ${index + 1}`}
-              className="w-full h-40 lg:h-[55vh]  object-cover cursor-pointer"
-            />
-          </div>
+            <div
+              className="overflow-hidden rounded-lg shadow-md"
+              onClick={() => handleImageClick(image)}
+            >
+              <Image
+                src={image}
+                alt={`Pet Image ${index + 1}`}
+                className="w-full h-40 lg:h-[55vh]  object-cover cursor-pointer"
+              />
+            </div>
+          </motion.div>
         ))}
         <ImageModal
           isOpen={modalOpen}
