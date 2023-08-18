@@ -53,24 +53,25 @@ const Blogs = () => {
   ];
 
   return (
-    <div className="container  mt-10  w-full">
+    <div className="container  my-10  w-full">
       <h2 className="text-3xl font-semibold mb-6">Blogs</h2>
 
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
         <div className="bg-sky-600 p-7 rounded-lg text-left leading-10 ">
           <h2 className="text-3xl font-semibold text-white mb-3">
-            Share Your Story
+            Discover Our Blog
           </h2>
           <p className="text-gray-300 mb-4">
-            Have a pet-related story or experience to share? Contribute to our
-            blog community and inspire others!
+            Explore insightful articles and tips from our community of pet
+            lovers. Enhance your knowledge and share in the joy of pet
+            companionship!
           </p>
           <Link
-            href="/write-blog"
-            className="bg-tealLight hover:text-white px-4 py-3  rounded-md hover:bg-indigo-600 transition-colors"
+            href="/blogs"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-indigo-600 transition-colors"
           >
-            Write a Blog
+            Explore Blogs
           </Link>
         </div>
       </div>
