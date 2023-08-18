@@ -62,7 +62,7 @@ const Blogs = () => {
           <h2 className="text-3xl font-semibold text-white mb-3">
             Discover Our Blog
           </h2>
-          <p className="text-gray-300 mb-4">
+          <p className="text-gray-200 mb-4">
             Explore insightful articles and tips from our community of pet
             lovers. Enhance your knowledge and share in the joy of pet
             companionship!

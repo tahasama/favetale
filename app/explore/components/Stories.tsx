@@ -47,7 +47,7 @@ const Stories = () => {
           <h2 className="text-3xl font-semibold text-white mb-3">
             Share Your Inspiring Story
           </h2>
-          <p className="text-gray-300 mb-4">
+          <p className="text-gray-200 mb-4">
             Contribute your unique story to our community and inspire others!
           </p>
           <Link
