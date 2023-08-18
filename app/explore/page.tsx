@@ -15,8 +15,8 @@ const ExplorePage = () => {
   const tabs = ["Gallery", "Tips", "Blogs", "Stories"];
 
   return (
-    <div className=" bg-tealLight gap-0 justify-stretch flex w-full">
-      <div className="sticky top-0 h-screen justify-center my-auto flex flex-col mt-20 ml-5 z-50 w-1/12">
+    <div className=" bg-tealLight ">
+      <div className="sticky top-20 z-50 flex justify-center  w-full bg-tealLight">
         {tabs.map((tab, index) => (
           <TabButton
             key={index}
@@ -26,7 +26,7 @@ const ExplorePage = () => {
           />
         ))}
       </div>
-      <div className="w-11/12 ">
+      <div className="  ">
         {activeTab === "Gallery" && <Gallery />}
         {activeTab === "Tips" && <Tips />}
         {activeTab === "Blogs" && <Blogs />}
@@ -40,8 +40,8 @@ const TabButton = ({ tabName, isActive, onClick }: any) => {
   return (
     <button
       className={`px-4 py-4 bg-gray-100  text-gray-600 rounded-t-lg ${
-        isActive ? "bg-white border-b-2 border-teal-500" : ""
-      } transition-colors duration-500 hover:bg-indigo-50`}
+        isActive ? "bg-indigo-50 border-b-2 border-teal-500" : ""
+      } transition-colors duration-500 hover:bg-purple-100`}
       onClick={onClick}
     >
       {tabName}
