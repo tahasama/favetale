@@ -29,23 +29,23 @@ function Image({ tip }: { tip: any }) {
   const y = useParallax(scrollYProgress, 500);
 
   return (
-    <section className="flex flex-col items-center justify-center snap-center">
+    <section className="h-screen w-fit flex items-center justify-center snap-center">
       <motion.div
-        className="relative mb-8 mt-20 w-full"
-        initial={{ opacity: 0, y: 0 }} // Initial state (hidden and slightly moved down)
-        animate={{ opacity: 1, y: 40 }} // Animation state (visible and at normal position)
+        className="relative mb-8 "
+        initial={{ opacity: 0, y: 250 }} // Initial state (hidden and slightly moved down)
+        animate={{ opacity: 1, y: 85 }} // Animation state (visible and at normal position)
         transition={{ duration: 1 }} // Animation duration
       >
         <div ref={ref} className=" w-fit flex items-center justify-center">
           <img
             src={tip.coverImage}
             alt="A London skyscraper"
-            className="max-h-[78vh] w-auto rounded-md"
+            className="max-h-[79vh] w-auto rounded-md"
           />
         </div>
-        <motion.div
+        <motion.h2
           style={{ y }}
-          className="bg-white bg-opacity-80 rounded-lg shadow-md p-4 md:p-6 transition-all duration-200 absolute bottom-0 sm:bottom-40 right-6 md:right-1 lg:right-6"
+          className="bg-white bg-opacity-80 rounded-lg shadow-md -mt-7 sm:-mt-28 p-6 w-full sm:w-auto transition-all duration-200 absolute sm:right-5"
         >
           <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 lg:mb-4">
             <span className="text-2xl md:text-3xl lg:text-4xl">
@@ -59,7 +59,7 @@ function Image({ tip }: { tip: any }) {
           <button className="mt-2 md:mt-3 lg:mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg">
             <Link href={`/tips/${tip.id}`}>Read More</Link>
           </button>
-        </motion.div>
+        </motion.h2>
       </motion.div>
     </section>
   );
@@ -163,7 +163,6 @@ const TipsPage = () => {
         <Image tip={tip} />
       ))}
       <motion.div className="progress" style={{ scaleX }} />
-      <h1 className="h-40"></h1>
     </div>
   );
 };
