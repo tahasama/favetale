@@ -85,7 +85,7 @@ const Events = () => {
   ];
 
   return (
-    <div className="container mx-auto bg-gradient-to-b from-tealLight to-teal-300">
+    <div className="container mx-auto bg-gradient-to-b from-tealLight to-teal-100">
       <div className="flex flex-row-reverse items-center h-[calc(100vh-138px)] justify-around p-6">
         <div className="flex flex-row-reverse justify-around w-11/12 bg-teal-50 p-6 rounded-xl shadow-md">
           <Calendar
@@ -137,7 +137,7 @@ const Events = () => {
                     <li
                       className={`${
                         isEventOnDate ? "bg-fuchsia-100" : ""
-                      } flex items-start p-3 rounded-lg shadow-md h-fit transition-all duration-300`}
+                      } flex items-start p-3 rounded-lg shadow-md h-fit transition-all duration-300 border-x-2`}
                       key={index}
                     >
                       <img

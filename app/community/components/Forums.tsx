@@ -76,7 +76,7 @@ const Forums = () => {
   ];
 
   return (
-    <div className="container mx-auto bg-gradient-to-b from-tealLight to-sky-500 p-2">
+    <div className="container mx-auto bg-gradient-to-b from-tealLight to-sky-200 p-2">
       <h2 className="text-3xl font-semibold mb-6">Forums</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6 ">
         {forumData.map((forum) => (
