@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
@@ -8,86 +8,120 @@ const Events = () => {
     {
       id: 1,
       title: "Tech Conference 2023",
-      date: "September 15-17, 2023",
+      startDate: new Date("2023-09-25"),
+      endDate: new Date("2023-09-28"),
+      initiator: "John Doe",
+      location: "Conference Center",
+      hour: "9:00 AM - 5:00 PM",
       image: "/images/events/event1.jpg",
+      initiatorImage: "/images/initiators/john-doe.jpg",
     },
     {
       id: 2,
       title: "Creative Workshop",
-      date: "October 5-6, 2023",
+      startDate: new Date("2023-08-02"),
+      endDate: new Date("2023-08-08"),
+      initiator: "Jane Smith",
+      location: "Art Studio",
+      hour: "1:00 PM - 4:00 PM",
       image: "/images/events/event2.jpg",
-    },
-    {
-      id: 3,
-      title: "Startup Meetup",
-      date: "November 8, 2023",
-      image: "/images/events/event3.jpg",
+      initiatorImage: "/images/initiators/jane-smith.jpg",
     },
     // Add more event objects here
-    {
-      id: 4,
-      title: "Design Conference",
-      date: "December 2-4, 2023",
-      image: "/images/events/event4.jpg",
-    },
-    {
-      id: 5,
-      title: "Networking Seminar",
-      date: "January 20, 2024",
-      image: "/images/events/event5.jpg",
-    },
-    {
-      id: 6,
-      title: "Coding Hackathon",
-      date: "February 15-16, 2024",
-      image: "/images/events/event6.jpg",
-    },
-    {
-      id: 7,
-      title: "Business Symposium",
-      date: "March 10-12, 2024",
-      image: "/images/events/event7.jpg",
-    },
-    {
-      id: 8,
-      title: "Music Festival",
-      date: "April 25-28, 2024",
-      image: "/images/events/event8.jpg",
-    },
-    {
-      id: 9,
-      title: "Health and Wellness Expo",
-      date: "May 8, 2024",
-      image: "/images/events/event9.jpg",
-    },
-    {
-      id: 10,
-      title: "Art Exhibition",
-      date: "June 15-20, 2024",
-      image: "/images/events/event10.jpg",
-    },
+    // ...
   ];
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
 
-  const handleEventClick = (event: any) => {
-    setSelectedEvent(event);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date: any) => {
+    setSelectedDate(date);
   };
 
-  const handleCloseModal = () => {
-    setSelectedEvent(null);
+  const currentMonth = selectedDate.toLocaleString("default", {
+    month: "long",
+  });
+
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(
+    new Date().getMonth()
+  );
+
+  const handleActiveStartDateChange = ({ activeStartDate }: any) => {
+    setCurrentMonthIndex(activeStartDate.getMonth());
   };
-
-  type ValuePiece = Date | null;
-
-  type Value = ValuePiece | [ValuePiece, ValuePiece];
-  const [value, onChange] = useState<Value>(new Date());
 
   return (
-    <div className="container mx-auto mt-10">
-      <h2 className="text-3xl font-semibold mb-6">Events</h2>
-      <div className="relative">
-        <div className="absolute h-full  bg-gray-400 ">
-          <Calendar onChange={onChange} showWeekNumbers value={value} />
+    <div className="container mx-auto bg-tealLight">
+      <div className="flex flex-row-reverse items-center h-[calc(100vh-140px)] justify-around p-6">
+        <div className="flex flex-row-reverse justify-around w-11/12 bg-teal-400 p-6 rounded-xl shadow-md">
+          <Calendar
+            onChange={handleDateChange}
+            onActiveStartDateChange={handleActiveStartDateChange}
+            value={selectedDate}
+            className=" bg-white p-6 rounded-lg border shadow-lg"
+            calendarType="US"
+            tileClassName={({ date }) => {
+              const eventsOnDate = eventsData.some((event) => {
+                const adjustedStartDate = new Date(event.startDate);
+                adjustedStartDate.setDate(event.startDate.getDate() - 1);
+                return adjustedStartDate <= date && date <= event.endDate;
+              });
+
+              return eventsOnDate ? "bg-red-500 text-purple-500" : "";
+            }}
+            tileContent={({ date }) => {
+              const eventsOnDate = eventsData.some((event) => {
+                const adjustedStartDate = new Date(event.startDate);
+                adjustedStartDate.setDate(event.startDate.getDate() - 1);
+                return adjustedStartDate <= date && date <= event.endDate;
+              });
+
+              return eventsOnDate ? (
+                <span className="bg-purple-500 rounded-full h-2 w-2 block mx-auto mt-1"></span>
+              ) : null;
+            }}
+          />
+          <div className="w-1/2 pl-6">
+            <h3 className="text-xl font-semibold mb-3">
+              {currentMonth} Events
+            </h3>
+            <ul>
+              {eventsData
+                .filter(
+                  (event: any) =>
+                    event.startDate.getMonth() === currentMonthIndex
+                )
+                .map((event, index) => {
+                  const adjustedStartDate = new Date(event.startDate);
+                  adjustedStartDate.setDate(adjustedStartDate.getDate() - 1);
+
+                  const isEventOnDate =
+                    selectedDate >= adjustedStartDate &&
+                    selectedDate <= event.endDate;
+
+                  return (
+                    <li
+                      className={`${
+                        isEventOnDate ? "bg-fuchsia-500" : ""
+                      } flex items-start py-2`}
+                      key={index}
+                    >
+                      <img
+                        className="rounded-full h-12 w-12 bg-yellow-100 mr-3"
+                        src={event.initiatorImage}
+                        alt="initiator"
+                      />
+                      <div>
+                        <p className="font-semibold">{event.initiator}</p>
+                        <div className="flex leading-10 tracking-wider">
+                          <p className="text-gray-600 ">📅 {event.hour} |</p>
+                          <p className="text-gray-600">📍 {event.location}</p>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
