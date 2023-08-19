@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 
 const Questions = () => {
@@ -31,10 +32,13 @@ const Questions = () => {
         <h2 className="text-3xl font-semibold mb-6 text-center">
           Questions & Answers
         </h2>
-        {questionsData.map((question) => (
-          <div
+        {questionsData.map((question, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: index * 50 + 100 }} // Initial state (hidden and slightly moved down)
+            animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
+            transition={{ duration: 0.75 }} // Animation duration
             key={question.id}
-            className="bg-white p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
+            className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
           >
             <div className="mb-4 md:mb-0 md:mr-4 flex flex-col items-start md:items-center">
               <div className="text-indigo-500 font-semibold mb-1">
@@ -49,7 +53,7 @@ const Questions = () => {
                 Asked by {question.author} on {question.date}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

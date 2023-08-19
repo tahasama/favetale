@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
@@ -134,7 +135,10 @@ const Events = () => {
                     selectedDate <= event.endDate;
 
                   return (
-                    <li
+                    <motion.li
+                      initial={{ opacity: 0, transform: "scale(1.1)" }} // Initial state (hidden and slightly moved down)
+                      animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
+                      transition={{ duration: 1 }} // Animation duration>
                       className={`${
                         isEventOnDate ? "bg-fuchsia-100" : ""
                       } flex items-start p-3 rounded-lg shadow-md h-fit transition-all duration-300 border-x-2`}
@@ -161,7 +165,7 @@ const Events = () => {
                           Join the event
                         </div>
                       </div>
-                    </li>
+                    </motion.li>
                   );
                 })}
             </ul>

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 
@@ -79,26 +80,32 @@ const Forums = () => {
     <div className="container mx-auto bg-gradient-to-b from-tealLight to-sky-200 p-2">
       <h2 className="text-3xl font-semibold mb-6">Forums</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6 ">
-        {forumData.map((forum) => (
-          <Link
-            key={forum.id}
-            href={`/forums/${forum.id}`}
-            className="block hover:scale-105 transition-all duration-300"
+        {forumData.map((forum, index) => (
+          <motion.div
+            initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
+            animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
+            transition={{ duration: 0.75 }} // Animation duration>
           >
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold mb-2">{forum.title}</h3>
-              <p className="text-gray-600 mb-1">{forum.description}</p>
-              <p className="text-gray-400 text-sm">{forum.lastPost}</p>
-              <div className="flex items-center mt-2">
-                <div className="bg-indigo-500 text-white px-2 py-1 rounded-md text-xs mr-2">
-                  {forum.posts} posts
-                </div>
-                <div className="bg-gray-100 text-gray-500 px-2 py-1 rounded-md text-xs">
-                  Join the discussion
+            <Link
+              key={forum.id}
+              href={`/forums/${forum.id}`}
+              className="block hover:scale-105 transition-all duration-300"
+            >
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold mb-2">{forum.title}</h3>
+                <p className="text-gray-600 mb-1">{forum.description}</p>
+                <p className="text-gray-400 text-sm">{forum.lastPost}</p>
+                <div className="flex items-center mt-2">
+                  <div className="bg-indigo-500 text-white px-2 py-1 rounded-md text-xs mr-2">
+                    {forum.posts} posts
+                  </div>
+                  <div className="bg-gray-100 text-gray-500 px-2 py-1 rounded-md text-xs">
+                    Join the discussion
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </div>

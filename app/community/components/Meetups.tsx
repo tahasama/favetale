@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 
 const Meetups = () => {
@@ -88,8 +89,11 @@ const Meetups = () => {
     <div className="container mx-auto bg-tealLight">
       <h2 className="text-3xl font-semibold mb-6">Meetups</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-        {meetupData.map((meetup) => (
-          <div
+        {meetupData.map((meetup, index) => (
+          <motion.div
+            initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
+            animate={{ opacity: 1 }} // Animation state (visible and at normal position)
+            transition={{ duration: 1 }} // Animation duration>
             key={meetup.id}
             className="bg-white rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-tealLight to-purple-100 hover:shadow-xl transition-shadow duration-300"
           >
@@ -111,7 +115,7 @@ const Meetups = () => {
                 Join Meetup
               </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

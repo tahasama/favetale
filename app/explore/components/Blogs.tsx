@@ -6,6 +6,7 @@ import blog3 from "../../images/blog/blog3.jpg";
 import blog4 from "../../images/blog/blog4.jpg";
 import blog5 from "../../images/blog/blog5.jpg";
 import blog6 from "../../images/blog/blog6.jpg";
+import { motion } from "framer-motion";
 
 const Blogs = () => {
   const blogsData = [
@@ -78,22 +79,28 @@ const Blogs = () => {
 
       {/* Masonry Layout */}
       <div className="columns-1 md:columns-2 lg:columns-3 gap-5 mx-6">
-        {blogsData.map((blog) => (
-          <Link
-            key={blog.id}
-            href={`/blogs/${blog.id}`}
-            className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
+        {blogsData.map((blog, index) => (
+          <motion.div
+            initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
+            animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
+            transition={{ duration: 0.75 }} // Animation duration>
           >
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="mb-4 rounded-lg"
-              />
-              <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
-              <p className="text-gray-600">{blog.excerpt}</p>
-            </div>
-          </Link>
+            <Link
+              key={blog.id}
+              href={`/blogs/${blog.id}`}
+              className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
+            >
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="mb-4 rounded-lg"
+                />
+                <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
+                <p className="text-gray-600">{blog.excerpt}</p>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </div>
