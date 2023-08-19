@@ -7,6 +7,7 @@ import blog4 from "../../images/blog/blog4.jpg";
 import blog5 from "../../images/blog/blog5.jpg";
 import blog6 from "../../images/blog/blog6.jpg";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Blogs = () => {
   const blogsData = [
@@ -83,7 +84,7 @@ const Blogs = () => {
           <motion.div
             initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
             animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
-            transition={{ duration: 0.75 }} // Animation duration>
+            transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
           >
             <Link
               key={blog.id}
@@ -91,10 +92,12 @@ const Blogs = () => {
               className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
             >
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <img
+                <Image
                   src={blog.image}
                   alt={blog.title}
                   className="mb-4 rounded-lg"
+                  width={500}
+                  height={500}
                 />
                 <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
                 <p className="text-gray-600">{blog.excerpt}</p>

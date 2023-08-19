@@ -84,7 +84,7 @@ const Forums = () => {
           <motion.div
             initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
             animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
-            transition={{ duration: 0.75 }} // Animation duration>
+            transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
           >
             <Link
               key={forum.id}

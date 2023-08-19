@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   const handleModalClick = (e: any) => {
@@ -18,7 +19,13 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
     >
       <div className=" inset-0 flex justify-center items-center">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden relative">
-          <img src={imageSrc} alt={title} className="h-[96vh]" />
+          <Image
+            src={imageSrc}
+            alt={title}
+            className="h-[96vh]"
+            width={1000}
+            height={1000}
+          />
           <button
             className="absolute scale-125 text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 top-1.5 right-1.5 transition-all duration-500 rounded-full"
             onClick={onClose}

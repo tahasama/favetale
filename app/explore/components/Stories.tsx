@@ -7,6 +7,7 @@ import story5 from "../../images/stories/story5.jpg";
 import story6 from "../../images/stories/story6.jpg";
 import story7 from "../../images/stories/story7.jpg";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Stories = () => {
   const storiesData = [
@@ -74,7 +75,7 @@ const Stories = () => {
               y: 0,
               // transform: "scale(1)",
             }} // Animation state (visible and at normal position)
-            transition={{ duration: 1 }} // Animation duration
+            transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
           >
             <Link
               key={story.id}
@@ -99,10 +100,12 @@ const Stories = () => {
                       <p className="text-tealDark font-semibold">story.user</p>
                     </div>
                   </div>
-                  <img
+                  <Image
                     src={story.image}
                     alt={story.title}
-                    className="sm:w-1/3 sm:h-auto object-cover"
+                    className="sm:w-1/3 sm:h-auto object-cover w-auto"
+                    width={1000}
+                    height={1000}
                   />
                 </div>
               </div>

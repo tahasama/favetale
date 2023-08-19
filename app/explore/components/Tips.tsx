@@ -17,13 +17,13 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-// import Image from "next/image";
+import Image from "next/image";
 
 function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }
 
-function Image({ tip }: { tip: any }) {
+function ImageX({ tip }: { tip: any }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   const y = useParallax(scrollYProgress, 500);
@@ -34,13 +34,15 @@ function Image({ tip }: { tip: any }) {
         className="relative mb-8 "
         initial={{ opacity: 0, y: 20 }} // Initial state (hidden and slightly moved down)
         animate={{ opacity: 1, y: 85 }} // Animation state (visible and at normal position)
-        transition={{ duration: 1 }} // Animation duration
+        transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
       >
         <div ref={ref} className=" w-fit flex items-center justify-center">
-          <img
+          <Image
             src={tip.coverImage}
             alt="A London skyscraper"
-            className="max-h-[79vh] w-auto rounded-md"
+            className="h-[79vh] w-auto rounded-md"
+            width={500}
+            height={500}
           />
         </div>
         <motion.h2
@@ -160,7 +162,7 @@ const TipsPage = () => {
     <div className="flex items-center justify-center flex-col">
       {/* <h2 className="text-3xl font-semibold mb-6">Advice & Tips</h2> */}
       {tipsData.map((tip, index) => (
-        <Image tip={tip} />
+        <ImageX tip={tip} />
       ))}
       <motion.div className="progress" style={{ scaleX }} />
     </div>

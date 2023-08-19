@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import Image from "next/image";
 
 const Events = () => {
   const eventsData = [
@@ -136,18 +137,20 @@ const Events = () => {
 
                   return (
                     <motion.li
-                      initial={{ opacity: 0, transform: "scale(1.1)" }} // Initial state (hidden and slightly moved down)
+                      initial={{ opacity: 0, transform: "scale(.9)" }} // Initial state (hidden and slightly moved down)
                       animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
-                      transition={{ duration: 1 }} // Animation duration>
+                      transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
                       className={`${
                         isEventOnDate ? "bg-fuchsia-100" : ""
-                      } flex items-start p-3 rounded-lg shadow-md h-fit transition-all duration-300 border-x-2`}
+                      } flex items-start p-3 rounded-lg shadow-md h-fit w-full transition-all duration-300 border-x-2`}
                       key={index}
                     >
-                      <img
+                      <Image
                         className="rounded-full h-12 w-12 bg-yellow-100 mr-3"
                         src={event.initiatorImage}
                         alt="initiator"
+                        width={1000}
+                        height={1000}
                       />
                       <div>
                         <p className="font-semibold">{event.initiator}</p>

@@ -4,6 +4,7 @@ import Forums from "./components/Forums";
 import Meetups from "./components/Meetups";
 import Events from "./components/Events";
 import Questions from "./components/Questions";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CommunityPage = () => {
   const [activeTab, setActiveTab] = useState<string>("Forums"); // Initial active tab
@@ -27,13 +28,21 @@ const CommunityPage = () => {
           ))}
         </div>
       </div>
-      <div>
+      <AnimatePresence mode="popLayout">
         {/* Content for the active tab */}
-        {activeTab === "Forums" && <Forums />}
-        {activeTab === "Meetups" && <Meetups />}
-        {activeTab === "Events" && <Events />}
-        {activeTab === "Questions" && <Questions />}
-      </div>
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, x: -1000 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 1000 }}
+          transition={{ duration: 0.5 }}
+        >
+          {activeTab === "Forums" && <Forums />}
+          {activeTab === "Meetups" && <Meetups />}
+          {activeTab === "Events" && <Events />}
+          {activeTab === "Questions" && <Questions />}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

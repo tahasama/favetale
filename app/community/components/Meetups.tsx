@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import Image from "next/image";
 
 const Meetups = () => {
   const meetupData = [
@@ -93,15 +94,17 @@ const Meetups = () => {
           <motion.div
             initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
             animate={{ opacity: 1 }} // Animation state (visible and at normal position)
-            transition={{ duration: 1 }} // Animation duration>
+            transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
             key={meetup.id}
             className="bg-white rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-tealLight to-purple-100 hover:shadow-xl transition-shadow duration-300"
           >
             <div className="relative">
-              <img
+              <Image
                 src="/images/meetup-placeholder.jpg"
                 alt={meetup.title}
                 className="w-full h-40 object-cover"
+                width={1000}
+                height={1000}
               />
               <div className="absolute bottom-0 left-0 bg-indigo-500 text-white px-3 py-1 m-4 rounded-md">
                 {meetup.date}

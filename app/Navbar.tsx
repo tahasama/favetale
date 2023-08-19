@@ -26,9 +26,9 @@ const Navbar = () => {
     isDropdownOpen && setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const toggleSearchModal = () => {
-    setIsSearchModalOpen(!isSearchModalOpen);
-  };
+  // const toggleSearchModal = () => {
+  //   setIsSearchModalOpen(!isSearchModalOpen);
+  // };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -107,14 +107,10 @@ const Navbar = () => {
         <div className="relative" onClick={openModal}>
           <input
             type="text"
-            disabled
             placeholder="Search"
             className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-tealDark  hidden md:block"
           />
-          <span
-            onClick={toggleSearchModal}
-            className="cursor-pointer absolute top-1/2 -right-11  -translate-y-1/2  scale-[.27]"
-          >
+          <span className="cursor-pointer absolute top-1/2 -right-11  -translate-y-1/2  scale-[.27]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="128"
