@@ -3,6 +3,7 @@ import { useState } from "react";
 import Forums from "./components/Forums";
 import Meetups from "./components/Meetups";
 import Events from "./components/Events";
+import Questions from "./components/Questions";
 
 const CommunityPage = () => {
   const [activeTab, setActiveTab] = useState<string>("Forums"); // Initial active tab
@@ -16,7 +17,7 @@ const CommunityPage = () => {
   return (
     <div className="mt-20">
       <div className="flex justify-center">
-        <div className="sticky top-20 z-50 flex justify-center  w-full bg-tealLight">
+        <div className="sticky top-20 flex justify-center  w-full bg-tealLight">
           {tabs.map((tab) => (
             <TabButton
               tabName={tab}
@@ -66,9 +67,9 @@ const TabButton = ({ tabName, isActive, onClick }: any) => {
 //   return <div>yaaay</div>;
 // };
 
-const Questions = () => {
-  // Render content for the "Inspiring User Stories" tab
-  return <div>hahahaha</div>;
-};
+// const Questions = () => {
+//   // Render content for the "Inspiring User Stories" tab
+//   return <div>hahahaha</div>;
+// };
 
 export default CommunityPage;

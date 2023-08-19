@@ -85,13 +85,13 @@ const Meetups = () => {
   ];
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto bg-tealLight">
       <h2 className="text-3xl font-semibold mb-6">Meetups</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {meetupData.map((meetup) => (
           <div
             key={meetup.id}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            className="bg-white rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-tealLight to-purple-100 hover:shadow-xl transition-shadow duration-300"
           >
             <div className="relative">
               <img
