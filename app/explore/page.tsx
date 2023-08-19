@@ -39,7 +39,7 @@ const ExplorePage = () => {
 const TabButton = ({ tabName, isActive, onClick }: any) => {
   return (
     <button
-      className={`px-4 py-4 bg-gray-100  text-gray-600 rounded-t-lg ${
+      className={`px-6 py-4 bg-gray-100  text-gray-600 rounded-t-lg ${
         isActive ? "bg-indigo-50 border-b-2 border-teal-500" : ""
       } transition-colors duration-500 hover:bg-purple-100`}
       onClick={onClick}

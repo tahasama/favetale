@@ -32,7 +32,7 @@ function Image({ tip }: { tip: any }) {
     <section className="h-screen w-fit flex items-center justify-center snap-center">
       <motion.div
         className="relative mb-8 "
-        initial={{ opacity: 0, y: 250 }} // Initial state (hidden and slightly moved down)
+        initial={{ opacity: 0, y: 20 }} // Initial state (hidden and slightly moved down)
         animate={{ opacity: 1, y: 85 }} // Animation state (visible and at normal position)
         transition={{ duration: 1 }} // Animation duration
       >
@@ -45,7 +45,7 @@ function Image({ tip }: { tip: any }) {
         </div>
         <motion.h2
           style={{ y }}
-          className="bg-white bg-opacity-80 rounded-lg shadow-md -mt-7 sm:-mt-28 p-6 w-full sm:w-auto transition-all duration-200 absolute sm:right-5"
+          className="bg-white bg-opacity-80 rounded-lg shadow-md -mt-7 sm:-mt-32 p-6 w-full sm:w-auto transition-all duration-200 absolute sm:right-5"
         >
           <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 lg:mb-4">
             <span className="text-2xl md:text-3xl lg:text-4xl">
