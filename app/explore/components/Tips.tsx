@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import veterinary from "../../images/coverImages/veterinary.jpg";
 import food from "../../images/coverImages/food.jpg";
 import sport from "../../images/coverImages/sport3.jpg";
@@ -13,59 +13,15 @@ import time from "../../images/coverImages/time.jpg";
 import {
   MotionValue,
   motion,
+  useAnimation,
   useScroll,
   useSpring,
   useTransform,
 } from "framer-motion";
 import Image from "next/image";
+import { Mousewheel, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-function useParallax(value: MotionValue<number>, distance: number) {
-  return useTransform(value, [0, 1], [-distance, distance]);
-}
-
-function ImageX({ tip }: { tip: any }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref });
-  const y = useParallax(scrollYProgress, 500);
-
-  return (
-    <section className="h-screen w-fit flex items-center justify-center snap-center">
-      <motion.div
-        className="relative mb-8 "
-        initial={{ opacity: 0, y: 20 }} // Initial state (hidden and slightly moved down)
-        animate={{ opacity: 1, y: 85 }} // Animation state (visible and at normal position)
-        transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
-      >
-        <div ref={ref} className=" w-fit flex items-center justify-center">
-          <Image
-            src={tip.coverImage}
-            alt="A London skyscraper"
-            className="h-[79vh] w-auto rounded-md"
-            width={500}
-            height={500}
-          />
-        </div>
-        <motion.h2
-          style={{ y }}
-          className="bg-white bg-opacity-80 rounded-lg shadow-md -mt-7 sm:-mt-32 p-6 w-full sm:w-auto transition-all duration-200 absolute sm:right-5"
-        >
-          <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 lg:mb-4">
-            <span className="text-2xl md:text-3xl lg:text-4xl">
-              {tip.emoji}
-            </span>{" "}
-            {tip.title}
-          </h3>
-          <p className="text-gray-600 text-sm md:text-base lg:text-lg">
-            {tip.description}
-          </p>
-          <button className="mt-2 md:mt-3 lg:mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg">
-            <Link href={`/tips/${tip.id}`}>Read More</Link>
-          </button>
-        </motion.h2>
-      </motion.div>
-    </section>
-  );
-}
 const TipsPage = () => {
   const tipsData = [
     {
@@ -149,22 +105,74 @@ const TipsPage = () => {
     },
   ];
 
-  const { scrollY } = useScroll();
+  const controls = useAnimation();
+  useEffect(() => {
+    controls.stop();
+    controls.set({ opacity: 0, y: 1000 });
 
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+    // Start the animation
+    controls.start({ opacity: 1, y: 10 });
+  }, []);
+
+  const handleSlideChange = () => {
+    console.log("uuuuuu");
+    controls.stop();
+    controls.set({ opacity: 0, y: 1000 });
+
+    // Start the animation
+    controls.start({ opacity: 1, y: 10 });
+  };
 
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="h-[100vh] w-full flex items-center justify-center flex-col mt-0">
       {/* <h2 className="text-3xl font-semibold mb-6">Advice & Tips</h2> */}
-      {tipsData.map((tip, index) => (
-        <ImageX tip={tip} />
-      ))}
-      <motion.div className="progress" style={{ scaleX }} />
+      <Swiper
+        direction={"vertical"}
+        slidesPerView={1}
+        spaceBetween={0}
+        mousewheel={true}
+        pagination={{
+          clickable: true,
+        }}
+        speed={500}
+        modules={[Mousewheel, Pagination]}
+        style={{ marginTop: "220px" }}
+        onSlideChange={handleSlideChange}
+      >
+        {tipsData.map((tip, index) => (
+          <SwiperSlide>
+            <section>
+              <div>
+                <Image
+                  src={tip.coverImage}
+                  alt="A London skyscraper"
+                  className=" rounded-md"
+                  width={800}
+                  height={800}
+                />
+              </div>
+              <motion.div
+                animate={controls}
+                transition={{ duration: 0.35 }} // Animation duration and delay
+                className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-52 mx-5 text-left left-0 p-5 w-full sm:w-auto transition-all duration-200 relative sm:right-5"
+              >
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 lg:mb-4">
+                  <span className="text-2xl md:text-3xl lg:text-4xl">
+                    {tip.emoji}
+                  </span>{" "}
+                  {tip.title}
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base lg:text-lg">
+                  {tip.description}
+                </p>
+                <button className="hover:animate-bounceQ mt-2 md:mt-3 lg:mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg">
+                  <Link href={`/tips/${tip.id}`}>Read More</Link>
+                </button>
+              </motion.div>
+            </section>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

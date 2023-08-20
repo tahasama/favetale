@@ -43,7 +43,7 @@ const Stories = () => {
   ];
 
   return (
-    <div className="container mt-24">
+    <div className="container">
       <div className="mb-8">
         <div className="bg-cyan-600 p-7 rounded-lg text-left leading-10 ">
           <h2 className="text-3xl font-semibold text-white mb-3">

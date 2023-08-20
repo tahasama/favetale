@@ -17,7 +17,7 @@ const CommunityPage = () => {
 
   return (
     <div className="mt-20">
-      <div className="sticky top-20 flex z-50 justify-center  w-full bg-tealLight">
+      <div className="sticky top-20 flex z-40 justify-center  w-full bg-tealLight">
         {tabs.map((tab) => (
           <TabButton
             tabName={tab}
