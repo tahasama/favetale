@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Meetups = () => {
   const meetupData = [
@@ -88,7 +89,30 @@ const Meetups = () => {
 
   return (
     <div className="container mx-auto bg-tealLight">
-      <h2 className="text-3xl font-semibold mb-6">Meetups</h2>
+      <div className="mb-6">
+        <div className="bg-fuchsia-700 p-12 rounded-lg text-left leading-loose tracking-wide">
+          <h2 className="text-4xl font-semibold text-white mb-5">
+            Join Pet Meetups
+          </h2>
+          <p className="text-lg text-gray-200 mb-8">
+            Connect with local pet lovers, attend fun events, and create lasting
+            memories with your furry friends.
+          </p>
+          <Link
+            href="/meetups"
+            className="bg-tealLight hover:text-white px-4 py-3 mr-2 rounded-md hover:bg-emerald-700 transition-colors duration-500"
+          >
+            Find Meetups Near You
+          </Link>
+          <Link
+            href="/meetups"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-emerald-700 transition-colors duration-500"
+          >
+            Create an gathering
+          </Link>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {meetupData.map((meetup, index) => (
           <motion.div

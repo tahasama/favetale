@@ -153,7 +153,7 @@ const TipsPage = () => {
               </div>
               <motion.div
                 animate={controls}
-                transition={{ duration: 0.35 }} // Animation duration and delay
+                transition={{ duration: 0.5 }} // Animation duration and delay
                 className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-52 mx-5 text-left left-0 p-5 w-full sm:w-auto transition-all duration-200 relative sm:right-5"
               >
                 <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 lg:mb-4">

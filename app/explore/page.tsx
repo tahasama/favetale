@@ -13,7 +13,7 @@ const ExplorePage = () => {
     setActiveTab(tabName);
   };
 
-  const tabs = ["Gallery", "Tips", "Blogs", "Stories"];
+  const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
 
   return (
     <div className=" bg-tealLight ">

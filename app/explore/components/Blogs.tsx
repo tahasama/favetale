@@ -55,25 +55,23 @@ const Blogs = () => {
   ];
 
   return (
-    <div className="container  my-10  w-full">
-      <h2 className="text-3xl font-semibold mb-6">Blogs</h2>
-
+    <div className="container  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
-        <div className="bg-sky-600 p-7 rounded-lg text-left leading-10 ">
-          <h2 className="text-3xl font-semibold text-white mb-3">
+        <div className="bg-sky-600 p-12 rounded-lg text-left leading-loose tracking-wide  ">
+          <h2 className="text-4xl font-semibold text-white mb-5">
             Discover Our Blog
           </h2>
-          <p className="text-gray-200 mb-4">
+          <p className="text-lg text-gray-200 mb-8">
             Explore insightful articles and tips from our community of pet
             lovers. Enhance your knowledge and share in the joy of pet
             companionship!
           </p>
           <Link
             href="/blogs"
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-indigo-600 transition-colors"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-sky-700 transition-colors duration-500"
           >
-            Explore Blogs
+            Write a Blog
           </Link>
         </div>
       </div>

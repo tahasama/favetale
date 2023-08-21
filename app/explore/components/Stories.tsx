@@ -43,20 +43,21 @@ const Stories = () => {
   ];
 
   return (
-    <div className="container">
-      <div className="mb-8">
-        <div className="bg-cyan-600 p-7 rounded-lg text-left leading-10 ">
-          <h2 className="text-3xl font-semibold text-white mb-3">
+    <div className="container  my-20  w-full">
+      {/* Prominent Call-to-Action */}
+      <div className="mb-6">
+        <div className="bg-cyan-600 p-12 rounded-lg text-left leading-loose tracking-wide  ">
+          <h2 className="text-4xl font-semibold text-white mb-5">
             Share Your Inspiring Story
           </h2>
-          <p className="text-gray-200 mb-4">
+          <p className="text-lg text-gray-200 mb-8">
             Contribute your unique story to our community and inspire others!
           </p>
           <Link
-            href="/write-story"
-            className="bg-tealLight hover:text-white px-4 py-3  rounded-md hover:bg-indigo-600 transition-colors"
+            href="/blogs"
+            className="bg-tealLight hover:text-white px-5 py-3 rounded-md hover:bg-cyan-700 transition-colors duration-500"
           >
-            Write Your Story
+            Explore Blogs
           </Link>
         </div>
       </div>

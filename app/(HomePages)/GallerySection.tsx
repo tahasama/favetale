@@ -56,14 +56,14 @@ const GallerySection = () => {
             }}
             navigation={true}
             modules={[Keyboard, Pagination, Navigation]}
-            className="my-swiper"
+            className="my-swiper "
           >
             {pets.map((pet: any) => (
-              <SwiperSlide>
+              <SwiperSlide className="bg-tealDark  rounded-lg">
                 <Image
                   src={pet}
                   alt="pet"
-                  className="w-full h-auto cursor-pointer rounded-lg shadow-xl"
+                  className="w-full h-auto cursor-pointer  rounded-lg shadow-xl bg-tealDark"
                 />
               </SwiperSlide>
             ))}

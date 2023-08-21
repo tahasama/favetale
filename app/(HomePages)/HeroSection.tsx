@@ -51,13 +51,13 @@ const HeroSection = () => {
 
         <div className="md:flex flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-2 sm:mt-0 space-y-8 order-2 md:order-3">
           <div className="animate-fadeIn flex flex-col items-center group">
-            <span className="text-6xl sm:text-5xl mb-2">🏆</span>
-            <p className="text-xl font-semibold">Celebrate Bonds</p>
+            <span className="text-6xl sm:text-5xl mb-2">🛍️</span>
+            <p className="text-xl font-semibold">Browse Store</p>
             <p className="text-gray-600 mt-2">
-              Celebrate the special bond between pets and their humans.
+              Get food, toys, gadget and all sort of things for your pet.
             </p>
-            <button className="hover:animate-buttonHover mt-4 animate-fadeInOut lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
-              Celebrate
+            <button className="hover:animate-buttonHover mt-4 animate-fadeInOut lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-6 rounded-md transition-all duration-1000 cursor-pointer">
+              Shop
             </button>
           </div>
           <div className=" flex flex-col items-center group">

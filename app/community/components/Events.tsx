@@ -86,9 +86,44 @@ const Events = () => {
     "December",
   ];
 
+  const handleScrollToSection = (e: any, sectionId: any) => {
+    e.preventDefault(); // Prevent the default link behavior
+
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth", // Use smooth scrolling animation
+        block: "start", // Scroll to the top of the section
+      });
+    }
+  };
+
   return (
     <div className="container mx-auto bg-gradient-to-b from-tealLight to-teal-100">
-      <div className="flex flex-row-reverse items-center h-[calc(100vh-138px)] justify-around p-6">
+      <div className="mb-6">
+        <div className="bg-green-600 p-12 rounded-lg text-left leading-loose tracking-wide">
+          <h2 className="text-4xl font-semibold text-white mb-5">
+            Explore Pet Events
+          </h2>
+          <p className="text-lg text-gray-700 mb-8">
+            Discover exciting pet-related events happening in your area and
+            beyond. Don't miss out on the fun and opportunities to learn and
+            connect!
+          </p>
+          <Link
+            href="#pet-events" // Points to the anchor element with id "pet-questions"
+            onClick={(e) => handleScrollToSection(e, "pet-events")}
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-green-700 transition-colors duration-500"
+          >
+            View Upcoming Events
+          </Link>
+        </div>
+      </div>
+
+      <div
+        className="flex flex-row-reverse items-center h-[calc(100vh-138px)] justify-around p-6 "
+        id="pet-events"
+      >
         <div className="flex flex-row-reverse justify-around w-11/12 bg-teal-50 p-6 rounded-xl shadow-md">
           <Calendar
             onChange={handleDateChange}

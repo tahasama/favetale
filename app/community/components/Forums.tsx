@@ -77,9 +77,26 @@ const Forums = () => {
   ];
 
   return (
-    <div className="container mx-auto bg-gradient-to-b from-tealLight to-sky-200 p-2">
-      <h2 className="text-3xl font-semibold mb-6">Forums</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6 ">
+    <div className="container bg-gradient-to-b from-tealLight to-sky-200 ">
+      <div className="mb-6">
+        <div className="bg-violet-800 p-12 rounded-lg text-left leading-loose tracking-wide">
+          <h2 className="text-4xl font-semibold text-white mb-5">
+            Join Our Forums
+          </h2>
+          <p className="text-lg text-gray-300 mb-8">
+            Engage in discussions, share your insights, and learn from fellow
+            pet enthusiasts.
+          </p>
+          <Link
+            href="/forums"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-indigo-700 transition-colors duration-500"
+          >
+            Start a Discussion
+          </Link>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-2 ">
         {forumData.map((forum, index) => (
           <motion.div
             initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)

@@ -10,6 +10,7 @@ import i19 from "../../images/19.jpg";
 import Image from "next/image";
 import ImageModal from "./ImageModal";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Gallery = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,9 +24,26 @@ const Gallery = () => {
   };
 
   return (
-    <div className="mx-2 sm:mx-auto max-w-6xl">
-      <h2 className="text-3xl font-semibold">Pet Images Gallery</h2>
-      <div className="mt-28  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4">
+    <div className="container  my-20  w-full">
+      {/* Prominent Call-to-Action */}
+      <div className="mb-6">
+        <div className="bg-yellow-500 p-12 rounded-lg text-left leading-loose tracking-wide  ">
+          <h2 className="text-4xl font-semibold text- mb-5">
+            Browse Our Gallery
+          </h2>
+          <p className="text-lg text-gray-700 mb-8">
+            Find lots and lots of pet moments shared by our beloved community,
+          </p>
+          <Link
+            href="/blogs"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-sky-700 transition-colors duration-500"
+          >
+            Upload an Image
+          </Link>
+        </div>
+      </div>
+
+      <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
         {petImages.map((image, index) => (
           <motion.div
             key={index}
