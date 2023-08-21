@@ -1,35 +1,25 @@
+"use client";
 import React from "react";
+import Hero from "./Hero";
+import Category from "./Category";
+import Products from "./Products";
+import Services from "./Services";
 
 const page = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Premium Pet Food",
-      price: 29.99,
-      image: "/images/product1.jpg",
-    },
-    {
-      id: 2,
-      name: "Pet Toy Set",
-      price: 19.99,
-      image: "/images/product2.jpg",
-    },
-    // Add more product data
-  ];
   return (
-    <div>
+    <div className="bg-tealLight">
       <div>
         {/* Hero Section */}
-        <section>{/* Hero Image/Slider */}</section>
+        <Hero />
 
         {/* Featured Categories */}
-        <section>{/* Category Cards */}</section>
+        <Category />
 
         {/* Trending Products */}
-        <section>{/* Product Grid */}</section>
+        <Products />
 
         {/* Services and Benefits */}
-        <section>{/* Service Cards */}</section>
+        <Services />
 
         {/* Customer Reviews */}
         <section>{/* Review Carousel */}</section>
