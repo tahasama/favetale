@@ -1,9 +1,36 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
+import { useCart } from "../provider/CartProvider";
 
 const ProductCard = ({ product, isTrending, discounted }: any) => {
+  const { cartItems, setCartItems } = useCart();
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [cart, setCart] = useState<any>(cartItems);
+
+  useEffect(() => {
+    // Check if the product is already in the cart and update the button state
+    setIsAddedToCart(cart.some((item: any) => item.id === product.id));
+  }, [cart, product.id]);
+
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCart(JSON.parse(savedCartItems));
+    }
+  }, [cartItems]);
+
+  const addToCart = () => {
+    if (!isAddedToCart) {
+      const updatedCartItems = [...cart, product];
+      setCartItems(updatedCartItems);
+      setIsAddedToCart(true);
+
+      // Save the updated cart items to local storage
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    }
+  };
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
       {/* Product Image */}
@@ -40,8 +67,12 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
         </div>
       </div>
       {/* Add to Cart Button */}
-      <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
-        Add to Cart
+      <button
+        onClick={addToCart}
+        disabled={isAddedToCart}
+        className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover"
+      >
+        {isAddedToCart ? "Added to Cart" : "Add to Cart"}
       </button>
     </div>
   );
@@ -50,6 +81,7 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
 const Products = () => {
   const trendingProducts = [
     {
+      id: 1,
       name: "Premium Cat Food",
       image: "/images/cat-food.jpg",
       price: 19.99,
@@ -58,6 +90,7 @@ const Products = () => {
       reviews: 120,
     },
     {
+      id: 2,
       name: "Interactive Dog Toy",
       image: "/images/dog-toy.jpg",
       price: 12.99,
@@ -66,6 +99,7 @@ const Products = () => {
       reviews: 95,
     },
     {
+      id: 3,
       name: "Cozy Pet Bed",
       image: "/images/pet-bed.jpg",
       price: 29.99,
@@ -77,6 +111,7 @@ const Products = () => {
 
   const regularProducts = [
     {
+      id: 4,
       name: "Pet Shampoo",
       image: "/images/pet-shampoo.jpg",
       price: 8.99,
@@ -84,6 +119,7 @@ const Products = () => {
       reviews: 60,
     },
     {
+      id: 5,
       name: "Cat Collar",
       image: "/images/cat-collar.jpg",
       price: 5.99,
@@ -91,6 +127,7 @@ const Products = () => {
       reviews: 45,
     },
     {
+      id: 6,
       name: "Dog Leash",
       image: "/images/dog-leash.jpg",
       price: 11.99,
@@ -101,6 +138,7 @@ const Products = () => {
 
   const discountProducts = [
     {
+      id: 7,
       name: "Cat Scratching Post",
       image: "/images/scratching-post.jpg",
       price: 24.99,
@@ -109,6 +147,7 @@ const Products = () => {
       reviews: 110,
     },
     {
+      id: 8,
       name: "Small Animal Cage",
       image: "/images/small-animal-cage.jpg",
       price: 39.99,
@@ -117,6 +156,7 @@ const Products = () => {
       reviews: 70,
     },
     {
+      id: 9,
       name: "Bird Feeder",
       image: "/images/bird-feeder.jpg",
       price: 7.99,

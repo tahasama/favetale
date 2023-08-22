@@ -88,6 +88,11 @@ const Navbar = () => {
                     Store
                   </span>
                 </Link>
+                <Link href="/store/cart">
+                  <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
+                    🛒
+                  </span>
+                </Link>
               </div>
             )}
           </div>
@@ -145,6 +150,11 @@ const Navbar = () => {
         <Link href="/store">
           <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
             Store
+          </span>
+        </Link>
+        <Link href="/store/cart">
+          <span className="block px-0 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
+            🛒
           </span>
         </Link>
         {loggedIn ? (
