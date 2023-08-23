@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import SearchModal from "./SearchModal";
 import Image from "next/image";
 import logoPets from "./images/logoPets.png";
+import { useCart } from "./provider/CartProvider";
 
 // const cormorant = Cormorant({ subsets: ["latin"] });
 // const cormorant2 = Cormorant({ subsets: ["latin-ext"], weight: "600" });
@@ -15,6 +16,8 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+
+  const { cart, quantities } = useCart();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -153,7 +156,15 @@ const Navbar = () => {
           </span>
         </Link>
         <Link href="/store/cart">
-          <span className="block px-0 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
+          <p className="relative text-sm text-white -top-1 left-5 rounded-full bg-emerald-600 flex justify-center items-center h-6 w-6">
+            <span className="mb-0.5 ml-0.5">
+              {cart.reduce(
+                (total: any, item: any) => total + quantities[item.id],
+                0
+              )}
+            </span>
+          </p>
+          <span className="block px-0 py-2 text-3xl -mt-7 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
             🛒
           </span>
         </Link>

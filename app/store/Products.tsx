@@ -4,10 +4,27 @@ import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useCart } from "../provider/CartProvider";
 
+import cage from "../images/store/cage.jpg";
+import feeder from "../images/store/feeder.jpg";
+import scratch from "../images/store/scratch.jpg";
+import collar from "../images/store/collar.jpg";
+import leash from "../images/store/leash.jpg";
+import shampoo from "../images/store/shampoo.jpg";
+import catfood from "../images/store/catfood.jpg";
+import toy from "../images/store/toy.jpg";
+import bed from "../images/store/bed.jpg";
+
+import Image from "next/image";
+
 const ProductCard = ({ product, isTrending, discounted }: any) => {
   const { cartItems, setCartItems } = useCart();
+  console.log(
+    "🚀 ~ file: Products.tsx:21 ~ ProductCard ~ cartItems:",
+    cartItems
+  );
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [cart, setCart] = useState<any>(cartItems);
+  console.log("🚀 ~ file: Products.tsx:27 ~ ProductCard ~ cart:", cart);
 
   useEffect(() => {
     // Check if the product is already in the cart and update the button state
@@ -24,6 +41,7 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
   const addToCart = () => {
     if (!isAddedToCart) {
       const updatedCartItems = [...cart, product];
+      console.log("🚀 ~ file: Products.tsx:39 ~ addToCart ~ product:", product);
       setCartItems(updatedCartItems);
       setIsAddedToCart(true);
 
@@ -34,7 +52,15 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
       {/* Product Image */}
-      <img src={product.image} alt={product.name} className="mx-auto h-32" />
+      <div className="w-auto  flex justify-center ">
+        <Image
+          src={product.image}
+          alt={product.name}
+          className="h-[20rem] w-fit rounded-md"
+          height={500}
+          width={500}
+        />
+      </div>
 
       {/* Product Name */}
       <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
@@ -47,16 +73,16 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
             : discounted
             ? "text-red-700"
             : "text-gray-600"
-        }`}
+        } text-xl my-1`}
       >
         ${product.price}
       </p>
 
       {/* Discount (if applicable) */}
       {discounted && product.discount && (
-        <p className="text-red-600">{product.discount}% OFF</p>
+        <p className="text-red-600 my-1">{product.discount}% OFF</p>
       )}
-      <div className="flex justify-evenly items-center my-2">
+      <div className="flex justify-center gap-2 items-center my-2">
         <div className="flex justify-evenly items-center">
           <p> {product.reviews} </p>
           <span className="text-xl">🗨️</span>
@@ -83,7 +109,7 @@ const Products = () => {
     {
       id: 1,
       name: "Premium Cat Food",
-      image: "/images/cat-food.jpg",
+      image: catfood.src,
       price: 19.99,
       discount: 15,
       rating: 4.8,
@@ -92,7 +118,7 @@ const Products = () => {
     {
       id: 2,
       name: "Interactive Dog Toy",
-      image: "/images/dog-toy.jpg",
+      image: toy.src,
       price: 12.99,
       discount: 10,
       rating: 4.6,
@@ -101,7 +127,7 @@ const Products = () => {
     {
       id: 3,
       name: "Cozy Pet Bed",
-      image: "/images/pet-bed.jpg",
+      image: bed.src,
       price: 29.99,
       discount: 20,
       rating: 4.9,
@@ -113,24 +139,27 @@ const Products = () => {
     {
       id: 4,
       name: "Pet Shampoo",
-      image: "/images/pet-shampoo.jpg",
+      image: shampoo.src,
       price: 8.99,
+      discount: 0,
       rating: 4.4,
       reviews: 60,
     },
     {
       id: 5,
       name: "Cat Collar",
-      image: "/images/cat-collar.jpg",
+      image: collar.src,
       price: 5.99,
+      discount: 0,
       rating: 4.2,
       reviews: 45,
     },
     {
       id: 6,
       name: "Dog Leash",
-      image: "/images/dog-leash.jpg",
+      image: leash.src,
       price: 11.99,
+      discount: 0,
       rating: 4.5,
       reviews: 80,
     },
@@ -140,7 +169,7 @@ const Products = () => {
     {
       id: 7,
       name: "Cat Scratching Post",
-      image: "/images/scratching-post.jpg",
+      image: scratch.src,
       price: 24.99,
       discount: 30,
       rating: 4.7,
@@ -149,7 +178,7 @@ const Products = () => {
     {
       id: 8,
       name: "Small Animal Cage",
-      image: "/images/small-animal-cage.jpg",
+      image: cage.src,
       price: 39.99,
       discount: 25,
       rating: 4.3,
@@ -157,8 +186,8 @@ const Products = () => {
     },
     {
       id: 9,
-      name: "Bird Feeder",
-      image: "/images/bird-feeder.jpg",
+      name: "Squirrel Feeder",
+      image: feeder.src,
       price: 7.99,
       discount: 15,
       rating: 4.6,
