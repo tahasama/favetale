@@ -189,6 +189,10 @@ const Products = () => {
     },
   ];
 
+  const { cartItems, setCartItems, cart, setCart } = useCart();
+
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
   return (
     <section className="py-10 bg-tealLight">
       <div className="container mx-auto text-center">

@@ -60,16 +60,15 @@ const CartItem = ({ item, onRemove }: any) => {
         <h3 className="text-lg font-semibold">{item.name}</h3>
         <div className="flex flex-col sm:flex-row justify-evenly items-center ">
           <p className="text-gray-600 text-lg ">${item.price.toFixed(2)}</p>
-          {item.discount !== 0 && (
-            <div className="flex justify-center gap-5 items-center">
-              <span className="text-lg"> ➡️</span>
-              <p className="text-red-600 text-md ">-{item.discount}% Off </p>
-              <span className="text-lg"> ➡️</span>
-              <p className="text-gray-600 text-lg ">
-                ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
-              </p>
-            </div>
-          )}
+
+          <div className="flex justify-center gap-5 items-center">
+            <span className="text-lg"> ➡️</span>
+            <p className="text-red-600 text-md ">-{item.discount}% Off </p>
+            <span className="text-lg"> ➡️</span>
+            <p className="text-gray-600 text-lg ">
+              ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
+            </p>
+          </div>
 
           <div className="flex justify-center gap-5 items-center">
             <span className="text-lg"> ➡️</span>

@@ -61,7 +61,9 @@ const CartPage = () => {
 
           <div className="flex justify-between">
             <span>Total:</span>
-            <span>${calculateTotalAfterDiscount().toFixed(2)}</span>
+            <span className="font-semibold text-lg">
+              ${calculateTotalAfterDiscount().toFixed(2)}
+            </span>
           </div>
         </div>
         <PaymentButton />

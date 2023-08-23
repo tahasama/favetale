@@ -167,12 +167,7 @@ const Navbar = () => {
         </Link>
         <Link href="/store/cart" className="group">
           <p className="relative text-sm text-white -top-1 left-5 rounded-full group-hover:animate-bounce bg-emerald-600 flex justify-center items-center h-6 w-6">
-            <span className="mb-0.5 ml-0.5">
-              {cart.reduce(
-                (total: any, item: any) => total + quantities[item.id],
-                0
-              )}
-            </span>
+            <span className="mb-0.5 ml-0.5">{cart.length}</span>
           </p>
           <span className="block px-0 py-2 text-3xl -mt-7 transition-all rounded-lg hover:animate-bounceQ duration-150">
             🛒
