@@ -6,9 +6,6 @@ import { useCart } from "@/app/provider/CartProvider";
 
 const CartPage = () => {
   const { quantities, cart, setCart } = useCart();
-  console.log("🚀 ~ file: page.tsx:9 ~ CartPage ~ quantities:", quantities);
-
-  console.log("🚀 ~ file: page.tsx:11 ~ CartPage ~ cart:", cart);
 
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");

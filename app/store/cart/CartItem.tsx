@@ -4,33 +4,20 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const CartItem = ({ item, onRemove }: any) => {
-  // localStorage.clear();
+  localStorage.clear();
   const { quantities, setQuantities } = useCart();
-  console.log("🚀 ~ file: CartItem.tsx:8 ~ CartItem ~ quantities:", quantities);
 
   useEffect(() => {
     const savedQuantity = localStorage.getItem(`quantity_${item.id}`);
-    console.log(
-      `Saved quantity for item ${item.id}:`,
-      savedQuantity,
-      typeof savedQuantity
-    );
 
     if (savedQuantity !== null) {
       const parsedQuantity = parseInt(savedQuantity, 10);
-      console.log(
-        `Parsed quantity for item ${item.id}:`,
-        parsedQuantity,
-        typeof parsedQuantity
-      );
+
       setQuantities((prevQuantities: any) => ({
         ...prevQuantities,
         [item.id]: parsedQuantity,
       }));
     } else {
-      console.log(
-        `No saved quantity found for item ${item.id}. Using default.`
-      );
       setQuantities((prevQuantities: any) => ({
         ...prevQuantities,
         [item.id]: 1, // Default quantity is 1 if not found in local storage
@@ -75,12 +62,13 @@ const CartItem = ({ item, onRemove }: any) => {
       </div>
       <div className="flex flex-col justify-between h-40 py-2 mt-6 sm:ml-9 w-11/12">
         <h3 className="text-lg font-semibold">{item.name}</h3>
-        <div className="flex flex-col justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-evenly items-center ">
           <p className="text-gray-600 text-lg ">${item.price.toFixed(2)}</p>
           {item.discount !== 0 && (
             <div className="flex justify-center gap-5 items-center">
-              ➡️
-              <p className="text-red-600 text-md ">-{item.discount}% Off </p> ➡️
+              <span className="text-lg"> ➡️</span>
+              <p className="text-red-600 text-md ">-{item.discount}% Off </p>
+              <span className="text-lg"> ➡️</span>
               <p className="text-gray-600 text-lg ">
                 ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
               </p>
@@ -88,7 +76,7 @@ const CartItem = ({ item, onRemove }: any) => {
           )}
 
           <div className="flex justify-center gap-5 items-center">
-            ➡️
+            <span className="text-lg"> ➡️</span>
             <div className="flex items-center border border-gray-300 rounded-md p-1">
               <button className="px-2" onClick={decreaseQuantity}>
                 -
@@ -98,8 +86,9 @@ const CartItem = ({ item, onRemove }: any) => {
                 +
               </button>
             </div>
-            ➡️
-            <p className="text-gray-600 text-lg ">
+            <span className="text-lg"> ➡️</span>
+
+            <p className="text-gray-600 text-lg font-semibold border-2 py-1 px-3 rounded-md bg-teal-50">
               $
               {(
                 (item.price - (item.price * item.discount) / 100) *

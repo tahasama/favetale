@@ -17,13 +17,12 @@ import bed from "../images/store/bed.jpg";
 import Image from "next/image";
 
 const ProductCard = ({ product, isTrending, discounted }: any) => {
-  const { cartItems, setCartItems } = useCart();
+  const { cartItems, setCartItems, cart, setCart } = useCart();
   console.log(
     "🚀 ~ file: Products.tsx:21 ~ ProductCard ~ cartItems:",
     cartItems
   );
   const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const [cart, setCart] = useState<any>(cartItems);
   console.log("🚀 ~ file: Products.tsx:27 ~ ProductCard ~ cart:", cart);
 
   useEffect(() => {
@@ -41,7 +40,6 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
   const addToCart = () => {
     if (!isAddedToCart) {
       const updatedCartItems = [...cart, product];
-      console.log("🚀 ~ file: Products.tsx:39 ~ addToCart ~ product:", product);
       setCartItems(updatedCartItems);
       setIsAddedToCart(true);
 
