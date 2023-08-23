@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const CartItem = ({ item, onRemove }: any) => {
-  localStorage.clear();
+  // localStorage.clear();
   const { quantities, setQuantities } = useCart();
 
   useEffect(() => {
@@ -28,10 +28,6 @@ const CartItem = ({ item, onRemove }: any) => {
   useEffect(() => {
     localStorage.setItem(`quantity_${item.id}`, String(quantities[item.id]));
   }, [item.id, quantities]);
-  console.log(
-    "🚀 ~ file: CartItem.tsx:43 ~ useEffect ~ quantities[item.id]:",
-    quantities[item.id]
-  );
 
   const increaseQuantity = () => {
     setQuantities((prevQuantities: any) => ({
@@ -88,7 +84,7 @@ const CartItem = ({ item, onRemove }: any) => {
             </div>
             <span className="text-lg"> ➡️</span>
 
-            <p className="text-gray-600 text-lg font-semibold border-2 py-1 px-3 rounded-md bg-teal-50">
+            <p className="text-gray-600 text-lg font-semibold border-2 py-1 px-3 rounded-md bg-indigo-100">
               $
               {(
                 (item.price - (item.price * item.discount) / 100) *

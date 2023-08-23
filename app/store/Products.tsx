@@ -18,12 +18,8 @@ import Image from "next/image";
 
 const ProductCard = ({ product, isTrending, discounted }: any) => {
   const { cartItems, setCartItems, cart, setCart } = useCart();
-  console.log(
-    "🚀 ~ file: Products.tsx:21 ~ ProductCard ~ cartItems:",
-    cartItems
-  );
+
   const [isAddedToCart, setIsAddedToCart] = useState(false);
-  console.log("🚀 ~ file: Products.tsx:27 ~ ProductCard ~ cart:", cart);
 
   useEffect(() => {
     // Check if the product is already in the cart and update the button state
@@ -48,7 +44,7 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
     }
   };
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
+    <div className="bg-white p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
       {/* Product Image */}
       <div className="w-auto  flex justify-center ">
         <Image

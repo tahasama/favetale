@@ -18,7 +18,16 @@ const Navbar = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const { cart, quantities } = useCart();
-  console.log("🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ cart:", cart.length);
+  console.log("🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ quantities:");
+  console.log(
+    "🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ cart:",
+    cart.reduce((total: any, item: any) => total + quantities[item.id], 0)
+  );
+
+  // {cart.reduce(
+  //   (total: any, item: any) => total + quantities[item.id],
+  //   0
+  // )}
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

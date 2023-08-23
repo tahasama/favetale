@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./Navbar";
 import { CartProvider } from "./provider/CartProvider";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
           <Navbar />
+
           {children}
         </CartProvider>
       </body>

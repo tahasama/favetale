@@ -1,12 +1,19 @@
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import React from "react";
 
 const PaymentButton = ({ onClick }: any) => {
   return (
     <button
       onClick={onClick}
-      className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md shadow-md w-full"
+      className="bg-indigo-100  text-white px-4 py-6 rounded-md shadow-md w-full h-fit"
     >
-      Proceed to Payment
+      <PayPalScriptProvider
+        options={{
+          clientId: "test",
+        }}
+      >
+        <PayPalButtons style={{ layout: "vertical" }} />
+      </PayPalScriptProvider>{" "}
     </button>
   );
 };
