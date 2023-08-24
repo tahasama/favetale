@@ -4,8 +4,8 @@ import React from "react";
 import pet8 from "../images/8.jpg";
 import pet9 from "../images/9.jpg";
 import pet10 from "../images/10.jpg";
-import user from "../images/user.jpg";
-import user2 from "../images/user2.png";
+import user from "../images/user/userf.jpg";
+import user2 from "../images/user/user2.png";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 

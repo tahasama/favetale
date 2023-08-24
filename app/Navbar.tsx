@@ -1,7 +1,7 @@
 "use client";
 import { Cormorant, Work_Sans, Alegreya } from "next/font/google";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchModal from "./SearchModal";
 import Image from "next/image";
 import logoPets from "./images/logoPets.png";
@@ -15,14 +15,8 @@ const Navbar = () => {
   const [loggedIn, setloggedIn] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const { cart, setCart, quantities } = useCart();
-  console.log("🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ quantities:");
-  console.log(
-    "🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ cart:",
-    cart.reduce((total: any, item: any) => total + quantities[item.id], 0)
-  );
 
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
@@ -30,11 +24,6 @@ const Navbar = () => {
       setCart(JSON.parse(savedCartItems));
     }
   }, []);
-
-  // {cart.reduce(
-  //   (total: any, item: any) => total + quantities[item.id],
-  //   0
-  // )}
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -51,6 +40,7 @@ const Navbar = () => {
   // };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dropdownRef = useRef<any>(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -59,6 +49,23 @@ const Navbar = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // Close the dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+        setIsDropdownOpen2(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav
       className={`bg-tealLight h-20 px-2 flex justify-between items-center z-50 fixed top-0 w-full`}
@@ -92,25 +99,32 @@ const Navbar = () => {
             }`}
           >
             {isDropdownOpen2 && (
-              <div className="absolute left-1 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden">
-                <Link href="/explore">
+              <div
+                ref={dropdownRef}
+                className="absolute left-1 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden"
+              >
+                <Link
+                  href="/explore"
+                  onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
+                >
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Explore
                   </span>
                 </Link>
-                <Link href="/community">
+                <Link
+                  href="/community"
+                  onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
+                >
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Community
                   </span>
                 </Link>
-                <Link href="/store">
+                <Link
+                  href="/store"
+                  onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
+                >
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Store
-                  </span>
-                </Link>
-                <Link href="/store/cart">
-                  <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
-                    🛒
                   </span>
                 </Link>
               </div>
@@ -203,9 +217,15 @@ const Navbar = () => {
               }`}
             >
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg">
+                <div
+                  ref={dropdownRef}
+                  className=" absolute right-0 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg"
+                >
                   {/* Dropdown menu for logged-in users */}
-                  <Link href="/profile">
+                  <Link
+                    href="/profile"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
                     <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">
                       My Profile
                     </span>

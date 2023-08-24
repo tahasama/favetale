@@ -138,8 +138,12 @@ const UserProfile = () => {
       {/* User Information */}
       <div className="bg-white mx-6 sm:mx-60 p-6 mt-8  shadow-md rounded-lg grid grid-cols-1 sm:grid-cols-2  ">
         {/* Profile Picture */}
-
-        <div className=" grid place-content-around place-items-start">
+        <motion.div
+          initial={{ opacity: 0, x: 500 }} // Initial state (hidden and slightly moved down)
+          animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
+          transition={{ duration: 1, delay: 0.3 }} // Animation duration
+          className=" grid place-content-around place-items-start"
+        >
           {/* Username */}
           <h2 className="text-2xl font-semibold mb-2">John Doe</h2>
           <h2 className="text-md font-light mb-2">join on 2nd August 23</h2>
@@ -160,15 +164,21 @@ const UserProfile = () => {
               Account Settings
             </button>
           </div>
-        </div>
-        <div className="grid place-items-center place-content-center">
-          <img
-            src={user.src}
-            alt="Profile Picture"
-            className="rounded-3xl w-[1/12] object-cover bg-sky-500"
-            width={400}
-          />
-        </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
+          animate={{ opacity: 1 }} // Animation state (visible and at normal position)
+          transition={{ duration: 0.75, delay: 1 }} // Animation duration
+        >
+          <div className="grid place-items-center place-content-center">
+            <img
+              src={user.src}
+              alt="Profile Picture"
+              className="rounded-3xl w-[1/12] object-cover bg-sky-500"
+              width={400}
+            />
+          </div>
+        </motion.div>
       </div>
 
       {/* Content Sections */}
@@ -304,8 +314,8 @@ const UserProfile = () => {
               {blogsData.map((blog, index) => (
                 <motion.div
                   initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
-                  animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
-                  transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
+                  whileInView={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
+                  transition={{ duration: 0.75, delay: 0 }} // Animation duration
                 >
                   <Link
                     key={blog.id}
@@ -352,8 +362,8 @@ const UserProfile = () => {
               {blogsData2.map((blog, index) => (
                 <motion.div
                   initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
-                  animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
-                  transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
+                  whileInView={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
+                  transition={{ duration: 0.75, delay: 0 }} // Animation duration
                 >
                   <Link
                     key={blog.id}
@@ -413,12 +423,12 @@ const UserProfile = () => {
                     y: index * 100 + 100,
                     // transform: "scale(1.1)",
                   }} // Initial state (hidden and slightly moved down)
-                  animate={{
+                  whileInView={{
                     opacity: 1,
                     y: 0,
                     // transform: "scale(1)",
                   }} // Animation state (visible and at normal position)
-                  transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
+                  transition={{ duration: 0.75, delay: 0 }} // Animation duration
                 >
                   <Link
                     key={story.id}
@@ -487,12 +497,12 @@ const UserProfile = () => {
                     y: index * 100 + 100,
                     // transform: "scale(1.1)",
                   }} // Initial state (hidden and slightly moved down)
-                  animate={{
+                  whileInView={{
                     opacity: 1,
                     y: 0,
                     // transform: "scale(1)",
                   }} // Animation state (visible and at normal position)
-                  transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
+                  transition={{ duration: 0.75, delay: 0 }} // Animation duration
                 >
                   <Link
                     key={story.id}
