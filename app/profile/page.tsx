@@ -1,7 +1,31 @@
-import React from "react";
-import user from "../images/userf.jpg";
+"use client";
+import React, { useState } from "react";
+import user from "../images/user/userf.jpg";
+import catu from "../images/user/catu.jpg";
+import catu2 from "../images/user/catu2.jpg";
+import catu3 from "../images/user/catu3.jpg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
+import { Keyboard, Pagination, Navigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import ImageModal from "./ImageModal";
 
 const UserProfile = () => {
+  const catus = [catu, catu2, catu3];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [image, setImage] = useState();
+
+  const openModal = (pet: any) => {
+    setIsModalOpen(true);
+    setImage(pet);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="bg-teal-50 min-h-screen pt-20">
       {/* User Information */}
@@ -25,7 +49,7 @@ const UserProfile = () => {
             </button>
 
             {/* Account Settings */}
-            <button className="bg-purple-500 text-white px-4 py-2 -ml-3 rounded-md">
+            <button className="bg-violet-1000 text-white px-4 py-2 -ml-3 rounded-md">
               Account Settings
             </button>
           </div>
@@ -43,17 +67,50 @@ const UserProfile = () => {
       {/* Content Sections */}
       <div className="mx-6 sm:mx-52 p-7 mt-8 max-w-5x">
         {/* My Images Section */}
-        <div className="p-4 bg-purple-100 mb-3 rounded-md">
+        <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">My Images</h3>
 
             {/* Display List of Uploaded Images */}
             {/* Use a responsive grid or carousel/slider */}
-
+            <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
+              <Swiper
+                slidesPerView={2}
+                spaceBetween={10}
+                keyboard={{
+                  enabled: true,
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                navigation={true}
+                modules={[Keyboard, Pagination, Navigation]}
+                className="my-swiper "
+              >
+                {catus.map((pet: any, index: any) => (
+                  <SwiperSlide className="bg-tealDark  rounded-lg">
+                    <Image
+                      onClick={() => openModal(pet)}
+                      src={pet.src}
+                      alt="pet"
+                      className="w-full h-auto cursor-pointer  rounded-lg shadow-xl bg-tealDark"
+                      width={1000}
+                      height={1000}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <ImageModal
+                catus={catus}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                image={image}
+              />
+            </div>
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -61,16 +118,18 @@ const UserProfile = () => {
             {/* Display Comments */}
             {/* Display Likes */}
           </div>
-          <div className="bg-white shadow-md rounded-lg p-4 mb-3">
+          <div className="bg-white shadow-md rounded-lg p-4">
             {/* Section Title */}
-            <h3 className="text-xl font-semibold mb-4">Upvoted Images</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Upvoted / Commented Images
+            </h3>
 
             {/* Display List of Uploaded Images */}
             {/* Use a responsive grid or carousel/slider */}
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -81,7 +140,7 @@ const UserProfile = () => {
         </div>
 
         {/* My Blogs Section */}
-        <div className="p-4 bg-purple-100 mb-3 rounded-md">
+        <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">My Blogs</h3>
@@ -91,7 +150,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -99,16 +158,18 @@ const UserProfile = () => {
             {/* Display Comments */}
             {/* Display Likes */}
           </div>
-          <div className="bg-white shadow-md rounded-lg p-4 mb-3">
+          <div className="bg-white shadow-md rounded-lg p-4">
             {/* Section Title */}
-            <h3 className="text-xl font-semibold mb-4">Upvoted Blogs</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Upvoted / Commented Blogs
+            </h3>
 
             {/* Display List of Uploaded Images */}
             {/* Use a responsive grid or carousel/slider */}
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -119,7 +180,7 @@ const UserProfile = () => {
         </div>
 
         {/*  My Stories Section */}
-        <div className="p-4 bg-purple-100 mb-3 rounded-md">
+        <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">My Stories</h3>
@@ -129,7 +190,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -137,16 +198,18 @@ const UserProfile = () => {
             {/* Display Comments */}
             {/* Display Likes */}
           </div>
-          <div className="bg-white shadow-md rounded-lg p-4 mb-3">
+          <div className="bg-white shadow-md rounded-lg p-4">
             {/* Section Title */}
-            <h3 className="text-xl font-semibold mb-4">Upvoted Stories</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Upvoted / Commented Stories
+            </h3>
 
             {/* Display List of Uploaded Images */}
             {/* Use a responsive grid or carousel/slider */}
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -157,8 +220,8 @@ const UserProfile = () => {
         </div>
         <div className="border border-gray-300 my-4"></div>
         {/*  My Purshases Section */}
-        <div className="p-4 bg-purple-100 mb-3 rounded-md">
-          <div className="bg-white shadow-md rounded-lg p-4 mb-3">
+        <div className="p-4 bg-violet-100 mb-3 rounded-md">
+          <div className="bg-white shadow-md rounded-lg p-4 ">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">My Purshases</h3>
 
@@ -167,7 +230,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -179,7 +242,7 @@ const UserProfile = () => {
         <div className="border border-gray-300 my-4"></div>
 
         {/*  My events Section */}
-        <div className="p-4 bg-purple-100 mb-3 rounded-md">
+        <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">Events created</h3>
@@ -189,7 +252,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -206,7 +269,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -217,7 +280,7 @@ const UserProfile = () => {
         </div>
 
         {/*  My forums Section */}
-        <div className="p-4 bg-purple-100 mb-3rounded-md">
+        <div className="p-4 bg-violet-100 mb-3rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">Discussions started</h3>
@@ -227,7 +290,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -246,7 +309,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -258,7 +321,7 @@ const UserProfile = () => {
         <div className="border border-gray-300 my-4"></div>
 
         {/*  My Questions Section */}
-        <div className="p-4 bg-purple-100 mb-3 rounded-md">
+        <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">Questions Asked</h3>
@@ -268,7 +331,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -285,7 +348,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
@@ -294,7 +357,7 @@ const UserProfile = () => {
             {/* Display Likes */}
           </div>
 
-          <div className="bg-white shadow-md rounded-lg p-4 mb-3">
+          <div className="bg-white shadow-md rounded-lg p-4">
             {/* Section Title */}
             <h3 className="text-xl font-semibold mb-4">Questions Upvoted</h3>
 
@@ -303,7 +366,7 @@ const UserProfile = () => {
 
             {/* Button Group */}
             <div className="flex justify-between mt-4">
-              <button className="text-gray-600 hover:text-gray-800">
+              <button className="text-gray-600 ring-1 ring-violet-300 px-3 py-2 hover:ring-white hover:bg-violet-200 transition-all duration-300 rounded-full hover:text-gray-800">
                 View All
               </button>
             </div>
