@@ -17,12 +17,19 @@ const Navbar = () => {
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
-  const { cart, quantities } = useCart();
+  const { cart, setCart, quantities } = useCart();
   console.log("🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ quantities:");
   console.log(
     "🚀 ~ file: Navbar.tsx:21 ~ Navbar ~ cart:",
     cart.reduce((total: any, item: any) => total + quantities[item.id], 0)
   );
+
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCart(JSON.parse(savedCartItems));
+    }
+  }, []);
 
   // {cart.reduce(
   //   (total: any, item: any) => total + quantities[item.id],
