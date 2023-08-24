@@ -46,13 +46,6 @@ const UserProfile = () => {
       image: blog2.src,
     },
     {
-      id: 3,
-      title: "Creating a Pet-Friendly Home Environment",
-      excerpt:
-        "Transform your living space into a safe and welcoming haven for your pets...",
-      image: blog3.src,
-    },
-    {
       id: 4,
       title: "Exploring the Benefits of Pet Socialization",
       excerpt:
@@ -83,14 +76,6 @@ const UserProfile = () => {
       excerpt:
         "Transform your living space into a safe and welcoming haven for your pets...",
       image: blog3.src,
-    },
-
-    {
-      id: 5,
-      title: "The Healing Power of Pet Companionship",
-      excerpt:
-        "Discover how pets can bring comfort and healing to our lives...",
-      image: blog5.src,
     },
     {
       id: 6,
