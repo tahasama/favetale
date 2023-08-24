@@ -198,12 +198,12 @@ const Navbar = () => {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg">
                   {/* Dropdown menu for logged-in users */}
-                  <Link href="/my-pets">
+                  <Link href="/profile">
                     <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">
-                      My Pets
+                      My Profile
                     </span>
                   </Link>
-                  <Link href="/write-blog">
+                  {/* <Link href="/write-blog">
                     <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">
                       My Blogs
                     </span>
@@ -213,6 +213,11 @@ const Navbar = () => {
                       My Profile
                     </span>
                   </Link>
+                  <Link href="/profile">
+                    <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">
+                      My Events
+                    </span>
+                  </Link> */}
                   <button className="block w-full px-4 py-2 text-left hover:bg-teal-50 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
                     Logout
                   </button>
