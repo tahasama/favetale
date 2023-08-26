@@ -5,14 +5,7 @@ import PaymentButton from "./PaymentButton";
 import { useCart } from "@/app/provider/CartProvider";
 
 const CartPage = () => {
-  const { quantities, cart, setCart } = useCart();
-
-  useEffect(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    if (savedCartItems) {
-      setCart(JSON.parse(savedCartItems));
-    }
-  }, []);
+  const { cartItems, quantities, cart, setCart, total, setTotal } = useCart();
 
   const handleRemoveItem = (itemId: any) => {
     const updatedCart = cart.filter((item: any) => item.id !== itemId);
@@ -27,14 +20,17 @@ const CartPage = () => {
     );
   };
 
-  const calculateTotalAfterDiscount = () => {
-    return cart.reduce(
-      (total: any, item: any) =>
-        total +
-        quantities[item.id] * (item.price - (item.price * item.discount) / 100),
-      0
+  useEffect(() => {
+    setTotal(
+      cart.reduce(
+        (total: any, item: any) =>
+          total +
+          quantities[item.id] *
+            (item.price - (item.price * item.discount) / 100),
+        0
+      )
     );
-  };
+  }, [cartItems, quantities, cart]);
 
   return (
     <div className="flex flex-col md:flex-row  mt-20 bg-gray-100">
@@ -61,9 +57,7 @@ const CartPage = () => {
 
           <div className="flex justify-between">
             <span>Total:</span>
-            <span className="font-semibold text-lg">
-              ${calculateTotalAfterDiscount().toFixed(2)}
-            </span>
+            <span className="font-semibold text-lg">${total.toFixed(2)}</span>
           </div>
         </div>
         <PaymentButton />

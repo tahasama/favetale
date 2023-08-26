@@ -20,7 +20,7 @@ const Hero = () => {
     >
       <div className="container p-6 w-6/12 h-8/12  backdrop-blur-sm">
         <h1 className="text-4xl md:text-5xl text-emerald-50 lg:text-6xl font-semibold mb-4 ">
-          Welcome to PetStore
+          Welcome to FaveTale Store
         </h1>
         <p className="text-lg mb-8">
           Your one-stop destination for all your pet needs

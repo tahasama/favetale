@@ -89,7 +89,7 @@ const Forums = () => {
           </p>
           <Link
             href="/forums"
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-indigo-700 transition-colors duration-500"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-indigo-500 hover:animate-buttonHover transition-colors duration-500"
           >
             Start a Discussion
           </Link>

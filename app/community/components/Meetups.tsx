@@ -100,13 +100,13 @@ const Meetups = () => {
           </p>
           <Link
             href="/meetups"
-            className="bg-tealLight hover:text-white px-4 py-3 mr-2 rounded-md hover:bg-emerald-700 transition-colors duration-500"
+            className="bg-tealLight hover:text-white px-4 py-3 mr-2 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
           >
             Find Meetups Near You
           </Link>
           <Link
             href="/meetups"
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-emerald-700 transition-colors duration-500"
+            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-fuchsia-400   transition-colors duration-500"
           >
             Create an gathering
           </Link>
