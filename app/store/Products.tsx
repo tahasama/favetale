@@ -108,6 +108,7 @@ const Products = () => {
       discount: 15,
       rating: 4.8,
       reviews: 120,
+      quantity: 1,
     },
     {
       id: 2,
@@ -117,6 +118,7 @@ const Products = () => {
       discount: 10,
       rating: 4.6,
       reviews: 95,
+      quantity: 1,
     },
     {
       id: 3,
@@ -126,6 +128,7 @@ const Products = () => {
       discount: 20,
       rating: 4.9,
       reviews: 150,
+      quantity: 1,
     },
   ];
 
@@ -138,6 +141,7 @@ const Products = () => {
       discount: 0,
       rating: 4.4,
       reviews: 60,
+      quantity: 1,
     },
     {
       id: 5,
@@ -147,6 +151,7 @@ const Products = () => {
       discount: 0,
       rating: 4.2,
       reviews: 45,
+      quantity: 1,
     },
     {
       id: 6,
@@ -156,6 +161,7 @@ const Products = () => {
       discount: 0,
       rating: 4.5,
       reviews: 80,
+      quantity: 1,
     },
   ];
 
@@ -168,6 +174,7 @@ const Products = () => {
       discount: 30,
       rating: 4.7,
       reviews: 110,
+      quantity: 1,
     },
     {
       id: 8,
@@ -177,6 +184,7 @@ const Products = () => {
       discount: 25,
       rating: 4.3,
       reviews: 70,
+      quantity: 1,
     },
     {
       id: 9,
@@ -186,6 +194,7 @@ const Products = () => {
       discount: 15,
       rating: 4.6,
       reviews: 90,
+      quantity: 1,
     },
   ];
 

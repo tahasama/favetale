@@ -10,7 +10,7 @@ export const CartProvider = ({ children }: any) => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    localStorage.clear();
+    // localStorage.clear();
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
       setCart(JSON.parse(savedCartItems));

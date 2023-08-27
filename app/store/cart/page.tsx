@@ -1,15 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Cart from "./Cart";
-import PaymentButton from "./PaymentButton";
 import { useCart } from "@/app/provider/CartProvider";
+import Payment from "./Payment";
 
 const CartPage = () => {
-  const { cartItems, quantities, cart, setCart, total, setTotal } = useCart();
+  const {
+    cartItems,
+    quantities,
+    cart,
+    setCart,
+    total,
+    setTotal,
+    setQuantities,
+  } = useCart();
 
   const handleRemoveItem = (itemId: any) => {
+    localStorage.setItem(`quantity_${itemId}`, String(1));
+    // Remove the item from the cart
     const updatedCart = cart.filter((item: any) => item.id !== itemId);
     setCart(updatedCart);
+
+    // Update local storage with the updated cart
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
@@ -60,7 +72,7 @@ const CartPage = () => {
             <span className="font-semibold text-lg">${total.toFixed(2)}</span>
           </div>
         </div>
-        <PaymentButton />
+        <Payment />
       </div>
     </div>
   );

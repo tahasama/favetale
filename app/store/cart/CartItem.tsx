@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 
 const CartItem = ({ item, onRemove }: any) => {
   // localStorage.clear();
-  const { quantities, setQuantities } = useCart();
+  const { quantities, setQuantities, setCart } = useCart();
+  console.log("🚀 ~ file: CartItem.tsx:9 ~ CartItem ~ quantities:", quantities);
 
   useEffect(() => {
     const savedQuantity = localStorage.getItem(`quantity_${item.id}`);
@@ -34,6 +35,13 @@ const CartItem = ({ item, onRemove }: any) => {
       ...prevQuantities,
       [item.id]: prevQuantities[item.id] + 1,
     }));
+    setCart((prevCart: any) =>
+      prevCart.map((cartItem: any) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      )
+    );
   };
 
   const decreaseQuantity = () => {
@@ -42,6 +50,13 @@ const CartItem = ({ item, onRemove }: any) => {
         ...prevQuantities,
         [item.id]: prevQuantities[item.id] - 1,
       }));
+      setCart((prevCart: any) =>
+        prevCart.map((cartItem: any) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+      );
     }
   };
 
