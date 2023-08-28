@@ -35,6 +35,11 @@ import ImageModal from "./ImageModal";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import cage from "../images/store/cage.jpg";
+import feeder from "../images/store/feeder.jpg";
+import scratch from "../images/store/scratch.jpg";
+import { useCart } from "../provider/CartProvider";
+
 const UserProfile = () => {
   const catus = [catu, catu2, catu3];
   const petImages = [i16, i17, i18, i19];
@@ -121,9 +126,42 @@ const UserProfile = () => {
       image: story4.src,
     },
   ];
+  const products = [
+    {
+      id: 7,
+      name: "Cat Scratching Post",
+      image: scratch.src,
+      price: 24.99,
+      discount: 30,
+      rating: 4.7,
+      reviews: 110,
+      quantity: 1,
+    },
+    {
+      id: 8,
+      name: "Small Animal Cage",
+      image: cage.src,
+      price: 39.99,
+      discount: 25,
+      rating: 4.3,
+      reviews: 70,
+      quantity: 1,
+    },
+    {
+      id: 9,
+      name: "Squirrel Feeder",
+      image: feeder.src,
+      price: 7.99,
+      discount: 15,
+      rating: 4.6,
+      reviews: 90,
+      quantity: 1,
+    },
+  ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState();
+  const [expandedPurchase, setExpandedPurchase] = useState<any>(null);
 
   const openModal = (pet: any) => {
     setIsModalOpen(true);
@@ -579,6 +617,150 @@ const UserProfile = () => {
             </div>
             {/* Display Comments */}
             {/* Display Likes */}
+            {/* detailed purshase {products.map((item: any) => (
+              <div
+                key={item.id}
+                className="flex flex-col sm:flex-row items-center justify-between p-4 border-b bg-white border-gray-200"
+              >
+                <div className=" bg-tealLight rounded-md mt-6 border border-gray-300">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    className="w-64 h-36  object-cover rounded-md "
+                    width={500}
+                    height={500}
+                  />
+                </div>
+                <div className="flex flex-col justify-between h-40 py-2 mt-6 sm:ml-9 w-11/12">
+                  <h3 className="text-lg font-semibold">
+                    {item.quantity} X {item.name}
+                  </h3>
+
+                  <p className="text-gray-600 text-lg ">
+                    ${item.price.toFixed(2)}
+                  </p>
+
+                  <span className="text-red-600 text-md ">
+                    -{item.discount}% Off{" "}
+                  </span>
+                  <p className="text-gray-600 text-lg ">
+                    $
+                    {(item.price - (item.price * item.discount) / 100).toFixed(
+                      2
+                    )}
+                  </p>
+
+                  <p className="text-gray-600 text-lg font-semibold border-2 py-1 px-3 rounded-md bg-indigo-100">
+                    Subtotal = $
+                    {(
+                      (item.price - (item.price * item.discount) / 100) *
+                      item.quantity
+                    ).toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <div className="flex justify-between items-center h-10 bg-tealLight">
+              <span className="text-lg">Total:</span>
+              <span className="font-semibold text-lg ">
+                $
+                {products
+                  .reduce((accumulator, item) => {
+                    const discountedPrice =
+                      item.price - (item.price * item.discount) / 100;
+                    const subtotal = discountedPrice * item.quantity;
+                    return accumulator + subtotal;
+                  }, 0)
+                  .toFixed(2)}
+              </span>
+            </div> */}
+            <div>
+              {[1, 2, 3].map((purchase, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-300 p-4 rounded-md mb-4 cursor-pointer"
+                  onClick={() =>
+                    setExpandedPurchase(
+                      expandedPurchase === index ? null : index
+                    )
+                  }
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-semibold">
+                      Purchase Date: {"purchase.purchaseDate"}
+                    </span>
+                    <span className="font-semibold text-lg">
+                      Total: ${"purchase.total.toFixed(2)"}
+                    </span>
+                  </div>
+                  {expandedPurchase === index && (
+                    <div className="mt-4">
+                      {/* Detailed purchase information */}
+                      {/* Replace this with your detailed purchase code */}
+                      {products.map((item: any) => (
+                        <div
+                          key={item.id}
+                          className="flex flex-col sm:flex-row items-center justify-between p-4 border-b bg-white border-gray-200"
+                        >
+                          <div className=" bg-tealLight rounded-md mt-6 border border-gray-300">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              className="w-64 h-36  object-cover rounded-md "
+                              width={500}
+                              height={500}
+                            />
+                          </div>
+                          <div className="flex flex-col justify-between h-40 py-2 mt-6 sm:ml-9 w-11/12">
+                            <h3 className="text-lg font-semibold">
+                              {item.quantity} X {item.name}
+                            </h3>
+
+                            <p className="text-gray-600 text-lg ">
+                              ${item.price.toFixed(2)}
+                            </p>
+
+                            <span className="text-red-600 text-md ">
+                              -{item.discount}% Off{" "}
+                            </span>
+                            <p className="text-gray-600 text-lg ">
+                              $
+                              {(
+                                item.price -
+                                (item.price * item.discount) / 100
+                              ).toFixed(2)}
+                            </p>
+
+                            <p className="text-gray-600 text-lg font-semibold border-2 py-1 px-3 rounded-md bg-indigo-100">
+                              Subtotal = $
+                              {(
+                                (item.price -
+                                  (item.price * item.discount) / 100) *
+                                item.quantity
+                              ).toFixed(2)}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                      <div className="flex justify-between items-center h-10 bg-tealLight">
+                        <span className="text-lg">Total:</span>
+                        <span className="font-semibold text-lg ">
+                          $
+                          {products
+                            .reduce((accumulator, item) => {
+                              const discountedPrice =
+                                item.price - (item.price * item.discount) / 100;
+                              const subtotal = discountedPrice * item.quantity;
+                              return accumulator + subtotal;
+                            }, 0)
+                            .toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="border border-gray-300 my-4"></div>

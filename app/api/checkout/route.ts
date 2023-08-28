@@ -19,7 +19,6 @@ export async function POST(request: Request) {
     payment_method_types: ["card"],
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/store/cart`,
-    customer_email: "taha.maatof@gmail.com",
   });
   return NextResponse.json(session);
 }
@@ -42,15 +41,15 @@ export async function POST(request: Request) {
 //   // }
 // }
 
-export async function GET(request: any) {
-  const url = request.url;
+// export async function GET(request: any) {
+//   const url = request.url;
 
-  const urls = new URL(url);
-  const sessionId: any = urls.searchParams.get("session_id");
-  const session = await stripe.checkout.sessions.retrieve(sessionId);
-  console.log("🚀 ~ file: route.ts:50 ~ GET ~ session:", session);
-  return {
-    statusCode: 200,
-    body: JSON.stringify(session),
-  };
-}
+//   const urls = new URL(url);
+//   const sessionId: any = urls.searchParams.get("session_id");
+//   const session = await stripe.checkout.sessions.retrieve(sessionId);
+//   console.log("🚀 ~ file: route.ts:50 ~ GET ~ session:", session);
+//   return {
+//     statusCode: 200,
+//     body: JSON.stringify(session),
+//   };
+// }

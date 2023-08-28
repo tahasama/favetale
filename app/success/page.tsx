@@ -6,36 +6,35 @@ import stripe from "stripe";
 import Stripe from "stripe";
 
 const Success = () => {
-  const params = useSearchParams();
-
-  const session_id = params.get("session_id");
-
-  useEffect(() => {
-    const xxx = async () => {
-      const response = await fetch(`/api/checkout?session_id=${session_id}`);
-      //   const data = await response.json();
-      console.log("🚀 ~ file: page.tsx:17 ~ xxx ~ response:", response);
-      //   console.log("🚀 ~ file: page.tsx:19 ~ xxx ~ data:", data);
-    };
-    xxx();
-  }, []);
-
-  //   const sessionDetails = response.json();
-
-  //   console.log("Session Details:", sessionDetails);
   return (
-    <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
+    <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 bg-white">
       <div className="text-center">
-        {/* Checkout session */}
+        <div className="text-teal-500 text-6xl mb-6">
+          <span role="img" aria-label="Success Emoji">
+            ✅
+          </span>
+        </div>
+        <h2 className="text-4xl font-extrabold text-indigo-700 mb-2 tracking-wider">
+          Order Successful!
+        </h2>
+        <p className="mt-2 text-lg text-gray-600 max-w-xl pt-4 tracking-wide">
+          Congratulations, your order has been successfully processed. You can
+          now view your purchase history in your profile or check your email for
+          the receipt.
+        </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
             href="/"
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Go back home
+            Go back to homepage
           </Link>
-          <a href="#" className="text-sm font-semibold">
-            Contact support <span aria-hidden="true">&rarr;</span>
+          <a
+            href="#"
+            className="text-sm font-semibold text-indigo-600 hover:underline ring-1 ring-indigo-600 p-2.5 rounded-sm"
+          >
+            Need assistance? Contact support{" "}
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </div>
