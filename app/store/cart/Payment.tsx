@@ -32,9 +32,9 @@ export default function App() {
         body: JSON.stringify(adaptedCart),
       });
       if (response.ok) {
-        localStorage.setItem("cartItems", "");
         const session = await response.json();
         window.location.href = session.url;
+        localStorage.setItem("cartItems", "");
       } else {
         console.error("Error creating session:", response.statusText);
       }
@@ -44,7 +44,11 @@ export default function App() {
   }
 
   return (
-    <button type="submit" onClick={onCheckout}>
+    <button
+      type="submit"
+      onClick={onCheckout}
+      className="bg-indigo-500 w-full text-lg font-light tracking-wide hover:bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+    >
       Checkout
     </button>
   );

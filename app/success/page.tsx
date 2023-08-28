@@ -4,8 +4,53 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import stripe from "stripe";
 import Stripe from "stripe";
+import { useCart } from "../provider/CartProvider";
+import PurchasePage from "./Purshase";
 
-const Success = () => {
+const Success = ({ searchParams: { session_id } }: any) => {
+  const [orderData, setOrderData] = useState<any>(null);
+  // console.log(
+  //   "🚀 ~ file: page.tsx:10 ~ Success ~ orderData:",
+  //   orderData.customer_details
+  // );
+  const fff = localStorage.getItem("cart");
+  // console.log("🚀 ~ file: page.tsx:12 ~ Success ~ fff:", fff);
+  const { cart } = useCart();
+  // console.log("🚀 ~ file: page.tsx:15 ~ Success ~ cart:", cart);
+
+  const getPurshase = () => {
+    if (orderData) {
+      const purchase = {
+        userId: "myId1234",
+        ...orderData.customer_details,
+        cart: [...cart], // Create a new array to avoid modifying the original array
+      };
+      console.log("🚀 ~ file: page.tsx:22 ~ getPurshase ~ purchase:", purchase);
+      localStorage.setItem("purshase", JSON.stringify(purchase));
+    } else {
+      console.log("Purchase not found in localStorage.");
+    }
+  };
+
+  const storedPurchase = localStorage.getItem("purshase");
+  if (storedPurchase) {
+    const purchase = JSON.parse(storedPurchase); // Deserialize the string back to an object
+    console.log("Retrieved purchase:", purchase);
+  } else {
+    console.log("Purchase not found in localStorage.");
+  }
+
+  const getData = async () => {
+    const res = await fetch(`/api/checkout?session_id=${session_id}`);
+    const ress = await res.json();
+    // console.log("🚀 ~ file: page.tsx:16 ~ getData ~ ress:", typeof ress);
+    setOrderData(JSON.parse(ress.body));
+  };
+
+  useEffect(() => {
+    getData().then(() => getPurshase());
+  }, []);
+
   return (
     <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 bg-white">
       <div className="text-center">
@@ -38,6 +83,7 @@ const Success = () => {
           </a>
         </div>
       </div>
+      <PurchasePage />
     </main>
   );
 };
