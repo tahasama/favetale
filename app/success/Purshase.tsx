@@ -58,7 +58,7 @@ const Purshase = () => {
   return (
     <div className="bg-gray-0 w-full min-h-screen mt-10 flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg w-full max-w-screen-sm">
-        <div className="p-6 bg-tealDark text-white rounded-t-lg">
+        <div className="px-6 py-4 bg-tealDark text-white rounded-t-lg">
           <Image src={logo} width={500} alt="logo" className="w-2/12" />
           <h1 className="text-3xl font-semibold">Order Confirmed</h1>
           <p className="mt-2">Thank you for your purchase!</p>

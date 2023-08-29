@@ -15,8 +15,16 @@ import toy from "../images/store/toy.jpg";
 import bed from "../images/store/bed.jpg";
 
 import Image from "next/image";
+import ProductModal from "./ProductModal";
 
-const ProductCard = ({ product, isTrending, discounted }: any) => {
+const ProductCard = ({
+  product,
+  isTrending,
+  discounted,
+  openModal,
+  isModalOpen,
+  closeModal,
+}: any) => {
   const { cartItems, setCartItems, cart, setCart } = useCart();
 
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -46,9 +54,12 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
   return (
     <div className="bg-white p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
       {/* Product Image */}
-      <div className="w-auto  flex justify-center ">
+      <div
+        className="w-auto  flex justify-center "
+        onClick={() => openModal(product)}
+      >
         <Image
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           className="h-[20rem] w-fit rounded-md"
           height={500}
@@ -78,7 +89,7 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
       )}
       <div className="flex justify-center gap-2 items-center my-2">
         <div className="flex justify-evenly items-center">
-          <p> {product.reviews} </p>
+          <p> {product.reviews.length} </p>
           <span className="text-xl">🗨️</span>
         </div>
         <div className="flex justify-evenly items-center">
@@ -99,108 +110,112 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
 };
 
 const Products = () => {
-  const trendingProducts = [
-    {
-      id: 1,
-      name: "Premium Cat Food",
-      image: catfood.src,
-      price: 19.99,
-      discount: 15,
-      rating: 4.8,
-      reviews: 120,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Interactive Dog Toy",
-      image: toy.src,
-      price: 12.99,
-      discount: 10,
-      rating: 4.6,
-      reviews: 95,
-      quantity: 1,
-    },
-    {
-      id: 3,
-      name: "Cozy Pet Bed",
-      image: bed.src,
-      price: 29.99,
-      discount: 20,
-      rating: 4.9,
-      reviews: 150,
-      quantity: 1,
-    },
-  ];
-
-  const regularProducts = [
-    {
-      id: 4,
-      name: "Pet Shampoo",
-      image: shampoo.src,
-      price: 8.99,
-      discount: 0,
-      rating: 4.4,
-      reviews: 60,
-      quantity: 1,
-    },
-    {
-      id: 5,
-      name: "Cat Collar",
-      image: collar.src,
-      price: 5.99,
-      discount: 0,
-      rating: 4.2,
-      reviews: 45,
-      quantity: 1,
-    },
-    {
-      id: 6,
-      name: "Dog Leash",
-      image: leash.src,
-      price: 11.99,
-      discount: 0,
-      rating: 4.5,
-      reviews: 80,
-      quantity: 1,
-    },
-  ];
-
   const discountProducts = [
     {
       id: 7,
       name: "Cat Scratching Post",
-      image: scratch.src,
+      images: [scratch.src, cage.src],
       price: 24.99,
       discount: 30,
       rating: 4.7,
-      reviews: 110,
+      description: "A perfect scratching post for your furry friend.",
+      reviews: [
+        {
+          id: 1,
+          name: "Alice",
+          date: "2023-08-28",
+          text: "Good scratching post for my cat!",
+        },
+        {
+          id: 2,
+          name: "Bob",
+          date: "2023-08-27",
+          text: "Okay product, my cat uses it sometimes.",
+        },
+        {
+          id: 3,
+          name: "Charlie",
+          date: "2023-08-26",
+          text: "Nice design and sturdy build.",
+        },
+      ],
       quantity: 1,
     },
     {
       id: 8,
       name: "Small Animal Cage",
-      image: cage.src,
+      images: [cage.src],
       price: 39.99,
       discount: 25,
       rating: 4.3,
-      reviews: 70,
+      description: "Spacious and comfortable cage for your small pet.",
+      reviews: [
+        {
+          id: 1,
+          name: "Eve",
+          date: "2023-08-28",
+          text: "Wow, this cage is spacious!",
+        },
+        {
+          id: 2,
+          name: "Frank",
+          date: "2023-08-27",
+          text: "Haha, my small animal loves it!",
+        },
+        {
+          id: 3,
+          name: "Grace",
+          date: "2023-08-26",
+          text: "Lol, it's easy to clean.",
+        },
+      ],
       quantity: 1,
     },
     {
       id: 9,
       name: "Squirrel Feeder",
-      image: feeder.src,
+      images: [feeder.src],
       price: 7.99,
       discount: 15,
       rating: 4.6,
-      reviews: 90,
+      description: "Attract squirrels with this high-quality feeder.",
+      reviews: [
+        {
+          id: 1,
+          name: "Harry",
+          date: "2023-08-28",
+          text: "Nah, squirrels don't seem interested.",
+        },
+        {
+          id: 2,
+          name: "Ivy",
+          date: "2023-08-27",
+          text: "Maybe it depends on the location?",
+        },
+        {
+          id: 3,
+          name: "Jack",
+          date: "2023-08-26",
+          text: "Yeah, it's a good value for the price.",
+        },
+      ],
       quantity: 1,
     },
   ];
 
-  const { cartItems, setCartItems, cart, setCart } = useCart();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productModal, setProductModal] = useState();
 
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const openModal = (product: any) => {
+    setIsModalOpen(true);
+    setProductModal(product);
+
+    console.log("hhhhhhhhhhhhhhhhh");
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <section className="py-10 bg-tealLight">
@@ -217,69 +232,22 @@ const Products = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Trending Products with Discounts */}
           {discountProducts.map((product, index) => (
-            <ProductCard
-              key={index}
-              product={product}
-              isTrending={false}
-              discounted={true}
-            />
+            <div>
+              <ProductCard
+                key={index}
+                product={product}
+                isTrending={false}
+                discounted={true}
+                openModal={openModal}
+              />
+            </div>
           ))}
         </div>
-        <div className="mt-8 flex items-center justify-center">
-          <Link
-            href="/products"
-            className="hover:animate-bounceQ p-4 bg-gradient-to-r from-indigo-500 to-indigo-300 rounded-md transition-all duration-1000 cursor-pointer"
-          >
-            View All Products
-          </Link>
-        </div>
-
-        <div className="flex flex-wrap flex-col items-center justify-center mt-12 mb-6">
-          <div className="bg-teal-500 h-1 w-40 ml-2 mb-3"></div>
-          <h3 className="text-lg font-semibold text-gray-700">
-            Trending this week
-          </h3>
-          <div className="bg-teal-500 h-1 w-40 ml-2 mt-3"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Trending Products */}
-          {trendingProducts.map((product, index) => (
-            <ProductCard
-              key={index}
-              product={product}
-              isTrending={true}
-              discounted={false}
-            />
-          ))}
-        </div>
-        <div className="mt-8 flex items-center justify-center">
-          <Link
-            href="/products"
-            className="hover:animate-bounceQ p-4 bg-gradient-to-r from-indigo-500 to-indigo-300 rounded-md transition-all duration-1000 cursor-pointer"
-          >
-            View All Products
-          </Link>
-        </div>
-
-        <div className="flex flex-wrap flex-col items-center justify-center mt-12 mb-6">
-          <div className="bg-teal-500 h-1 w-40 ml-2 mb-3"></div>
-          <h3 className="text-lg font-semibold text-gray-700">
-            Most reviewed this month
-          </h3>
-          <div className="bg-teal-500 h-1 w-40 ml-2 mt-3"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Regular Products */}
-          {regularProducts.map((product, index) => (
-            <ProductCard
-              key={index}
-              product={product}
-              isTrending={false}
-              discounted={false}
-            />
-          ))}
-        </div>
-
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          product={productModal}
+        />
         <div className="mt-8 flex items-center justify-center">
           <Link
             href="/products"
