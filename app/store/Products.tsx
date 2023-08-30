@@ -52,16 +52,16 @@ const ProductCard = ({
     }
   };
   return (
-    <div className="bg-white p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
+    <div
+      onClick={() => openModal(product)}
+      className="bg-white relative p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
+    >
       {/* Product Image */}
-      <div
-        className="w-auto  flex justify-center "
-        onClick={() => openModal(product)}
-      >
+      <div className="w-auto  flex justify-center bg-gray-100">
         <Image
           src={product.images[0]}
           alt={product.name}
-          className="h-[20rem] w-fit rounded-md"
+          className="h-[15rem] w-fit rounded-md"
           height={500}
           width={500}
         />
@@ -85,24 +85,13 @@ const ProductCard = ({
 
       {/* Discount (if applicable) */}
       {discounted && product.discount && (
-        <p className="text-red-600 my-1">{product.discount}% OFF</p>
+        <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
+          {product.discount}% OFF
+        </p>
       )}
-      <div className="flex justify-center gap-2 items-center my-2">
-        <div className="flex justify-evenly items-center">
-          <p> {product.reviews.length} </p>
-          <span className="text-xl">🗨️</span>
-        </div>
-        <div className="flex justify-evenly items-center">
-          <p> {product.rating} / 5 </p>
-          <span className="text-xl">⭐</span>
-        </div>
-      </div>
+
       {/* Add to Cart Button */}
-      <button
-        onClick={addToCart}
-        disabled={isAddedToCart}
-        className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover"
-      >
+      <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
         {isAddedToCart ? "Added to Cart" : "Add to Cart"}
       </button>
     </div>
@@ -118,7 +107,8 @@ const Products = () => {
       price: 24.99,
       discount: 30,
       rating: 4.7,
-      description: "A perfect scratching post for your furry friend.",
+      description:
+        "A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.",
       reviews: [
         {
           id: 1,
@@ -229,7 +219,7 @@ const Products = () => {
           <h3 className="text-lg font-semibold text-gray-700">Best Offers</h3>
           <div className="bg-teal-500 h-1 w-40 ml-2 mt-3"></div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-start">
           {/* Trending Products with Discounts */}
           {discountProducts.map((product, index) => (
             <div>
@@ -250,7 +240,7 @@ const Products = () => {
         />
         <div className="mt-8 flex items-center justify-center">
           <Link
-            href="/products"
+            href="/store/Allproduct"
             className="hover:animate-bounceQ p-4 bg-gradient-to-r from-indigo-500 to-indigo-300 rounded-md transition-all duration-1000 cursor-pointer"
           >
             View All Products

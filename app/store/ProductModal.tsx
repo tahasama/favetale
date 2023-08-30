@@ -77,16 +77,16 @@ const ProductModal = ({
       }`}
       onClick={handleModalClick}
     >
-      <>
-        <div className="flex flex-col md:flex-row gap-8 p-8 h-4/6 w-10/12 bg-white  shadow-md">
+      <div className="overflow-y-auto flex flex-col h-full w-11/12 relative">
+        <div className="flex flex-col md:flex-row gap-8 p-8 bg-white  shadow-md min-h-[80vh]">
           {/* Left side of the modal with images and product details */}
-          <div className="md:w-1/2 flex flex-col items-center justify-center">
+          <div className=" flex flex-col items-center justify-center ">
             <Image
               src={product?.images[selectedImage]}
               alt={product?.name}
               width={1000}
               height={1000}
-              className="rounded-lg h-5/6"
+              className="rounded-lg max-h-[66vh] object-contain"
             />
             <div className="flex mt-4">
               {product?.images.map((image: any, index: any) => (
@@ -102,21 +102,19 @@ const ProductModal = ({
               ))}
             </div>
           </div>
-          <div className="md:w-1/2 flex flex-col justify-between items-start">
+          <div className="md:w-1/2 flex flex-col justify-between h-[60vh] items-start">
             <h2 className="text-2xl font-semibold mb-2 ">{product?.name}</h2>
-            <h2 className="text-xl font-semibold mb-2 ">
+            <h2 className="text-xl text-left font-semibold ">
               {product?.description}
             </h2>
-            <p className="text-lg mb-4 ">${product?.price}</p>
-            <p className="text-lg mb-4 ">-{product?.discount}%</p>
-            <div className="mb-4 text-start">
-              <p className="text-gray-700 mb-4">
-                Rating: {product?.rating} / 5
-              </p>
+            <p className="text-lg ">${product?.price}</p>
+            <p className="text-lg ">-{product?.discount}%</p>
+            <div className=" text-start flex justify-center items-center gap-5">
+              <p className="text-gray-700">Rating: {product?.rating} / 5</p>
               <select
                 value={rating}
                 onChange={handleRatingChange}
-                className="mt-1 border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
+                className="border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
               >
                 <option value={0}>Select Rating </option>
                 <option value={1}>1</option>
@@ -137,7 +135,7 @@ const ProductModal = ({
             </div>
           </div>
         </div>
-        <div className="bg-fuchsia-100 w-10/12 h-2/6 p-8 overflow-y-auto">
+        <div className="bg-fuchsia-100 p-8 ">
           <div className="w-full flex justify-end">
             <h4
               className="text-lg font-semibold mb-2 text-center ring-2 w-48  ring-blue-400 rounded-3xl px-2  py-3 cursor-pointer"
@@ -177,7 +175,20 @@ const ProductModal = ({
             ))}
           </div>
         </div>
-      </>
+        <button
+          className="absolute text-gray-400 hover:text-gray-600 hover:rotate-90 bgr p-1 top-2 right-2 transition-all duration-500 rounded-full"
+          onClick={onClose}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            id="close"
+          >
+            <path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };
