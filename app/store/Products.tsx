@@ -106,7 +106,7 @@ const Products = () => {
       images: [scratch.src, cage.src],
       price: 24.99,
       discount: 30,
-      rating: 4.7,
+      rating: [1, 12, 14, 16, 125, 128],
       description:
         "A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.",
       reviews: [
@@ -137,7 +137,7 @@ const Products = () => {
       images: [cage.src],
       price: 39.99,
       discount: 25,
-      rating: 4.3,
+      rating: [12, 22, 24, 26, 135, 138],
       description: "Spacious and comfortable cage for your small pet.",
       reviews: [
         {
@@ -167,7 +167,7 @@ const Products = () => {
       images: [feeder.src],
       price: 7.99,
       discount: 15,
-      rating: 4.6,
+      rating: [15, 25, 25, 25, 155, 158],
       description: "Attract squirrels with this high-quality feeder.",
       reviews: [
         {

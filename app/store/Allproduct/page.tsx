@@ -14,7 +14,7 @@ const products = [
     images: [scratch.src, cage.src],
     price: 24.99,
     discount: 30,
-    rating: 4.7,
+    rating: [3, 4, 4, 3, 5, 3],
     description:
       "A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.",
     category: "cats",
@@ -47,10 +47,9 @@ const products = [
     images: [cage.src],
     price: 39.99,
     discount: 25,
-    rating: 4.3,
+    rating: [1, 2, 2, 2, 1, 1, 0],
     description: "Spacious and comfortable cage for your small pet.",
     category: "birds",
-
     reviews: [
       {
         id: 1,
@@ -79,7 +78,7 @@ const products = [
     images: [feeder.src],
     price: 7.99,
     discount: 15,
-    rating: 4.6,
+    rating: [5, 5, 5, 4, 5],
     description: "Attract squirrels with this high-quality feeder.",
     category: "small animals",
     reviews: [
@@ -138,19 +137,98 @@ const AllProducts = () => {
       product.price <= parseInt(filterOptions.maxPrice);
     const passesRating =
       !filterOptions.minRating ||
-      product.rating >= parseFloat(filterOptions.minRating);
+      product.rating.length >= parseFloat(filterOptions.minRating);
 
     return passesCategory && passesDiscount && passesPrice && passesRating;
   });
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
+  const averageRating = (ratings: any) => {
+    if (ratings.length === 0) {
+      return 0; // Return 0 if there are no ratings to avoid division by zero
+    }
+
+    const sum = ratings.reduce((total: any, rating: any) => total + rating, 0);
+    const average = sum / ratings.length;
+    return average;
+  };
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-4">All Products</h1>
 
-      <div className="flex mb-4">
-        {/* Filter options */}
-        {/* Add your filter controls here */}
+      <div className="flex mb-4 mt-10">
+        <div className="flex mb-4 space-x-4">
+          {/* Category Filter */}
+          <div className="flex items-center">
+            <label className="mr-2">Category:</label>
+            <select
+              className="border rounded px-2 py-1"
+              value={filterOptions.category}
+              onChange={(e) =>
+                setFilterOptions({
+                  ...filterOptions,
+                  category: e.target.value,
+                })
+              }
+            >
+              <option value="">All</option>
+              <option value="cats">cats</option>
+              <option value="birds">birds</option>
+              <option value="small animals">small animals</option>
+              {/* Add more category options */}
+            </select>
+          </div>
+
+          {/* Discount Filter */}
+          <div className="flex items-center">
+            <label className="mr-2">Discount %:</label>
+            <input
+              type="number"
+              className="border rounded px-2 py-1"
+              value={filterOptions.discount}
+              onChange={(e) =>
+                setFilterOptions({
+                  ...filterOptions,
+                  discount: e.target.value,
+                })
+              }
+            />
+          </div>
+
+          {/* Max Price Filter */}
+          <div className="flex items-center">
+            <label className="mr-2">Max Price:</label>
+            <input
+              type="number"
+              className="border rounded px-2 py-1"
+              value={filterOptions.maxPrice}
+              onChange={(e) =>
+                setFilterOptions({
+                  ...filterOptions,
+                  maxPrice: e.target.value,
+                })
+              }
+            />
+          </div>
+
+          {/* Min Rating Filter */}
+          <div className="flex items-center">
+            <label className="mr-2">Min Rating:</label>
+            <input
+              type="number"
+              step="0.1"
+              className="border rounded px-2 py-1"
+              value={filterOptions.minRating}
+              onChange={(e) =>
+                setFilterOptions({
+                  ...filterOptions,
+                  minRating: e.target.value,
+                })
+              }
+            />
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -182,6 +260,15 @@ const AllProducts = () => {
             {product.discount && (
               <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
                 {product.discount}% OFF
+              </p>
+            )}
+            {/* Rating (if applicable) */}
+            {product.rating.length && (
+              <p className="my-1 absolute top-2 flex items-center justify-center left-2 bg-pink-50 w-20">
+                <p className="p-1">
+                  {averageRating(product.rating).toFixed(1)} / 5
+                </p>
+                <span className="text-lg">⭐</span>
               </p>
             )}
 
