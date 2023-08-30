@@ -25,7 +25,7 @@ const Category = () => {
           {featuredCategories.map((category, index) => (
             <Link
               key={index}
-              href={`/store/Allproduct?category=${category.id}`}
+              href={`/store/Allproduct?category=${category.title}`}
               className=""
             >
               <img
