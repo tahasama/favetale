@@ -1,11 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ProductModal from "../ProductModal";
 
 import cage from "../../images/store/cage.jpg";
 import feeder from "../../images/store/feeder.jpg";
 import scratch from "../../images/store/scratch.jpg";
+import { useSearchParams } from "next/navigation";
+
+import cat from "../../images/category/cat.png";
+import dog from "../images/category/dog.png";
+import rabbit from "../images/category/rabbit.png";
+import fish from "../images/category/fish.png";
+import bird from "../images/category/bird.png";
 
 const products = [
   {
@@ -77,7 +84,7 @@ const products = [
     name: "Squirrel Feeder",
     images: [feeder.src],
     price: 7.99,
-    discount: 15,
+    discount: 0,
     rating: [5, 5, 5, 4, 5],
     description: "Attract squirrels with this high-quality feeder.",
     category: "small animals",
@@ -109,11 +116,22 @@ const AllProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [filterOptions, setFilterOptions] = useState({
     category: "",
-    discount: "",
+    discount: false,
     maxPrice: "",
+    minPrice: "",
     minRating: "",
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const searchParams = useSearchParams();
+  const search = searchParams.get("category");
+
+  useEffect(() => {
+    if (search) {
+      setFilterOptions({ ...filterOptions, category: search });
+    }
+  }, []);
 
   const openModal = (product: any) => {
     setIsModalOpen(true);
@@ -126,23 +144,6 @@ const AllProducts = () => {
     setIsModalOpen(false);
   };
 
-  const filteredProducts = products.filter((product) => {
-    const passesCategory =
-      !filterOptions.category || product.category === filterOptions.category;
-    const passesDiscount =
-      !filterOptions.discount ||
-      product.discount >= parseInt(filterOptions.discount);
-    const passesPrice =
-      !filterOptions.maxPrice ||
-      product.price <= parseInt(filterOptions.maxPrice);
-    const passesRating =
-      !filterOptions.minRating ||
-      product.rating.length >= parseFloat(filterOptions.minRating);
-
-    return passesCategory && passesDiscount && passesPrice && passesRating;
-  });
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-
   const averageRating = (ratings: any) => {
     if (ratings.length === 0) {
       return 0; // Return 0 if there are no ratings to avoid division by zero
@@ -153,8 +154,36 @@ const AllProducts = () => {
     return average;
   };
 
+  const filteredProducts = products.filter((product) => {
+    const passesCategory =
+      !filterOptions.category || product.category === filterOptions.category;
+
+    const passesDiscount = !filterOptions.discount || product.discount > 0;
+
+    const passesPriceMax =
+      !filterOptions.maxPrice ||
+      product.price <= parseInt(filterOptions.maxPrice);
+
+    const passesPriceMin =
+      !filterOptions.minPrice ||
+      product.price >= parseInt(filterOptions.minPrice);
+
+    const passesRating =
+      !filterOptions.minRating ||
+      averageRating(product.rating) >= parseFloat(filterOptions.minRating);
+
+    return (
+      passesCategory &&
+      passesDiscount &&
+      passesPriceMax &&
+      passesPriceMin &&
+      passesRating
+    );
+  });
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
   return (
-    <div className="container mx-auto p-6">
+    <div className="container bg-tealLight h-full mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-4">All Products</h1>
 
       <div className="flex mb-4 mt-10">
@@ -163,7 +192,7 @@ const AllProducts = () => {
           <div className="flex items-center">
             <label className="mr-2">Category:</label>
             <select
-              className="border rounded px-2 py-1"
+              className="border rounded px-2 py-1 bg-slate-50"
               value={filterOptions.category}
               onChange={(e) =>
                 setFilterOptions({
@@ -172,28 +201,41 @@ const AllProducts = () => {
                 })
               }
             >
-              <option value="">All</option>
-              <option value="cats">cats</option>
-              <option value="birds">birds</option>
-              <option value="small animals">small animals</option>
-              {/* Add more category options */}
+              <option value="" className="text-lg">
+                All
+              </option>
+              <option value="cats" className="text-lg">
+                🐱 Cats
+              </option>
+              <option value="dogs" className="text-lg">
+                🐶 Dogs
+              </option>
+              <option value="birds" className="text-lg">
+                🦜 Birds
+              </option>
+              <option value="fish" className="text-lg">
+                🐟 Fish
+              </option>
+              <option value="small animals" className="text-lg">
+                🐹 Small Animals.
+              </option>
             </select>
           </div>
 
           {/* Discount Filter */}
           <div className="flex items-center">
-            <label className="mr-2">Discount %:</label>
             <input
-              type="number"
-              className="border rounded px-2 py-1"
-              value={filterOptions.discount}
+              type="checkbox"
+              className="mr-2"
+              checked={filterOptions.discount}
               onChange={(e) =>
                 setFilterOptions({
                   ...filterOptions,
-                  discount: e.target.value,
+                  discount: e.target.checked,
                 })
               }
             />
+            <label>Only with Discount</label>
           </div>
 
           {/* Max Price Filter */}
@@ -207,6 +249,22 @@ const AllProducts = () => {
                 setFilterOptions({
                   ...filterOptions,
                   maxPrice: e.target.value,
+                })
+              }
+            />
+          </div>
+
+          {/* Min Price Filter */}
+          <div className="flex items-center">
+            <label className="mr-2">Min Price:</label>
+            <input
+              type="number"
+              className="border rounded px-2 py-1"
+              value={filterOptions.minPrice}
+              onChange={(e) =>
+                setFilterOptions({
+                  ...filterOptions,
+                  minPrice: e.target.value,
                 })
               }
             />
@@ -257,7 +315,7 @@ const AllProducts = () => {
             </p>
 
             {/* Discount (if applicable) */}
-            {product.discount && (
+            {product.discount > 0 && (
               <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
                 {product.discount}% OFF
               </p>

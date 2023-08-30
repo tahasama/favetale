@@ -12,8 +12,8 @@ const Category = () => {
     { id: 1, title: "cats", image: cat },
     { id: 2, title: "dogs", image: dog },
     { id: 3, title: "birds", image: bird },
-    { id: 3, title: "small pets", image: rabbit },
-    { id: 3, title: "fish", image: fish },
+    { id: 4, title: "small pets", image: rabbit },
+    { id: 5, title: "fish", image: fish },
   ];
   return (
     <section className="py-10">
@@ -23,7 +23,11 @@ const Category = () => {
         </h2>
         <div className="grid grid-cols-3 md:grid-cols-5 place-items-center gap-8">
           {featuredCategories.map((category, index) => (
-            <Link key={index} href={"category.link"} className="">
+            <Link
+              key={index}
+              href={`/store/Allproduct?category=${category.id}`}
+              className=""
+            >
               <img
                 src={category.image.src}
                 alt={category.title}

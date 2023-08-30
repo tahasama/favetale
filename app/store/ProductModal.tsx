@@ -42,6 +42,13 @@ const ProductModal = ({
 
   const inputRef = useRef<any>(null);
 
+  useEffect(() => {
+    // Check if the product is already in the cart and update the button state
+    if (product && product.id) {
+      setIsAddedToCart(cart.some((item: any) => item.id === product.id));
+    }
+  }, [cart, product]);
+
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose();
@@ -67,6 +74,12 @@ const ProductModal = ({
   };
 
   const [addReview, setAddReview] = useState(false);
+  const ref = useRef<any>(null);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, [addReview]);
 
   return (
     <div
@@ -128,45 +141,53 @@ const ProductModal = ({
             <div className="mt-3">
               <button
                 onClick={addToCart}
-                className="bg-blue-500  px-7 py-3 rounded-md hover:bg-blue-600"
+                className={`bg-blue-500  px-7 py-3 rounded-md text-white  hover:bg-blue-600 ${
+                  isAddedToCart &&
+                  "bg-slate-400 hover:bg-slate-400 cursor-pointer"
+                }`}
+                disabled={isAddedToCart}
               >
-                Add to Cart
+                {isAddedToCart ? "Added to Cart" : "Add to Cart"}
               </button>
             </div>
           </div>
         </div>
-        <div className="bg-fuchsia-100 p-8 ">
-          <div className="w-full flex justify-end">
-            <h4
-              className="text-lg font-semibold mb-2 text-center ring-2 w-48  ring-blue-400 rounded-3xl px-2  py-3 cursor-pointer"
-              onClick={() => setAddReview(!addReview)}
-            >
-              Add Your Review?
-            </h4>
-          </div>
-          {addReview && (
-            <div>
-              <textarea
-                rows={3}
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                className="w-full p-2 border rounded-md mb-2"
-              />
-              <button
-                onClick={handleReviewSubmit}
-                className="bg-blue-500  px-4 py-2 rounded-md hover:bg-blue-600"
+        <div className="bg-fuchsia-100 p-8 relative">
+          <div className="flex">
+            <div className="w-fit flex justify-end absolute right-4 top-4">
+              <h4
+                className="text-lg font-semibold mb-2 text-center ring-2 w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-blue-100 hover:bg-blue-200 transition-colors"
+                onClick={() => setAddReview(!addReview)}
               >
-                Submit Review
-              </button>
+                Add Your Review?
+              </h4>
             </div>
-          )}
+            {addReview && (
+              <div className="relative left-4 -top-5 w-4/6 border-violet-400 ">
+                <textarea
+                  ref={ref}
+                  rows={3}
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  className="w-full p-2 border rounded-md mb-2 focus:outline-none focus:ring border-blue-500 focus:border-blue-500"
+                />
+                <button
+                  onClick={handleReviewSubmit}
+                  className="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 text-white transition-colors"
+                >
+                  Submit Review
+                </button>
+              </div>
+            )}
+          </div>
+
           {/* Right side of the modal with reviews */}
-          <h3 className="text-lg font-semibold mb-2  text-left">
+          <h3 className="text-lg font-semibold mb-2 text-left">
             Customer Reviews
           </h3>
           <div className="space-y-4">
             {product?.reviews.map((review: any) => (
-              <div key={review.id} className=" text-left">
+              <div key={review.id} className="text-left">
                 <p>{review.text}</p>
                 <p className="text-gray-400">
                   Reviewer: {review.name} | Date: {review.date}
@@ -175,6 +196,7 @@ const ProductModal = ({
             ))}
           </div>
         </div>
+
         <button
           className="absolute text-gray-400 hover:text-gray-600 hover:rotate-90 bgr p-1 top-2 right-2 transition-all duration-500 rounded-full"
           onClick={onClose}
