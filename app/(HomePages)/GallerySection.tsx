@@ -18,6 +18,7 @@ import "swiper/css/navigation";
 
 import { Keyboard, Navigation, Pagination } from "swiper/modules";
 import ImageModal from "../explore/components/ImageModal";
+import Link from "next/link";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
@@ -111,15 +112,18 @@ const GallerySection = () => {
                 src={pet4}
                 alt="Pet of the Week"
                 className="w-12/12 xl:w-10/12 h-auto rounded-lg cursor-pointer"
+                onClick={() => handleImageClick(pet4)}
               />
               <div className="mt-2 flex flex-col items-center justify-between w-full">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-2">❤️ Likes: 100</span>
                   <span className="text-gray-600">💬 Comments: 50</span>
                 </div>
-                <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
-                  Explore Gallery
-                </button>
+                <Link href={"/explore"}>
+                  <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
+                    Explore Gallery
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -67,7 +67,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
           </div>
         </div>
         <div className="w-full bg-white p-4 shadow-md relative top-36 ">
-          <h3 className="text-xl font-semibold mb-2">Comments ⬇️</h3>
+          <h3 className="text-xl font-semibold mb-2 text-start">Comments ⬇️</h3>
           <div className="flex">
             <input
               type="text"
