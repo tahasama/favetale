@@ -91,7 +91,7 @@ const ProductModal = ({
       onClick={handleModalClick}
     >
       <div className="overflow-y-auto flex flex-col h-full w-11/12 relative">
-        <div className="flex flex-col md:flex-row gap-8 p-8 bg-white  shadow-md min-h-[80vh]">
+        <div className="flex flex-col md:flex-row gap-8 p-8 shadow-md min-h-[80vh] bg-green-100">
           {/* Left side of the modal with images and product details */}
           <div className=" flex flex-col items-center justify-center ">
             <Image
@@ -152,7 +152,7 @@ const ProductModal = ({
             </div>
           </div>
         </div>
-        <div className="bg-fuchsia-100 p-8 relative">
+        <div className="bg-tealLight p-8 relative">
           <div className="flex">
             <div className="w-fit flex justify-end absolute right-4 top-4">
               <h4

@@ -80,7 +80,7 @@ const ProductCard = ({
             : "text-gray-600"
         } text-xl my-1`}
       >
-        ${product.price}
+        {product.price} Dhs
       </p>
 
       {/* Discount (if applicable) */}
@@ -208,7 +208,7 @@ const Products = () => {
   };
 
   return (
-    <section className="py-10 bg-tealLight">
+    <section className="py-10 ">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-semibold mb-6">
           Featured Products

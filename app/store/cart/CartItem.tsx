@@ -64,7 +64,7 @@ const CartItem = ({ item, onRemove }: any) => {
     <div className="flex flex-col sm:flex-row items-center justify-between p-4 border-b bg-white border-gray-200">
       <div className=" bg-tealLight rounded-md mt-6 border border-gray-300">
         <Image
-          src={item.image}
+          src={item.images[0]}
           alt={item.name}
           className="w-72 h-40  object-cover rounded-md "
           width={500}
@@ -74,14 +74,14 @@ const CartItem = ({ item, onRemove }: any) => {
       <div className="flex flex-col justify-between h-40 py-2 mt-6 sm:ml-9 w-11/12">
         <h3 className="text-lg font-semibold">{item.name}</h3>
         <div className="flex flex-col sm:flex-row justify-evenly items-center ">
-          <p className="text-gray-600 text-lg ">${item.price.toFixed(2)}</p>
+          <p className="text-gray-600 text-lg ">{item.price.toFixed(2)} Dhs</p>
 
           <div className="flex justify-center gap-5 items-center">
             <span className="text-lg"> ➡️</span>
             <p className="text-red-600 text-md ">-{item.discount}% Off </p>
             <span className="text-lg"> ➡️</span>
             <p className="text-gray-600 text-lg ">
-              ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
+              {(item.price - (item.price * item.discount) / 100).toFixed(2)} Dhs
             </p>
           </div>
 
@@ -99,11 +99,11 @@ const CartItem = ({ item, onRemove }: any) => {
             <span className="text-lg"> ➡️</span>
 
             <p className="text-gray-600 text-lg font-semibold border-2 py-1 px-3 rounded-md bg-indigo-100">
-              $
               {(
                 (item.price - (item.price * item.discount) / 100) *
                 quantities[item.id]
-              ).toFixed(2)}
+              ).toFixed(2)}{" "}
+              Dhs
             </p>
           </div>
         </div>

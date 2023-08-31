@@ -185,14 +185,13 @@ const AllProducts = () => {
   return (
     <div className="container bg-tealLight h-full mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-4">All Products</h1>
-
-      <div className="flex mb-4 mt-10">
-        <div className="flex mb-4 space-x-4">
+      <div className="flex mb-4 mt-10 bg-indigo-100 w-full rounded-lg p-2">
+        <div className="flex flex-wrap gap-10 items-center justify-start w-full">
           {/* Category Filter */}
           <div className="flex items-center">
-            <label className="mr-2">Category:</label>
+            <label className="mr-2 text-lg font-semibold">Category:</label>
             <select
-              className="border rounded px-2 py-1 bg-slate-50"
+              className="border rounded px-4 py-2 bg-gray-100 text-lg"
               value={filterOptions.category}
               onChange={(e) =>
                 setFilterOptions({
@@ -201,49 +200,35 @@ const AllProducts = () => {
                 })
               }
             >
-              <option value="" className="text-lg">
-                All
-              </option>
-              <option value="cats" className="text-lg">
-                🐱 Cats
-              </option>
-              <option value="dogs" className="text-lg">
-                🐶 Dogs
-              </option>
-              <option value="birds" className="text-lg">
-                🦜 Birds
-              </option>
-              <option value="fish" className="text-lg">
-                🐟 Fish
-              </option>
-              <option value="small animals" className="text-lg">
-                🐹 Small Animals.
-              </option>
+              <option value="">All</option>
+              <option value="cats">🐱 Cats</option>
+              <option value="dogs">🐶 Dogs</option>
+              <option value="birds">🦜 Birds</option>
+              <option value="fish">🐟 Fish</option>
+              <option value="small animals">🐹 Small Animals</option>
             </select>
           </div>
 
-          {/* Discount Filter */}
-          <div className="flex items-center">
+          {/* Price Filters */}
+          <div className="flex items-center space-x-2">
+            <label className="text-lg">Price Range:</label>
             <input
-              type="checkbox"
-              className="mr-2"
-              checked={filterOptions.discount}
+              type="number"
+              className="border rounded px-4 py-2 bg-gray-100"
+              placeholder="Min"
+              value={filterOptions.minPrice}
               onChange={(e) =>
                 setFilterOptions({
                   ...filterOptions,
-                  discount: e.target.checked,
+                  minPrice: e.target.value,
                 })
               }
             />
-            <label>Only with Discount</label>
-          </div>
-
-          {/* Max Price Filter */}
-          <div className="flex items-center">
-            <label className="mr-2">Max Price:</label>
+            <span className="text-lg">-</span>
             <input
               type="number"
-              className="border rounded px-2 py-1"
+              className="border rounded px-4 py-2 bg-gray-100"
+              placeholder="Max"
               value={filterOptions.maxPrice}
               onChange={(e) =>
                 setFilterOptions({
@@ -254,29 +239,13 @@ const AllProducts = () => {
             />
           </div>
 
-          {/* Min Price Filter */}
-          <div className="flex items-center">
-            <label className="mr-2">Min Price:</label>
-            <input
-              type="number"
-              className="border rounded px-2 py-1"
-              value={filterOptions.minPrice}
-              onChange={(e) =>
-                setFilterOptions({
-                  ...filterOptions,
-                  minPrice: e.target.value,
-                })
-              }
-            />
-          </div>
-
           {/* Min Rating Filter */}
           <div className="flex items-center">
-            <label className="mr-2">Min Rating:</label>
+            <label className="mr-2 text-lg">Min Rating:</label>
             <input
               type="number"
               step="0.1"
-              className="border rounded px-2 py-1"
+              className="border rounded  px-4 py-2 bg-gray-100"
               value={filterOptions.minRating}
               onChange={(e) =>
                 setFilterOptions({
@@ -287,6 +256,21 @@ const AllProducts = () => {
             />
           </div>
         </div>
+      </div>
+      {/* Discount Filter */}
+      <div className="flex items-center my-4  bg-sky-100 rounded-md p-2 w-fit">
+        <input
+          type="checkbox"
+          className="mr-2 h-6 w-6"
+          checked={filterOptions.discount}
+          onChange={(e) =>
+            setFilterOptions({
+              ...filterOptions,
+              discount: e.target.checked,
+            })
+          }
+        />
+        <label className="text-lg text-blue-900">Only with Discount</label>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -310,8 +294,8 @@ const AllProducts = () => {
             <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
 
             {/* Product Price */}
-            <p className={` ${"text-gray-600"} text-xl my-1`}>
-              ${product.price}
+            <p className={` dh{"text-gray-600"} text-xl my-1`}>
+              {product.price} Dhs
             </p>
 
             {/* Discount (if applicable) */}
