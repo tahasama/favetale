@@ -8,8 +8,16 @@ import Store2 from "../images/store2.jpg";
 import Store3 from "../images/store3.jpg";
 import Link from "next/link";
 import { useCart } from "../provider/CartProvider";
+import ProductModal from "../store/ProductModal";
 
-const ProductCard = ({ product, isTrending, discounted }: any) => {
+const ProductCard = ({
+  product,
+  isTrending,
+  discounted,
+  openModal,
+  isModalOpen,
+  closeModal,
+}: any) => {
   const { cartItems, setCartItems, cart, setCart } = useCart();
 
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -37,13 +45,16 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
     }
   };
   return (
-    <div className="bg-white grid p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300">
+    <div
+      onClick={() => openModal(product)}
+      className="bg-white relative p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
+    >
       {/* Product Image */}
-      <div className="w-auto  flex justify-center ">
+      <div className="w-auto  flex justify-center bg-gray-100">
         <Image
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
-          className="h-[12rem] w-fit rounded-md"
+          className="h-[15rem] w-fit rounded-md"
           height={500}
           width={500}
         />
@@ -62,29 +73,18 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
             : "text-gray-600"
         } text-xl my-1`}
       >
-        ${product.price}
+        {product.price} Dhs
       </p>
 
       {/* Discount (if applicable) */}
-      {discounted && product.discount && (
-        <p className="text-red-600 my-1">{product.discount}% OFF</p>
+      {discounted && product.discount > 0 && (
+        <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
+          {product.discount}% OFF
+        </p>
       )}
-      <div className="flex justify-center gap-2 items-center my-2">
-        <div className="flex justify-evenly items-center">
-          <p> {product.reviews} </p>
-          <span className="text-xl">🗨️</span>
-        </div>
-        <div className="flex justify-evenly items-center">
-          <p> {product.rating} / 5 </p>
-          <span className="text-xl">⭐</span>
-        </div>
-      </div>
+
       {/* Add to Cart Button */}
-      <button
-        onClick={addToCart}
-        disabled={isAddedToCart}
-        className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover"
-      >
+      <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
         {isAddedToCart ? "Added to Cart" : "Add to Cart"}
       </button>
     </div>
@@ -94,33 +94,47 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
 const StorySection = () => {
   const products = [
     {
-      image: Store3,
+      images: [Store3],
       name: "Pet Toy",
       price: 19.99,
       id: 10,
-      reviews: 10,
+      reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
       rating: 5,
       discount: 0,
     },
     {
-      image: Store2,
+      images: [Store2],
       name: "Premium Pet Food",
       price: 29.99,
-      id: 10,
-      reviews: 11,
+      id: 11,
+      reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
       rating: 5,
       discount: 0,
     },
     {
-      image: Store1,
+      images: [Store1],
       name: "Pet Grooming Kit",
       price: 39.99,
       id: 12,
-      reviews: 10,
+      reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
       rating: 5,
       discount: 0,
     },
   ];
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productModal, setProductModal] = useState();
+
+  const openModal = (product: any) => {
+    setIsModalOpen(true);
+    setProductModal(product);
+
+    console.log("hhhhhhhhhhhhhhhhh");
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <section className="bg-gray-100 ">
       <div className="container mx-auto">
@@ -139,22 +153,22 @@ const StorySection = () => {
               //   className="rounded-lg"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity opacity-0 hover:opacity-100">
-              <a
+              <Link
                 href="/store"
                 className="text-white text-lg font-semibold hover:underline"
               >
                 Visit the Store
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* Store Story Content */}
           <div className="flex flex-col justify-evenly  col-span-2 mx-5">
-            <h3 className="text-2xl text-gray-100 font-semibold mb-4">
+            <h3 className="text-2xl text-gray-100 font-semibold mb-0">
               Discover Our Pet Store
             </h3>
             <span>
-              <p className="text-gray-200 mb-6">
+              <p className="text-gray-200 mb-3">
                 Welcome to our store, where you can find a wide selection of
                 high-quality pet products to cater to all your furry friend's
                 needs. From toys and accessories to premium pet food and care
@@ -175,16 +189,23 @@ const StorySection = () => {
                 Explore Our Store
               </Link>
             </span>
-            <div className="grid grid-cols-3 gap-4 place-items-center">
+            <div className="grid grid-cols-3 gap-4 place-items-center mt-3">
               {products.map((product, index) => (
                 <ProductCard
                   key={index}
                   product={product}
                   isTrending={false}
                   discounted={true}
+                  openModal={() => openModal(product)}
                 />
               ))}
             </div>
+
+            <ProductModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              product={productModal}
+            />
 
             <span>
               <div className="bg-yellow-300 p-4 mt-4 rounded-lg">

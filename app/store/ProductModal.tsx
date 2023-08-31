@@ -105,7 +105,7 @@ const ProductModal = ({
               {product?.images.map((image: any, index: any) => (
                 <img
                   key={index}
-                  src={image}
+                  src={image.src}
                   alt={product?.name}
                   className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
                     index === selectedImage ? "border-blue-500 scale-110" : ""
