@@ -30,15 +30,15 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
-      } `}
+      }`}
       onClick={handleModalClick}
     >
-      <div className="inset-0 flex flex-col justify-center items-center my-3.5 overflow-auto">
-        <div className="bg-white rounded-lg shadow-lg relative ">
+      <div className="inset-0 flex flex-col justify-center items-center my-4 h-full overflow-auto  scrollbar scrollbar-thumb-slate-400 scrollbar-track-gray-100">
+        <div className="bg-white rounded-lg shadow-lg relative top-36 h-full ">
           <Image
             src={imageSrc}
             alt={title}
-            className="h-[96vh]"
+            className="h-[93vh]"
             width={1000}
             height={1000}
           />
@@ -66,8 +66,8 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             </button>
           </div>
         </div>
-        <div className="w-full bg-white p-4 shadow-md">
-          <h3 className="text-xl font-semibold mb-2">Comments</h3>
+        <div className="w-full bg-white p-4 shadow-md relative top-36 ">
+          <h3 className="text-xl font-semibold mb-2">Comments ⬇️</h3>
           <div className="flex">
             <input
               type="text"
@@ -83,7 +83,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
               Add Comment
             </button>
           </div>
-          <div className="max-h-[30vh] mt-2">
+          <div className=" mt-6 mx-2">
             {comments.map((comment, index) => (
               <div key={index} className="flex items-start mb-4">
                 <img
@@ -96,7 +96,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                     {"commenterName"}
                   </p>
                   <p className="text-gray-600 mb-1">{comment}</p>
-                  <p className="text-gray-400 text-sm">{"timestamp"}</p>
+                  <p className="text-blue-950 text-sm">{"timestamp"}</p>
                 </div>
               </div>
             ))}
