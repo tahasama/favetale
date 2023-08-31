@@ -15,6 +15,10 @@ import Link from "next/link";
 const Gallery = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
+  console.log(
+    "🚀 ~ file: GallerySection.tsx:31 ~ GallerySection ~ selectedImage:",
+    selectedImage
+  );
 
   const petImages = [i13, i14, i15, i16, i17, i18, i19];
 

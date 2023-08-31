@@ -17,11 +17,31 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Keyboard, Navigation, Pagination } from "swiper/modules";
+import ImageModal from "../explore/components/ImageModal";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const GallerySection = () => {
   const pets = [pet1, pet2, pet3, pet11, pet12];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [image, setImage] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+
+  const handleImageClick = (image: any) => {
+    setSelectedImage(image);
+    setModalOpen(true);
+  };
+
+  const openModal = (pet: any) => {
+    setIsModalOpen(true);
+    setImage(pet);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -46,7 +66,9 @@ const GallerySection = () => {
         </h2>
         <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
           <Swiper
-            slidesPerView={windowWidth < 700 ? 1 : windowWidth < 900 ? 2 : 3}
+            slidesPerView={
+              windowWidth < 700 ? 1.3 : windowWidth < 900 ? 2.3 : 3.3
+            }
             spaceBetween={20}
             keyboard={{
               enabled: true,
@@ -58,16 +80,23 @@ const GallerySection = () => {
             modules={[Keyboard, Pagination, Navigation]}
             className="my-swiper "
           >
-            {pets.map((pet: any) => (
-              <SwiperSlide className="bg-tealDark  rounded-lg">
+            {pets.map((pet: any, index: any) => (
+              <SwiperSlide className="bg-tealDark  rounded-lg" key={index}>
                 <Image
                   src={pet}
                   alt="pet"
                   className="w-full h-auto cursor-pointer  rounded-lg shadow-xl bg-tealDark"
+                  onClick={() => handleImageClick(pet)}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
+          <ImageModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            imageSrc={selectedImage?.src}
+            petImages={pets}
+          />
         </div>
         <div className="mt-10 flex justify-center">
           <div className="bg-tealLight rounded-lg shadow-md overflow-hidden mx-2 sm:w-3/5">

@@ -1,24 +1,40 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
+  console.log("🚀 ~ file: ImageModal.tsx:6 ~ ImageModal ~ imageSrc:", imageSrc);
+
+  const [comments, setComments] = useState<string[]>([
+    "fffffff",
+    "ggggggggggg",
+    "hhhhhhhhhhhh",
+  ]); // State to hold comments
+  const [newComment, setNewComment] = useState(""); // State for the new comment
+
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose(); // Call the onClose function to close the modal
     }
   };
+
+  const handleAddComment = () => {
+    if (newComment) {
+      setComments([...comments, newComment]);
+      setNewComment(""); // Clear the new comment input
+    }
+  };
   return (
     <div
-      className={` fixed inset-0 flex items-center justify-center modal-overlay z-50 backdrop-blur-sm ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-sm ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
-      }`}
+      } `}
       onClick={handleModalClick}
     >
-      <div className=" inset-0 flex justify-center items-center">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden relative">
+      <div className="inset-0 flex flex-col justify-center items-center my-3.5 overflow-auto">
+        <div className="bg-white rounded-lg shadow-lg relative ">
           <Image
             src={imageSrc}
             alt={title}
@@ -36,13 +52,10 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
               height="24"
               id="close"
             >
-              <path
-                fill="white"
-                d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"
-              ></path>
+              <path fill="white" d="..." />
             </svg>
           </button>
-          <div className=" absolute bottom-2 flex gap-5 left-4 bgba">
+          <div className="absolute bottom-2 flex gap-5 left-4 bgba">
             <button className="text-3xl backdrop-blur-sm hover:grayscale transition-all duration-300">
               <span className="text-slate-300 text-xl">3.3k</span>
               ❤️
@@ -53,7 +66,44 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             </button>
           </div>
         </div>
+        <div className="w-full bg-white p-4 shadow-md">
+          <h3 className="text-xl font-semibold mb-2">Comments</h3>
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              className="border rounded px-2 py-1 mr-2 flex-grow"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button
+              className="bg-blue-500 text-white px-4 py-1 rounded"
+              onClick={handleAddComment}
+            >
+              Add Comment
+            </button>
+          </div>
+          <div className="max-h-[30vh] mt-2">
+            {comments.map((comment, index) => (
+              <div key={index} className="flex items-start mb-4">
+                <img
+                  src={"commenterImage"} // Replace with the actual source of the commenter's image
+                  alt="Commenter"
+                  className="w-10 h-10 rounded-full mr-3"
+                />
+                <div>
+                  <p className="text-gray-700 font-semibold">
+                    {"commenterName"}
+                  </p>
+                  <p className="text-gray-600 mb-1">{comment}</p>
+                  <p className="text-gray-400 text-sm">{"timestamp"}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+      {/* Comments */}
     </div>
   );
 };
