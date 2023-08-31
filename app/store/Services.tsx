@@ -47,7 +47,7 @@ const Services = () => {
         </div>
         <div className="mt-8 flex items-center justify-center">
           <Link
-            href="/sercices"
+            href="/services"
             className="hover:animate-bounceQ py-4 px-5 bg-gradient-to-r from-indigo-500 to-indigo-300 rounded-md transition-all duration-1000 cursor-pointer"
           >
             Contact Us
