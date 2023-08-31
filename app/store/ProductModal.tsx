@@ -90,8 +90,8 @@ const ProductModal = ({
       }`}
       onClick={handleModalClick}
     >
-      <div className="overflow-y-auto flex flex-col h-full w-11/12 relative">
-        <div className="flex flex-col md:flex-row gap-8 p-8 shadow-md min-h-[80vh] bg-green-100">
+      <div className="overflow-y-auto flex flex-col h-full w-11/12 relative scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
+        <div className="flex flex-col md:flex-row gap-8 p-8 shadow-md min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
           <div className=" flex flex-col items-center justify-center ">
             <Image
@@ -152,11 +152,11 @@ const ProductModal = ({
             </div>
           </div>
         </div>
-        <div className="bg-tealLight p-8 relative">
+        <div className="bg-white p-8 relative">
           <div className="flex">
             <div className="w-fit flex justify-end absolute right-4 top-4">
               <h4
-                className="text-lg font-semibold mb-2 text-center ring-2 w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-blue-100 hover:bg-blue-200 transition-colors"
+                className="text-lg font-semibold mb-2 text-center ring-2 w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-sky-50 hover:bg-blue-100 transition-colors"
                 onClick={() => setAddReview(!addReview)}
               >
                 Add Your Review?

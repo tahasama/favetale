@@ -6,14 +6,17 @@ import dog from "../images/category/dog.png";
 import rabbit from "../images/category/rabbit.png";
 import fish from "../images/category/fish.png";
 import bird from "../images/category/bird.png";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 const Category = () => {
   const featuredCategories = [
-    { id: 1, title: "cats", image: cat },
-    { id: 2, title: "dogs", image: dog },
-    { id: 3, title: "birds", image: bird },
-    { id: 4, title: "small pets", image: rabbit },
-    { id: 5, title: "fish", image: fish },
+    { id: 1, title: "Cats", image: cat },
+    { id: 2, title: "Dogs", image: dog },
+    { id: 3, title: "Birds", image: bird },
+    { id: 4, title: "Small pets", image: rabbit },
+    { id: 5, title: "Fish", image: fish },
   ];
   return (
     <section className="py-10">
@@ -33,6 +36,9 @@ const Category = () => {
                 alt={category.title}
                 className="shadow-md rounded-full object-cover  h-36 w-36"
               />
+              <p className={`${montserrat.className} mt-2 text-lg`}>
+                {category.title}
+              </p>
             </Link>
           ))}
         </div>
