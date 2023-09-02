@@ -34,16 +34,6 @@ const ProductCard = ({
     }
   }, [cartItems]);
 
-  const addToCart = () => {
-    if (!isAddedToCart) {
-      const updatedCartItems = [...cart, product];
-      setCartItems(updatedCartItems);
-      setIsAddedToCart(true);
-
-      // Save the updated cart items to local storage
-      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-    }
-  };
   return (
     <div
       onClick={() => openModal(product)}
