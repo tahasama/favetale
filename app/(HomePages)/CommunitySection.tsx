@@ -6,6 +6,7 @@ import pet9 from "../images/9.jpg";
 import pet10 from "../images/10.jpg";
 import user from "../images/user/userf.jpg";
 import user2 from "../images/user/user2.png";
+import Link from "next/link";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
@@ -148,9 +149,11 @@ const CommunitySection = () => {
               </div>
             </div>
           </div>
-          <button className="hover:animate-buttonHover mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
-            Go to Community
-          </button>
+          <Link href={"/community"}>
+            <button className="hover:animate-buttonHover mt-6 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
+              Go to Community
+            </button>
+          </Link>
         </div>
       </div>
     </section>
