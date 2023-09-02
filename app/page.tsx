@@ -9,8 +9,6 @@ import StoreSection from "./(HomePages)/StoreSection";
 export default function Home() {
   return (
     <main className="mt-20">
-      <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
-
       <HeroSection />
       <GallerySection />
       <StoreSection />

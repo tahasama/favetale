@@ -19,10 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={(inter.className, " bg-white")}>
         <CartProvider>
           <Navbar />
-
           {children}
         </CartProvider>
       </body>

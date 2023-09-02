@@ -1,11 +1,12 @@
+"use client";
 import Link from "next/link";
 import React from "react";
-import blog1 from "../../images/blog/blog1.jpg";
-import blog2 from "../../images/blog/blog2.jpg";
-import blog3 from "../../images/blog/blog3.jpg";
-import blog4 from "../../images/blog/blog4.jpg";
-import blog5 from "../../images/blog/blog5.jpg";
-import blog6 from "../../images/blog/blog6.jpg";
+import blog1 from "../../../images/blog/blog1.jpg";
+import blog2 from "../../../images/blog/blog2.jpg";
+import blog3 from "../../../images/blog/blog3.jpg";
+import blog4 from "../../../images/blog/blog4.jpg";
+import blog5 from "../../../images/blog/blog5.jpg";
+import blog6 from "../../../images/blog/blog6.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -55,7 +56,7 @@ const Blogs = () => {
   ];
 
   return (
-    <div className="container  my-20  w-full">
+    <div className="container my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
         <div className="bg-sky-600 p-12 rounded-lg text-left leading-loose tracking-wide  ">
@@ -86,7 +87,7 @@ const Blogs = () => {
           >
             <Link
               key={blog.id}
-              href={`/blogs/${blog.id}`}
+              href={`/explore/components/blogs/${blog.id}`}
               className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
             >
               <div className="bg-white p-6 rounded-lg shadow-md">
