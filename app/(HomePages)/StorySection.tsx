@@ -4,6 +4,7 @@ import Image from "next/image";
 import pet5 from "../images/5.jpg";
 import pet6 from "../images/6.jpg";
 import pet7 from "../images/7.jpg";
+import Link from "next/link";
 
 const StorySection = () => {
   const stories = [
@@ -57,9 +58,11 @@ const StorySection = () => {
             </div>
           ))}
         </div>
-        <button className="hover:animate-buttonHover mt-8 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-16 sm:py-5 shadow-xl rounded-2xl">
-          Check stories
-        </button>
+        <Link href="/explore?section=story">
+          <button className="hover:animate-buttonHover text-lg mt-8 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-2xl">
+            Check stories
+          </button>
+        </Link>
       </div>
     </section>
   );
