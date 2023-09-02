@@ -167,7 +167,7 @@ const StorySection = () => {
             <h3 className="text-2xl text-gray-100 font-semibold mb-0">
               Discover Our Pet Store
             </h3>
-            <span>
+            <span className="">
               <p className="text-gray-200 mb-3">
                 Welcome to our store, where you can find a wide selection of
                 high-quality pet products to cater to all your furry friend's
@@ -184,7 +184,7 @@ const StorySection = () => {
 
               <Link
                 href="/store"
-                className="bg-tealLight w-fit hover:text-white px-4 py-3 rounded-md hover:bg-lime-600 transition-colors duration-300 mb-4"
+                className="bg-tealLight w-fit hover:text-white px-4 py-3 rounded-md hover:bg-emerald-900 animate-bounce transition-colors duration-300 mb-4"
               >
                 Explore Our Store
               </Link>
