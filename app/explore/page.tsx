@@ -1,17 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Gallery from "./components/Gallery";
 import Tips from "./components/Tips";
 import Blogs from "./components/Blogs";
 import Stories from "./components/Stories";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 const ExplorePage = () => {
   const [activeTab, setActiveTab] = useState<string>("Gallery"); // Initial active tab
 
+  const searchParams = useSearchParams();
+
+  const section = searchParams.get("section");
+
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
   };
+
+  useEffect(() => {
+    section === "story" && setActiveTab("Stories");
+  }, []);
 
   const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
 

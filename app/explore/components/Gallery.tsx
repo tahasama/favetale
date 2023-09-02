@@ -40,7 +40,7 @@ const Gallery = () => {
           </p>
           <Link
             href="/blogs"
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-sky-700 transition-colors duration-500"
+            className="bg-amber-700 hover:text-amber-700 text-white px-4 py-3 rounded-md hover:bg-tealLight  transition-colors duration-500"
           >
             Upload an Image
           </Link>
