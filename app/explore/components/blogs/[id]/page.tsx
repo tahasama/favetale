@@ -1,10 +1,25 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Link from "next/link";
+
+import user1 from "../../../../images/users/user1.jpg";
+import user2 from "../../../../images/users/user2.jpg";
+import user3 from "../../../../images/users/user3.jpg";
+import user4 from "../../../../images/users/user4.jpg";
+import user5 from "../../../../images/users/user5.jpg";
+
+import blog1 from "../../../../images/blog/blog1.jpg";
+import blog2 from "../../../../images/blog/blog2.jpg";
+import blog3 from "../../../../images/blog/blog3.jpg";
+import blog4 from "../../../../images/blog/blog4.jpg";
+import blog5 from "../../../../images/blog/blog5.jpg";
+import blog6 from "../../../../images/blog/blog6.jpg";
+import blog7 from "../../../../images/blog/blog7.jpg";
 
 const Blog = () => {
   const blogsData = [
@@ -12,47 +27,72 @@ const Blog = () => {
       id: 1,
       title: "Tips for Pet Care",
       excerpt: "Learn how to provide the best care for your beloved pets...",
-      image: "/path/to/your/image1.jpg",
+      image: blog1.src,
       writer: {
         name: "John Doe",
-        image: "/path/to/writer1/image.jpg",
+        image: user4.src,
       },
       likes: 123,
-      content: `
-# Tips for Pet Care
-
-![Pet Care](/path/to/your/image1.jpg)
-
-When it comes to caring for your beloved pets, there are a few essential tips that every pet owner should know. In this article, we'll cover some valuable advice to ensure your pets lead healthy and happy lives.
-
-## Meet Our Writer: John Doe
-
-![John Doe](/path/to/writer1/image.jpg)
-
-Before we dive into the tips, let's meet our writer, John Doe. John is a passionate animal lover and an experienced pet owner. He has dedicated his life to understanding the needs of pets and helping others provide the best care for their furry friends.
-
-// Rest of the content (similar structure as the previous post)
+      content: `  
+  When it comes to caring for your beloved pets, there are a few essential tips that every pet owner should know. In this article, we'll cover some valuable advice to ensure your pets lead healthy and happy lives.
+  
+  Before we dive into the tips, let's meet our writer, John Doe. John is a passionate animal lover and an experienced pet owner. He has dedicated his life to understanding the needs of pets and helping others provide the best care for their furry friends.
+  
+  ---
+  
+  ## Tip #1: Proper Nutrition
+  
+  One of the fundamental aspects of pet care is providing them with a balanced diet. Consult your veterinarian to determine the right type of food for your pet's age, size, and breed. Remember to provide fresh water at all times.
+  
+  ---
+  
+  ## Tip #2: Regular Exercise
+  
+  Pets, just like humans, need regular exercise to stay healthy and happy. Daily walks, playtime, and interactive toys are great ways to keep your pets active and engaged.
+  
+  ---
+  
+  ## Tip #3: Veterinary Care
+  
+  Regular check-ups with the vet are crucial for preventive care. Vaccinations, flea and tick control, and dental health are areas that require professional attention. Keep your pet's vaccinations up to date and consult your vet about any concerns.
+  
+  ---
+  
+  ## Tip #4: Mental Stimulation
+  
+  Pets, especially dogs and cats, need mental stimulation to prevent boredom and destructive behavior. Puzzle toys, treat-dispensing toys, and interactive playtime can keep your pet's mind engaged.
+  
+  ---
+  
+  ## Tip #5: Grooming and Hygiene
+  
+  Proper grooming is essential for some pets. Regular brushing, baths, and nail trimming can help maintain your pet's health and appearance. Be sure to use appropriate grooming tools and techniques.
+  
+  ---
+  
+  We hope you find these tips helpful in providing the best care for your beloved pets. Remember, a happy and healthy pet is a joy to have around!
+  
       `,
       comments: [
         {
           text: "Great tips for pet owners!",
           user: {
             name: "Alice Smith",
-            image: "/path/to/user1/image.jpg",
+            image: user1.src,
           },
         },
         {
           text: "I found this really helpful. Thanks!",
           user: {
             name: "Bob Johnson",
-            image: "/path/to/user2/image.jpg",
+            image: user3.src,
           },
         },
         {
           text: "Nice article! Keep up the good work.",
           user: {
             name: "Eva Wilson",
-            image: "/path/to/user3/image.jpg",
+            image: user2.src,
           },
         },
       ],
@@ -61,50 +101,49 @@ Before we dive into the tips, let's meet our writer, John Doe. John is a passion
       id: 2,
       title: "The Joy of Adopting a Rescue Pet",
       excerpt: "Discover the heartwarming journey of adopting a rescue pet...",
-      image: "/path/to/your/image2.jpg",
+      image: blog2.src,
       writer: {
         name: "Jane Smith",
-        image: "/path/to/writer2/image.jpg",
+        image: user3.src,
       },
       likes: 87,
       content: `
-# The Joy of Adopting a Rescue Pet
-    
-![Adopting a Rescue Pet](/path/to/your/image2.jpg)
-    
-Adopting a rescue pet is a heartwarming journey that not only changes the life of the pet but also brings immeasurable joy to the adopter. In this article, we'll explore the wonderful world of rescue pets and the transformative experiences of their adoptive families.
-    
-## Meet Our Writer: Emily White
-    
-![Emily White](/path/to/writer2/image.jpg)
-    
-Let's introduce our writer, Emily White, a passionate advocate for animal welfare. Emily has spent years volunteering at animal shelters and has firsthand experience with the incredible bonds that form between rescue pets and their new families.
-    
-## The Decision to Adopt
-    
-Deciding to adopt a rescue pet is a significant choice that can have a profound impact on your life. It's a decision to provide a loving home to an animal in need. Many people find that rescue pets bring a unique kind of joy and gratitude into their homes.
-    
-## The Journey Begins
-    
-The journey of adopting a rescue pet often starts with a visit to a local animal shelter or rescue organization. There, you'll meet animals of all sizes, breeds, and backgrounds, each with their own unique story.
-    
-## The Bond That Forms
-    
-The bond between a rescue pet and their adoptive family is a special one. Many adopters find that their rescue pet seems to understand that they've been given a second chance at life. The love and loyalty that rescue pets offer are truly heartwarming.
-    
-## Challenges and Rewards
-    
-While adopting a rescue pet can be incredibly rewarding, it's essential to understand that rescue animals may have experienced trauma or neglect in the past. Patience, training, and love are key to helping them adjust to their new home.
-    
-## Likes and Comments
-    
-This article has received 84 likes from our readers. Here are some comments from our community:
-    
-1. PetRescuer123: "Thank you for shedding light on the importance of rescue pets!"
-2. AnimalLover99: "I adopted my dog from a shelter, and it's been the best decision I've ever made."
-3. NewPetOwner45: "I'm about to adopt a rescue cat. This article has given me confidence."
-      
-We hope this article inspires you to consider adopting a rescue pet and experiencing the joy it can bring to your life.
+  Adopting a rescue pet can be a rewarding experience for both you and your new furry friend. In this article, we'll explore the heartwarming journey of giving a forever home to a pet in need.
+  
+  ---
+  
+  ## Why Adopt a Rescue Pet?
+  
+  Rescue pets come from various backgrounds, but they all share one thing: the need for a loving home. When you adopt a rescue pet, you not only give them a second chance at life but also gain a loyal and grateful companion.
+  
+  ---
+  
+  ## The Adoption Process
+  
+  The process of adopting a rescue pet involves visiting local shelters or rescue organizations, meeting potential pets, and finding the perfect match for your family. It's a heartwarming journey that starts with a simple visit.
+  
+  ---
+  
+  ## The Bond that Forms
+  
+  The bond between you and your rescue pet is unlike any other. These pets often show immense gratitude for their new lease on life, and the love they give in return is immeasurable.
+  
+  ---
+  
+  ## Overcoming Challenges
+  
+  While rescue pets come with their unique challenges, the joy of seeing them transform and thrive in a loving environment is worth every effort. Patience and understanding go a long way in helping your new pet adjust to their forever home.
+  
+  ---
+  
+  ## Stories of Transformation
+  
+  Many rescue pet owners have incredible stories of transformation to share. From shy and scared animals to confident and happy companions, the journey of adopting a rescue pet is filled with heartwarming moments.
+  
+  ---
+  
+  Whether you're considering adopting a rescue pet or have already welcomed one into your home, this article celebrates the joy of providing a second chance at life to a furry friend in need.
+  
     
       `,
       comments: [
@@ -112,85 +151,81 @@ We hope this article inspires you to consider adopting a rescue pet and experien
           text: "I've always wanted to adopt a rescue pet. This article inspired me!",
           user: {
             name: "Emily Brown",
-            image: "/path/to/user4/image.jpg",
+            image: user5.src,
           },
         },
         {
           text: "Rescue pets bring so much joy. Thanks for sharing!",
           user: {
             name: "Mark Davis",
-            image: "/path/to/user5/image.jpg",
+            image: user3.src,
           },
         },
         // More comments for the second blog post
       ],
     },
-    // Repeat the structure for the remaining blog posts
     {
       id: 3,
       title: "Creating a Pet-Friendly Home Environment",
       excerpt:
         "Transform your living space into a safe and welcoming haven for your pets...",
-      image: "/path/to/your/image3.jpg",
+      image: blog3.src,
       writer: {
         name: "Sarah Williams",
-        image: "/path/to/writer3/image.jpg",
+        image: user5.src,
       },
       likes: 56,
       content: `
-# Creating a Pet-Friendly Home Environment
-# Hello, *world*!
-
-![Pet-Friendly Home](/path/to/your/image3.jpg)
-
-Your home is not just your space; it's your pet's space too. Creating a pet-friendly home environment ensures that your furry friends can roam freely and safely while enjoying every corner of your abode.
-
-## Meet Our Writer: Sarah Williams
-
-![Sarah Williams](/path/to/writer3/image.jpg)
-
-Before we embark on the journey of creating a pet-friendly home, let's get to know our writer, Sarah Williams. Sarah is an interior designer with a passion for incorporating pet-friendly elements into home decor.
-
-## Safety First
-
-The safety of your pets is a top priority. Remove or secure any hazards that could harm them, such as toxic plants, chemicals, or small objects that can be swallowed. Consider installing safety gates to restrict access to certain areas.
-
-## Comfortable Zones
-
-Create comfortable zones where your pets can relax and enjoy their time. Provide cozy beds, cushions, or blankets for them to lounge on. Cats often appreciate elevated perches, while dogs may prefer a comfy spot by the window.
-
-## Pet-Friendly Furniture
-
-Invest in pet-friendly furniture that can withstand wear and tear. Choose materials that are easy to clean and resist scratching. Leather, microfiber, and certain outdoor fabrics are excellent choices.
-
-## Playtime and Exercise
-
-Dedicate space for playtime and exercise. Cats love climbing structures and interactive toys, while dogs need room to run and play. Ensure there's ample space for your pets to stay active.
-
-## Likes and Comments
-
-This article has received 56 likes from our readers. Here are some comments from our community:
-
-1. PetLover456: "I've been thinking about pet-proofing my home. These tips are fantastic!"
-2. AnimalEnthusiast: "Creating a pet-friendly home environment is essential for their well-being."
-3. HappyPetOwner1: "Sarah Williams has some great insights. I'm revamping my home now!"
-
-We hope these tips help you create a welcoming and pet-friendly home environment that both you and your pets will love.
-
-      `,
+  When you bring a pet into your home, you're not just providing them with shelter; you're welcoming them into your family. To ensure their well-being and happiness, it's essential to create a pet-friendly home environment. In this article, we'll explore various aspects of making your home the perfect space for your furry friend.
+  
+  ## Safety First
+  
+  Safety is a top priority when it comes to your pets. Start by identifying and securing potential hazards. Remove toxic substances, secure electrical cords, and ensure that your trash cans have lids.
+  
+  ## Comfortable Sleeping Areas
+  
+  Every pet needs a comfortable and cozy place to rest. Whether it's a plush bed for your dog or a warm nook for your cat, these designated sleeping areas should be their safe havens for relaxation.
+  
+  ## Pet-Friendly Furniture
+  
+  Invest in pet-friendly furniture that's resistant to scratches and easy to clean. This allows your pets to share your living space without causing damage.
+  
+  ## Interactive Toys
+  
+  Stimulate your pets' minds and keep them engaged with interactive toys. Look for toys that dispense treats or challenge them mentally. These toys can provide hours of entertainment and mental exercise.
+  
+  ## Designated Play Zones
+  
+  Set up designated play zones where your pets can have fun without restrictions. These areas can include scratching posts, climbing structures, and a variety of toys. These zones encourage play and help your pets burn off excess energy.
+  
+  ## Outdoor Access
+  
+  If you have outdoor space, create a secure area for your pets to enjoy the fresh air. Ensure that the area is escape-proof and offers shade and water. Outdoor access allows your pets to explore and exercise outdoors safely.
+  
+  ## Regular Exercise
+  
+  Exercise is crucial for your pets' physical and mental health. Make time for daily walks, playtime, and activities that cater to their natural instincts. Regular exercise contributes to a happy and healthy pet.
+  
+  ## Love and Attention
+  
+  Above all, your pets crave your love and attention. Spend quality time with them, show affection, and build strong bonds. The love you give is reciprocated in ways that make your home feel complete.
+  
+  In conclusion, creating a pet-friendly home environment is an act of love and care for your furry companions. It's about ensuring their safety, comfort, and happiness within your shared space. By following these tips, you'll provide a loving home that your pets will appreciate and thrive in.
+      
+            `,
       comments: [
         {
           text: "I never thought about pet-proofing my home. Thanks for the tips!",
           user: {
             name: "Olivia Rodriguez",
-            image: "/path/to/user6/image.jpg",
+            image: user3.src,
           },
         },
         {
           text: "My pets love the changes I made to my home after reading this article.",
           user: {
             name: "Michael Clark",
-            image: "/path/to/user7/image.jpg",
+            image: user2.src,
           },
         },
         // More comments for the third blog post
@@ -201,65 +236,61 @@ We hope these tips help you create a welcoming and pet-friendly home environment
       title: "Exploring the Benefits of Pet Socialization",
       excerpt:
         "Uncover the positive impact of socializing your pets with others...",
-      image: "/path/to/your/image4.jpg",
+      image: blog4.src,
       writer: {
         name: "Emma Davis",
-        image: "/path/to/writer4/image.jpg",
+        image: user5.src,
       },
       likes: 92,
-      content: `
-# Exploring the Benefits of Pet Socialization
-
-![Pet Socialization](/path/to/your/image4.jpg)
-
-Socializing your pets is more than just playdates; it's an essential aspect of their well-being. In this article, we'll delve into the numerous benefits of pet socialization and how it can positively impact your furry companions.
-
-## Meet Our Writer: Emma Davis
-
-![Emma Davis](/path/to/writer4/image.jpg)
-
-Before we explore the world of pet socialization, let's meet our writer, Emma Davis. Emma is a certified pet behaviorist with a passion for helping pet owners foster positive relationships between their pets and others.
-
-## The Importance of Socialization
-
-Socialization helps pets develop critical social skills. It exposes them to different environments, people, and animals, reducing the likelihood of fear or aggression towards others.
-
-## Playdates and Interaction
-
-Organize playdates for your pets with other well-behaved animals. These interactions promote exercise, mental stimulation, and the development of social bonds.
-
-## Overcoming Shyness
-
-For shy or anxious pets, socialization can be transformative. Gradual exposure to new experiences can boost their confidence and reduce fear.
-
-## Safe Environments
-
-Ensure that socialization occurs in safe and supervised environments. Gradually introduce your pets to new situations to avoid overwhelming them.
-
-## Likes and Comments
-
-This article has received 92 likes from our readers. Here are some comments from our community:
-
-1. PetLover789: "I've seen a remarkable change in my pet's behavior after socialization!"
-2. AnimalAdvocate23: "Emma Davis provides valuable insights. My pets love their playdates!"
-3. HappyPetOwner2: "I'm convinced that pet socialization is crucial for a happy, well-adjusted pet."
-
-We hope this article encourages you to explore the benefits of pet socialization and enhance the lives of your beloved pets.
-    
+      content: `  
+  Have you ever wondered why pet socialization is more than just playdates? In this article, we'll delve into the exciting world of pet socialization and discover the numerous benefits it offers to both pets and their owners.
+  
+  ## The Importance of Socialization
+  
+  Socialization is like a passport to the world for your pets. It helps them develop essential social skills, exposes them to different environments, people, and animals, and significantly reduces the likelihood of fear or aggression towards others.
+  
+  But it's not just about mingling. Socialization lays the foundation for a harmonious coexistence between your pets and the world around them.
+  
+  ## Playdates and Interaction
+  
+  Organizing playdates for your pets isn't just about having fun (although it is a blast). It's also about promoting exercise, mental stimulation, and the development of social bonds. Imagine your pets making new friends, running through the grass, and sharing joyful moments—it's a recipe for happiness.
+  
+  ## Overcoming Shyness
+  
+  Is your pet shy or anxious? Socialization can work wonders. Gradual exposure to new experiences can help boost their confidence and reduce fear. It's like giving them the superpower of fearlessness, one adventure at a time.
+  
+  ## Safe Environments
+  
+  Safety is paramount during socialization. Ensure that your pet's social experiences happen in secure and supervised environments. The goal is to build positive associations and avoid overwhelming situations.
+  
+  ## Real Stories, Real Impact
+  
+  Let's hear from pet owners who've embraced pet socialization:
+  
+  - **PetLover789:** "I've seen a remarkable change in my pet's behavior after socialization!"
+  - **AnimalAdvocate23:** "Emma Davis provides valuable insights. My pets love their playdates!"
+  - **HappyPetOwner2:** "I'm convinced that pet socialization is crucial for a happy, well-adjusted pet."
+  
+  ## Join the Conversation
+  
+  We want to hear from you too! Share your experiences with pet socialization or ask questions in the comments below. Let's build a community of pet lovers who understand the power of socialization.
+  
+  In conclusion, pet socialization is more than just a trend—it's a transformative experience for your pets and an opportunity for you to connect with fellow pet enthusiasts. Embrace the benefits, embark on adventures, and watch your pets thrive in the social world!
+      
       `,
       comments: [
         {
           text: "Socializing my pet has made a huge difference in their behavior.",
           user: {
             name: "Daniel Smith",
-            image: "/path/to/user8/image.jpg",
+            image: user1.src,
           },
         },
         {
           text: "This article convinced me to enroll my pet in a socialization class. Great read!",
           user: {
             name: "Sophia Lee",
-            image: "/path/to/user9/image.jpg",
+            image: user2.src,
           },
         },
         // More comments for the fourth blog post
@@ -270,65 +301,61 @@ We hope this article encourages you to explore the benefits of pet socialization
       title: "The Healing Power of Pet Companionship",
       excerpt:
         "Discover how pets can bring comfort and healing to our lives...",
-      image: "/path/to/your/image5.jpg",
+      image: blog5.src,
       writer: {
         name: "David Johnson",
-        image: "/path/to/writer5/image.jpg",
+        image: user5.src,
       },
       likes: 76,
-      content: `
-      # The Healing Power of Pet Companionship
-    
-      ![Pet Companionship](/path/to/your/image5.jpg)
-    
-      There's a profound connection between humans and their pets that goes beyond words. In this article, we'll explore the incredible healing power of pet companionship and how it can bring comfort to our lives.
-    
-      ## Meet Our Writer: David Johnson
-    
-      ![David Johnson](/path/to/writer5/image.jpg)
-    
-      Before we delve into the healing power of pet companionship, let's meet our writer, David Johnson. David is a therapist who often incorporates pet therapy into his sessions, witnessing firsthand the positive effects it has on individuals.
-    
-      ## A Source of Comfort
-    
-      Pets have an innate ability to provide comfort to their owners. Their presence alone can reduce stress, anxiety, and feelings of loneliness.
-    
-      ## Unconditional Love
-    
-      The unconditional love and companionship of pets can be particularly healing during difficult times, providing emotional support and a sense of purpose.
-    
-      ## A Listening Ear
-    
-      Pets are excellent listeners. Talking to them can be therapeutic, allowing individuals to express their thoughts and feelings without judgment.
-    
-      ## Mind-Body Connection
-    
-      Studies have shown that petting or cuddling with a pet can release oxytocin, a hormone associated with bonding and reduced stress.
-    
-      ## Likes and Comments
-    
-      This article has received 76 likes from our readers. Here are some comments from our community:
-    
-      1. PetTherapist1: "I've witnessed the healing power of pet therapy in my practice. It's incredible!"
-      2. AnimalLover4567: "My pet has been my rock during challenging times. This article resonates with me."
-      3. HopefulHeart22: "David Johnson's insights are enlightening. Pets truly have a healing presence."
-    
-      We hope this article sheds light on the remarkable healing power of pet companionship and encourages you to cherish the bond with your own pets.
-    
+      content: `  
+  In a fast-paced world, pet companionship offers a sanctuary of solace and support. In this article, we'll explore the profound and transformative impact that pets can have on our lives, bringing healing and comfort when we need it most.
+  
+  ## Unconditional Love and Support
+  
+  Pets have an uncanny ability to sense our emotions and provide unwavering support. Their genuine love knows no bounds, offering comfort during life's most challenging moments. Whether it's a gentle purr, a wagging tail, or a loving nuzzle, pets have an innate sense of when we need them most.
+  
+  ## Reducing Stress and Anxiety
+  
+  Studies have shown that spending time with pets can reduce stress, lower blood pressure, and alleviate anxiety. The simple act of petting a dog or cuddling with a cat releases endorphins, our body's natural stress relievers. Having a furry friend by your side can be a source of consistent calm in a chaotic world.
+  
+  ## A Shoulder to Lean On
+  
+  Pet companionship can be especially comforting during times of grief and loss. Pets offer a non-judgmental presence and a safe space to express our emotions. They listen without interruption, providing solace through the power of companionship.
+  
+  ## Fostering Connection
+  
+  Pets are social catalysts, connecting us with like-minded individuals and fostering a sense of community. Whether you're bonding with fellow pet owners at the park or discussing pet-related topics online, pets have a unique way of bringing people together.
+  
+  ## Stories of Healing
+  
+  Let's hear from individuals who have experienced the healing power of pet companionship:
+  
+  - **Grace Morrison:** "After a tough year, adopting my cat was a turning point in my life. Her affection and presence brought light back into my days."
+  
+  - **David Mitchell:** "My dog helped me through some of the darkest days of my life. His unwavering companionship gave me strength when I needed it most."
+  
+  - **Sophia Lee:** "Being part of a pet community has introduced me to incredible people who share my passion. The support and friendships I've found are invaluable."
+  
+  ## Share Your Story
+  
+  We believe in the therapeutic power of pet companionship, and we want to hear your stories. Share your experiences, challenges, and moments of healing in the comments below. Together, we can celebrate the incredible bond between pets and their human companions.
+  
+  In conclusion, the healing power of pet companionship is a testament to the profound impact animals can have on our emotional well-being. May your journey with your beloved pets be filled with love, healing, and shared moments of joy.
+  
       `,
       comments: [
         {
           text: "Pets have truly been my source of comfort during difficult times.",
           user: {
             name: "Isabella Brown",
-            image: "/path/to/user10/image.jpg",
+            image: user3.src,
           },
         },
         {
           text: "I've experienced the healing power of pet companionship firsthand. Thanks for sharing!",
           user: {
             name: "Matthew Wilson",
-            image: "/path/to/user11/image.jpg",
+            image: user2.src,
           },
         },
         // More comments for the fifth blog post
@@ -339,65 +366,71 @@ We hope this article encourages you to explore the benefits of pet socialization
       title: "Preparing for a New Puppy: Tips for First-Time Owners",
       excerpt:
         "Get ready to welcome a new puppy into your home with these helpful tips...",
-      image: "/path/to/your/image6.jpg",
+      image: blog6.src,
       writer: {
         name: "Laura Anderson",
-        image: "/path/to/writer6/image.jpg",
+        image: user1.src,
       },
       likes: 105,
       content: `
-      # Preparing for a New Puppy: Tips for First-Time Owners
-    
-      ![New Puppy](/path/to/your/image6.jpg)
-    
-      The anticipation of bringing home a new puppy is incredibly exciting. In this article, we'll provide valuable tips for first-time puppy owners to ensure a smooth and joyful transition.
-    
-      ## Meet Our Writer: Laura Anderson
-    
-      ![Laura Anderson](/path/to/writer6/image.jpg)
-    
-      Before we dive into preparing for a new puppy, let's meet our writer, Laura Anderson. Laura is a seasoned dog trainer and breeder who specializes in helping new puppy owners navigate the early stages of puppyhood.
-    
-      ## Puppy-Proofing Your Home
-    
-      Puppy-proofing is crucial to ensure your new family member's safety. Remove hazards, secure cords, and designate a safe space for your puppy to explore.
-    
-      ## Essential Supplies
-    
-      Stock up on essential puppy supplies, including food, bowls, a crate, leash, collar, toys, and grooming tools.
-    
-      ## House Training
-    
-      Prepare for house training by establishing a routine, setting up a designated potty area, and using positive reinforcement.
-    
-      ## Socialization
-    
-      Early socialization is key to a well-adjusted adult dog. Introduce your puppy to various people, animals, and environments.
-    
-      ## Likes and Comments
-    
-      This article has received 105 likes from our readers. Here are some comments from our community:
-    
-      1. NewPuppyOwner123: "I'm bringing home a new puppy soon. These tips are a lifesaver!"
-      2. DogLover7890: "Laura Anderson's expertise shines through in this article. Thanks for sharing your knowledge!"
-      3. ExcitedPuppyParent: "I had no idea how much preparation goes into bringing home a new puppy. This article has been eye-opening."
-    
-      We hope these tips help you prepare for the arrival of your new puppy and set the foundation for a loving and fulfilling companionship.
-    
+  The decision to bring a new puppy into your home is an exciting one, but it also comes with responsibilities and preparations. In this article, we'll provide valuable tips for first-time puppy owners to ensure a smooth transition and a happy, healthy start for your new furry family member.
+
+  ## Choosing the Right Puppy
+
+  Before you bring a puppy home, take time to research and choose the right breed for your lifestyle. Consider factors such as size, energy level, and temperament. Visit reputable breeders or rescue organizations to find a puppy that suits your family.
+
+  ## Puppy-Proofing Your Home
+
+  Puppies are naturally curious, and they love to explore. Puppy-proof your home by removing hazards like toxic plants, chemicals, and small objects that could be swallowed. Use safety gates to restrict access to certain areas.
+
+  ## Preparing Supplies
+
+  Gather essential supplies before your puppy's arrival. These include:
+
+  - **Crate:** A safe and comfortable space for your puppy to rest and sleep.
+  - **Food and Water Bowls:** Choose stainless steel or ceramic bowls that are easy to clean.
+  - **Quality Puppy Food:** Consult your veterinarian for recommendations.
+  - **Leash and Collar:** Start leash training early for walks.
+  - **Toys:** Provide a variety of toys to keep your puppy mentally and physically engaged.
+  - **Puppy Training Pads:** Helpful for housebreaking.
+  - **Grooming Supplies:** Depending on the breed, you may need brushes, nail clippers, and shampoo.
+
+  ## Establishing Routine
+
+  Puppies thrive on routine. Establish a regular schedule for feeding, playtime, bathroom breaks, and sleep. Consistency helps with housebreaking and creates a sense of security for your puppy.
+
+  ## Socialization and Training
+
+  Early socialization is crucial for a well-adjusted adult dog. Introduce your puppy to various people, pets, and environments. Enroll in puppy training classes to build essential skills and strengthen your bond.
+
+  ## Vet Visits
+
+  Schedule a vet appointment shortly after bringing your puppy home. Your vet will set a vaccination schedule and discuss preventive care. Keep up with regular check-ups and vaccinations to ensure your puppy's health.
+
+  ## Patience and Love
+
+  Above all, remember that raising a puppy takes patience and love. Be prepared for occasional challenges, accidents, and puppy behavior. Offer praise and positive reinforcement to encourage good behavior.
+
+  ## Share Your Experience
+
+  Are you a seasoned dog owner with tips for first-time puppy parents? Share your insights in the comments below. Together, we can support and guide those embarking on this wonderful journey of puppy parenthood.
+
+  In conclusion, preparing for a new puppy is an exciting adventure filled with love and joy. With the right preparations, patience, and commitment, you'll provide your new furry friend with a happy and healthy start in your loving home.
+
       `,
       comments: [
         {
           text: "I'm about to get my first puppy, so these tips are invaluable!",
           user: {
             name: "Noah Garcia",
-            image: "/path/to/user12/image.jpg",
+            image: user2.src,
           },
         },
         {
           text: "Great article for first-time puppy owners like me. Thanks!",
           user: {
             name: "Ava Martin",
-            image: "/path/to/user13/image.jpg",
+            image: user3.src,
           },
         },
         // More comments for the sixth blog post
@@ -407,10 +440,27 @@ We hope this article encourages you to explore the benefits of pet socialization
   ];
 
   const { id } = useParams();
-  console.log("🚀 ~ file: page.tsx:406 ~ Blog ~ id:", id);
 
   const blogData = blogsData.filter((blog: any) => blog.id === Number(id))[0];
-  console.log("🚀 ~ file: page.tsx:407 ~ Blog ~ post:", blogData);
+
+  // State to handle adding comments
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState(blogData.comments);
+
+  // Function to add a new comment
+  const handleAddComment = () => {
+    if (newComment.trim() !== "") {
+      const newCommentObj = {
+        text: newComment,
+        user: {
+          name: "Your Name",
+          image: "/path/to/your/image.jpg",
+        },
+      };
+      setComments((prevComments) => [...prevComments, newCommentObj]);
+      setNewComment("");
+    }
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-4 mt-24 bg-white">
@@ -418,13 +468,31 @@ We hope this article encourages you to explore the benefits of pet socialization
       <h1 className="text-3xl font-bold mb-4">{blogData.title}</h1>
 
       {/* Writer's Information */}
-      <div className="flex items-center mb-4">
-        <img
+      <div className="flex items-center mb-4 gap-2">
+        <Image
           src={blogData.writer.image}
           alt={blogData.writer.name}
-          className="w-8 h-8 rounded-full mr-2"
+          className="w-12 h-12 rounded-full mr-2 object-cover"
+          width={500}
+          height={500}
         />
-        <span className="text-gray-600">{blogData.writer.name}</span>
+        <div className="flex flex-col">
+          <span className="text-gray-600 scale-105 ">
+            {blogData.writer.name}
+          </span>
+          {/* <span className="text-green-800">{blogData.createdAt}</span> */}
+          <span className="text-green-900">26 July 2023</span>
+        </div>
+      </div>
+
+      {/* Likes and Comments */}
+      <div className="my-6 flex items-center space-x-4 text-gray-600">
+        <div className="flex items-center space-x-2">
+          <span>👍 {blogData.likes}</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span>💬 {comments.length} Comments</span>
+        </div>
       </div>
 
       {/* Blog Image */}
@@ -442,53 +510,59 @@ We hope this article encourages you to explore the benefits of pet socialization
         />
       </div>
 
-      {/* Likes and Comments */}
-      <div className="mt-6 flex items-center space-x-4 text-gray-600">
-        <div className="flex items-center space-x-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-red-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 4v16m8-8H4"
+      {/* Add Comment */}
+      <div className="mt-12">
+        <div className="flex items-center space-x-4">
+          <a href="/profile" target="_blank" rel="noopener noreferrer">
+            <img
+              src={user4.src}
+              alt="Your Name"
+              className="w-10 h-10 rounded-full"
             />
-          </svg>
-          <span>{blogData.likes}</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+          </a>
+          <textarea
+            className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            rows={3}
+            placeholder="Add a comment..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          ></textarea>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={handleAddComment}
           >
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 11-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span>{blogData.comments.length} Comments</span>
+            Add Comment
+          </button>
         </div>
       </div>
 
       {/* Comments */}
       <div className="mt-6">
-        {blogData.comments.map((comment, index) => (
+        {comments.map((comment, index) => (
           <div key={index} className="mb-4">
             <div className="flex items-center space-x-4">
-              <img
-                src={comment.user.image}
-                alt={comment.user.name}
-                className="w-8 h-8 rounded-full"
-              />
-              <span className="text-gray-600">{comment.user.name}</span>
+              <Link
+                href={`/profile/${comment.user.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={comment.user.image}
+                  alt={comment.user.name}
+                  className="w-10 h-10 rounded-full object-cover"
+                  width={500}
+                  height={500}
+                />
+              </Link>
+              <span className="text-gray-600">
+                <Link
+                  href={`/profile/${comment.user.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {comment.user.name}
+                </Link>
+              </span>
             </div>
             <p className="mt-2 text-gray-800">{comment.text}</p>
           </div>

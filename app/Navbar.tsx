@@ -104,7 +104,7 @@ const Navbar = () => {
                 className="absolute left-1 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden"
               >
                 <Link
-                  href="/explore"
+                  href="/explore?section=Gallery"
                   onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
                 >
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">

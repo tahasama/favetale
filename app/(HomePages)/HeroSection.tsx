@@ -26,7 +26,7 @@ const HeroSection = () => {
             <p className="text-gray-600 mt-2">
               Find shared moments and memories of beloved companions.
             </p>
-            <Link href={"/explore?section=gallery"}>
+            <Link href={"/explore?section=Gallery"}>
               <button className="hover:animate-buttonHover mt-4 lg:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
                 Discover
               </button>
@@ -38,7 +38,7 @@ const HeroSection = () => {
             <p className="text-gray-600 mt-2">
               Share your heartwarming pet tales with the world.
             </p>
-            <Link href={"/explore?section=story"}>
+            <Link href={"/explore?section=Stories"}>
               <button className="hover:animate-buttonHover mt-4 lg:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-3 rounded-md transition-all duration-1000 cursor-pointer">
                 Inspire
               </button>

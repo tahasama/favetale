@@ -58,7 +58,7 @@ const StorySection = () => {
             </div>
           ))}
         </div>
-        <Link href="/explore?section=story">
+        <Link href="/explore?section=Stories">
           <button className="hover:animate-buttonHover text-lg mt-8 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-2xl">
             Check stories
           </button>

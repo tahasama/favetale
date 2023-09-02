@@ -5,22 +5,27 @@ import Tips from "./components/Tips";
 import Blogs from "./components/blogs/page";
 import Stories from "./components/Stories";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const ExplorePage = () => {
   const [activeTab, setActiveTab] = useState<string>("Gallery"); // Initial active tab
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const section = searchParams.get("section");
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
+    router.push(`/explore?section=${tabName}`);
   };
 
   useEffect(() => {
-    section === "story" && setActiveTab("Stories");
-  }, []);
+    section === "Stories" && setActiveTab("Stories");
+    section === "Gallery" && setActiveTab("Gallery");
+    section === "Blogs" && setActiveTab("Blogs");
+    section === "Tips" && setActiveTab("Tips");
+  }, [section]);
 
   const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
 
