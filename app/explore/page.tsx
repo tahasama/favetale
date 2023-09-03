@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import Gallery from "./components/Gallery";
-import Tips from "./components/Tips";
-import Blogs from "./components/blogs/page";
-import Stories from "./components/Stories";
+import Gallery from "./(components)/Gallery";
+import Tips from "./(components)/Tips";
+import Blogs from "./(components)/blogs/page";
+import Stories from "./(components)/stories/page";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 

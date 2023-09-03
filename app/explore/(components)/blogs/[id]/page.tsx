@@ -520,7 +520,7 @@ const Blog = () => {
           className="flex items-center space-x-2 cursor-pointer group"
           onClick={scrollToComments}
         >
-          <span className="text-lg group-active:scale-150 group-hover:translate-x-1 transition-all duration-300">
+          <span className="text-lggroup-active:scale-150 group-hover:translate-x-1 transition-all duration-300">
             💬
           </span>
           <p>{comments.length} Comments</p>

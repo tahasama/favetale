@@ -87,7 +87,7 @@ const Blogs = () => {
           >
             <Link
               key={blog.id}
-              href={`/explore/components/blogs/${blog.id}`}
+              href={`/explore/blogs/${blog.id}`}
               className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
             >
               <div className="bg-white p-6 rounded-lg shadow-md">

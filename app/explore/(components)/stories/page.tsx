@@ -1,11 +1,12 @@
 import Link from "next/link";
-import story1 from "../../images/stories/story1.jpg";
-import story2 from "../../images/stories/story2.jpg";
-import story3 from "../../images/stories/story3.jpg";
-import story4 from "../../images/stories/story4.jpg";
-import story5 from "../../images/stories/story5.jpg";
-import story6 from "../../images/stories/story6.jpg";
-import story7 from "../../images/stories/story7.jpg";
+
+import story1 from "../../../images/stories/story1.jpg";
+import story2 from "../../../images/stories/story2.jpg";
+import story3 from "../../../images/stories/story3.jpg";
+import story4 from "../../../images/stories/story4.jpg";
+import story5 from "../../../images/stories/story5.jpg";
+import story6 from "../../../images/stories/story6.jpg";
+import story7 from "../../../images/stories/story7.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -54,10 +55,10 @@ const Stories = () => {
             Contribute your unique story to our community and inspire others!
           </p>
           <Link
-            href="/blogs"
+            href="/stories"
             className="bg-tealLight hover:text-white px-5 py-3 rounded-md hover:bg-cyan-700 transition-colors duration-500"
           >
-            Explore Blogs
+            Share a story
           </Link>
         </div>
       </div>
@@ -80,7 +81,7 @@ const Stories = () => {
           >
             <Link
               key={story.id}
-              href={`/stories/${story.id}`}
+              href={`/explore/stories/${story.id}`}
               className="block"
             >
               <div
