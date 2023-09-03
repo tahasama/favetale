@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
@@ -447,6 +447,15 @@ const Blog = () => {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState(blogData.comments);
 
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(blogData.likes);
+
+  const commentsSectionRef = useRef<any>(null);
+
+  const scrollToComments = () => {
+    commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   // Function to add a new comment
   const handleAddComment = () => {
     if (newComment.trim() !== "") {
@@ -460,6 +469,17 @@ const Blog = () => {
       setComments((prevComments) => [...prevComments, newCommentObj]);
       setNewComment("");
     }
+  };
+
+  const toggleLike = () => {
+    if (liked) {
+      // Unlike
+      setLikesCount(likesCount - 1);
+    } else {
+      // Like
+      setLikesCount(likesCount + 1);
+    }
+    setLiked(!liked);
   };
 
   return (
@@ -487,11 +507,23 @@ const Blog = () => {
 
       {/* Likes and Comments */}
       <div className="my-6 flex items-center space-x-4 text-gray-600">
-        <div className="flex items-center space-x-2">
-          <span>👍 {blogData.likes}</span>
+        <div
+          className="flex items-center space-x-2 cursor-pointer group justify-center"
+          onClick={toggleLike}
+        >
+          <span className="text-lg group-active:scale-150 group-hover:translate-x-1 -mt-1 transition-all duration-300">
+            👍
+          </span>
+          <p>{likesCount}</p>
         </div>
-        <div className="flex items-center space-x-2">
-          <span>💬 {comments.length} Comments</span>
+        <div
+          className="flex items-center space-x-2 cursor-pointer group"
+          onClick={scrollToComments}
+        >
+          <span className="text-lg group-active:scale-150 group-hover:translate-x-1 transition-all duration-300">
+            💬
+          </span>
+          <p>{comments.length} Comments</p>
         </div>
       </div>
 
@@ -537,7 +569,7 @@ const Blog = () => {
       </div>
 
       {/* Comments */}
-      <div className="mt-6">
+      <div className="mt-6" ref={commentsSectionRef}>
         {comments.map((comment, index) => (
           <div key={index} className="mb-4">
             <div className="flex items-center space-x-4">
