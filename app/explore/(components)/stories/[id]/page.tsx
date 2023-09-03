@@ -214,12 +214,23 @@ function Story() {
         text: newComment,
         user: {
           name: "Your Name",
-          image: "/path/to/your/image.jpg",
+          image: user1.src,
         },
       };
       setComments((prevComments: any) => [...prevComments, newCommentObj]);
       setNewComment("");
     }
+  };
+
+  const toggleLike = () => {
+    if (liked) {
+      // Unlike
+      setLikesCount(likesCount - 1);
+    } else {
+      // Like
+      setLikesCount(likesCount + 1);
+    }
+    setLiked(!liked);
   };
 
   return (
@@ -241,6 +252,28 @@ function Story() {
             {storyData.writer.name}
           </span>
           <span className="text-green-900">26 July 2023</span>
+        </div>
+      </div>
+
+      {/* Likes and Comments */}
+      <div className="my-6 flex items-center space-x-4 text-gray-600">
+        <div
+          className="flex items-center space-x-2 cursor-pointer group justify-center"
+          onClick={toggleLike}
+        >
+          <span className="text-lg group-active:scale-150 group-hover:translate-x-1 -mt-1 transition-all duration-300">
+            ❤️
+          </span>
+          <p>{likesCount}</p>
+        </div>
+        <div
+          className="flex items-center space-x-2 cursor-pointer group"
+          onClick={scrollToComments}
+        >
+          <span className="text-lggroup-active:scale-150 group-hover:translate-x-1 transition-all duration-300">
+            💬
+          </span>
+          <p>{comments.length} Comments</p>
         </div>
       </div>
 
@@ -292,10 +325,13 @@ function Story() {
       </div>
 
       {/* Comments */}
-      <div className="mt-8 border-t border-gray-300 pt-4">
+      <div
+        className="mt-8 border-t border-gray-300 pt-4"
+        ref={commentsSectionRef}
+      >
         <h2 className="text-2xl font-semibold mb-4">Comments</h2>
         <div className="space-y-4">
-          {storyData.comments.map((comment, index) => (
+          {comments.map((comment, index) => (
             <div key={index} className="flex space-x-4">
               <Image
                 src={comment.user.image}
