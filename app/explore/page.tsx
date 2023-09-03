@@ -16,8 +16,8 @@ const ExplorePage = () => {
   const section = searchParams.get("section");
 
   const handleTabClick = (tabName: string) => {
-    setActiveTab(tabName);
     router.push(`/explore?section=${tabName}`);
+    setActiveTab(tabName);
   };
 
   useEffect(() => {
