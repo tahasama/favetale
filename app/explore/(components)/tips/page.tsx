@@ -1,15 +1,15 @@
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
-import veterinary from "../../images/coverImages/veterinary.jpg";
-import food from "../../images/coverImages/food.jpg";
-import sport from "../../images/coverImages/sport3.jpg";
-import grooming from "../../images/coverImages/grooming.jpg";
-import training from "../../images/coverImages/training.jpg";
-import social from "../../images/coverImages/social.jpg";
-import safe from "../../images/coverImages/safe2.jpg";
-import care from "../../images/coverImages/care.jpg";
-import para from "../../images/coverImages/para3.jpg";
-import time from "../../images/coverImages/time.jpg";
+import veterinary from "../../../images/coverImages/veterinary.jpg";
+import food from "../../../images/coverImages/food.jpg";
+import sport from "../../../images/coverImages/sport3.jpg";
+import grooming from "../../../images/coverImages/grooming.jpg";
+import training from "../../../images/coverImages/training.jpg";
+import social from "../../../images/coverImages/social.jpg";
+import safe from "../../../images/coverImages/safe2.jpg";
+import care from "../../../images/coverImages/care.jpg";
+import para from "../../../images/coverImages/para3.jpg";
+import time from "../../../images/coverImages/time.jpg";
 import {
   MotionValue,
   motion,
@@ -166,7 +166,7 @@ const TipsPage = () => {
                   {tip.description}
                 </p>
                 <button className="hover:animate-bounceQ mt-2 md:mt-3 lg:mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg">
-                  <Link href={`/tips/${tip.id}`}>Read More</Link>
+                  <Link href={`/explore/tips/${tip.id}`}>Read More</Link>
                 </button>
               </motion.div>
             </section>
