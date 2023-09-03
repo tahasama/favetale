@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import veterinary from "../../../images/coverImages/veterinary.jpg";
