@@ -57,9 +57,9 @@ const DiscussionModal = ({ isOpen, onClose }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="p-6 w-6/12 rounded-lg relative bg-sky-100">
+      <div className="p-6 w-6/12 rounded-lg relative bg-sky-100 border-2 border-slate-300 shadow-xl">
         <button
-          className="text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 absolute -top-0 -right-3 transition-all duration-500 rounded-full"
+          className="text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 absolute top-1 right-0.5 transition-all duration-500 rounded-full"
           onClick={onClose}
         >
           <svg
