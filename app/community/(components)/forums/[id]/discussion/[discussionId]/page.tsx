@@ -172,10 +172,6 @@ const Discussion = () => {
   };
 
   const adjustTextareaRows = (textarea: any) => {
-    console.log(
-      "🚀 ~ file: page.tsx:172 ~ adjustTextareaRows ~ textarea:",
-      textarea.value.split("\n").length
-    );
     textarea.rows = textarea.value.split("\n").length || 1;
   };
 
@@ -191,11 +187,11 @@ const Discussion = () => {
         <p className="mb-4">{discussionData.content}</p>
 
         {/* Participation input */}
-        <div className="mt-6 mb-4">
+        <div className="mt-6 mb-4 border px-4 py-5 rounded-lg bg-white shadow-md">
           <textarea
             rows={2}
             placeholder="Participate in the discussion..."
-            className="border rounded-lg w-full py-2 px-4"
+            className="border rounded-lg w-full py-2 px-4 bg-tealLight"
             value={newComment}
             onChange={(e) => {
               setNewComment(e.target.value);
@@ -211,9 +207,12 @@ const Discussion = () => {
         </div>
 
         {/* List of replies to the discussion */}
-        <div className="space-y-4 bg-white">
+        <div className="space-y-4 ">
           {comments.map((reply) => (
-            <div key={reply.id} className="border p-4 rounded-lg">
+            <div
+              key={reply.id}
+              className="border p-4 rounded-lg bg-white shadow-md"
+            >
               <p className="text-gray-600 mb-2">Author: {reply.author}</p>
               <p className="text-gray-400 text-sm mb-2">Date: {reply.date}</p>
               <p>{reply.content}</p>

@@ -1,6 +1,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
+import DiscussionModal from "./DiscussionModal";
 
 const Forum = () => {
   const forumsData = [
@@ -126,7 +127,6 @@ const Forum = () => {
       discussions: [],
     },
   ];
-
   const router = useRouter();
 
   const { id } = useParams();
@@ -150,107 +150,115 @@ const Forum = () => {
 
   // Filter discussions based on the selected tag
   const filteredDiscussions = selectedTag
-    ? forumData.discussions.filter((discussion) =>
+    ? forumData.discussions.filter((discussion: any) =>
         discussion.tags.includes(selectedTag)
       )
     : forumData.discussions;
 
-  // Function to add a new comment
-  //   const handleAddComment = () => {
-  //     if (newComment.trim() !== "") {
-  //       const newCommentObj = {
-  //         text: newComment,
-  //         user: {
-  //           name: "Your Name",
-  //           image: "/path/to/your/image.jpg",
-  //         },
-  //       };
-  //       setComments((prevComments: any) => [...prevComments, newCommentObj]);
-  //       setNewComment("");
-  //     }
-  //   };
+  const [showModal, setShowModal] = useState(false);
 
-  //   const toggleLike = () => {
-  //     if (liked) {
-  //       // Unlike
-  //       setLikesCount(likesCount - 1);
-  //     } else {
-  //       // Like
-  //       setLikesCount(likesCount + 1);
-  //     }
-  //     setLiked(!liked);
-  //   };
+  // Function to toggle the create discussion modal
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  // Function to create a new discussion (you can customize this)
+  const createDiscussion = () => {
+    // Implement logic to create a new discussion
+    // For example, you can send a request to your server
+    // to create the discussion and then close the modal.
+    // After creating the discussion, you can redirect
+    // the user to the newly created discussion page.
+    // For now, let's just close the modal.
+    toggleModal();
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (pet: any) => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="mt-24 mx-5">
-      <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
-      <p className="text-gray-600 mb-2">{forumData.description}</p>
-      <div className="text-gray-400 text-sm mb-2">
-        Category: {forumData.category}
-      </div>
-
-      {/* Display tags for the selected forum */}
-      <div className="mb-2">
-        Tags:{" "}
-        {forumData.tags.map((tag: any) => (
+    <div className="mt-20 bg-tealLight w-full h-full">
+      <div className="mx-5 pt-5 bg-tealLight">
+        <span className="w-full flex items-center justify-between">
+          <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
           <button
-            key={tag}
+            onClick={openModal}
+            className="mb-4 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none"
+          >
+            Start a discussion
+          </button>
+        </span>
+        <DiscussionModal isOpen={isModalOpen} onClose={closeModal} />
+        <p className="text-gray-600 mb-4 text-base">{forumData.description}</p>
+        <div className="text-gray-400 text-sm mb-4">
+          Category:{" "}
+          <span className="px-2 py-1 bg-slate-400 border-slate-400 border-2 text-white rounded-xl">
+            {forumData.category}
+          </span>
+        </div>
+
+        {/* Display tags for the selected forum */}
+        <div className="mb-4">
+          Tags:{" "}
+          {forumData.tags.map((tag: any) => (
+            <button
+              key={tag}
+              className={`${
+                selectedTag === tag
+                  ? "bg-indigo-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              } px-2 py-1 rounded-md text-xs mr-2 cursor-pointer`}
+              onClick={() => setSelectedTag(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+          <button
             className={`${
-              selectedTag === tag
+              !selectedTag
                 ? "bg-indigo-500 text-white"
                 : "bg-gray-200 text-gray-700"
-            } px-2 py-1 rounded-md text-xs mr-2 cursor-pointer`}
-            onClick={() => setSelectedTag(tag)}
+            } px-2 py-1 rounded-md text-xs`}
+            onClick={() => setSelectedTag(null)}
           >
-            {tag}
+            All
           </button>
-        ))}
-        <button
-          className={`${
-            !selectedTag
-              ? "bg-indigo-500 text-white"
-              : "bg-gray-200 text-gray-700"
-          } px-2 py-1 rounded-md text-xs`}
-          onClick={() => setSelectedTag(null)}
-        >
-          All
-        </button>
-      </div>
+        </div>
 
-      {/* List of discussions within the selected forum */}
-      <div className="space-y-4">
-        {filteredDiscussions.map((discussion) => (
-          <div
-            key={discussion.id}
-            className="border p-4 rounded-lg cursor-pointer"
-            onClick={() =>
-              router.push(`/community/forums/${id}/discussion/${discussion.id}`)
-            }
-          >
-            <h3 className="text-xl font-semibold mb-2">{discussion.title}</h3>
-            <p className="text-gray-600 mb-2">{discussion.author}</p>
-            <p className="text-gray-400 text-sm mb-2">{discussion.date}</p>
-            <p>{discussion.content}</p>
-            <div className="text-gray-600 mt-2">
-              Tags:{" "}
-              {discussion.tags.map((tag) => (
-                <span key={tag} className="text-indigo-500 mr-2">
-                  {tag}
-                </span>
-              ))}
+        {/* List of discussions within the selected forum */}
+        <div className="space-y-4">
+          {filteredDiscussions.map((discussion: any) => (
+            <div
+              key={discussion.id}
+              className="border p-4 rounded-lg cursor-pointer"
+              onClick={() =>
+                router.push(
+                  `/community/forums/${id}/discussion/${discussion.id}`
+                )
+              }
+            >
+              <h3 className="text-xl font-semibold mb-2">{discussion.title}</h3>
+              <p className="text-gray-600 mb-2">{discussion.author}</p>
+              <p className="text-gray-400 text-sm mb-2">{discussion.date}</p>
+              <p>{discussion.content}</p>
+              <div className="text-gray-600 mt-2">
+                Tags:{" "}
+                {discussion.tags.map((tag: any) => (
+                  <span key={tag} className="text-indigo-500 mr-2">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-
-            {/* List of replies to the discussion */}
-            {/* <div className="mt-4 space-y-2">
-              {discussion.replies.map((reply) => (
-                <div key={reply.id} className="border p-2 rounded-lg">
-                  <p className="text-gray-600 mb-2">{reply.author}</p>
-                  <p className="text-gray-400 text-sm mb-2">{reply.date}</p>
-                  <p>{reply.content}</p>
-                </div>
-              ))}
-            </div> */}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
