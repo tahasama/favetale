@@ -169,7 +169,7 @@ const Discussion = () => {
   };
 
   return (
-    <div className="mt-24 mx-5">
+    <div className="mt-24 mx-5 mb-5">
       <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
       <p className="text-gray-600 mb-2">Author: {discussionData.author}</p>
       <p className="text-gray-400 text-sm mb-2">Date: {discussionData.date}</p>
