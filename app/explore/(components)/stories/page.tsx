@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import story1 from "../../../images/stories/story1.jpg";
