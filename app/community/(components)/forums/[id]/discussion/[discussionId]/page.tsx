@@ -127,8 +127,6 @@ const Discussion = () => {
     },
   ];
 
-  const [participationInput, setParticipationInput] = useState("");
-
   const { id, discussionId } = useParams();
 
   const discussionData = forumsData
@@ -137,19 +135,24 @@ const Discussion = () => {
       (discussion: any) => discussion.id === Number(discussionId)
     )[0];
 
-  const handleParticipate = () => {
-    // Handle participation logic here
-    // You can use this function to implement your participation feature
-  };
+  const [likes, setLikes] = useState<any>({});
+  console.log("🚀 ~ file: page.tsx:139 ~ Discussion ~ likes:", likes);
+  const [dislikes, setDislikes] = useState<any>({});
 
   const handleAgree = (replyId: any) => {
-    // Handle agree logic for the specific reply
-    // You can use this function to implement your agree feature for each reply
+    // Update the likes count for the specific reply
+    setLikes((prevLikes: any) => ({
+      ...prevLikes,
+      [replyId]: (prevLikes[replyId] || 0) + 1,
+    }));
   };
 
   const handleDisagree = (replyId: any) => {
-    // Handle disagree logic for the specific reply
-    // You can use this function to implement your disagree feature for each reply
+    // Update the dislikes count for the specific reply
+    setDislikes((prevDislikes: any) => ({
+      ...prevDislikes,
+      [replyId]: (prevDislikes[replyId] || 0) + 1,
+    }));
   };
 
   const [newComment, setNewComment] = useState("");
@@ -168,55 +171,71 @@ const Discussion = () => {
     }
   };
 
+  const adjustTextareaRows = (textarea: any) => {
+    console.log(
+      "🚀 ~ file: page.tsx:172 ~ adjustTextareaRows ~ textarea:",
+      textarea.value.split("\n").length
+    );
+    textarea.rows = textarea.value.split("\n").length || 1;
+  };
+
   return (
-    <div className="mt-24 mx-5 mb-5">
-      <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
-      <p className="text-gray-600 mb-2">Author: {discussionData.author}</p>
-      <p className="text-gray-400 text-sm mb-2">Date: {discussionData.date}</p>
-      <p className="mb-4">{discussionData.content}</p>
+    <div className="mt-20 bg-tealLight w-full h-full">
+      <div className="mx-5 bg-tealLight">
+        <br />
+        <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
+        <p className="text-gray-600 mb-2">Author: {discussionData.author}</p>
+        <p className="text-gray-400 text-sm mb-2">
+          Date: {discussionData.date}
+        </p>
+        <p className="mb-4">{discussionData.content}</p>
 
-      {/* List of replies to the discussion */}
-      <div className="space-y-4">
-        {comments.map((reply) => (
-          <div key={reply.id} className="border p-4 rounded-lg">
-            <p className="text-gray-600 mb-2">Author: {reply.author}</p>
-            <p className="text-gray-400 text-sm mb-2">Date: {reply.date}</p>
-            <p>{reply.content}</p>
+        {/* Participation input */}
+        <div className="mt-6 mb-4">
+          <textarea
+            rows={2}
+            placeholder="Participate in the discussion..."
+            className="border rounded-lg w-full py-2 px-4"
+            value={newComment}
+            onChange={(e) => {
+              setNewComment(e.target.value);
+              adjustTextareaRows(e.target);
+            }}
+          />
+          <button
+            onClick={handleAddComment}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-blue-600 focus:outline-none"
+          >
+            Send
+          </button>
+        </div>
 
-            {/* Agree and Disagree buttons for each reply */}
-            <div className="flex items-center space-x-4 mt-4">
-              <button
-                onClick={() => handleAgree(reply.id)}
-                className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none"
-              >
-                Agree 👍
-              </button>
-              <button
-                onClick={() => handleDisagree(reply.id)}
-                className="bg-rose-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none"
-              >
-                Disagree 👎
-              </button>
+        {/* List of replies to the discussion */}
+        <div className="space-y-4 bg-white">
+          {comments.map((reply) => (
+            <div key={reply.id} className="border p-4 rounded-lg">
+              <p className="text-gray-600 mb-2">Author: {reply.author}</p>
+              <p className="text-gray-400 text-sm mb-2">Date: {reply.date}</p>
+              <p>{reply.content}</p>
+
+              {/* Agree and Disagree buttons for each reply */}
+              <div className="flex items-center  mt-4">
+                <button
+                  onClick={() => handleAgree(reply.id)}
+                  className="bg-teal-100 text-white px-4 py-2 rounded-s text-xl hover:bg-teal-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                >
+                  👍{likes[reply.id] || 0}
+                </button>
+                <button
+                  onClick={() => handleDisagree(reply.id)}
+                  className="bg-rose-100 text-white px-4 py-2 rounded-e text-xl hover:bg-rose-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                >
+                  👎{dislikes[reply.id] || 0}
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Participation input */}
-      <div className="mt-4">
-        <input
-          type="text"
-          placeholder="Participate in the discussion..."
-          className="border rounded-lg w-full py-2 px-4"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-        <button
-          onClick={handleAddComment}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-blue-600 focus:outline-none"
-        >
-          Send
-        </button>
+          ))}
+        </div>
       </div>
     </div>
   );
