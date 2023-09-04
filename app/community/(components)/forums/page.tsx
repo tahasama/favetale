@@ -10,6 +10,10 @@ const Forums = () => {
       description: "Discuss topics related to pet health and care.",
       lastPost: "1 hour ago",
       posts: 120,
+      category: "Health",
+      tags: ["Wellness", "Diet", "Vaccinations"],
+      sticky: false,
+      participants: ["user123", "user456", "user789"],
     },
     {
       id: 2,
@@ -17,6 +21,10 @@ const Forums = () => {
       description: "Share your training techniques and advice.",
       lastPost: "2 hours ago",
       posts: 85,
+      category: "Training",
+      tags: ["Obedience", "Behavior", "Training Tools"],
+      sticky: true,
+      participants: ["user789", "user234", "user567"],
     },
     {
       id: 3,
@@ -24,6 +32,10 @@ const Forums = () => {
       description: "Seek help and solutions for pet behavior problems.",
       lastPost: "3 hours ago",
       posts: 150,
+      category: "Behavior",
+      tags: ["Aggression", "Anxiety", "Training"],
+      sticky: false,
+      participants: ["user987", "user654", "user321"],
     },
     {
       id: 4,
@@ -31,6 +43,10 @@ const Forums = () => {
       description: "Share heartwarming stories of pet adoptions.",
       lastPost: "4 hours ago",
       posts: 68,
+      category: "Adoption",
+      tags: ["Rescue", "Happy Endings", "Foster Care"],
+      sticky: true,
+      participants: ["user111", "user222", "user333"],
     },
     {
       id: 5,
@@ -38,46 +54,16 @@ const Forums = () => {
       description: "Discuss and review various pet products and gadgets.",
       lastPost: "5 hours ago",
       posts: 45,
-    },
-    {
-      id: 6,
-      title: "Pet Photography Tips",
-      description: "Share photography techniques for capturing pets.",
-      lastPost: "6 hours ago",
-      posts: 32,
-    },
-    {
-      id: 7,
-      title: "Lost and Found Pets",
-      description: "Help reunite lost pets with their owners.",
-      lastPost: "7 hours ago",
-      posts: 78,
-    },
-    {
-      id: 8,
-      title: "Pet-Friendly Travel",
-      description: "Share travel experiences with your furry companions.",
-      lastPost: "8 hours ago",
-      posts: 56,
-    },
-    {
-      id: 9,
-      title: "Pet Grooming Tips",
-      description: "Discuss grooming techniques and advice for pets.",
-      lastPost: "9 hours ago",
-      posts: 92,
-    },
-    {
-      id: 10,
-      title: "Pet Memorials",
-      description: "Share memories and tributes for beloved pets.",
-      lastPost: "10 hours ago",
-      posts: 25,
+      category: "Product Reviews",
+      tags: ["Toys", "Grooming", "Food"],
+      sticky: false,
+      participants: ["user999", "user888", "user777"],
     },
   ];
+  2;
 
   return (
-    <div className="container bg-gradient-to-b from-tealLight to-sky-200 ">
+    <div className="container bg-gradient-to-b from-tealLight to-sky-200 h-screen">
       <div className="mb-6">
         <div className="bg-violet-800 p-12 rounded-lg text-left leading-loose tracking-wide">
           <h2 className="text-4xl font-semibold text-white mb-5">
@@ -105,7 +91,7 @@ const Forums = () => {
           >
             <Link
               key={forum.id}
-              href={`/forums/${forum.id}`}
+              href={`/community/forums/${forum.id}`}
               className="block hover:scale-105 transition-all duration-300"
             >
               <div className="bg-white p-6 rounded-lg shadow-md">

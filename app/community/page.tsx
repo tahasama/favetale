@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import Forums from "./components/Forums";
-import Meetups from "./components/Meetups";
-import Events from "./components/Events";
-import Questions from "./components/Questions";
+import Forums from "./(components)/forums/page";
+import Meetups from "./(components)/Meetups";
+import Events from "./(components)/Events";
+import Questions from "./(components)/Questions";
 import { AnimatePresence, motion } from "framer-motion";
 
 const CommunityPage = () => {
