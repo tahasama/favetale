@@ -17,10 +17,10 @@ const ExplorePage = () => {
 
   const handleTabClick = (tabName: string) => {
     // router.push(`/explore?section=${tabName}`);
-    const lowerTabName = tabName.toLocaleLowerCase();
-    router.push(`/explore/${lowerTabName}`);
+    // const lowerTabName = tabName.toLocaleLowerCase();
+    // router.push(`/explore/${lowerTabName}`);
 
-    // setActiveTab(tabName);
+    setActiveTab(tabName);
   };
 
   useEffect(() => {
