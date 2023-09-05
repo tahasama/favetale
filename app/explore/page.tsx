@@ -16,8 +16,11 @@ const ExplorePage = () => {
   const section = searchParams.get("section");
 
   const handleTabClick = (tabName: string) => {
-    router.push(`/explore?section=${tabName}`);
-    setActiveTab(tabName);
+    // router.push(`/explore?section=${tabName}`);
+    const lowerTabName = tabName.toLocaleLowerCase();
+    router.push(`/explore/${lowerTabName}`);
+
+    // setActiveTab(tabName);
   };
 
   useEffect(() => {
@@ -72,21 +75,5 @@ const TabButton = ({ tabName, isActive, onClick }: any) => {
     </button>
   );
 };
-
-// Define the content components for each tab
-// const Gallery = () => {
-//   // Render content for the "Pet Images" tab
-//   return <div>HHHHHHHHh</div>;
-// };
-
-// const Blogs = () => {
-//   // Render content for the "Blogs" tab
-//   return <div>yaaay</div>;
-// };
-
-// const Stories = () => {
-//   // Render content for the "Inspiring User Stories" tab
-//   return <div>hahahaha</div>;
-// };
 
 export default ExplorePage;
