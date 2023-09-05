@@ -24,6 +24,11 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
       setNewComment(""); // Clear the new comment input
     }
   };
+
+  const adjustTextareaRows = (textarea: any) => {
+    textarea.rows = textarea.value.split("\n").length || 1;
+  };
+
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
@@ -69,16 +74,21 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
         <div className="w-full bg-white p-4 shadow-md relative top-36 ">
           <h3 className="text-xl font-semibold mb-2 text-start">Comments ⬇️</h3>
           <div className="flex">
-            <input
-              type="text"
+            <textarea
+              rows={2}
               placeholder="Add a comment..."
               className="border rounded px-2 py-1 mr-2 flex-grow"
               value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
+              onChange={(e) => {
+                setNewComment(e.target.value);
+                adjustTextareaRows(e.target);
+              }}
             />
             <button
               className="bg-blue-500 text-white px-4 py-1 rounded"
-              onClick={handleAddComment}
+              onClick={(e) => {
+                handleAddComment;
+              }}
             >
               Add Comment
             </button>

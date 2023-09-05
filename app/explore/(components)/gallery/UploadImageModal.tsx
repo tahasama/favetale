@@ -53,7 +53,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="inset-0 relative flex flex-col justify-center items-center my-1 rounded-lg h-screen overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
+      <div className="shadow-2xl  inset-0 relative flex flex-col justify-center items-center my-1 rounded-lg h-fit overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
         <div className="bg-white p-4 md:p-6 md:mx-auto rounded-lg shadow-md w-fit md:w-[35vw] ">
           <h1 className="text-3xl mb-4 text-center">Upload an Image</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -111,7 +111,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
           </form>
         </div>
         <button
-          className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-60 right-5 ring-2 ring-gray-300 transition-all duration-500 rounded-full"
+          className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4   ring-2 ring-gray-300 transition-all duration-500 rounded-full"
           onClick={onClose}
         >
           <svg
