@@ -1,19 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import i13 from "../../images/13.jpg";
-import i14 from "../../images/14.jpg";
-import i15 from "../../images/15.jpg";
-import i16 from "../../images/16.jpg";
-import i17 from "../../images/17.jpg";
-import i18 from "../../images/18.jpg";
-import i19 from "../../images/19.jpg";
+import i13 from "../../../images/13.jpg";
+import i14 from "../../../images/14.jpg";
+import i15 from "../../../images/15.jpg";
+import i16 from "../../../images/16.jpg";
+import i17 from "../../../images/17.jpg";
+import i18 from "../../../images/18.jpg";
+import i19 from "../../../images/19.jpg";
 import Image from "next/image";
 import ImageModal from "./ImageModal";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import UploadImageModal from "./UploadImageModal";
 
 const Gallery = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   console.log(
     "🚀 ~ file: GallerySection.tsx:31 ~ GallerySection ~ selectedImage:",
@@ -38,14 +40,18 @@ const Gallery = () => {
           <p className="text-lg text-gray-700 mb-8">
             Find lots and lots of pet moments shared by our beloved community,
           </p>
-          <Link
-            href="/blogs"
+          <button
+            onClick={() => setUploadModalOpen(true)}
             className="bg-amber-700 hover:text-amber-700 text-white px-4 py-3 rounded-md hover:bg-tealLight  transition-colors duration-500"
           >
             Upload an Image
-          </Link>
+          </button>
         </div>
       </div>
+      <UploadImageModal
+        isOpen={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+      />
 
       <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
         {petImages.map((image, index) => (

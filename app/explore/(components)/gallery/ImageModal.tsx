@@ -26,14 +26,14 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   };
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
       onClick={handleModalClick}
     >
-      <div className="inset-0 flex flex-col justify-center items-center my-2 rounded-lg h-full overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
+      <div className="inset-0 flex flex-col justify-center items-center my-1 rounded-lg h-full overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
         <div className="bg-white shadow-lg relative top-36 h-full">
           <Image
             src={imageSrc}

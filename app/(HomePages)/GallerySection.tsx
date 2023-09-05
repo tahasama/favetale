@@ -17,7 +17,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Keyboard, Navigation, Pagination } from "swiper/modules";
-import ImageModal from "../explore/(components)/ImageModal";
+import ImageModal from "../explore/(components)/gallery/ImageModal";
 import Link from "next/link";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });

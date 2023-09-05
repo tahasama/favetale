@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Gallery from "./(components)/Gallery";
+import Gallery from "./(components)/gallery/page";
 import Tips from "./(components)/tips/page";
 import Blogs from "./(components)/blogs/page";
 import Stories from "./(components)/stories/page";
