@@ -26,15 +26,15 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   };
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-sm ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
       onClick={handleModalClick}
     >
-      <div className="inset-0 flex flex-col justify-center items-center my-4 h-full overflow-auto  scrollbar scrollbar-thumb-slate-400 scrollbar-track-gray-100">
-        <div className="bg-white rounded-lg shadow-lg relative top-36 h-full ">
+      <div className="inset-0 flex flex-col justify-center items-center my-2 rounded-lg h-full overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
+        <div className="bg-white shadow-lg relative top-36 h-full">
           <Image
             src={imageSrc}
             alt={title}
@@ -43,7 +43,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             height={1000}
           />
           <button
-            className="absolute scale-125 text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 top-1.5 right-1.5 transition-all duration-500 rounded-full"
+            className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-8 ring-2 right-3 transition-all duration-500 rounded-full"
             onClick={onClose}
           >
             <svg
@@ -52,7 +52,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
               height="24"
               id="close"
             >
-              <path fill="white" d="..." />
+              <path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
             </svg>
           </button>
           <div className="absolute bottom-2 flex gap-5 left-4 bgba">
