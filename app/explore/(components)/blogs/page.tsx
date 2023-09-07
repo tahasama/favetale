@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import blog1 from "../../../images/blog/blog1.jpg";
 import blog2 from "../../../images/blog/blog2.jpg";
 import blog3 from "../../../images/blog/blog3.jpg";
@@ -9,6 +9,7 @@ import blog5 from "../../../images/blog/blog5.jpg";
 import blog6 from "../../../images/blog/blog6.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import BlogModal from "./BlogModal";
 
 const Blogs = () => {
   const blogsData = [
@@ -55,6 +56,15 @@ const Blogs = () => {
     // Add more blog data here
   ];
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+
+  const handleImageClick = (image: any) => {
+    setSelectedImage(image);
+    setModalOpen(true);
+  };
+
   return (
     <div className="container my-20  w-full">
       {/* Prominent Call-to-Action */}
@@ -68,14 +78,19 @@ const Blogs = () => {
             lovers. Enhance your knowledge and share in the joy of pet
             companionship!
           </p>
-          <Link
-            href="/blogs"
+          <button
+            onClick={() => setUploadModalOpen(true)}
             className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-sky-700 transition-colors duration-500"
           >
             Write a Blog
-          </Link>
+          </button>
         </div>
       </div>
+
+      <BlogModal
+        isOpen={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+      />
 
       {/* Masonry Layout */}
       <div className="columns-1 md:columns-2 lg:columns-3 gap-5 mx-6">

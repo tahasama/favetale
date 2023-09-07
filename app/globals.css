@@ -96,3 +96,49 @@ body {
   object-fit: cover;
 }
 
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-2xl;
+}
+h3 {
+  @apply text-xl;
+}
+/* a {
+  @apply text-blue-600 underline;
+} */
+
+/* [{ size: ["small", false, "large", "huge"] }], */
+
+pre {
+  @apply text-base p-4 bg-gray-100;
+}
+
+code {
+  @apply text-blue-500 font-semibold;
+}
+
+ul {
+  @apply list-disc list-inside;
+}
+
+ol {
+  @apply list-decimal list-inside;
+}
+
+
+
+
+.ql-size-huge{
+  @apply text-4xl;
+}.ql-size-large{
+  @apply text-xl;
+}.ql-size-small{
+  @apply text-xs;
+}.ql-size-normal{
+  @apply text-xs;
+}.ql-align-center{
+  text-align: center;
+}
+

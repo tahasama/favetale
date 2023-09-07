@@ -111,7 +111,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
           </form>
         </div>
         <button
-          className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4   ring-2 ring-gray-300 transition-all duration-500 rounded-full"
+          className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4  ring-2 ring-gray-300 transition-all duration-500 rounded-full"
           onClick={onClose}
         >
           <svg
