@@ -9,11 +9,13 @@ import grayMatter from "gray-matter";
 import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
 import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
+import JoditEditor from "jodit-react";
 
 import Quill from "quill";
 
 const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
-  const [content, setContent] = useState<string>("<p><br></p>".repeat(10));
+  const [content, setContent] = useState("");
+  const editor = useRef(null);
   console.log("🚀 ~ file: BlogModal.tsx:13 ~ BlogModal ~ content:", content);
   const parseContent = parse(content);
 
@@ -22,27 +24,6 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
     parseContent
   );
   // Define the modules for React-Quill with Markdown-style bold
-  const modules = {
-    toolbar: [
-      [
-        {
-          font: [],
-        },
-      ],
-      [{ header: [1, 2, 3, 4, 5, 6] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ color: [] }, { background: [] }],
-      [{ script: "sub" }, { script: "super" }],
-      ["blockquote", "code-block"],
-      [{ list: "ordered" }, { list: "bullet" }],
-
-      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
-      [{ direction: "rtl" }],
-      [{ size: ["small", false, "large", "huge"] }],
-      ["link", "video"],
-      ["clean"],
-    ],
-  };
 
   const handleContentChange = (newContent: any) => {
     setContent(newContent);
@@ -97,16 +78,26 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
     setImageFile(file);
   };
 
+  const config: any = {
+    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+    placeholder: `
+        <h3>Start your blog...</h3>
+        <br />
+        <br />
+        For quick step back ctrl + Z
+      </>`,
+  };
+
   return (
     <div
-      className={`linka fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`linka fixed inset-0 flex flex-col items-center justify-center modal-overlay full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
       onClick={handleModalClick}
     >
-      <div className=" inset-0 relative flex flex-col justify-start items-end  my-1 h-screen w-screen bg-white ">
+      <div className=" inset-0 relative flex flex-col justify-start items-end overflow-auto my-1 h-full w-full mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0">
         {!preview && (
           <div className="p-4 md:p-6 md:mx-auto rounded-lg  h-screen ">
             <div>
@@ -122,11 +113,11 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
                 />
               </div>
               <div className="mb-12">
-                <ReactQuill
+                <JoditEditor
+                  ref={editor}
                   value={content}
-                  onChange={handleContentChange}
-                  modules={modules}
-                  className="h-fit lg:h-80"
+                  config={config}
+                  onBlur={(newContent: any) => setContent(newContent)}
                 />
               </div>
 
@@ -181,6 +172,12 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
               >
                 Publish
               </button>
+              <button
+                onClick={() => setPreview(true)}
+                className="bg-slate-500 ml-2 text-white py-2 px-5 rounded-lg hover:bg-green-600 focus:outline-none text-lg"
+              >
+                Preview
+              </button>
             </div>
             <button
               className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4  ring-2 ring-gray-300 transition-all duration-500 rounded-full"
@@ -195,19 +192,18 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
                 <path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
               </svg>
             </button>
-            <button onClick={() => setPreview(true)}>Preview</button>
           </div>
         )}
 
         {preview && (
-          <div className="absolute inset-0 flex justify-center h-full overflow-y-auto mx-3">
+          <div className="absolute inset-0 flex justify-center h-full mx-3">
             <button
               className="absolute left-5 top-5 bg-purple-100 p-5 rounded-lg flex justify-center items-center gap-2 care"
               onClick={() => setPreview(false)}
             >
               <span className="text-xl">⬅️</span> <p>Go back</p>
             </button>
-            <div className="m-1 w-5/12 ">
+            <div className="m-1 w-[45.5%] ">
               <h1 className="text-center capitalize my-5">{title}</h1>
               <div className="w-full flex justify-center items-center">
                 {imageFile && (
