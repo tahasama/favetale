@@ -130,6 +130,7 @@ ol {
 
 
 
+/* 
 .ql-size-huge{
   @apply text-4xl;
 }.ql-size-large{
@@ -140,5 +141,5 @@ ol {
   @apply text-xs;
 }.ql-align-center{
   text-align: center;
-}
+} */
 

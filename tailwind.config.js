@@ -39,6 +39,11 @@ module.exports = {
           "50%": { translate: "0px 4px" },
           "100%": { translate: "0px 0px" },
         },
+        bounce2: {
+          "0%": { translate: "0px 0px" },
+          "50%": { translate: "0px 1px" },
+          "100%": { translate: "0px 0px" },
+        },
       },
       animation: {
         fadeInOut: "fade 2s linear ",
@@ -46,6 +51,7 @@ module.exports = {
         buttonActive: "button1 1s linear ",
         buttonHover: "button1 1s linear  ",
         bounceQ: "bounce1 1s linear  ",
+        bounceZ: "bounce2 1s linear  ",
       },
     },
   },

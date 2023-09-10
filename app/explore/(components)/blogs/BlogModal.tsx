@@ -14,7 +14,9 @@ import JoditEditor from "jodit-react";
 import Quill from "quill";
 
 const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(
+    "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
+  );
   const editor = useRef(null);
   console.log("🚀 ~ file: BlogModal.tsx:13 ~ BlogModal ~ content:", content);
   const parseContent = parse(content);
@@ -44,10 +46,6 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
   };
 
   const handleTitleChange = (newTitle: string) => {
-    console.log(
-      "🚀 ~ file: BlogModal.tsx:66 ~ handleTitleChange ~ newTitle:",
-      newTitle
-    );
     setTitle(newTitle);
   };
 
@@ -67,10 +65,7 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
   };
 
   const [imageFile, setImageFile] = useState<any>(null);
-  console.log(
-    "🚀 ~ file: BlogModal.tsx:85 ~ BlogModal ~ imageFile:",
-    imageFile
-  );
+
   const [preview, setPreview] = useState(false);
 
   const handleImageChange = (e: any) => {
@@ -82,6 +77,8 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
     placeholder: `
         <h3>Start your blog...</h3>
+        <br />
+        <br />
         <br />
         <br />
         For quick step back ctrl + Z
@@ -101,7 +98,7 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
         {!preview && (
           <div className="p-4 md:p-6 md:mx-auto rounded-lg  h-screen ">
             <div>
-              <h1 className="mb-4">Write a Blog</h1>
+              <h2 className="mb-4">Write a Blog</h2>
               <div className="flex items-center mb-4 gap-3">
                 <label htmlFor="title">Add title: </label>
                 <input
@@ -112,12 +109,13 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
                   className="py-2 px-3 w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
-              <div className="mb-12">
+              <div className="jodit-container mb-6">
                 <JoditEditor
                   ref={editor}
                   value={content}
                   config={config}
                   onBlur={(newContent: any) => setContent(newContent)}
+                  className="jodit-container"
                 />
               </div>
 
@@ -133,7 +131,7 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
                   required
                   className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
                 />
-                <p>
+                <p className="mt-1.5">
                   <span className="text-red-400">Note:</span> you could also
                   copy and paste an image from the web
                 </p>
@@ -166,21 +164,30 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
                   ))}
                 </div>
               </div>
-              <button
-                className="bg-green-500 text-white py-2 px-5 rounded-lg hover:bg-green-600 focus:outline-none text-lg"
-                onClick={publishBlog}
-              >
-                Publish
-              </button>
-              <button
-                onClick={() => setPreview(true)}
-                className="bg-slate-500 ml-2 text-white py-2 px-5 rounded-lg hover:bg-green-600 focus:outline-none text-lg"
-              >
-                Preview
-              </button>
+              <div className="mb-6  flex justify-end space-x-4">
+                <button
+                  className="ring-1 ring-slate-500 hover:bg-slate-500 hover:text-white transition-colors duration-300 text-slate-500 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  onClick={() => setPreview(true)}
+                >
+                  Preview
+                </button>
+                <button
+                  className="ring-1 ring-pink-500 hover:bg-pink-500 hover:text-white tracking-wide transition-colors duration-300 text-pink-500 py-2 px-2 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  onClick={publishBlog}
+                >
+                  Save/Draft
+                </button>
+
+                <button
+                  className="ring-1 ring-green-600 hover:bg-green-700 hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  onClick={publishBlog}
+                >
+                  Publish
+                </button>
+              </div>
             </div>
             <button
-              className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4  ring-2 ring-gray-300 transition-all duration-500 rounded-full"
+              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-4  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
               onClick={onClose}
             >
               <svg
@@ -210,13 +217,13 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
                   <Image
                     src={URL.createObjectURL(imageFile)}
                     alt="dddd"
-                    width={500}
-                    height={400}
-                    className="w-auto max-h-[calc(100vh-200px)]"
+                    width={1000}
+                    height={800}
+                    className="w-auto max-h-[calc(100vh-200px)] rounded "
                   />
                 )}
               </div>
-              <div className="w-full">{parse(content)}</div>
+              <div className="w-full mt-4">{parse(content)}</div>
             </div>
           </div>
         )}
