@@ -8,7 +8,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 
 const ExplorePage = () => {
-  const [activeTab, setActiveTab] = useState<string>("Gallery"); // Initial active tab
+  const storedTab = localStorage.getItem("activeTab") || "Gallery";
+
+  const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -22,6 +24,11 @@ const ExplorePage = () => {
 
     setActiveTab(tabName);
   };
+
+  useEffect(() => {
+    // Save the activeTab to localStorage whenever it changes.
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
 
   useEffect(() => {
     section === "Stories" && setActiveTab("Stories");
