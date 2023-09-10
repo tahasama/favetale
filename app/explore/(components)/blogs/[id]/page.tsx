@@ -544,7 +544,7 @@ const Blog = () => {
 
       {/* Add Comment */}
       <div className="mt-12">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-start space-x-4">
           <a href="/profile" target="_blank" rel="noopener noreferrer">
             <img
               src={user4.src}
@@ -552,19 +552,21 @@ const Blog = () => {
               className="w-10 h-10 rounded-full"
             />
           </a>
-          <textarea
-            className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:border-blue-300"
-            rows={3}
-            placeholder="Add a comment..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-          ></textarea>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-            onClick={handleAddComment}
-          >
-            Add Comment
-          </button>
+          <div className="flex flex-col  space-y-4 w-full">
+            <textarea
+              className="flex-grow border rounded-lg px-4 py-2  focus:outline-none focus:ring focus:border-blue-300"
+              rows={3}
+              placeholder="Add a comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            ></textarea>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded w-fit"
+              onClick={handleAddComment}
+            >
+              Add Comment
+            </button>
+          </div>
         </div>
       </div>
 
