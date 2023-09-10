@@ -237,7 +237,7 @@ const Forum = () => {
           {filteredDiscussions.map((discussion: any) => (
             <div
               key={discussion.id}
-              className="border p-4 rounded-lg cursor-pointer"
+              className="border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out  hover:translate-x-[1px] hover:translate-y-[1px]"
               onClick={() =>
                 router.push(
                   `/community/forums/${id}/discussion/${discussion.id}`

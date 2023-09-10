@@ -1,6 +1,9 @@
 "use client";
+import { Lato } from "next/font/google";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
+
+const lato = Lato({ weight: "400", subsets: [] });
 
 const Discussion = () => {
   const forumsData = [
@@ -140,19 +143,51 @@ const Discussion = () => {
   const [dislikes, setDislikes] = useState<any>({});
 
   const handleAgree = (replyId: any) => {
-    // Update the likes count for the specific reply
-    setLikes((prevLikes: any) => ({
-      ...prevLikes,
-      [replyId]: (prevLikes[replyId] || 0) + 1,
-    }));
+    if (likes[replyId]) {
+      // User has previously agreed, so remove the vote
+      setLikes((prevLikes: any) => ({
+        ...prevLikes,
+        [replyId]: prevLikes[replyId] - 1,
+      }));
+    } else {
+      // User is agreeing for the first time
+      setLikes((prevLikes: any) => ({
+        ...prevLikes,
+        [replyId]: (prevLikes[replyId] || 0) + 1,
+      }));
+
+      // Check if the user previously disagreed and adjust dislikes if necessary
+      if (dislikes[replyId]) {
+        setDislikes((prevDislikes: any) => ({
+          ...prevDislikes,
+          [replyId]: prevDislikes[replyId] - 1,
+        }));
+      }
+    }
   };
 
   const handleDisagree = (replyId: any) => {
-    // Update the dislikes count for the specific reply
-    setDislikes((prevDislikes: any) => ({
-      ...prevDislikes,
-      [replyId]: (prevDislikes[replyId] || 0) + 1,
-    }));
+    if (dislikes[replyId]) {
+      // User has previously disagreed, so remove the vote
+      setDislikes((prevDislikes: any) => ({
+        ...prevDislikes,
+        [replyId]: prevDislikes[replyId] - 1,
+      }));
+    } else {
+      // User is disagreeing for the first time
+      setDislikes((prevDislikes: any) => ({
+        ...prevDislikes,
+        [replyId]: (prevDislikes[replyId] || 0) + 1,
+      }));
+
+      // Check if the user previously agreed and adjust likes if necessary
+      if (likes[replyId]) {
+        setLikes((prevLikes: any) => ({
+          ...prevLikes,
+          [replyId]: prevLikes[replyId] - 1,
+        }));
+      }
+    }
   };
 
   const [newComment, setNewComment] = useState("");
@@ -184,14 +219,16 @@ const Discussion = () => {
         <p className="text-gray-400 text-sm mb-2">
           Date: {discussionData.date}
         </p>
-        <p className="mb-4">{discussionData.content}</p>
+        <p className={`mb-4 text-lg ${lato.className}`}>
+          {discussionData.content}
+        </p>
 
         {/* Participation input */}
         <div className="mt-6 mb-4 border px-4 py-5 rounded-lg bg-white shadow-md">
           <textarea
             rows={2}
             placeholder="Participate in the discussion..."
-            className="border rounded-lg w-full py-2 px-4 bg-tealLight"
+            className="border rounded-lg w-full py-2 px-4 bg-"
             value={newComment}
             onChange={(e) => {
               setNewComment(e.target.value);
@@ -221,13 +258,13 @@ const Discussion = () => {
               <div className="flex items-center  mt-4">
                 <button
                   onClick={() => handleAgree(reply.id)}
-                  className="bg-teal-100 text-white px-4 py-2 rounded-s text-xl hover:bg-teal-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                  className="bg-emerald-100 text-white px-4 py-2 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
                 >
                   👍{likes[reply.id] || 0}
                 </button>
                 <button
                   onClick={() => handleDisagree(reply.id)}
-                  className="bg-rose-100 text-white px-4 py-2 rounded-e text-xl hover:bg-rose-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                  className="bg-pink-100 text-white px-4 py-2 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
                 >
                   👎{dislikes[reply.id] || 0}
                 </button>
