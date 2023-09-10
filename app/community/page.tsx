@@ -1,17 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Forums from "./(components)/forums/page";
-import Meetups from "./(components)/Meetups";
+import Meetups from "./(components)/meetups/page";
 import Events from "./(components)/Events";
 import Questions from "./(components)/Questions";
 import { AnimatePresence, motion } from "framer-motion";
 
 const CommunityPage = () => {
-  const [activeTab, setActiveTab] = useState<string>("Forums"); // Initial active tab
+  const storedTab = localStorage.getItem("communityActiveTab") || "Forums";
+
+  const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
   };
+
+  useEffect(() => {
+    // Save the activeTab to localStorage whenever it changes.
+    localStorage.setItem("communityActiveTab", activeTab);
+  }, [activeTab]);
 
   const tabs = ["Forums", "Meetups", "Events", "Questions"];
 

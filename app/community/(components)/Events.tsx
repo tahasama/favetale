@@ -176,7 +176,7 @@ const Events = () => {
                       animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
                       transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
                       className={`${
-                        isEventOnDate ? "bg-fuchsia-100" : ""
+                        isEventOnDate ? "bg-sky-100" : ""
                       } flex items-start p-3 rounded-lg shadow-md h-fit w-full transition-all duration-300 border-x-2`}
                       key={index}
                     >
