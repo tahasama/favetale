@@ -10,6 +10,8 @@ import story6 from "../../../images/stories/story6.jpg";
 import story7 from "../../../images/stories/story7.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
+import BlogModal from "./BlogModal";
 
 const Stories = () => {
   const storiesData = [
@@ -43,6 +45,7 @@ const Stories = () => {
       image: story4.src,
     },
   ];
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   return (
     <div className="container  my-20  w-full">
@@ -55,14 +58,19 @@ const Stories = () => {
           <p className="text-lg text-gray-200 mb-8">
             Contribute your unique story to our community and inspire others!
           </p>
-          <Link
-            href="/stories"
+          <button
+            onClick={() => setUploadModalOpen(true)}
             className="bg-tealLight hover:text-white px-5 py-3 rounded-md hover:bg-cyan-700 transition-colors duration-500"
           >
             Share a story
-          </Link>
+          </button>
         </div>
       </div>
+
+      <BlogModal
+        isOpen={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+      />
 
       {/* Story Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-7 gap-6 mb-4">
