@@ -3,10 +3,12 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 
 import parse from "html-react-parser";
-import JoditEditor from "jodit-react";
+import dynamic from "next/dynamic";
 // import JoditEditor from "jodit-react";
 
 const StoryModal = ({ isOpen, onClose }: any) => {
+  const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+
   const [content, setContent] = useState(
     "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
   );
