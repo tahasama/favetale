@@ -11,7 +11,7 @@ import story7 from "../../../images/stories/story7.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import StoryModal from "./StoryModal";
+// import StoryModal from "./StoryModal";
 
 const Stories = () => {
   const storiesData = [
@@ -45,7 +45,7 @@ const Stories = () => {
       image: story4.src,
     },
   ];
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  // const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   return (
     <div className="container  my-20  w-full">
@@ -67,10 +67,10 @@ const Stories = () => {
         </div>
       </div>
 
-      <StoryModal
+      {/* <StoryModal
         isOpen={uploadModalOpen}
         onClose={() => setUploadModalOpen(false)}
-      />
+      /> */}
 
       {/* Story Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-7 gap-6 mb-4">

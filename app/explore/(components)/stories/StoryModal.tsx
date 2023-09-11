@@ -1,14 +1,10 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import styles
-import "../blogs/blog.css";
 
 import parse from "html-react-parser";
 import JoditEditor from "jodit-react";
-
-import Quill from "quill";
 
 const StoryModal = ({ isOpen, onClose }: any) => {
   const [content, setContent] = useState(
