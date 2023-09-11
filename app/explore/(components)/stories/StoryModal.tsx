@@ -54,18 +54,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
     setImageFile(file);
   };
 
-  const config: any = {
-    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-    placeholder: `
-        <h3>Start your blog...</h3>
-        <br />
-        <br />
-        <br />
-        <br />
-        For quick step back ctrl + Z
-      </>`,
-  };
-
   return (
     <div
       className={`linka fixed inset-0 flex flex-col items-center justify-center modal-overlay full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
@@ -93,7 +81,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
               <div className="mb-6">
                 <JoditEditor
                   value={content}
-                  config={config}
                   onBlur={(newContent: any) => setContent(newContent)}
                   className="jodit-container"
                 />
