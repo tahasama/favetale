@@ -92,7 +92,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
               </div>
               <div className="mb-6">
                 <JoditEditor
-                  ref={editor}
                   value={content}
                   config={config}
                   onBlur={(newContent: any) => setContent(newContent)}
