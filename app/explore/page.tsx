@@ -9,8 +9,10 @@ import Gallery from "./(components)/gallery/page";
 import Tips from "./(components)/tips/page";
 
 const ExplorePage = () => {
-  // const storedTab = localStorage.getItem("activeTab") || "Gallery";
-  const storedTab = "Gallery";
+  const storedTab =
+    (localStorage !== undefined && localStorage.getItem("activeTab")) ||
+    "Gallery";
+  // const storedTab = "Gallery";
 
   const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
@@ -26,10 +28,10 @@ const ExplorePage = () => {
     setActiveTab(tabName);
   };
 
-  // useEffect(() => {
-  //   // Save the activeTab to localStorage whenever it changes.
-  //   localStorage.setItem("activeTab", activeTab);
-  // }, [activeTab]);
+  useEffect(() => {
+    // Save the activeTab to localStorage whenever it changes.
+    localStorage !== undefined && localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
 
   useEffect(() => {
     section === "Stories" && setActiveTab("Stories");
