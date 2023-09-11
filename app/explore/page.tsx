@@ -10,7 +10,8 @@ import Tips from "./(components)/tips/page";
 
 const ExplorePage = () => {
   const storedTab =
-    (localStorage !== undefined && localStorage.getItem("activeTab")) ||
+    (typeof localStorage !== "undefined" &&
+      localStorage.getItem("activeTab")) ||
     "Gallery";
   // const storedTab = "Gallery";
 
@@ -30,7 +31,8 @@ const ExplorePage = () => {
 
   useEffect(() => {
     // Save the activeTab to localStorage whenever it changes.
-    localStorage !== undefined && localStorage.setItem("activeTab", activeTab);
+    typeof localStorage !== "undefined" &&
+      localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
   useEffect(() => {
