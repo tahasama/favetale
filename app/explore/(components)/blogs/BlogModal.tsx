@@ -9,11 +9,13 @@ import grayMatter from "gray-matter";
 import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
 import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
-import JoditEditor from "jodit-react";
 
 import Quill from "quill";
+import dynamic from "next/dynamic";
 
 const BlogModal = ({ isOpen, onClose }: any) => {
+  const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+
   const [content, setContent] = useState(
     "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
   );
