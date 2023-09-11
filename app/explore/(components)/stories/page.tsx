@@ -11,7 +11,7 @@ import story7 from "../../../images/stories/story7.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import BlogModal from "./BlogModal";
+import StoryModal from "./StoryModal";
 
 const Stories = () => {
   const storiesData = [
@@ -59,7 +59,7 @@ const Stories = () => {
             Contribute your unique story to our community and inspire others!
           </p>
           <button
-            onClick={() => setUploadModalOpen(true)}
+            // onClick={() => setUploadModalOpen(true)}
             className="bg-tealLight hover:text-white px-5 py-3 rounded-md hover:bg-cyan-700 transition-colors duration-500"
           >
             Share a story
@@ -67,7 +67,7 @@ const Stories = () => {
         </div>
       </div>
 
-      <BlogModal
+      <StoryModal
         isOpen={uploadModalOpen}
         onClose={() => setUploadModalOpen(false)}
       />

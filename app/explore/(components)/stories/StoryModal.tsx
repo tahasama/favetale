@@ -10,12 +10,11 @@ import JoditEditor from "jodit-react";
 
 import Quill from "quill";
 
-const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
+const StoryModal = ({ isOpen, onClose }: any) => {
   const [content, setContent] = useState(
     "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
   );
   const editor = useRef(null);
-  console.log("🚀 ~ file: BlogModal.tsx:13 ~ BlogModal ~ content:", content);
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
@@ -218,4 +217,4 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
   );
 };
 
-export default BlogModal;
+export default StoryModal;
