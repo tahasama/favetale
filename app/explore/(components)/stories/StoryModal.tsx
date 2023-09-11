@@ -82,7 +82,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                 <JoditEditor
                   value={content}
                   onBlur={(newContent: any) => setContent(newContent)}
-                  className="jodit-container"
                 />
               </div>
 
