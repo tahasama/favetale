@@ -59,7 +59,7 @@ const Stories = () => {
             Contribute your unique story to our community and inspire others!
           </p>
           <button
-            // onClick={() => setUploadModalOpen(true)}
+            onClick={() => setUploadModalOpen(true)}
             className="bg-tealLight hover:text-white px-5 py-3 rounded-md hover:bg-cyan-700 transition-colors duration-500"
           >
             Share a story
