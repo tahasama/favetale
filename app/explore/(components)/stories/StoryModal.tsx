@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 
 import parse from "html-react-parser";
+import JoditEditor from "jodit-react";
 // import JoditEditor from "jodit-react";
 
 const StoryModal = ({ isOpen, onClose }: any) => {
@@ -89,7 +90,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   className="py-2 px-3 w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
-              {/* <div className="jodit-container mb-6">
+              <div className="mb-6">
                 <JoditEditor
                   ref={editor}
                   value={content}
@@ -97,7 +98,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   onBlur={(newContent: any) => setContent(newContent)}
                   className="jodit-container"
                 />
-              </div> */}
+              </div>
 
               <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 mb-2">
