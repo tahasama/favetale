@@ -56,14 +56,7 @@ const Blogs = () => {
     // Add more blog data here
   ];
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<any>(null);
-
-  const handleImageClick = (image: any) => {
-    setSelectedImage(image);
-    setModalOpen(true);
-  };
 
   return (
     <div className="container my-20  w-full">

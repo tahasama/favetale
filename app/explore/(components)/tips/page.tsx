@@ -23,7 +23,7 @@ import Image from "next/image";
 import { Mousewheel, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const TipsPage = () => {
+const Tips = () => {
   const tipsData = [
     {
       id: 1,
@@ -178,4 +178,4 @@ const TipsPage = () => {
   );
 };
 
-export default TipsPage;
+export default Tips;

@@ -1,19 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import Gallery from "./(components)/gallery/page";
-import Tips from "./(components)/tips/page";
-import Blogs from "./(components)/blogs/page";
-import Stories from "./(components)/stories/page";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
+import Stories from "./(components)/stories/page";
+import Blogs from "./(components)/blogs/page";
+import Gallery from "./(components)/gallery/page";
+import Tips from "./(components)/tips/page";
 
 const ExplorePage = () => {
-  const storedTab = localStorage.getItem("activeTab") || "Gallery";
+  // const storedTab = localStorage.getItem("activeTab") || "Gallery";
+  const storedTab = "Gallery";
 
   const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const section = searchParams.get("section");
 
@@ -25,10 +26,10 @@ const ExplorePage = () => {
     setActiveTab(tabName);
   };
 
-  useEffect(() => {
-    // Save the activeTab to localStorage whenever it changes.
-    localStorage.setItem("activeTab", activeTab);
-  }, [activeTab]);
+  // useEffect(() => {
+  //   // Save the activeTab to localStorage whenever it changes.
+  //   localStorage.setItem("activeTab", activeTab);
+  // }, [activeTab]);
 
   useEffect(() => {
     section === "Stories" && setActiveTab("Stories");

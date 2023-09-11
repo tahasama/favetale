@@ -4,11 +4,8 @@ import Image from "next/image";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import styles
 import "../blogs/blog.css";
-import ReactMarkdown from "react-markdown";
-import grayMatter from "gray-matter";
-import remarkGfm from "remark-gfm";
+
 import parse from "html-react-parser";
-import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
 import JoditEditor from "jodit-react";
 
 import Quill from "quill";
@@ -19,17 +16,6 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
   );
   const editor = useRef(null);
   console.log("🚀 ~ file: BlogModal.tsx:13 ~ BlogModal ~ content:", content);
-  const parseContent = parse(content);
-
-  console.log(
-    "🚀 ~ file: BlogModal.tsx:16 ~ BlogModal ~ parseContent:",
-    parseContent
-  );
-  // Define the modules for React-Quill with Markdown-style bold
-
-  const handleContentChange = (newContent: any) => {
-    setContent(newContent);
-  };
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {

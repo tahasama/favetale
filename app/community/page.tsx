@@ -7,7 +7,8 @@ import Questions from "./(components)/Questions";
 import { AnimatePresence, motion } from "framer-motion";
 
 const CommunityPage = () => {
-  const storedTab = localStorage.getItem("communityActiveTab") || "Forums";
+  // const storedTab = localStorage.getItem("communityActiveTab") || "Forums";
+  const storedTab = "Forums";
 
   const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
@@ -15,10 +16,11 @@ const CommunityPage = () => {
     setActiveTab(tabName);
   };
 
-  useEffect(() => {
-    // Save the activeTab to localStorage whenever it changes.
-    localStorage.setItem("communityActiveTab", activeTab);
-  }, [activeTab]);
+  // useEffect(() => {
+  //   // Save the activeTab to localStorage whenever it changes.
+  //   localStorage !== undefined &&
+  //     localStorage.setItem("communityActiveTab", activeTab);
+  // }, [activeTab]);
 
   const tabs = ["Forums", "Meetups", "Events", "Questions"];
 

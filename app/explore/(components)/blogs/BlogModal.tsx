@@ -13,23 +13,11 @@ import JoditEditor from "jodit-react";
 
 import Quill from "quill";
 
-const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
+const BlogModal = ({ isOpen, onClose }: any) => {
   const [content, setContent] = useState(
     "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
   );
   const editor = useRef(null);
-  console.log("🚀 ~ file: BlogModal.tsx:13 ~ BlogModal ~ content:", content);
-  const parseContent = parse(content);
-
-  console.log(
-    "🚀 ~ file: BlogModal.tsx:16 ~ BlogModal ~ parseContent:",
-    parseContent
-  );
-  // Define the modules for React-Quill with Markdown-style bold
-
-  const handleContentChange = (newContent: any) => {
-    setContent(newContent);
-  };
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
@@ -37,7 +25,6 @@ const BlogModal = ({ isOpen, onClose, imageSrc }: any) => {
     }
   };
   const [title, setTitle] = useState(""); // State to hold the title
-
   const [tags, setTags] = useState<string[]>([]); // State to hold tags
   const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
 
