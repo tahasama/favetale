@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import "react-quill/dist/quill.snow.css"; // Import styles
 
 import parse from "html-react-parser";
 import JoditEditor from "jodit-react";
