@@ -124,8 +124,10 @@ const Tips = () => {
     controls.start({ opacity: 1, y: 0 });
   };
 
+  const u = [1, 2, 3, 4, 5, 6];
+
   return (
-    <div className="h-[100vh] w-full flex items-center justify-center flex-col mt-0">
+    <div className="h-[81.8vh] w-full h flex items-center justify-center flex-col mt-20 bg-yellow-300">
       {/* <h2 className="text-3xl font-semibold mb-6">Advice & Tips</h2> */}
       <Swiper
         direction={"vertical"}
@@ -140,7 +142,18 @@ const Tips = () => {
         style={{ marginTop: "0px" }}
         onSlideChange={handleSlideChange}
       >
-        {tipsData.map((tip, index) => (
+        {tipsData.map((tip: any, x: number) => (
+          <SwiperSlide key={x}>
+            <Image
+              src={tip.coverImage}
+              alt="A London skyscraper"
+              className=" rounded-md"
+              width={2000}
+              height={1000}
+            />
+          </SwiperSlide>
+        ))}
+        {/* {tipsData.map((tip, index) => (
           <SwiperSlide>
             <section>
               <Image
@@ -171,7 +184,7 @@ const Tips = () => {
               </motion.div>
             </section>
           </SwiperSlide>
-        ))}
+        ))} */}
       </Swiper>
     </div>
   );
