@@ -112,7 +112,7 @@ const Tips = () => {
     controls.set({ opacity: 0, y: 1000 });
 
     // Start the animation
-    controls.start({ opacity: 1, y: 10 });
+    controls.start({ opacity: 1, y: 0 });
   }, []);
 
   const handleSlideChange = () => {
@@ -139,7 +139,6 @@ const Tips = () => {
         }}
         speed={500}
         modules={[Mousewheel, Pagination]}
-        style={{ marginTop: "0px" }}
         onSlideChange={handleSlideChange}
       >
         {tipsData.map((tip: any, x: number) => (
@@ -151,6 +150,25 @@ const Tips = () => {
               width={2000}
               height={1000}
             />
+            <motion.div
+              animate={controls}
+              transition={{ duration: 0.5 }} // Animation duration and delay
+              className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-6 mx-5 text-left left-0 p-10 w-full sm:w-auto transition-all duration-200 absolute sm:right-5"
+            >
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 md:mb-3 lg:mb-4">
+                {tip.emoji}
+                {tip.title}
+              </h3>
+              <p className="text-gray-600 text-sm mb-7 md:text-base lg:text-lg">
+                {tip.description}
+              </p>
+              <Link
+                href={`/explore/tips/${tip.id}`}
+                className="hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg"
+              >
+                <>Read More</>
+              </Link>
+            </motion.div>
           </SwiperSlide>
         ))}
         {/* {tipsData.map((tip, index) => (
