@@ -146,7 +146,7 @@ const Tips = () => {
             <Image
               src={tip.coverImage}
               alt="A London skyscraper"
-              className=" rounded-md"
+              className=""
               width={2000}
               height={1000}
             />
