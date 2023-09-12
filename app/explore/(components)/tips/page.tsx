@@ -118,10 +118,10 @@ const Tips = () => {
   const handleSlideChange = () => {
     console.log("uuuuuu");
     controls.stop();
-    controls.set({ opacity: 0, y: 1000 });
+    controls.set({ opacity: 0, y: 2000 });
 
     // Start the animation
-    controls.start({ opacity: 1, y: 10 });
+    controls.start({ opacity: 1, y: 0 });
   };
 
   return (
@@ -137,38 +137,37 @@ const Tips = () => {
         }}
         speed={500}
         modules={[Mousewheel, Pagination]}
-        style={{ marginTop: "220px" }}
+        style={{ marginTop: "0px" }}
         onSlideChange={handleSlideChange}
       >
         {tipsData.map((tip, index) => (
           <SwiperSlide>
             <section>
-              <div>
-                <Image
-                  src={tip.coverImage}
-                  alt="A London skyscraper"
-                  className=" rounded-md"
-                  width={800}
-                  height={800}
-                />
-              </div>
+              <Image
+                src={tip.coverImage}
+                alt="A London skyscraper"
+                className=" rounded-md"
+                width={2000}
+                height={1000}
+              />
               <motion.div
                 animate={controls}
                 transition={{ duration: 0.5 }} // Animation duration and delay
-                className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-52 mx-5 text-left left-0 p-5 w-full sm:w-auto transition-all duration-200 relative sm:right-5"
+                className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-6 mx-5 text-left left-0 p-10 w-full sm:w-auto transition-all duration-200 absolute sm:right-5"
               >
-                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 lg:mb-4">
-                  <span className="text-2xl md:text-3xl lg:text-4xl">
-                    {tip.emoji}
-                  </span>{" "}
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 md:mb-3 lg:mb-4">
+                  {tip.emoji}
                   {tip.title}
                 </h3>
-                <p className="text-gray-600 text-sm md:text-base lg:text-lg">
+                <p className="text-gray-600 text-sm mb-7 md:text-base lg:text-lg">
                   {tip.description}
                 </p>
-                <button className="hover:animate-bounceQ mt-2 md:mt-3 lg:mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg">
-                  <Link href={`/explore/tips/${tip.id}`}>Read More</Link>
-                </button>
+                <Link
+                  href={`/explore/tips/${tip.id}`}
+                  className="hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg"
+                >
+                  <>Read More</>
+                </Link>
               </motion.div>
             </section>
           </SwiperSlide>
