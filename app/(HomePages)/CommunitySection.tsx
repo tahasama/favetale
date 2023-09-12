@@ -57,6 +57,7 @@ const CommunitySection = () => {
           {/* User Contributions */}
           {communityContributions.map((contribution: any, i: any) => (
             <div
+              key={i}
               className={`bg-tealLight rounded-lg shadow-xl flex mx-2 sm:w-4/5 lg:w-2/3 overflow-hidden justify-between self-center flex-col ${
                 i % 2 !== 0
                   ? "md:flex-row sm:self-start"

@@ -37,8 +37,11 @@ const StorySection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-4 place-items-center">
           {/* Featured Story 1 */}
 
-          {stories.map((story: any) => (
-            <div className="bg-white rounded-lg shadow-md overflow-hidden h-full pb-16">
+          {stories.map((story: any, i: any) => (
+            <div
+              className="bg-white rounded-lg shadow-md overflow-hidden h-full pb-16"
+              key={i}
+            >
               <Image
                 src={story.image}
                 alt="Featured Story 2"

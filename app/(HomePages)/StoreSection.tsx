@@ -139,7 +139,6 @@ const StorySection = () => {
               alt="Store Front W "
               width={600}
               height={400}
-              layout="responsive"
               //   className="rounded-lg"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity opacity-0 hover:opacity-100">

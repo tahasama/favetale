@@ -85,9 +85,9 @@ const Navbar = () => {
               <path
                 fill="#2C3E50"
                 stroke="#231f20"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M3 8h26M7 16h18M3 24h26"
                 data-name="Burger Menu"
               ></path>
