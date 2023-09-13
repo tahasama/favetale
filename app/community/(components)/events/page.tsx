@@ -66,9 +66,13 @@ const Events = () => {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(
     new Date().getMonth()
   );
+  const [currentYearIndex, setcurrentYearIndex] = useState(
+    new Date().getFullYear()
+  );
 
   const handleActiveStartDateChange = ({ activeStartDate }: any) => {
     setCurrentMonthIndex(activeStartDate.getMonth());
+    setcurrentYearIndex(activeStartDate.getFullYear());
   };
 
   const monthNames = [
@@ -101,7 +105,7 @@ const Events = () => {
   return (
     <div className="container mx-auto bg-gradient-to-b from-tealLight to-teal-100">
       <div className="mb-6">
-        <div className="bg-green-600 p-12 rounded-lg text-left leading-loose tracking-wide">
+        <div className="bg-green-600 p-12 text-left leading-loose tracking-wide">
           <h2 className="text-4xl font-semibold text-white mb-5">
             Explore Pet Events
           </h2>
@@ -138,7 +142,7 @@ const Events = () => {
                 return adjustedStartDate <= date && date <= event.endDate;
               });
 
-              return eventsOnDate ? "bg-red-500 text-purple-500" : "";
+              return eventsOnDate ? "text-purple-500" : "";
             }}
             tileContent={({ date }) => {
               const eventsOnDate = eventsData.some((event) => {
@@ -155,12 +159,14 @@ const Events = () => {
           <div className="w-8/12 pl-6 ">
             <ul className="h-80 gap-4 flex flex-col px-4 overflow-y-auto">
               <h3 className="text-xl font-semibold mb-5">
-                {monthNames[currentMonthIndex]} Events
+                {monthNames[currentMonthIndex]}&nbsp;
+                {currentYearIndex} Events :
               </h3>
               {eventsData
                 .filter(
                   (event: any) =>
-                    event.startDate.getMonth() === currentMonthIndex
+                    event.startDate.getMonth() === currentMonthIndex &&
+                    event.startDate.getFullYear() === currentYearIndex
                 )
                 .map((event, index) => {
                   const adjustedStartDate = new Date(event.startDate);
@@ -171,39 +177,41 @@ const Events = () => {
                     selectedDate <= event.endDate;
 
                   return (
-                    <motion.li
-                      initial={{ opacity: 0, transform: "scale(.9)" }} // Initial state (hidden and slightly moved down)
-                      animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
-                      transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
-                      className={`${
-                        isEventOnDate ? "bg-sky-100" : ""
-                      } flex items-start p-3 rounded-lg shadow-md h-fit w-full transition-all duration-300 border-x-2`}
-                      key={index}
-                    >
-                      <Image
-                        className="rounded-full h-12 w-12 bg-yellow-100 mr-3"
-                        src={event.initiatorImage}
-                        alt="initiator"
-                        width={1000}
-                        height={1000}
-                      />
-                      <div>
-                        <p className="font-semibold">{event.initiator}</p>
-                        <p className="font-light text-md tex py-1 text-gray-800">
-                          {event.title}
-                        </p>
-                        <p className="font-extralight text-sm py-1 text-gray-600">
-                          {event.description}
-                        </p>
-                        <div className="flex leading-10 tracking-wider mb-1">
-                          <p className="text-gray-600 ">📅 {event.hour} |</p>
-                          <p className="text-gray-600">📍 {event.location}</p>
+                    <Link href={`community/events/${event.id}`}>
+                      <motion.li
+                        initial={{ opacity: 0, transform: "scale(.9)" }} // Initial state (hidden and slightly moved down)
+                        animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
+                        transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
+                        className={`${
+                          isEventOnDate ? "bg-sky-100" : ""
+                        } flex items-start p-3 rounded-lg shadow-md h-fit w-full cursor-pointer transition-all duration-300 border-x-2`}
+                        key={index}
+                      >
+                        <Image
+                          className="rounded-full h-12 w-12 bg-yellow-100 mr-3"
+                          src={event.initiatorImage}
+                          alt="initiator"
+                          width={1000}
+                          height={1000}
+                        />
+                        <div>
+                          <p className="font-semibold">{event.initiator}</p>
+                          <p className="font-light text-md tex py-1 text-gray-800">
+                            {event.title}
+                          </p>
+                          <p className="font-extralight text-sm py-1 text-gray-600">
+                            {event.description}
+                          </p>
+                          <div className="flex leading-10 tracking-wider mb-1">
+                            <p className="text-gray-600 ">📅 {event.hour} |</p>
+                            <p className="text-gray-600">📍 {event.location}</p>
+                          </div>
+                          <div className="bg-gray-50 shadow-md cursor-pointer text-gray-500 w-fit px-4 py-3 rounded-md text-sm hover:animate-buttonHover">
+                            Join the event
+                          </div>
                         </div>
-                        <div className="bg-gray-50 shadow-md cursor-pointer text-gray-500 w-fit px-4 py-3 rounded-md text-sm hover:animate-buttonHover">
-                          Join the event
-                        </div>
-                      </div>
-                    </motion.li>
+                      </motion.li>
+                    </Link>
                   );
                 })}
             </ul>

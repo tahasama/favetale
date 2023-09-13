@@ -76,7 +76,7 @@ const Forums = () => {
   return (
     <div className="container bg-gradient-to-b from-tealLight to-sky-200 h-screen">
       <div className="mb-6">
-        <div className="bg-violet-800 p-12 rounded-lg text-left leading-loose tracking-wide">
+        <div className="bg-violet-800 p-12 text-left leading-loose tracking-wide">
           <h2 className="text-4xl font-semibold text-white mb-5">
             Join Our Forums
           </h2>
