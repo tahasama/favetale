@@ -244,21 +244,28 @@ function Event() {
       </div>
 
       <div className="p-6 bg-gradient-to-b h-auto from-tealLight to-blue-300">
-        <p className="text-xl font-semibold mb-4">{event.title}</p>
-        <p className="text-gray-600 text-lg mb-2">{event.description}</p>
-        <p className="text-gray-600 text-lg">
-          <span className="font-semibold">Date:</span>{" "}
-          {event.startDate.toDateString()} - {event.endDate.toDateString()}
-        </p>
-        <p className="text-gray-600 text-lg">
-          <span className="font-semibold">Time:</span> {event.hour}
-        </p>
-        <p className="text-gray-600 text-lg">
-          <span className="font-semibold">Location:</span> {event.location}
-        </p>
+        <div className="flex justify-between">
+          <div>
+            <p className="text-xl font-semibold mb-4">{event.title}</p>
+            <p className="text-gray-600 text-lg mb-2">{event.description}</p>
+            <p className="text-gray-600 text-lg">
+              <span className="font-semibold">Date:</span>{" "}
+              {event.startDate.toDateString()} - {event.endDate.toDateString()}
+            </p>
+            <p className="text-gray-600 text-lg">
+              <span className="font-semibold">Time:</span> {event.hour}
+            </p>
+            <p className="text-gray-600 text-lg">
+              <span className="font-semibold">Location:</span> {event.location}
+            </p>
+          </div>
+          <button className="h-16 w-52 text-lg hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
+            Join Meetup
+          </button>
+        </div>
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-4">Images 📷</h2>
+          <h2 className="text-xl font-semibold mb-4">Memorable moments 📷</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {event.images.map((image, index) => (
               <div
