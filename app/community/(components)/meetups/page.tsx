@@ -232,7 +232,7 @@ const Meetups = () => {
 
   return (
     <div className="container mx-auto bg-tealLight">
-      <div className="bg-fuchsia-700 p-6 text-left leading-loose tracking-wide">
+      <div className="bg-fuchsia-700 p-12 text-left leading-loose tracking-wide">
         <h2 className="text-4xl font-semibold text-white mb-5">
           Join Pet Meetups
         </h2>
@@ -243,7 +243,7 @@ const Meetups = () => {
 
         <button
           onClick={() => setUploadModalOpen(true)}
-          className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
+          className="bg-tealLight hover:animate-buttonHover hover:text-white px-4 py-3 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
         >
           Create a Gathering
         </button>

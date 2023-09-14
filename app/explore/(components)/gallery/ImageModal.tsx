@@ -48,7 +48,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             height={1000}
           />
           <button
-            className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-8 ring-2 right-3 transition-all duration-500 rounded-full"
+            className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-10 ring-2 right-3 transition-all duration-500 rounded-full"
             onClick={onClose}
           >
             <svg

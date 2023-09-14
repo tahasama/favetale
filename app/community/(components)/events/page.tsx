@@ -239,9 +239,10 @@ const Events = () => {
           <Link
             href="#pet-events" // Points to the anchor element with id "pet-questions"
             onClick={(e) => handleScrollToSection(e, "pet-events")}
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-green-700 transition-colors duration-500"
           >
-            View Upcoming Events
+            <button className="hover:animate-buttonHover bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-green-700 transition-colors duration-500">
+              View Upcoming Events
+            </button>
           </Link>
         </div>
       </div>
@@ -250,12 +251,12 @@ const Events = () => {
         className="flex flex-row-reverse items-center h-[calc(100vh-138px)] justify-around p-6 "
         id="pet-events"
       >
-        <div className="flex flex-row-reverse justify-around w-11/12 bg-teal-50 p-6 rounded-xl shadow-md">
+        <div className="flex flex-row-reverse items-center justify-around w-11/12 h-[76vh] bg-teal-50 p-6 rounded-xl shadow-md">
           <Calendar
             onChange={handleDateChange}
             onActiveStartDateChange={handleActiveStartDateChange}
             value={selectedDate}
-            className=" bg-white p-6 scale-105 h-96 sticky top-20 rounded-lg border shadow-lg"
+            className=" bg-white p-6 scale-125 h-96 sticky top-20 rounded-lg border shadow-lg"
             calendarType="US"
             tileClassName={({ date }) => {
               const eventsOnDate = eventsData.some((event) => {
@@ -278,8 +279,8 @@ const Events = () => {
               ) : null;
             }}
           />
-          <div className="w-8/12 pl-6 ">
-            <ul className="h-80 gap-4 flex flex-col px-4 overflow-y-auto">
+          <div className="w-7/12 pl-6 h-full  overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
+            <ul className="h-auto gap-4 flex flex-col px-4 pb-2">
               <h3 className="text-xl font-semibold mb-5">
                 {monthNames[currentMonthIndex]}&nbsp;
                 {currentYearIndex} Events :
