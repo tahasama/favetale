@@ -216,6 +216,25 @@ function Event() {
   });
   const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
+  const commentsSectionRef = useRef<any>(null);
+
+  const scrollToComments = () => {
+    commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(event.likes.length);
+
+  const toggleLike = () => {
+    if (liked) {
+      // Unlike
+      setLikesCount(likesCount - 1);
+    } else {
+      // Like
+      setLikesCount(likesCount + 1);
+    }
+    setLiked(!liked);
+  };
 
   return (
     <div className="relative  h-full text-black py-12 ">
@@ -242,19 +261,41 @@ function Event() {
       </div>
 
       <div className="p-6 bg-gradient-to-b h-auto from-tealLight to-blue-300">
-        <div>
-          <p className="text-xl font-semibold mb-4">{event.title}</p>
-          <p className="text-gray-600 text-lg mb-2">{event.description}</p>
-          <p className="text-gray-600 text-lg">
-            <span className="font-semibold">Date:</span>{" "}
-            {event.startDate.toDateString()} - {event.endDate.toDateString()}
-          </p>
-          <p className="text-gray-600 text-lg">
-            <span className="font-semibold">Time:</span> {event.hour}
-          </p>
-          <p className="text-gray-600 text-lg">
-            <span className="font-semibold">Location:</span> {event.location}
-          </p>
+        <div className="flex justify-between">
+          <div>
+            <p className="text-xl font-semibold mb-4">{event.title}</p>
+            <p className="text-gray-600 text-lg mb-2">{event.description}</p>
+            <p className="text-gray-600 text-lg">
+              <span className="font-semibold">Date:</span>{" "}
+              {event.startDate.toDateString()} - {event.endDate.toDateString()}
+            </p>
+            <p className="text-gray-600 text-lg">
+              <span className="font-semibold">Time:</span> {event.hour}
+            </p>
+            <p className="text-gray-600 text-lg">
+              <span className="font-semibold">Location:</span> {event.location}
+            </p>
+            <div className="my-6 flex items-center space-x-4 text-gray-600">
+              <div
+                className="flex items-center space-x-2 cursor-pointer group justify-center"
+                onClick={toggleLike}
+              >
+                <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
+                  👍
+                </span>
+                <p>{event.likes.length}</p>
+              </div>
+              <div
+                className="flex items-center space-x-2 cursor-pointer group"
+                onClick={scrollToComments}
+              >
+                <span className="text-lg group-active:scale-150 group-hover:scale-125 transition-all duration-300">
+                  💬
+                </span>
+                <p>{event.comments.length} Comments</p>
+              </div>
+            </div>
+          </div>
           <div>
             <button className="h-16 w-52 text-lg hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
               Join Meetup
@@ -263,7 +304,7 @@ function Event() {
         </div>
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-4">Images 📷</h2>
+          <h2 className="text-xl font-semibold mb-4">Best Moments 📷</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {event.images.map((image, index) => (
               <div
@@ -294,7 +335,9 @@ function Event() {
         />
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Comments 💬</h2>
+          <h2 className="text-xl font-semibold mb-2" ref={commentsSectionRef}>
+            Comments 💬
+          </h2>
           <ul className="list-disc list-inside">
             {event.comments.map((comment, index) => (
               <li key={index} className="text-gray-600 mb-2">
@@ -303,11 +346,6 @@ function Event() {
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">Likes 👍</h2>
-          <p className="text-gray-600">{event.likes.length} Likes</p>
         </div>
       </div>
     </div>

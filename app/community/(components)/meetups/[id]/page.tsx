@@ -218,6 +218,25 @@ function Event() {
   });
   const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
+  const commentsSectionRef = useRef<any>(null);
+
+  const scrollToComments = () => {
+    commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(event.likes.length);
+
+  const toggleLike = () => {
+    if (liked) {
+      // Unlike
+      setLikesCount(likesCount - 1);
+    } else {
+      // Like
+      setLikesCount(likesCount + 1);
+    }
+    setLiked(!liked);
+  };
 
   return (
     <div className="relative  h-full text-black py-12 ">
@@ -258,6 +277,26 @@ function Event() {
             <p className="text-gray-600 text-lg">
               <span className="font-semibold">Location:</span> {event.location}
             </p>
+            <div className="my-6 flex items-center space-x-4 text-gray-600">
+              <div
+                className="flex items-center space-x-2 cursor-pointer group justify-center"
+                onClick={toggleLike}
+              >
+                <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
+                  👍
+                </span>
+                <p>{event.likes.length}</p>
+              </div>
+              <div
+                className="flex items-center space-x-2 cursor-pointer group"
+                onClick={scrollToComments}
+              >
+                <span className="text-lg group-active:scale-150 group-hover:scale-125 transition-all duration-300">
+                  💬
+                </span>
+                <p>{event.comments.length} Comments</p>
+              </div>
+            </div>
           </div>
           <button className="h-16 w-52 text-lg hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
             Join Meetup
@@ -296,7 +335,9 @@ function Event() {
         />
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Comments 💬</h2>
+          <h2 className="text-xl font-semibold mb-2" ref={commentsSectionRef}>
+            Comments 💬
+          </h2>
           <ul className="list-disc list-inside">
             {event.comments.map((comment, index) => (
               <li key={index} className="text-gray-600 mb-2">
