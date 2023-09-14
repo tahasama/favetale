@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Forums from "./(components)/forums/page";
 import Meetups from "./(components)/meetups/page";
 import Events from "./(components)/events/page";
-import Questions from "./(components)/Questions";
+import Questions from "./(components)/questions/page";
 import { AnimatePresence, motion } from "framer-motion";
 
 const CommunityPage = () => {

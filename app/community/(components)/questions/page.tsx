@@ -74,7 +74,7 @@ const Questions = () => {
             and engage with our community of pet lovers!
           </p>
           <Link
-            href={"/question"}
+            href={"/community/question"}
             className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-green-700 transition-colors duration-500"
           >
             Ask a Questions
@@ -85,41 +85,47 @@ const Questions = () => {
       <div className="container mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">
         <div className="flex flex-col w-full md:w-2/3 p-3 mt-10 gap-4">
           {questionsData.map((question, index) => (
-            <motion.div
-              initial={{ opacity: 0, y: index * 50 + 100 }} // Initial state (hidden and slightly moved down)
-              animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
-              transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
-              key={question.id}
-              className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
-            >
-              <div className="mb-4 md:mb-0 md:mr-4 flex flex-col items-start md:items-center">
-                <div className="flex items-center mb-1">
-                  <button className="text-indigo-500 font-semibold mr-2">
-                    <span role="img" aria-label="Upvote">
-                      👍
-                    </span>{" "}
-                    {question.upvotes}
-                  </button>
-                  <button className="text-red-500 font-semibold">
-                    <span role="img" aria-label="Downvote">
-                      👎
-                    </span>{" "}
-                    {question.downvotes}
-                  </button>
+            <Link href={`/community/questions/${question.id}`}>
+              <motion.div
+                initial={{ opacity: 0, y: index * 50 + 100 }} // Initial state (hidden and slightly moved down)
+                animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
+                transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
+                key={question.id}
+                className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
+              >
+                <div className="mb-4 md:mb-0 md:mr-4 flex flex-col items-start md:items-center">
+                  <div className="flex items-center mb-1">
+                    <button className="text-indigo-500 font-semibold mr-2">
+                      <span role="img" aria-label="Upvote">
+                        👍
+                      </span>{" "}
+                      {question.upvotes}
+                    </button>
+                    <button className="text-red-500 font-semibold">
+                      <span role="img" aria-label="Downvote">
+                        👎
+                      </span>{" "}
+                      {question.downvotes}
+                    </button>
+                  </div>
+                  <div className="text-gray-600">
+                    {question.answers} Answers
+                  </div>
                 </div>
-                <div className="text-gray-600">{question.answers} Answers</div>
-              </div>
-              <div className="hidden md:block">
-                <hr className="border-r border-gray-300 h-12 mx-6" />
-              </div>
-              <div className="flex-grow">
-                <h3 className="text-lg font-semibold mb-2">{question.title}</h3>
-                <h4 className="text-md mb-2">{question.description}</h4>
-                <p className="text-gray-600 mb-2">
-                  Asked by {question.author} on {question.date}
-                </p>
-              </div>
-            </motion.div>
+                <div className="hidden md:block">
+                  <hr className="border-r border-gray-300 h-12 mx-6" />
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg font-semibold mb-2">
+                    {question.title}
+                  </h3>
+                  <h4 className="text-md mb-2">{question.description}</h4>
+                  <p className="text-gray-600 mb-2">
+                    Asked by {question.author} on {question.date}
+                  </p>
+                </div>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </div>
