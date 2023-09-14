@@ -192,8 +192,10 @@ function Event() {
     },
   ];
   const { id } = useParams();
+  console.log("🚀 ~ file: page.tsx:195 ~ Event ~ id:", id);
 
   const event = eventsData.filter((blog: any) => blog.id === Number(id))[0];
+  console.log("🚀 ~ file: page.tsx:197 ~ Event ~ event:", event);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
