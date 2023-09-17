@@ -9,6 +9,9 @@ import Store3 from "../images/store3.jpg";
 import Link from "next/link";
 import { useCart } from "../provider/CartProvider";
 import ProductModal from "../store/ProductModal";
+import { Vollkorn } from "next/font/google";
+
+const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const ProductCard = ({
   product,
@@ -74,7 +77,7 @@ const ProductCard = ({
       )}
 
       {/* Add to Cart Button */}
-      <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
+      <button className="bg-teal-500 hover:bg-teal-600 text-slate-600 px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
         {isAddedToCart ? "Added to Cart" : "Add to Cart"}
       </button>
     </div>
@@ -126,97 +129,61 @@ const StorySection = () => {
     setIsModalOpen(false);
   };
   return (
-    <section className="bg-gray-100 ">
-      <div className="container mx-auto">
-        {/* <h2 className="text-3xl font-semibold text-gray-800 mb-8 text-center">
-          Explore Our Store
-        </h2> */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 bg-teal-700">
-          {/* Store Story Image */}
-          <div className="relative overflow-hidden col-span-1">
-            <Image
-              src={Store} // Replace with your store front image URL
-              alt="Store Front W "
-              width={600}
-              height={400}
-              //   className="rounded-lg"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity opacity-0 hover:opacity-100">
-              <Link
-                href="/store"
-                className="text-white text-lg font-semibold hover:underline"
-              >
-                Visit the Store
-              </Link>
-            </div>
-          </div>
+    <section className="bg-tealLight">
+      <div className="container mx-auto px-6 py-12">
+        <div className="text-center">
+          <div className="grid place-items-center">
+            <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
 
-          {/* Store Story Content */}
-          <div className="flex flex-col justify-evenly  col-span-2 mx-5">
-            <h3 className="text-2xl text-gray-100 font-semibold mb-0">
+            <h2 className={`text-3xl font-semibold mb-4 ${vollkorn.className}`}>
               Discover Our Pet Store
-            </h3>
-            <span className="">
-              <p className="text-gray-200 mb-3">
-                Welcome to our store, where you can find a wide selection of
-                high-quality pet products to cater to all your furry friend's
-                needs. From toys and accessories to premium pet food and care
-                essentials, we've got it all.
-              </p>
+            </h2>
+            <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
+          </div>
+          <p className="text-lg text-slate-600 mb-8">
+            Welcome to our store, where you can find a wide selection of
+            high-quality pet products to cater to all your furry friend's needs.
+            From toys and accessories to premium pet food and care essentials,
+            we've got it all.
+          </p>
+          <Link href="/store">
+            <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
+              Explore Our Store
+            </button>
+          </Link>
+        </div>
 
-              <p className="text-gray-200 mb-6">
-                Whether you're a first-time pet owner or a seasoned enthusiast,
-                our store is your one-stop shop for all things pet-related.
-                Visit us today and embark on a journey of discovery for your
-                beloved companions.
-              </p>
-
-              <Link
-                href="/store"
-                className="bg-tealLight w-fit hover:text-white px-4 py-3 rounded-md hover:bg-emerald-900 animate-bounce transition-colors duration-300 mb-4"
-              >
-                Explore Our Store
-              </Link>
-            </span>
-            <div className="grid grid-cols-3 gap-4 place-items-center mt-3">
-              {products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  product={product}
-                  isTrending={false}
-                  discounted={true}
-                  openModal={() => openModal(product)}
-                />
-              ))}
-            </div>
-
-            <ProductModal
-              isOpen={isModalOpen}
-              onClose={closeModal}
-              product={productModal}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {products.map((product, index) => (
+            <ProductCard
+              key={index}
+              product={product}
+              isTrending={false}
+              discounted={true}
+              openModal={() => openModal(product)}
             />
+          ))}
+        </div>
 
-            <span>
-              <div className="bg-yellow-300 p-4 mt-4 rounded-lg">
-                <p className="text-lg text-gray-800 mb-2">
-                  🎉 Monthly Special: 15% Off!
-                </p>
-                <p className="text-gray-700">
-                  Don't miss out on our exclusive monthly discount! Get 15% off
-                  on selected products for a limited time.
-                </p>
-              </div>
-              <div className="bg-green-300 p-4 mt-4 rounded-lg">
-                <p className="text-lg text-gray-800 mb-2">
-                  🚚 Fast Delivery Service
-                </p>
-                <p className="text-gray-700">
-                  We offer fast and reliable delivery services to ensure your
-                  pet products reach you in no time. Shop now and experience the
-                  convenience of doorstep delivery!
-                </p>
-              </div>
-            </span>
+        <div className="flex justify-center space-x-8 mt-12">
+          <div className="bg-white shadow-lg p-6 rounded-lg w-2/4">
+            <p className="text-xl text-gray-800 mb-4">
+              🎉 Monthly Special: 15% Off!
+            </p>
+            <p className="text-gray-700">
+              Don't miss out on our exclusive monthly discount! Get 15% off on
+              selected products for a limited time.
+            </p>
+          </div>
+          <div className="bg-white shadow-lg p-6 rounded-lg w-2/4">
+            <p className="text-xl text-gray-800 mb-4">
+              🚚 Fast Delivery Service
+            </p>
+            <p className="text-gray-700">
+              We offer fast and reliable delivery services to ensure your pet
+              products reach you in no time. Shop now and experience the
+              convenience of doorstep delivery!
+            </p>
           </div>
         </div>
       </div>
