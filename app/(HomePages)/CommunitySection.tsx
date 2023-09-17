@@ -20,34 +20,38 @@ const communityContributions = [
     date: "24 Jun 2023",
     writer: "Jon Smith",
   },
-  {
-    image: pet10,
-    title: "DIY Pet Accessories: Creative Crafts",
-    description:
-      "Explore a step-by-step guide to making adorable pet accessories that our member created.",
-    location: "NY",
-    date: "15 Jan 2022",
-    writer: "Elena Cruz",
-  },
-  {
-    image: pet9,
-    title: "Training Tips: Happy Paws",
-    description:
-      "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
-    location: "Tokyo",
-    date: "31 Mar 2023",
-    writer: "Sylvia Throne",
-  },
+  // {
+  //   image: pet10,
+  //   title: "DIY Pet Accessories: Creative Crafts",
+  //   description:
+  //     "Explore a step-by-step guide to making adorable pet accessories that our member created.",
+  //   location: "NY",
+  //   date: "15 Jan 2022",
+  //   writer: "Elena Cruz",
+  // },
+  // {
+  //   image: pet9,
+  //   title: "Training Tips: Happy Paws",
+  //   description:
+  //     "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
+  //   location: "Tokyo",
+  //   date: "31 Mar 2023",
+  //   writer: "Sylvia Throne",
+  // },
 ];
 
 const CommunitySection = () => {
   return (
-    <section className="bg-tealDark py-12 ">
+    <section className="bg-tealLight py-12 ">
       <div className="container mx-auto text-center">
-        <h2 className={`text-3xl font-semibold mb-8 ${vollkorn.className}`}>
-          Community Spotlights
-        </h2>
-        <p className="text-gray-600 mb-6">
+        <div className="grid place-items-center">
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
+          <h2 className={`text-3xl font-semibold mb-4 ${vollkorn.className}`}>
+            Community Spotlights
+          </h2>
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
+        </div>
+        <p className="text-lg text-slate-600 mb-8 mx-5">
           Our community is a vibrant space where pet lovers from around the
           world come together to share their stories, connect with fellow
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
@@ -58,10 +62,7 @@ const CommunitySection = () => {
           {communityContributions.map((contribution: any, i: any) => (
             <div
               key={i}
-              className={`bg-tealLight rounded-lg shadow-xl flex mx-2 sm:w-4/5 lg:w-2/3 overflow-hidden justify-between self-center flex-col ${
-                i % 2 !== 0
-                  ? "md:flex-row sm:self-start"
-                  : "md:flex-row-reverse sm:self-end"
+              className={`bg-tealLight rounded-lg shadow-xl flex mx-2 sm:w-4/5 lg:w-2/6 overflow-hidden justify-between self-center flex-col 
               }`}
             >
               <div>
@@ -100,14 +101,14 @@ const CommunitySection = () => {
 
         {/* Testimonials or Quotes */}
         <div className="mt-10">
-          <div className="p-5 flex flex-col items-center space-y-5 bg-teal-700 mx-2  rounded-lg shadow-md">
+          <div className="p-5 flex flex-col items-center space-y-5">
             <p
-              className={`text-2xl tracking-wider text-slate-200 ${vollkorn.className}`}
+              className={`text-2xl tracking-wider text-slate-400 ${vollkorn.className}`}
             >
               What Our Community Members Say
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-tealLight p-4 rounded-lg shadow-md flex flex-col sm:flex-row  space-x-4">
+            <div className="flex flex-col md:flex-row justify-center  gap-8">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row w-5/12  space-x-4">
                 <div className="flex-shrink-0">
                   <Image
                     src={user}
@@ -127,7 +128,7 @@ const CommunitySection = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-tealLight p-4 rounded-lg shadow-md flex flex-col sm:flex-row  space-x-4">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row w-5/12  space-x-4">
                 <div className="flex-shrink-0">
                   <Image
                     src={user2}

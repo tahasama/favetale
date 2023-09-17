@@ -5,6 +5,9 @@ import pet5 from "../images/5.jpg";
 import pet6 from "../images/6.jpg";
 import pet7 from "../images/7.jpg";
 import Link from "next/link";
+import { Vollkorn } from "next/font/google";
+
+const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const StorySection = () => {
   const stories = [
@@ -15,13 +18,13 @@ const StorySection = () => {
       description:
         "Join us as we explore incredible stories of pets and their ownersembarking on unforgettable adventures.",
     },
-    {
-      id: 1,
-      image: pet6,
-      title: "Heartwarming Pet Tales",
-      description:
-        " Discover touching stories that showcase the strong bonds between pets and their humans, leaving your heart warmed and inspired.",
-    },
+    // {
+    //   id: 1,
+    //   image: pet6,
+    //   title: "Heartwarming Pet Tales",
+    //   description:
+    //     " Discover touching stories that showcase the strong bonds between pets and their humans, leaving your heart warmed and inspired.",
+    // },
     {
       id: 2,
       image: pet7,
@@ -33,13 +36,20 @@ const StorySection = () => {
   return (
     <section className="bg-tealLight py-12">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-semibold mb-8">Featured Stories</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-4 place-items-center">
+        <div className="grid place-items-center">
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
+
+          <h2 className={`text-3xl font-semibold mb-4 ${vollkorn.className}`}>
+            Featured Stories
+          </h2>
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
+        </div>
+        <div className="flex gap-10 mx-4 justify-center">
           {/* Featured Story 1 */}
 
           {stories.map((story: any, i: any) => (
             <div
-              className="bg-white rounded-lg shadow-md overflow-hidden h-full pb-16"
+              className="bg-white rounded-lg shadow-md overflow-hidden h-fit w-[28%] pb-16"
               key={i}
             >
               <Image
