@@ -60,15 +60,21 @@ const GallerySection = () => {
     };
   }, []);
   return (
-    <section className="bg-tealDark py-12">
+    <section className="bg-tealLight py-12">
       <div className="container mx-auto text-center">
-        <h2 className={`text-3xl font-semibold mb-8 ${vollkorn.className}`}>
-          Featured Pets
-        </h2>
+        <div className="grid place-items-center">
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
+
+          <h2 className={`text-3xl font-semibold mb-4 ${vollkorn.className}`}>
+            Featured Pets
+          </h2>
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
+        </div>
+
         <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
           <Swiper
             slidesPerView={
-              windowWidth < 700 ? 1.3 : windowWidth < 900 ? 2.3 : 3.3
+              windowWidth < 700 ? 1.4 : windowWidth < 900 ? 2.4 : 3.4
             }
             spaceBetween={20}
             keyboard={{
@@ -100,7 +106,7 @@ const GallerySection = () => {
           />
         </div>
         <div className="mt-10 flex justify-center">
-          <div className="bg-tealLight rounded-lg shadow-md overflow-hidden mx-2 sm:w-3/5">
+          <div className="bg-tealDark rounded-lg shadow-md overflow-hidden mx-2 sm:w-2/5">
             <div className="p-4 flex flex-col items-center space-y-3">
               <p
                 className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}
