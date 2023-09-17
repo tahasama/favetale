@@ -228,7 +228,7 @@ const Events = () => {
   return (
     <div className="container mx-auto bg-gradient-to-b from-tealLight to-teal-100">
       <div className="mb-6">
-        <div className="bg-green-600 p-12 text-left leading-loose tracking-wide">
+        <div className="bg-green-600 p-12 rounded-lg text-left leading-loose tracking-wide">
           <h2 className="text-4xl font-semibold text-white mb-5">
             Explore Pet Events
           </h2>

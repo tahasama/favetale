@@ -232,7 +232,7 @@ const Meetups = () => {
 
   return (
     <div className="container mx-auto bg-tealLight">
-      <div className="bg-fuchsia-700 p-12 text-left leading-loose tracking-wide">
+      <div className="bg-fuchsia-700 p-12 text-left rounded-lg leading-loose tracking-wide">
         <h2 className="text-4xl font-semibold text-white mb-5">
           Join Pet Meetups
         </h2>

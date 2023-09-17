@@ -66,7 +66,7 @@ const Questions = () => {
   return (
     <>
       <div className="">
-        <div className="bg-amber-500 p-12 text-left leading-loose tracking-wide">
+        <div className="bg-amber-500 rounded-lg p-12 text-left leading-loose tracking-wide">
           <h2 className="text-4xl font-semibold text-white mb-5">
             Explore Pet Questions
           </h2>
