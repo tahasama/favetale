@@ -40,7 +40,7 @@ const ProductCard = ({
   return (
     <div
       onClick={() => openModal(product)}
-      className="bg-white relative p-0 mx-0 w-fit rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
+      className="bg-white relative w-ful rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
     >
       {/* Product Image */}
       <div className="w-auto  flex justify-center bg-gray-100">
@@ -131,7 +131,7 @@ const StorySection = () => {
   };
   return (
     <section className="bg-tealLight">
-      <div className="container mx-auto px-6 py-12">
+      <div className="container px-1 sm:px-3 lg:px-6 py-12">
         <div className="text-center">
           <div className="grid place-items-center">
             <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
@@ -141,7 +141,7 @@ const StorySection = () => {
             </h2>
             <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
           </div>
-          <p className="text-lg text-slate-600 mb-8 mx-20">
+          <p className="text-lg text-slate-600 mb-8 sm:mx-20">
             Welcome to our store, where you can find a wide selection of
             high-quality pet products to cater to all your furry friend's needs.
             From toys and accessories to premium pet food and care essentials,
@@ -154,7 +154,7 @@ const StorySection = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 place-items-center mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-3 place-items-center mt-12">
           {products.map((product, index) => (
             <ProductCard
               key={index}
@@ -166,8 +166,8 @@ const StorySection = () => {
           ))}
         </div>
 
-        <div className="flex justify-center space-x-8 mt-12">
-          <div className="bg-white shadow-lg p-6 rounded-lg w-2/4">
+        <div className="flex flex-col sm:flex-row justify-center gap-5 mt-12">
+          <div className="bg-white shadow-lg p-6 rounded-lg sm:w-2/4">
             <p className="text-xl text-gray-800 mb-4">
               🎉 Monthly Special: 15% Off!
             </p>
@@ -176,7 +176,7 @@ const StorySection = () => {
               selected products for a limited time.
             </p>
           </div>
-          <div className="bg-white shadow-lg p-6 rounded-lg w-2/4">
+          <div className="bg-white shadow-lg p-6 rounded-lg sm:w-2/4">
             <p className="text-xl text-gray-800 mb-4">
               🚚 Fast Delivery Service
             </p>

@@ -44,12 +44,12 @@ const StorySection = () => {
           </h2>
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
         </div>
-        <div className="flex gap-10 mx-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-10 mx-1 sm:mx-4 justify-center">
           {/* Featured Story 1 */}
 
           {stories.map((story: any, i: any) => (
             <div
-              className="bg-white rounded-lg shadow-md overflow-hidden h-fit w-[28%] pb-16"
+              className="bg-white rounded-lg shadow-md overflow-hidden h-fit lg:w-[28%] pb-16"
               key={i}
             >
               <Image

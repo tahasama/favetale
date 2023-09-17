@@ -57,7 +57,7 @@ const CommunitySection = () => {
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="flex flex-col gap-8 mx-2 md:mx-6">
+        <div className="flex flex-col gap-8 mx-1 md:mx-6">
           {/* User Contributions */}
           {communityContributions.map((contribution: any, i: any) => (
             <div
@@ -103,14 +103,14 @@ const CommunitySection = () => {
 
         {/* Testimonials or Quotes */}
         <div className="mt-10">
-          <div className="p-5 flex flex-col items-center space-y-5">
+          <div className="p-2 sm:p-5 flex flex-col items-center space-y-5">
             <p
               className={`text-2xl tracking-wider text-slate-400 ${vollkorn.className}`}
             >
               What Our Community Members Say
             </p>
             <div className="flex flex-col md:flex-row justify-center  gap-8">
-              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row w-5/12  space-x-4">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row sm:w-5/12  space-x-4">
                 <div className="flex-shrink-0">
                   <Image
                     src={user}
@@ -130,7 +130,7 @@ const CommunitySection = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row w-5/12  space-x-4">
+              <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row sm:w-5/12  space-x-4">
                 <div className="flex-shrink-0">
                   <Image
                     src={user2}

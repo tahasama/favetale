@@ -74,7 +74,7 @@ const Navbar = () => {
         <div>
           <span
             onClick={toggleDropdown2}
-            className="cursor-pointer sm:pr-8 scale-[1] md:hidden block"
+            className="cursor-pointer sm:pr-8   scale-90  md:scale-100 md:hidden block"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,14 +94,14 @@ const Navbar = () => {
             </svg>
           </span>
           <div
-            className={`absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg transition-opacity ${
+            className={`absolute left-0 mt-2  bg-white rounded-lg shadow-lg transition-opacity ${
               isDropdownOpen2 ? "opacity-100" : "opacity-0 hidden"
             }`}
           >
             {isDropdownOpen2 && (
               <div
                 ref={dropdownRef}
-                className="absolute left-1 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden"
+                className="absolute left-1 mt-2  bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden"
               >
                 <Link
                   href="/explore"
@@ -132,7 +132,10 @@ const Navbar = () => {
           </div>
         </div>
 
-        <Link href="/" className="flex items-center  p-3 gap-3">
+        <Link
+          href="/"
+          className="flex items-center -ml-3 md:ml-0 p-3 gap-3  scale-90  md:scale-100"
+        >
           <Image src={logoPets} alt="logoPets" className="h-12 w-12" />
           <span className="text-3xl md:5xl  font-semibold text-tealDark  cursor-pointer">
             FaveTale
@@ -140,14 +143,14 @@ const Navbar = () => {
         </Link>
       </div>
       <div
-        className={`flex items-center justify-between md:space-x-10 lg:space-x-20 text-xl ${alegreya.className}`}
+        className={`flex items-center justify-between -mr-2 md:ml-0  scale-90  md:scale-100 md:space-x-10 lg:space-x-10 text-xl ${alegreya.className}`}
       >
         <SearchModal isOpen={isModalOpen} onClose={closeModal} />
         <div className="relative" onClick={openModal}>
           <input
             type="text"
             placeholder="Search"
-            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-tealDark  hidden md:block"
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-tealDark  hidden lg:block"
           />
           <span className="cursor-pointer absolute top-1/2 -right-11  -translate-y-1/2  scale-[.27]">
             <svg
@@ -212,14 +215,14 @@ const Navbar = () => {
               </svg>
             </span>
             <div
-              className={`absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg transition-opacity ${
+              className={`absolute right-0 mt-2  bg-white rounded-lg shadow-lg transition-opacity ${
                 isDropdownOpen ? "opacity-100" : "opacity-0 hidden"
               }`}
             >
               {isDropdownOpen && (
                 <div
                   ref={dropdownRef}
-                  className=" absolute right-0 mt-2 w-48 bg-slate-50 rounded-lg shadow-lg"
+                  className=" absolute right-0 mt-2  bg-slate-50 rounded-lg shadow-lg"
                 >
                   {/* Dropdown menu for logged-in users */}
                   <Link

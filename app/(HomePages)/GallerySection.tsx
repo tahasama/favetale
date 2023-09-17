@@ -60,7 +60,7 @@ const GallerySection = () => {
     };
   }, []);
   return (
-    <section className="bg-tealLight py-12">
+    <section className="bg-tealLight py-12 -mt-10 sm:mt-0">
       <div className="container mx-auto text-center">
         <div className="grid place-items-center">
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>

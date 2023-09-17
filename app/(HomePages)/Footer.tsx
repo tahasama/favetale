@@ -4,11 +4,10 @@ import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 const Footer = () => {
   return (
     <footer className="bg-tealLight text-slate-700 py-8 w-full">
-      <div className="flex flex-col md:flex-row mr-28  justify-around items-center space-y-4 md:space-y-0 md:space-x-8">
-        <div className="text-center md:text-left ">
+      <div className="flex flex-col md:flex-row gap-5  mx-0 md:mx-6  justify-around items-center space-y-4 md:space-y-0 md:space-x-8">
+        <div className="text-center md:text-left order-1 mb-4 w-52">
           <p className="text-xl font-semibold">Contact or Support:</p>
           <p className="text-lg">
-            Email:{" "}
             <a
               href="mailto:contact@example.com"
               className="text-slate-900 hover:underline"
@@ -26,10 +25,13 @@ const Footer = () => {
             </a>
           </p>
         </div>
-        <p className=" text-lg ">
-          &copy; {new Date().getFullYear()} FaveTale. All rights reserved.
-        </p>
-        <div className="text-center ">
+        <div className=" order-3 w-80 sm:order-2">
+          <p className=" text-lg lg:-ml-28">
+            &copy; {new Date().getFullYear()} FaveTale. All rights reserved.
+          </p>
+        </div>
+
+        <div className="text-center order-2">
           <p className="text-xl font-semibold mb-4 -mt-8">Follow Us:</p>
           <div className="flex justify-center space-x-4">
             <a

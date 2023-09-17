@@ -13,13 +13,13 @@ const HeroSection = () => {
   return (
     <section className="hero-section bg-tealLight min-h-[calc(100vh-80px)] flex flex-col items-center justify-center">
       <h1
-        className={`mx-2 sm:mx-0 text-3xl md:text-4xl lg:text-5xl mt-5 mb-8 sm:mt-8 sm:-mb-4 lg:mt-2 lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
+        className={`mx-2  sm:mx-0 text-3xl md:text-4xl lg:text-5xl -mt-28 text-center md:text-start mb-12 sm:mt-8 sm:-mb-4 lg:mt-2 lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
       >
         Embark on Your Pet's Journey
       </h1>
       <div className="container text-center flex flex-col md:flex-row md:text-sm lg:text-lg">
         {/* Layout for larger screens (tablets and laptops) */}
-        <div className="md:flex flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-1">
+        <div className="md:flex hidden flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-1">
           <div className="animate-fadeIn flex flex-col items-center group cursor-pointer delay-1000">
             <span className="text-6xl sm:text-5xl mb-2">🐾</span>
             <p className="text-xl font-semibold">Explore Galleries</p>
@@ -50,11 +50,11 @@ const HeroSection = () => {
           <Image
             src={heroImage}
             alt="Happy pets"
-            className="mx-auto object-cover w-5/6"
+            className="mx-auto object-cover md:w-5/6"
           />
         </div>
 
-        <div className="md:flex flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-2 sm:mt-0 space-y-8 order-2 md:order-3">
+        <div className="md:flex hidden flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-2 sm:mt-0 space-y-8 order-2 md:order-3">
           <div className="animate-fadeIn flex flex-col items-center group">
             <span className="text-6xl sm:text-5xl mb-2">🛍️</span>
             <p className="text-xl font-semibold">Browse Store</p>
