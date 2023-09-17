@@ -26,7 +26,7 @@ const Footer = () => {
           </p>
         </div>
         <div className=" order-3 w-80 sm:order-2">
-          <p className=" text-lg lg:-ml-28">
+          <p className=" text-lg md:-ml-8 ml-3">
             &copy; {new Date().getFullYear()} FaveTale. All rights reserved.
           </p>
         </div>
