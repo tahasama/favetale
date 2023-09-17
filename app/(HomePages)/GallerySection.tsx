@@ -106,7 +106,7 @@ const GallerySection = () => {
           />
         </div>
         <div className="mt-10 flex justify-center">
-          <div className="bg-tealDark rounded-lg shadow-md overflow-hidden mx-2 sm:w-2/5">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden mx-2 sm:w-2/5">
             <div className="p-4 flex flex-col items-center space-y-3">
               <p
                 className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}

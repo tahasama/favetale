@@ -73,7 +73,7 @@ const CommunitySection = () => {
                 />
               </div>
 
-              <div className="p-4 flex  justify-evenly flex-col h-auto">
+              <div className="p-4 flex  justify-end flex-col h-auto">
                 <span>
                   <h3
                     className={`text-md lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
@@ -91,9 +91,11 @@ const CommunitySection = () => {
                 <p className="text-gray-500 text-xs self-end">
                   ~ {contribution.writer}
                 </p>
-                <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md shadow-md">
-                  Read More
-                </button>
+                <Link href={"/community/forums"}>
+                  <button className="hover:animate-buttonHover w-fit mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-7 py-3 rounded-md shadow-md">
+                    Read More
+                  </button>
+                </Link>
               </div>
             </div>
           ))}

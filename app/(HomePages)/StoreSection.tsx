@@ -40,46 +40,47 @@ const ProductCard = ({
   return (
     <div
       onClick={() => openModal(product)}
-      className="bg-white relative p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
+      className="bg-white relative p-0 mx-0 w-fit rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
     >
       {/* Product Image */}
       <div className="w-auto  flex justify-center bg-gray-100">
         <Image
           src={product.images[0]}
           alt={product.name}
-          className="h-[15rem] w-fit rounded-md"
+          className="h-[15rem] w-fit rounded-t-md"
           height={500}
           width={500}
         />
       </div>
+      <div className="ml-4 mb-4">
+        {/* Product Name */}
+        <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
 
-      {/* Product Name */}
-      <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
-
-      {/* Product Price */}
-      <p
-        className={` ${
-          isTrending
-            ? "text-sky-500"
-            : discounted
-            ? "text-red-700"
-            : "text-gray-600"
-        } text-xl my-1`}
-      >
-        {product.price} Dhs
-      </p>
-
-      {/* Discount (if applicable) */}
-      {discounted && product.discount > 0 && (
-        <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
-          {product.discount}% OFF
+        {/* Product Price */}
+        <p
+          className={` ${
+            isTrending
+              ? "text-sky-500"
+              : discounted
+              ? "text-red-700"
+              : "text-gray-600"
+          } text-xl my-1`}
+        >
+          {product.price} Dhs
         </p>
-      )}
 
-      {/* Add to Cart Button */}
-      <button className="bg-teal-500 hover:bg-teal-600 text-slate-600 px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
-        {isAddedToCart ? "Added to Cart" : "Add to Cart"}
-      </button>
+        {/* Discount (if applicable) */}
+        {discounted && product.discount > 0 && (
+          <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
+            {product.discount}% OFF
+          </p>
+        )}
+
+        {/* Add to Cart Button */}
+        <button className="bg-teal-500 hover:bg-teal-600 text-slate-600 px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
+          {isAddedToCart ? "Added to Cart" : "Add to Cart"}
+        </button>
+      </div>
     </div>
   );
 };
@@ -140,7 +141,7 @@ const StorySection = () => {
             </h2>
             <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
           </div>
-          <p className="text-lg text-slate-600 mb-8">
+          <p className="text-lg text-slate-600 mb-8 mx-20">
             Welcome to our store, where you can find a wide selection of
             high-quality pet products to cater to all your furry friend's needs.
             From toys and accessories to premium pet food and care essentials,
@@ -153,7 +154,7 @@ const StorySection = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 place-items-center mt-12">
           {products.map((product, index) => (
             <ProductCard
               key={index}
