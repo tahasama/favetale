@@ -23,6 +23,10 @@ import Image from "next/image";
 import { Mousewheel, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 const Tips = () => {
   const tipsData = [
     {
@@ -112,22 +116,22 @@ const Tips = () => {
     controls.set({ opacity: 0, y: 500 });
 
     // Start the animation
-    controls.start({ opacity: 1, y: -240 });
+    controls.start({ opacity: 1, y: -24 });
   }, []);
 
   const handleSlideChange = () => {
     console.log("uuuuuu");
     controls.stop();
-    controls.set({ opacity: 0, y: 1200 });
+    controls.set({ opacity: 0, y: 500 });
 
     // Start the animation
-    controls.start({ opacity: 1, y: -240 });
+    controls.start({ opacity: 1, y: -24 });
   };
 
   const u = [1, 2, 3, 4, 5, 6];
 
   return (
-    <div className="h-[81.8vh] w-full h flex items-center justify-center flex-col mt-20 bg-yellow-300">
+    <div className="h-[81.8vh] xl:h-[85.5vh]  flex items-center justify-center flex-col mt-20 ">
       {/* <h2 className="text-3xl font-semibold mb-6">Advice & Tips</h2> */}
       <Swiper
         direction={"vertical"}
@@ -142,7 +146,7 @@ const Tips = () => {
         onSlideChange={handleSlideChange}
       >
         {tipsData.map((tip: any, x: number) => (
-          <SwiperSlide key={x}>
+          <SwiperSlide key={x} className="relative">
             <Image
               src={tip.coverImage}
               alt="A London skyscraper"
@@ -153,7 +157,7 @@ const Tips = () => {
             <motion.div
               animate={controls}
               transition={{ duration: 0.7 }} // Animation duration and delay
-              className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-0 p-5  sm:mx-5 text-left left-0 md:p-7 xl:p-10 w-full sm:w-5/6 lg:w-4/6 transition-all duration-200 relative sm:right-5"
+              className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-0 xl:bottom-3 p-5  sm:mx-5 md:p-7 xl:p-7 text-left left-0  w-full sm:w-5/6 lg:w-4/6 transition-all duration-200 absolute sm:right-5"
             >
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 md:mb-3 lg:mb-4">
                 {tip.emoji}
