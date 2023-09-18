@@ -33,16 +33,16 @@ const Gallery = () => {
     <div className="container  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
-        <div className="bg-yellow-500 p-12 rounded-lg text-left leading-loose tracking-wide  ">
-          <h2 className="text-4xl font-semibold text- mb-5">
+        <div className="bg-yellow-500 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
+          <h2 className="text-2xl sm:text-4xl font-semibold text- mb-5">
             Browse Our Gallery
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
+          <p className="text-base sm:text-lg text-gray-700 mb-4 sm:mb-8">
             Find lots and lots of pet moments shared by our beloved community,
           </p>
           <button
             onClick={() => setUploadModalOpen(true)}
-            className="bg-amber-700 hover:text-amber-700 text-white px-4 py-3 rounded-md hover:bg-tealLight  transition-colors duration-500"
+            className="bg-amber-700 hover:text-amber-700 text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-tealLight  transition-colors duration-500"
           >
             Upload an Image
           </button>

@@ -45,7 +45,7 @@ const ExplorePage = () => {
 
   return (
     <div className=" bg-tealLight ">
-      <div className="sticky top-20 z-40 flex justify-center  w-full bg-tealLight">
+      <div className="sticky top-[80px] z-40 flex justify-between  w-full bg-tealLight">
         {tabs.map((tab, index) => (
           <TabButton
             key={index}
@@ -77,7 +77,7 @@ const ExplorePage = () => {
 const TabButton = ({ tabName, isActive, onClick }: any) => {
   return (
     <button
-      className={`px-6 py-4 bg-gray-100  text-gray-600 rounded-t-lg ${
+      className={`w-full py-4 border-l-2 border-teal-500 bg-gray-100  text-gray-600 rounded-t-lg ${
         isActive ? "bg-indigo-50 border-b-2 border-teal-500" : ""
       } transition-colors duration-500 hover:bg-purple-100`}
       onClick={onClick}

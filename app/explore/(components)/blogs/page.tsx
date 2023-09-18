@@ -62,18 +62,18 @@ const Blogs = () => {
     <div className="container my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
-        <div className="bg-sky-600 p-12 rounded-lg text-left leading-loose tracking-wide  ">
-          <h2 className="text-4xl font-semibold text-white mb-5">
+        <div className="bg-sky-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
+          <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-5">
             Discover Our Blog
           </h2>
-          <p className="text-lg text-gray-200 mb-8">
+          <p className="text-base sm:text-lg text-gray-200 mb-4 sm:mb-8">
             Explore insightful articles and tips from our community of pet
             lovers. Enhance your knowledge and share in the joy of pet
             companionship!
           </p>
           <button
             onClick={() => setUploadModalOpen(true)}
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-sky-700 transition-colors duration-500"
+            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-sky-700 transition-colors duration-500"
           >
             Write a Blog
           </button>
@@ -86,7 +86,7 @@ const Blogs = () => {
       />
 
       {/* Masonry Layout */}
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-5 mx-6">
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-5 sm:mx-6 mx-1">
         {blogsData.map((blog, index) => (
           <motion.div
             initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
@@ -98,7 +98,7 @@ const Blogs = () => {
               href={`/explore/blogs/${blog.id}`}
               className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
             >
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-3 smp-6 rounded-lg shadow-md">
                 <Image
                   src={blog.image}
                   alt={blog.title}

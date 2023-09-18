@@ -153,7 +153,7 @@ const Tips = () => {
             <motion.div
               animate={controls}
               transition={{ duration: 0.7 }} // Animation duration and delay
-              className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-0 mx-5 text-left left-0 p-10 w-full sm:w-4/6 transition-all duration-200 relative sm:right-5"
+              className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-0 p-5  sm:mx-5 text-left left-0 md:p-7 xl:p-10 w-full sm:w-5/6 lg:w-4/6 transition-all duration-200 relative sm:right-5"
             >
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 md:mb-3 lg:mb-4">
                 {tip.emoji}
@@ -164,7 +164,7 @@ const Tips = () => {
               </p>
               <Link
                 href={`/explore/tips/${tip.id}`}
-                className="hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-2 md:px-4 lg:px-6 py-2 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg"
+                className="hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white text-base lg:text-lg px-3 md:px-4 lg:px-6 py-3 md:py-3 lg:py-3 sm:shadow-xl md:shadow-lg lg:shadow-xl rounded-lg"
               >
                 <>Read More</>
               </Link>

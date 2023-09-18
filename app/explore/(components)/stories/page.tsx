@@ -51,16 +51,16 @@ const Stories = () => {
     <div className="container  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
-        <div className="bg-cyan-600 p-12 rounded-lg text-left leading-loose tracking-wide  ">
-          <h2 className="text-4xl font-semibold text-white mb-5">
+        <div className="bg-sky-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
+          <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-5">
             Share Your Inspiring Story
           </h2>
-          <p className="text-lg text-gray-200 mb-8">
+          <p className="text-base sm:text-lg text-gray-200 mb-4 sm:mb-8">
             Contribute your unique story to our community and inspire others!
           </p>
           <button
             onClick={() => setUploadModalOpen(true)}
-            className="bg-tealLight hover:text-white px-5 py-3 rounded-md hover:bg-cyan-700 transition-colors duration-500"
+            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-sky-700 transition-colors duration-500"
           >
             Share a story
           </button>
@@ -73,7 +73,7 @@ const Stories = () => {
       />
 
       {/* Story Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-7 gap-6 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:mx-7 mx-2 gap-6 mb-4">
         {storiesData.map((story, index) => (
           <motion.div
             initial={{
@@ -94,7 +94,7 @@ const Stories = () => {
               className="block"
             >
               <div
-                className={`bg-white rounded-lg shadow-md overflow-hidden  sm:h-60`}
+                className={`bg-white rounded-lg shadow-lg overflow-hidden mb-5 sm:h-60`}
               >
                 <div className="flex flex-col sm:flex-row h-full">
                   <div className="p-4 flex flex-col justify-between">

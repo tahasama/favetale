@@ -68,7 +68,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-tealLight h-20 px-2 flex justify-between items-center z-50 fixed top-0 w-full`}
+      className={`bg-tealLight h-20 flex justify-around items-center gap-0 z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
@@ -143,7 +143,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div
-        className={`flex items-center justify-between -mr-2 md:ml-0  scale-90  md:scale-100 md:space-x-10 lg:space-x-10 text-xl ${alegreya.className}`}
+        className={`mx-0 flex items-center justify-between sm:-mr-2 md:ml-0  scale-90  md:scale-100 md:space-x-10 lg:space-x-10 text-xl ${alegreya.className}`}
       >
         <SearchModal isOpen={isModalOpen} onClose={closeModal} />
         <div className="relative" onClick={openModal}>
