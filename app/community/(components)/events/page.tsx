@@ -226,13 +226,13 @@ const Events = () => {
   };
 
   return (
-    <div className="container mx-auto bg-gradient-to-b from-tealLight to-teal-100">
+    <div className="bg-gradient-to-b from-tealLight to-teal-100">
       <div className="mb-6">
-        <div className="bg-green-600 p-12 rounded-lg text-left leading-loose tracking-wide">
-          <h2 className="text-4xl font-semibold text-white mb-5">
+        <div className="bg-green-600 p-6 sm:p-12 rounded-br-3xl text-left leading-loose tracking-wide">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
             Explore Pet Events
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
+          <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
             Discover exciting pet-related events happening in your area and
             beyond. Don't miss out on the fun and opportunities to learn and
             connect!
@@ -249,15 +249,15 @@ const Events = () => {
       </div>
 
       <div
-        className="flex flex-row-reverse items-center h-[calc(100vh-138px)] justify-around p-6 "
+        className="flex md:flex-row-reverse items-center justify-around p-1 lg:p-6 "
         id="pet-events"
       >
-        <div className="flex flex-row-reverse items-center justify-around w-11/12 h-[76vh] bg-teal-50 p-6 rounded-xl shadow-md">
+        <div className="flex flex-col md:flex-row-reverse items-center gap-4 lg:gap-0 justify-around md:h-[76vh] w-full bg-teal-50 lg:p-6 rounded-xl shadow-md  overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
           <Calendar
             onChange={handleDateChange}
             onActiveStartDateChange={handleActiveStartDateChange}
             value={selectedDate}
-            className=" bg-white p-6 scale-125 h-96 sticky top-20 rounded-lg border shadow-lg"
+            className=" bg-white p-2 md:p-6 scale-110 md:scale-100 lg:scale-110 xl:scale-125 h-96 sticky top-20 rounded-lg border shadow-lg"
             calendarType="US"
             tileClassName={({ date }) => {
               const eventsOnDate = eventsData.some((event) => {
@@ -280,9 +280,9 @@ const Events = () => {
               ) : null;
             }}
           />
-          <div className="w-7/12 pl-6 h-full  overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
-            <ul className="h-auto gap-4 flex flex-col px-4 pb-2">
-              <h3 className="text-xl font-semibold mb-5">
+          <div className="md:w-7/12 lg:w-6/12 mt-36 lg:pl-6 overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
+            <ul className=" gap-4 flex flex-col px-0 pb-2">
+              <h3 className="text-xl font-semibold mb-3">
                 {monthNames[currentMonthIndex]}&nbsp;
                 {currentYearIndex} Events :
               </h3>
@@ -307,7 +307,7 @@ const Events = () => {
                         animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
                         transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
                         className={`${
-                          isEventOnDate ? "bg-sky-100" : ""
+                          isEventOnDate ? "bg-sky-100" : "bg-white"
                         } flex items-start p-3 rounded-lg shadow-md h-fit w-full cursor-pointer transition-all duration-300 border-x-2`}
                         key={index}
                       >

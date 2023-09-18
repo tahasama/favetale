@@ -186,11 +186,11 @@ const Forum = () => {
   return (
     <div className="mt-20 bg-tealLight w-full h-full">
       <div className="mx-5 pt-5 bg-tealLight">
-        <span className="w-full flex items-center justify-between">
+        <span className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
           <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
           <button
             onClick={openModal}
-            className="mb-4 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none"
+            className="mb-4 bg-indigo-500 text-white py-2 px-4 text-base lg:text-lg sm:py-3 sm:px-5 rounded-md hover:bg-indigo-600 focus:outline-none"
           >
             Start a discussion
           </button>

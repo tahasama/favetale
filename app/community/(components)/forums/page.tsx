@@ -76,11 +76,12 @@ const Forums = () => {
   return (
     <div className="container bg-gradient-to-b from-tealLight to-sky-200 h-screen">
       <div className="mb-6">
-        <div className="bg-violet-800 rounded-lg p-12 text-left leading-loose tracking-wide">
-          <h2 className="text-4xl font-semibold text-white mb-5">
+        <div className="bg-violet-800 rounded-br-3xl p-6 sm:p-12 text-left leading-loose tracking-wide">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
+            {" "}
             Join Our Forums
           </h2>
-          <p className="text-lg text-gray-300 mb-8">
+          <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
             Engage in discussions, share your insights, and learn from fellow
             pet enthusiasts.
           </p>

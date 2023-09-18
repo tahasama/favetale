@@ -247,7 +247,7 @@ function question() {
     // Implement adding answers here
   };
   return (
-    <div className="container mx-auto w-9/12 p-4 mt-16">
+    <div className=" mx-auto  md:w-9/12 p-4 mt-24">
       <div className="mb-8">
         <h1 className="text-4xl font-semibold">{question.title}</h1>
         <p className="text-gray-600 text-sm mt-2">

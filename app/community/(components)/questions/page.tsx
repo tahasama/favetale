@@ -66,11 +66,11 @@ const Questions = () => {
   return (
     <>
       <div className="">
-        <div className="bg-amber-500 rounded-lg p-12 text-left leading-loose tracking-wide">
-          <h2 className="text-4xl font-semibold text-white mb-5">
+        <div className="bg-amber-500 rounded-br-3xl p-6 sm:p-12 text-left leading-loose tracking-wide">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
             Explore Pet Questions
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
+          <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
             Find answers to common pet-related questions, share your knowledge,
             and engage with our community of pet lovers!
           </p>

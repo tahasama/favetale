@@ -231,12 +231,13 @@ const Meetups = () => {
   };
 
   return (
-    <div className="container mx-auto bg-tealLight">
-      <div className="bg-fuchsia-700 p-12 text-left rounded-lg leading-loose tracking-wide">
-        <h2 className="text-4xl font-semibold text-white mb-5">
+    <div className=" bg-tealLight">
+      <div className="bg-fuchsia-700 p-6 sm:p-12 text-left rounded-br-3xl leading-loose tracking-wide">
+        <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
+          {" "}
           Join Pet Meetups
         </h2>
-        <p className="text-lg text-gray-200 mb-8">
+        <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
           Connect with local pet lovers, attend fun events, and create lasting
           memories with your furry friends.
         </p>

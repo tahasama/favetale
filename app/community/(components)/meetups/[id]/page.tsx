@@ -245,7 +245,7 @@ function Event() {
         ref={ref}
       >
         <motion.p
-          className="font-semibold tracking-wider text-6xl z-10 absolute  text-teal-600"
+          className="font-semibold tracking-wider leading-loose text-center md:text-start text-4xl lg:text-5xl xl:text-6xl z-10 absolute  text-teal-600"
           style={{ y: textTranslateY }}
         >
           {event.title}
@@ -262,19 +262,19 @@ function Event() {
         />
       </div>
 
-      <div className="p-6 bg-gradient-to-b h-auto from-tealLight to-blue-300">
-        <div className="flex justify-between">
+      <div className="p-2 md:p-6 bg-gradient-to-b h-auto from-tealLight to-blue-300">
+        <div className="flex flex-col md:flex-row justify-between">
           <div>
             <p className="text-xl font-semibold mb-4">{event.title}</p>
-            <p className="text-gray-600 text-lg mb-2">{event.description}</p>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 md:text-lg mb-2">{event.description}</p>
+            <p className="text-gray-600 md:text-lg">
               <span className="font-semibold">Date:</span>{" "}
               {event.startDate.toDateString()} - {event.endDate.toDateString()}
             </p>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 md:text-lg">
               <span className="font-semibold">Time:</span> {event.hour}
             </p>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 md:text-lg">
               <span className="font-semibold">Location:</span> {event.location}
             </p>
             <div className="my-6 flex items-center space-x-4 text-gray-600">
@@ -298,7 +298,7 @@ function Event() {
               </div>
             </div>
           </div>
-          <button className="h-16 w-52 text-lg hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
+          <button className="h-12 md:h-16 w-28 md:w-40  md:text-lg hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
             Join Meetup
           </button>
         </div>
