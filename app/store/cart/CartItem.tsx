@@ -61,7 +61,7 @@ const CartItem = ({ item, onRemove }: any) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between p-4 border-b bg-white border-gray-200">
+    <div className="flex flex-col sm:flex-row items-center justify-between p-4 my-4 lg:my-2 border-b bg-white border-gray-200">
       <div className=" bg-tealLight rounded-md mt-6 border border-gray-300">
         <Image
           src={item.images[0]}

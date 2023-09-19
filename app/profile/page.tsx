@@ -220,7 +220,7 @@ const UserProfile = () => {
       </div>
 
       {/* Content Sections */}
-      <div className="mx-6 sm:mx-52 p-7 mt-8 max-w-5x">
+      <div className="mx-6  p-0 mt-12 ">
         {/* My Images Section */}
         <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">
@@ -690,7 +690,8 @@ const UserProfile = () => {
                       Purchase Date: {"purchase.purchaseDate"}
                     </span>
                     <span className="font-semibold text-lg">
-                      Total: ${"purchase.total.toFixed(2)"}
+                      Total: $54.2
+                      {/* ${"purchase.total.toFixed(2)"} */}
                     </span>
                   </div>
                   {expandedPurchase === index && (

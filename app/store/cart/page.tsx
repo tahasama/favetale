@@ -45,9 +45,9 @@ const CartPage = () => {
   }, [cartItems, quantities, cart]);
 
   return (
-    <div className="flex flex-col md:flex-row  mt-20 bg-gray-100">
+    <div className="flex flex-col lg:flex-row  mt-20 bg-gray-100">
       <Cart cartItems={cart} onRemove={handleRemoveItem} />
-      <div className="bg-white shadow-md rounded-md p-4 m-4 md:w-1/4 h-fit sticky top-24">
+      <div className="bg-white shadow-md rounded-md p-4 m-4 lg:w-1/4 h-fit sticky top-24">
         <div className="mb-4">
           <h2 className="text-xl font-semibold mb-2">Order Summary</h2>
           <div className="flex justify-between">
