@@ -89,12 +89,12 @@ const Blogs = () => {
       <div className="columns-1 md:columns-2 lg:columns-3 gap-5 sm:mx-6 mx-1">
         {blogsData.map((blog, index) => (
           <motion.div
+            key={blog.id}
             initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
             animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
             transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
           >
             <Link
-              key={blog.id}
               href={`/explore/blogs/${blog.id}`}
               className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
             >

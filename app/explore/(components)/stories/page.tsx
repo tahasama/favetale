@@ -76,6 +76,7 @@ const Stories = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:mx-7 mx-2 gap-6 mb-4">
         {storiesData.map((story, index) => (
           <motion.div
+            key={story.id}
             initial={{
               opacity: 0,
               y: index * 100 + 100,
@@ -88,11 +89,7 @@ const Stories = () => {
             }} // Animation state (visible and at normal position)
             transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
           >
-            <Link
-              key={story.id}
-              href={`/explore/stories/${story.id}`}
-              className="block"
-            >
+            <Link href={`/explore/stories/${story.id}`} className="block">
               <div
                 className={`bg-white rounded-lg shadow-lg overflow-hidden mb-5 sm:h-60`}
               >

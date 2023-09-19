@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
-  console.log("🚀 ~ file: ImageModal.tsx:6 ~ ImageModal ~ imageSrc:", imageSrc);
-
   const [comments, setComments] = useState<string[]>([
     "fffffff",
     "ggggggggggg",
