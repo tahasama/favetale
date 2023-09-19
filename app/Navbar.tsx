@@ -215,7 +215,7 @@ const Navbar = () => {
               </svg>
             </span>
             <div
-              className={`absolute right-0 mt-2  bg-white rounded-lg shadow-lg transition-opacity ${
+              className={`absolute right-0 mt-2 w-44 p-1 bg-white rounded-lg shadow-lg transition-opacity ${
                 isDropdownOpen ? "opacity-100" : "opacity-0 hidden"
               }`}
             >
