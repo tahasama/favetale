@@ -34,7 +34,7 @@ const Category = () => {
               <img
                 src={category.image.src}
                 alt={category.title}
-                className="shadow-md rounded-full object-cover  h-36 w-36"
+                className="shadow-md rounded-full object-cover h-24 w-24 md:h-36 md:w-36"
               />
               <p className={`${montserrat.className} mt-2 text-lg`}>
                 {category.title}

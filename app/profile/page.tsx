@@ -174,7 +174,7 @@ const UserProfile = () => {
   return (
     <div className="bg-teal-50 min-h-screen pt-20">
       {/* User Information */}
-      <div className="bg-white mx-6 sm:mx-60 p-6 mt-8  shadow-md rounded-lg grid grid-cols-1 sm:grid-cols-2  ">
+      <div className="bg-white mx-6  p-6 mt-8  shadow-md rounded-lg grid grid-cols-1 sm:grid-cols-2  ">
         {/* Profile Picture */}
         <motion.div
           initial={{ opacity: 0, x: 500 }} // Initial state (hidden and slightly moved down)

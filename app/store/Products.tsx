@@ -44,7 +44,7 @@ const ProductCard = ({
   return (
     <div
       onClick={() => openModal(product)}
-      className="bg-white relative p-4 mx-3 w-96 lg:w-80 xl:w-96 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
+      className="bg-white relative p-3 md:p-4 mx-0 md:mx-3 w-80 lg:w-80 xl:w-96 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
     >
       {/* Product Image */}
       <div className="w-auto  flex justify-center bg-gray-100">
