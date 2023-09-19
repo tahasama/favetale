@@ -83,15 +83,15 @@ const ProductModal = ({
 
   return (
     <div
-      className={`fixed inset-0 flex items-center flex-col py-3 justify-center modal-overlay rounded-lg z-50 backdrop-blur-sm ${
+      className={`fixed inset-0 flex items-center flex-col lg:py-3 justify-center modal-overlay z-50 backdrop-blur-sm backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
       onClick={handleModalClick}
     >
-      <div className="overflow-y-auto flex flex-col h-full w-11/12 relative scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
-        <div className="flex flex-col md:flex-row gap-8 p-8 shadow-md min-h-[80vh] bg-sky-50">
+      <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
+        <div className="flex flex-col md:flex-row gap-8 lg:p-8 shadow-md lg:min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
           <div className=" flex flex-col items-center justify-center ">
             <Image
@@ -99,7 +99,7 @@ const ProductModal = ({
               alt={product?.name}
               width={1000}
               height={1000}
-              className="rounded-lg max-h-[66vh] object-contain"
+              className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain"
             />
             <div className="flex mt-4">
               {product?.images.map((image: any, index: any) => (
@@ -115,7 +115,7 @@ const ProductModal = ({
               ))}
             </div>
           </div>
-          <div className="md:w-1/2 flex flex-col justify-between h-[60vh] items-start">
+          <div className="md:w-1/2 flex flex-col justify-between lg:h-[60vh] items-start px-3 lg:p-0">
             <h2 className="text-2xl font-semibold mb-2 ">{product?.name}</h2>
             <h2 className="text-xl text-left font-semibold ">
               {product?.description}
@@ -141,7 +141,7 @@ const ProductModal = ({
             <div className="mt-3">
               <button
                 onClick={addToCart}
-                className={`bg-blue-500  px-7 py-3 rounded-md text-white  hover:bg-blue-600 ${
+                className={`bg-blue-500 px-7 py-3 mb-3 lg:mb-0 rounded-md text-white  hover:bg-blue-600 ${
                   isAddedToCart &&
                   "bg-slate-400 hover:bg-slate-400 cursor-pointer"
                 }`}
@@ -152,18 +152,18 @@ const ProductModal = ({
             </div>
           </div>
         </div>
-        <div className="bg-white p-8 relative">
-          <div className="flex">
-            <div className="w-fit flex justify-end absolute right-4 top-4">
+        <div className="bg-white p-3  lg:p-8 relative">
+          <div className="flex mt-4 lg:mt-0">
+            <div className="w-fit flex flex-col lg:flex-row justify-end lg:absolute right-4 top-4">
               <h4
-                className="text-lg font-semibold mb-2 text-center ring-2 w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-sky-50 hover:bg-blue-100 transition-colors"
+                className="text-lg hidden lg:block font-semibold mb-2 text-center ring-2 lg:w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-sky-50 hover:bg-blue-100 transition-colors"
                 onClick={() => setAddReview(!addReview)}
               >
                 Add Your Review?
               </h4>
             </div>
             {addReview && (
-              <div className="relative left-4 -top-5 w-4/6 border-violet-400 ">
+              <div className="relative lg:left-4 -top-5 w-full lg:w-4/6 border-violet-400 ">
                 <textarea
                   ref={ref}
                   rows={3}
@@ -198,7 +198,7 @@ const ProductModal = ({
         </div>
 
         <button
-          className="absolute text-gray-400 hover:text-gray-600 hover:rotate-90 bgr p-1 top-2 right-2 transition-all duration-500 rounded-full"
+          className="absolute text-gray-400 hover:text-gray-600 hover:rotate-90 bg-gray-100/50 hover:bg-gray-100 active:bg-gray-100 p-1 top-2 right-2 transition-all duration-500 rounded-full"
           onClick={onClose}
         >
           <svg

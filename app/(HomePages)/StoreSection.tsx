@@ -156,16 +156,22 @@ const StorySection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-3 place-items-center mt-12">
           {products.map((product, index) => (
-            <ProductCard
-              key={index}
-              product={product}
-              isTrending={false}
-              discounted={true}
-              openModal={() => openModal(product)}
-            />
+            <>
+              <ProductCard
+                key={index}
+                product={product}
+                isTrending={false}
+                discounted={true}
+                openModal={() => openModal(product)}
+              />
+            </>
           ))}
         </div>
-
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          product={productModal}
+        />
         <div className="flex flex-col sm:flex-row justify-center gap-5 mt-12">
           <div className="bg-white shadow-lg p-6 rounded-lg sm:w-2/4">
             <p className="text-xl text-gray-800 mb-4">
