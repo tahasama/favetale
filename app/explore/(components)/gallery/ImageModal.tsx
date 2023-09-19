@@ -38,17 +38,17 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="inset-0 flex flex-col justify-center items-center my-1 rounded-lg h-full overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
-        <div className="bg-white shadow-lg relative top-36 h-full">
+      <div className="inset-0 flex flex-col justify-center items-center lg:my-1 lg:rounded-lg h-full overflow-auto lg:scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
+        <div className="bg-white shadow-lg relative lg:top-36 h-full">
           <Image
             src={imageSrc}
             alt={title}
-            className="h-[93vh]"
+            className="lg:h-[93vh]"
             width={1000}
             height={1000}
           />
           <button
-            className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-10 ring-2 right-3 transition-all duration-500 rounded-full"
+            className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-3 lg:top-10 ring-2 right-3 transition-all duration-500 rounded-full"
             onClick={onClose}
           >
             <svg
@@ -71,7 +71,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             </button>
           </div>
         </div>
-        <div className="w-full bg-white p-4 shadow-md relative top-36 ">
+        <div className="w-full bg-white p-4 shadow-md relative top-0 lg:top-36 ">
           <h3 className="text-xl font-semibold mb-2 text-start">Comments ⬇️</h3>
           <div className="flex">
             <textarea
