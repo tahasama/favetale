@@ -61,7 +61,7 @@ const TabButton = ({ tabName, isActive, onClick }: any) => {
     <button
       className={`w-full py-4 border-l-2  bg-gray-100  text-gray-600 rounded-t-lg ${
         isActive
-          ? "bg-indigo-50 border-b-2 border-teal-500"
+          ? "bg-indigo-50 border-l-2 border-l-gray-300"
           : "border-slate-200"
       } transition-colors duration-500 hover:bg-purple-100`}
       onClick={onClick}
