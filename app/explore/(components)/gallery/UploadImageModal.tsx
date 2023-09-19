@@ -53,9 +53,11 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="shadow-2xl  inset-0 relative flex flex-col justify-center items-center my-1 rounded-lg h-fit overflow-auto scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
-        <div className="bg-white p-4 md:p-6 md:mx-auto rounded-lg shadow-md w-fit md:w-[35vw] ">
-          <h1 className="text-3xl mb-4 text-center">Upload an Image</h1>
+      <div className="shadow-2xl  inset-0 relative flex flex-col justify-center items-center my-1 rounded-lg h-fit">
+        <div className="bg-white p-4 md:p-6 mx-auto rounded-lg shadow-md w-full md:w-[35vw] ">
+          <h1 className="text-2xl lg:text-3xl mb-4 text-center">
+            Upload an Image
+          </h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="mb-4">
               <label htmlFor="image" className="block text-gray-700 mb-2">
@@ -82,32 +84,23 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                 required
                 className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
               >
-                <option value="dogs" className="bg-gray-100">
-                  &nbsp;&nbsp;Dogs
-                </option>
-                <option value="cats" className="bg-gray-100">
-                  &nbsp;&nbsp;Cats
-                </option>
-                <option value="birds" className="bg-gray-100">
-                  &nbsp;&nbsp;Birds
-                </option>
-                <option value="fish" className="bg-gray-100">
-                  &nbsp;&nbsp;Fish
-                </option>
-                <option value="small animals" className="bg-gray-100">
-                  {" "}
-                  &nbsp;&nbsp;Small Animals
-                </option>
+                <option value="">All</option>
+                <option value="cats">Cats</option>
+                <option value="dogs">🐶 Dogs</option>
+                <option value="birds">🦜 Birds</option>
+                <option value="fish">🐟 Fish</option>
+                <option value="small animals">🐹 Small Animals</option>
                 {/* Add more categories as needed */}
               </select>
             </div>
-
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full w-full hover:animate-bounceQ"
-            >
-              Upload Image
-            </button>
+            <div className="grid place-items-center">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white py-3.5 px-5 rounded-full w-fit hover:animate-bounceQ"
+              >
+                Upload Image
+              </button>
+            </div>
           </form>
         </div>
         <button

@@ -48,7 +48,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             height={1000}
           />
           <button
-            className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-3 lg:top-10 ring-2 right-3 transition-all duration-500 rounded-full"
+            className="absolute bg-gray-100/40 scale-125 hover:rotate-90 p-1 top-6 lg:top-10 ring-2 right-3 transition-all duration-500 rounded-full"
             onClick={onClose}
           >
             <svg
@@ -77,7 +77,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
             <textarea
               rows={2}
               placeholder="Add a comment..."
-              className="border rounded px-2 py-1 mr-2 flex-grow"
+              className="border lg:rounded rounded-xl px-2 py-1 mr-2 flex-grow"
               value={newComment}
               onChange={(e) => {
                 setNewComment(e.target.value);
@@ -85,7 +85,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
               }}
             />
             <button
-              className="bg-blue-500 text-white px-4 py-1 rounded"
+              className="bg-blue-500 text-white px-4 py-1 lg:rounded rounded-xl"
               onClick={(e) => {
                 handleAddComment;
               }}
