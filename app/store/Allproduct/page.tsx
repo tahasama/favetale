@@ -183,13 +183,13 @@ const AllProducts = () => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   return (
-    <div className="container bg-tealLight h-full mx-auto p-6">
+    <div className="bg-tealLight h-full mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-4">All Products</h1>
       <div className="flex mb-4 mt-10 bg-indigo-100 w-full rounded-lg p-2">
         <div className="flex flex-wrap gap-10 items-center justify-start w-full">
           {/* Category Filter */}
           <div className="flex items-center">
-            <label className="mr-2 text-lg font-semibold">Category:</label>
+            <label className="mr-2 text-lg">Category:</label>
             <select
               className="border rounded px-4 py-2 bg-gray-100 text-lg"
               value={filterOptions.category}
@@ -214,7 +214,7 @@ const AllProducts = () => {
             <label className="text-lg">Price Range:</label>
             <input
               type="number"
-              className="border rounded px-4 py-2 bg-gray-100"
+              className="border rounded  w-32 md:w-auto px-4 py-2 bg-gray-100"
               placeholder="Min"
               value={filterOptions.minPrice}
               onChange={(e) =>
@@ -227,7 +227,7 @@ const AllProducts = () => {
             <span className="text-lg">-</span>
             <input
               type="number"
-              className="border rounded px-4 py-2 bg-gray-100"
+              className="border rounded  w-32 md:w-auto px-4 py-2 bg-gray-100"
               placeholder="Max"
               value={filterOptions.maxPrice}
               onChange={(e) =>
@@ -273,7 +273,7 @@ const AllProducts = () => {
         <label className="text-lg text-blue-900">Only with Discount</label>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl">
         {filteredProducts.map((product) => (
           <div
             onClick={() => openModal(product)}

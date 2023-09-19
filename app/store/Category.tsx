@@ -24,7 +24,7 @@ const Category = () => {
         <h2 className="text-3xl md:text-4xl mt-3 indent-12 font-semibold mb-12">
           Featured Categories
         </h2>
-        <div className="grid grid-cols-3 md:grid-cols-5 place-items-center gap-8">
+        <div className="flex flex-wrap justify-around gap-10">
           {featuredCategories.map((category, index) => (
             <Link
               key={index}

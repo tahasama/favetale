@@ -44,7 +44,7 @@ const ProductCard = ({
   return (
     <div
       onClick={() => openModal(product)}
-      className="bg-white relative p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
+      className="bg-white relative p-4 mx-3 w-96 lg:w-80 xl:w-96 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
     >
       {/* Product Image */}
       <div className="w-auto  flex justify-center bg-gray-100">
@@ -207,7 +207,7 @@ const Products = () => {
           <h3 className="text-lg font-semibold text-gray-700">Best Offers</h3>
           <div className="bg-teal-500 h-1 w-40 ml-2 mt-3"></div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-10 lg:gap-6 text-start">
           {/* Trending Products with Discounts */}
           {discountProducts.map((product, index) => (
             <div>
