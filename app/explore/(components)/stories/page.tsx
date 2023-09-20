@@ -48,7 +48,7 @@ const Stories = () => {
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   return (
-    <div className="container  my-20  w-full">
+    <div className="container z-10  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
         <div className="bg-indigo-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">

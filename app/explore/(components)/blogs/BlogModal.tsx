@@ -12,10 +12,10 @@ import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
 
 import Quill from "quill";
 import dynamic from "next/dynamic";
-import JoditEditor from "jodit-react";
+// import JoditEditor from "jodit-react";
 
 const BlogModal = ({ isOpen, onClose }: any) => {
-  // const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+  const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
   const [content, setContent] = useState(
     "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
