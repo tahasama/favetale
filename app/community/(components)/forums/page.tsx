@@ -87,7 +87,7 @@ const Forums = () => {
           </p>
           <button
             onClick={openModal}
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-indigo-500 hover:animate-buttonHover transition-colors duration-500"
+            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-indigo-500 hover:animate-buttonHover transition-colors duration-500"
           >
             Start a Discussion
           </button>

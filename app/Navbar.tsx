@@ -14,6 +14,10 @@ const alegreya = Alegreya({ subsets: ["latin"], weight: "400" });
 const Navbar = () => {
   const [loggedIn, setloggedIn] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  console.log(
+    "🚀 ~ file: Navbar.tsx:17 ~ Navbar ~ isDropdownOpen:",
+    isDropdownOpen
+  );
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
   const { cart, setCart, quantities } = useCart();
@@ -41,6 +45,7 @@ const Navbar = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dropdownRef = useRef<any>(null);
+  const dropdownRef2 = useRef<any>(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -55,7 +60,10 @@ const Navbar = () => {
     const handleClickOutside = (event: any) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
-        setIsDropdownOpen(false);
+      } else
+        dropdownRef2.current && !dropdownRef2.current.contains(event.target);
+      {
+        setIsDropdownOpen2(false);
       }
     };
 
@@ -64,7 +72,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [dropdownRef, dropdownRef2]);
 
   return (
     <nav
@@ -100,29 +108,23 @@ const Navbar = () => {
           >
             {isDropdownOpen2 && (
               <div
-                ref={dropdownRef}
+                ref={dropdownRef2}
                 className="absolute left-1 mt-2  bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden"
               >
-                <Link
-                  href="/explore"
-                  onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
-                >
+                <Link href="/explore" onClick={() => setIsDropdownOpen2(false)}>
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Explore
                   </span>
                 </Link>
                 <Link
                   href="/community"
-                  onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
+                  onClick={() => setIsDropdownOpen2(false)}
                 >
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Community
                   </span>
                 </Link>
-                <Link
-                  href="/store"
-                  onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
-                >
+                <Link href="/store" onClick={() => setIsDropdownOpen2(false)}>
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Store
                   </span>
@@ -200,7 +202,7 @@ const Navbar = () => {
         {loggedIn ? (
           <div className="relative group text-md">
             <span
-              onClick={toggleDropdown}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="cursor-pointer group-hover:text-tealDark"
             >
               <svg

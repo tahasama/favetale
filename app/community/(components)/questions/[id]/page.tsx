@@ -249,11 +249,13 @@ function question() {
   return (
     <div className=" mx-auto  md:w-9/12 p-4 mt-24">
       <div className="mb-8">
-        <h1 className="text-4xl font-semibold">{question.title}</h1>
+        <h1 className="text-xl md:text-4xl font-semibold">{question.title}</h1>
         <p className="text-gray-600 text-sm mt-2">
           Posted on {question.date} by {question.author.name}
         </p>
-        <p className="mt-4 text-lg text-gray-800">{question.description}</p>
+        <p className="mt-4 text-base md:text-lg text-gray-800">
+          {question.description}
+        </p>
       </div>
 
       {/* Answer Area */}
@@ -277,7 +279,7 @@ function question() {
       <h2 className="text-xl mt-10 font-semibold">Answers:</h2>
 
       {/* Answers List */}
-      <ul className="mt-4 space-y-6">
+      <ul className="mt-4 space-y-6 list-none">
         {question.answers.map((answer) => (
           <li key={answer.id}>
             <div className="flex items-start space-x-4">
@@ -287,8 +289,8 @@ function question() {
                 className="w-12 h-12 rounded-full"
               />
               <div className="flex-1">
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-lg text-gray-800">
+                <div className="flex flex-col md:flex-row md:items-center space-x-2">
+                  <span className="font-semibold md:text-lg text-gray-800">
                     {answer.author.name}
                   </span>
                   <span className="text-sm text-gray-600">{answer.date}</span>

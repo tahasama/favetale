@@ -241,7 +241,7 @@ const Events = () => {
             href="#pet-events" // Points to the anchor element with id "pet-questions"
             onClick={(e) => handleScrollToSection(e, "pet-events")}
           >
-            <button className="hover:animate-buttonHover bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-green-700 transition-colors duration-500">
+            <button className="hover:animate-buttonHover bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-green-700 transition-colors duration-500">
               View Upcoming Events
             </button>
           </Link>

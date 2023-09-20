@@ -1,18 +1,8 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import styles
-// import "./blog.css";
-import ReactMarkdown from "react-markdown";
-import grayMatter from "gray-matter";
-import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
-import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
-
-import Quill from "quill";
 import dynamic from "next/dynamic";
-// import JoditEditor from "jodit-react";
 
 const StoryModal = ({ isOpen, onClose }: any) => {
   const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
@@ -75,11 +65,16 @@ const StoryModal = ({ isOpen, onClose }: any) => {
       </>`,
   };
 
-  const thafunction = (x: any) => {
-    console.log("🚀 ~ file: BlogModal.tsx:78 ~ thafunction ~ x:", x);
-    setContent((prev) => prev + x);
-    return {};
-  };
+  const JoditEditorMemoized = useMemo(() => {
+    return (
+      <JoditEditor
+        ref={editor}
+        value={content}
+        config={config}
+        onBlur={(newContent: any) => setContent(newContent)}
+      />
+    );
+  }, [content]);
 
   return (
     <div
@@ -174,15 +169,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   Publish
                 </button>
               </div>
-              <div className=" mb-6">
-                <JoditEditor
-                  ref={editor}
-                  value={content}
-                  config={config}
-                  // onBlur={(x: any) => thafunction(x)}
-                  onBlur={(newContent: any) => setContent(newContent)}
-                />
-              </div>
+              <div className=" mb-6">{JoditEditorMemoized}</div>
             </div>
             <button
               className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"

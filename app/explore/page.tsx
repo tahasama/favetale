@@ -45,7 +45,7 @@ const ExplorePage = () => {
 
   return (
     <div className=" bg-tealLight ">
-      <div className="sticky top-[80px] z-50 flex justify-between  w-full bg-tealLight">
+      <div className="sticky top-[80px]  flex justify-between  w-full bg-tealLight">
         {tabs.map((tab, index) => (
           <TabButton
             key={index}

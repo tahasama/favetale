@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import QuestionModal from "./[id]/QuestionModal";
 
 const Questions = () => {
   const questionsData = [
@@ -63,6 +64,8 @@ const Questions = () => {
     },
   ];
 
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+
   return (
     <>
       <div className="">
@@ -74,15 +77,19 @@ const Questions = () => {
             Find answers to common pet-related questions, share your knowledge,
             and engage with our community of pet lovers!
           </p>
-          <Link
-            href={"/community/question"}
-            className="bg-tealLight hover:text-white px-4 py-3 rounded-md hover:bg-green-700 transition-colors duration-500"
+
+          <button
+            onClick={() => setUploadModalOpen(true)}
+            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-500"
           >
             Ask a Questions
-          </Link>
+          </button>
         </div>
       </div>
-
+      <QuestionModal
+        isOpen={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+      />
       <div className="container mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">
         <div className="flex flex-col w-full md:w-2/3 p-3 mt-10 gap-4">
           {questionsData.map((question, index) => (
