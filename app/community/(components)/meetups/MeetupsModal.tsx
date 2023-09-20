@@ -110,8 +110,10 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="p-6 w-6/12 rounded-lg relative bg-white border-2 border-slate-300 shadow-xl">
-        <h2 className="text-2xl font-semibold mb-4">Create a New Gathering</h2>
+      <div className="p-6 w-full lg:w-6/12 rounded-lg relative bg-white border-2 border-slate-300 shadow-xl">
+        <h2 className="text-xl lg:text-2xl font-semibold mb-4 mt-6 lg:mt-0">
+          Create a New Gathering
+        </h2>
         <form>
           <div className="mb-3">
             <label htmlFor="name" className="text-gray-600 font-semibold block">
@@ -121,7 +123,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="name"
               placeholder="Enter Name"
-              className="border rounded py-2 px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.name}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, name: e.target.value })
@@ -139,7 +141,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="country"
               placeholder="Enter Country"
-              className="border rounded py-2 px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.location.country}
               onChange={(e) =>
                 setNewGathering({
@@ -160,7 +162,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="city"
               placeholder="Enter City"
-              className="border rounded py-2 px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.location.city}
               onChange={(e) =>
                 setNewGathering({
@@ -181,7 +183,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="zipCode"
               placeholder="Enter ZIP Code"
-              className="border rounded py-2 px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.location.zipCode}
               onChange={(e) =>
                 setNewGathering({
@@ -201,7 +203,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <input
               type="date"
               id="date"
-              className="border rounded py-2 px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.date}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, date: e.target.value })
@@ -215,7 +217,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <input
               type="time"
               id="time"
-              className="border rounded py-2 px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.time}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, time: e.target.value })
@@ -232,8 +234,8 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <textarea
               id="description"
               placeholder="Enter Description"
-              rows={5}
-              className="border rounded py-2 px-3 w-full"
+              rows={3}
+              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
               value={newGathering.description}
               onChange={(e) =>
                 setNewGathering({
@@ -251,7 +253,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
           </button>
         </form>
         <button
-          className=" text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 absolute ring-1 ring-gray-300  top-3 right-3 transition-all duration-500 rounded-full"
+          className=" text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 absolute ring-1 ring-gray-300 top-5 right-2 lg:top-4 xl:top-3 lg:right-3 transition-all duration-500 rounded-full"
           onClick={onClose}
         >
           <svg

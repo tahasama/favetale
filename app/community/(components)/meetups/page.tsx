@@ -244,7 +244,7 @@ const Meetups = () => {
 
         <button
           onClick={() => setUploadModalOpen(true)}
-          className="bg-tealLight hover:animate-buttonHover hover:text-white px-4 py-3 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
+          className="bg-tealLight hover:animate-buttonHover hover:text-white px-3 lg:px-4 py-2 lg:py-3 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
         >
           Create a Gathering
         </button>
