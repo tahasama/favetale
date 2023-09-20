@@ -83,7 +83,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
 
   return (
     <div
-      className={`linka fixed inset-0 flex flex-col items-center justify-center modal-overlay full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`linka fixed inset-0 flex flex-col items-center justify-center full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
@@ -96,7 +96,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
         } mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
       >
         {!preview ? (
-          <div className="md:p-6 py-4 px-1.5 rounded-lg  h-screen ">
+          <div className="md:p-6 py-4 px-1.5 rounded-lg  h-full ">
             <div>
               <h2 className="mb-4"> Write a Blog</h2>
               <div className="flex items-center mb-4 gap-3">
@@ -109,16 +109,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   className="py-2 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
-              <div className=" mb-6">
-                <JoditEditor
-                  ref={editor}
-                  value={content}
-                  config={config}
-                  // onBlur={(x: any) => thafunction(x)}
-                  onBlur={(newContent: any) => setContent(newContent)}
-                />
-              </div>
-
               <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 mb-2">
                   Select an image:
@@ -136,7 +126,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   copy and paste an image from the web
                 </p>
               </div>
-
               <div className="mb-4">
                 <div className="flex items-center">
                   <input
@@ -164,7 +153,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   ))}
                 </div>
               </div>
-
               <div className="mb-6  flex justify-center lg:justify-end space-x-5 lg:space-x-4">
                 <button
                   className="ring-1 ring-slate-500 hover:bg-slate-500 hover:text-white transition-colors duration-300 text-slate-500 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
@@ -185,6 +173,15 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                 >
                   Publish
                 </button>
+              </div>
+              <div className=" mb-6">
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={config}
+                  // onBlur={(x: any) => thafunction(x)}
+                  onBlur={(newContent: any) => setContent(newContent)}
+                />
               </div>
             </div>
             <button

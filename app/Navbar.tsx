@@ -68,13 +68,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-tealLight h-20 flex justify-between mx-0 sm:-ml-2 items-center gap-0 z-50 fixed top-0 w-full`}
+      className={`h-20 flex justify-between pl-1 sm:px-3 items-center gap-0 z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
           <span
             onClick={toggleDropdown2}
-            className="cursor-pointer sm:pr-8   scale-90  md:scale-100 md:hidden block"
+            className="cursor-pointer sm:pr-8   scale-110  md:scale-100 md:hidden block"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

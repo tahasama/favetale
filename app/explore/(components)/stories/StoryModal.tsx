@@ -1,13 +1,21 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import styles
+// import "./blog.css";
+import ReactMarkdown from "react-markdown";
+import grayMatter from "gray-matter";
+import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
+import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
+
+import Quill from "quill";
 import dynamic from "next/dynamic";
-// import JoditEditor from "jodit-react";
+import JoditEditor from "jodit-react";
 
 const StoryModal = ({ isOpen, onClose }: any) => {
-  const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+  // const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
   const [content, setContent] = useState(
     "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
@@ -20,7 +28,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
     }
   };
   const [title, setTitle] = useState(""); // State to hold the title
-
   const [tags, setTags] = useState<string[]>([]); // State to hold tags
   const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
 
@@ -68,9 +75,15 @@ const StoryModal = ({ isOpen, onClose }: any) => {
       </>`,
   };
 
+  const thafunction = (x: any) => {
+    console.log("🚀 ~ file: BlogModal.tsx:78 ~ thafunction ~ x:", x);
+    setContent((prev) => prev + x);
+    return {};
+  };
+
   return (
     <div
-      className={`linka fixed inset-0 flex flex-col items-center justify-center modal-overlay full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`linka fixed inset-0 flex flex-col items-center justify-center full w-full mb-4 bg-white  h-full z-50 backdrop-blur-md backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
@@ -78,12 +91,12 @@ const StoryModal = ({ isOpen, onClose }: any) => {
       onClick={handleModalClick}
     >
       <div
-        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto my-1 h-full w-full lg:${
+        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto  h-full w-full lg:${
           preview ? "w-9/12" : "w-7/12"
         } mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
       >
         {!preview ? (
-          <div className="md:p-6 py-4 px-1.5 rounded-lg  h-screen ">
+          <div className="md:p-6 py-4 px-1.5 rounded-lg  h-full ">
             <div>
               <h2 className="mb-4"> Share a story</h2>
               <div className="flex items-center mb-4 gap-3">
@@ -96,16 +109,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   className="py-2 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
-              <div className=" mb-6">
-                <JoditEditor
-                  ref={editor}
-                  value={content}
-                  config={config}
-                  // onBlur={(x: any) => thafunction(x)}
-                  onBlur={(newContent: any) => setContent(newContent)}
-                />
-              </div>
-
               <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 mb-2">
                   Select an image:
@@ -123,7 +126,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   copy and paste an image from the web
                 </p>
               </div>
-
               <div className="mb-4">
                 <div className="flex items-center">
                   <input
@@ -151,7 +153,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   ))}
                 </div>
               </div>
-
               <div className="mb-6  flex justify-center lg:justify-end space-x-5 lg:space-x-4">
                 <button
                   className="ring-1 ring-slate-500 hover:bg-slate-500 hover:text-white transition-colors duration-300 text-slate-500 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
@@ -173,9 +174,18 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   Publish
                 </button>
               </div>
+              <div className=" mb-6">
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={config}
+                  // onBlur={(x: any) => thafunction(x)}
+                  onBlur={(newContent: any) => setContent(newContent)}
+                />
+              </div>
             </div>
             <button
-              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3 ring-1 ring-gray-300 transition-all duration-500 rounded-full"
+              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
               onClick={onClose}
             >
               <svg
