@@ -188,7 +188,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
               </div>
             </div>
             <button
-              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-4  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
+              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
               onClick={onClose}
             >
               <svg

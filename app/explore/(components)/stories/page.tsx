@@ -51,7 +51,7 @@ const Stories = () => {
     <div className="container  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
-        <div className="bg-sky-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
+        <div className="bg-indigo-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
           <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-5">
             Share Your Inspiring Story
           </h2>
@@ -60,7 +60,7 @@ const Stories = () => {
           </p>
           <button
             onClick={() => setUploadModalOpen(true)}
-            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-sky-700 transition-colors duration-500"
+            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-500"
           >
             Share a story
           </button>

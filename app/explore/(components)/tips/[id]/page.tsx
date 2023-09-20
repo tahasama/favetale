@@ -442,7 +442,7 @@ Remember that the quality of time you spend with your pet matters more than the 
         ref={ref}
       >
         <motion.p
-          className="font-semibold tracking-wider text-6xl  z-10 absolute  text-white"
+          className="font-semibold tracking-wider backdrop-brightness-75 text-4xl lg:text-6xl  z-10 absolute  text-slate-200"
           style={{ y: textTranslateY }}
         >
           {tipData.title}

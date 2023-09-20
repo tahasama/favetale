@@ -56,6 +56,18 @@ const StoryModal = ({ isOpen, onClose }: any) => {
     setImageFile(file);
   };
 
+  const config: any = {
+    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+    placeholder: `
+        <h3>Start your blog...</h3>
+        <br />
+        <br />
+        <br />
+        <br />
+        For quick step back ctrl + Z
+      </>`,
+  };
+
   return (
     <div
       className={`linka fixed inset-0 flex flex-col items-center justify-center modal-overlay full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
@@ -65,11 +77,15 @@ const StoryModal = ({ isOpen, onClose }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className=" inset-0 relative flex flex-col justify-start items-end overflow-auto my-1 h-full w-full mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0">
-        {!preview && (
-          <div className="p-4 md:p-6 md:mx-auto rounded-lg  h-screen ">
+      <div
+        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto my-1 h-full w-full lg:${
+          preview ? "w-9/12" : "w-7/12"
+        } mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
+      >
+        {!preview ? (
+          <div className="md:p-6 py-4 px-1.5 rounded-lg  h-screen ">
             <div>
-              <h2 className="mb-4">Write a Blog</h2>
+              <h2 className="mb-4"> Share a story</h2>
               <div className="flex items-center mb-4 gap-3">
                 <label htmlFor="title">Add title: </label>
                 <input
@@ -77,18 +93,16 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   placeholder="Add title..."
                   value={title}
                   onChange={(e) => handleTitleChange(e.target.value)}
-                  className="py-2 px-3 w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  className="py-2 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
-              <div className="mb-6">
-                <JoditEditor
-                  value={content}
-                  onBlur={(newContent: any) => setContent(newContent)}
-                />
+              <div className=" mb-6">
                 <JoditEditor
                   ref={editor}
                   value={content}
-                  onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                  config={config}
+                  // onBlur={(x: any) => thafunction(x)}
+                  onBlur={(newContent: any) => setContent(newContent)}
                 />
               </div>
 
@@ -137,7 +151,8 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   ))}
                 </div>
               </div>
-              <div className="mb-6  flex justify-end space-x-4">
+
+              <div className="mb-6  flex justify-center lg:justify-end space-x-5 lg:space-x-4">
                 <button
                   className="ring-1 ring-slate-500 hover:bg-slate-500 hover:text-white transition-colors duration-300 text-slate-500 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                   onClick={() => setPreview(true)}
@@ -160,7 +175,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
               </div>
             </div>
             <button
-              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-4  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
+              className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3 ring-1 ring-gray-300 transition-all duration-500 rounded-full"
               onClick={onClose}
             >
               <svg
@@ -173,15 +188,14 @@ const StoryModal = ({ isOpen, onClose }: any) => {
               </svg>
             </button>
           </div>
-        )}
-
-        {preview && (
+        ) : (
           <div className="absolute inset-0 flex justify-center h-full mx-3">
             <button
-              className="absolute left-5 top-5 bg-purple-100 p-5 rounded-lg flex justify-center items-center gap-2 care"
+              className="absolute left-0 lg:left-3 top-2 lg:top-5 lg:bg-purple-100 lg:p-5 rounded-lg flex justify-center items-center gap-2 care"
               onClick={() => setPreview(false)}
             >
-              <span className="text-xl">⬅️</span> <p>Go back</p>
+              <span className="lg:text-xl text-3xl">⬅️</span>{" "}
+              <p className="hidden lg:block">Go back</p>
             </button>
             <div className="m-1 w-[45.5%] ">
               <h1 className="text-center capitalize my-5">{title}</h1>
