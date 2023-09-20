@@ -32,7 +32,7 @@ import img11 from "../../../../images/11.jpg";
 import img12 from "../../../../images/12.jpg";
 
 import Image from "next/image";
-import ImageModal from "./ImageModal";
+import ImageModal from "./QuestionModal";
 import { useParams } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 
