@@ -184,8 +184,8 @@ const Forum = () => {
   };
 
   return (
-    <div className="mt-20 bg-tealLight w-full h-full">
-      <div className="mx-5 pt-5 bg-tealLight">
+    <div className=" bg-tealLight grid place-items-center w-full h-full">
+      <div className="mx-5 pt-5 mt-16 lg:mt-0 bg-tealLight lg:w-8/12 ">
         <span className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
           <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
           <button
