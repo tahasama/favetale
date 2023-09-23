@@ -188,7 +188,7 @@ const StorySection = () => {
             onMouseEnter={() => setHoveredCard(true)}
             onMouseLeave={() => setHoveredCard(false)}
           >
-            <div className="-ml-12 md:ml-10 scale-44% sm:scale-75 md:scale-75 lg:scale-100 -mt-20 relative w-[100vw]  flex justify-center  items-center  h-[100vh]">
+            <div className="-ml-10 md:ml-10 scale-50% sm:scale-75 md:scale-75 lg:scale-100 -mt-20 relative w-[100vw]  flex justify-center  items-center  h-[100vh]">
               {stories.map((story: any, i: any) => (
                 <div
                   className="grid place-items-center mt-48 -ml-10"
@@ -204,7 +204,10 @@ const StorySection = () => {
                     // top-56 right-96
                     className={"absolute transition-all duration-75 "}
                     style={{
-                      transform: `rotate(${(i + 0.1) * 28}deg)`,
+                      transform:
+                        i !== 2
+                          ? `rotate(${(i + 0.1) * 28}deg)`
+                          : `rotate(${24}deg) translate(120px, 140px)`,
                       transformOrigin: "bottom left",
                       // transition: "z-index 3s ease",
                     }}
@@ -221,7 +224,7 @@ const StorySection = () => {
                               ? `rotate(${68 / (i + 1)}deg)`
                               : i === 1
                               ? `rotate(${78 / (i + 1)}deg)`
-                              : `rotate(${35 / (i + 1)}deg)`
+                              : `rotate(${136 / (i + 1)}deg)`
                             : `rotate(${i * 28}deg)`,
                       }}
                       onMouseEnter={() => setHoveredCards(i)}
