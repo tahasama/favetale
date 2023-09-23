@@ -20,24 +20,26 @@ const communityContributions = [
     date: "24 Jun 2023",
     writer: "Jon Smith",
   },
-  // {
-  //   image: pet10,
-  //   title: "DIY Pet Accessories: Creative Crafts",
-  //   description:
-  //     "Explore a step-by-step guide to making adorable pet accessories that our member created.",
-  //   location: "NY",
-  //   date: "15 Jan 2022",
-  //   writer: "Elena Cruz",
-  // },
-  // {
-  //   image: pet9,
-  //   title: "Training Tips: Happy Paws",
-  //   description:
-  //     "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
-  //   location: "Tokyo",
-  //   date: "31 Mar 2023",
-  //   writer: "Sylvia Throne",
-  // },
+];
+const communityContributions2 = [
+  {
+    image: pet10,
+    title: "Pet Accessories: Creative Crafts",
+    description:
+      "Explore a step-by-step guide to making adorable pet accessories that our member created.",
+    location: "NY",
+    date: "15 Jan 2022",
+    writer: "Elena Cruz",
+  },
+  {
+    image: pet9,
+    title: "Training Tips: Happy Paws",
+    description:
+      "Discover expert training tips shared by a community member that helped improve their pet's behavior.",
+    location: "Tokyo",
+    date: "31 Mar 2023",
+    writer: "Sylvia Throne",
+  },
 ];
 
 const CommunitySection = () => {
@@ -51,54 +53,94 @@ const CommunitySection = () => {
           </h2>
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
         </div>
-        <p className="text-lg text-slate-600 mb-8 mx-5">
+        <p className="text-lg indent-6 text-left text-slate-600 mb-8 mx-5">
           Our community is a vibrant space where pet lovers from around the
           world come together to share their stories, connect with fellow
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="flex flex-col gap-8 mx-1 md:mx-6">
-          {/* User Contributions */}
-          {communityContributions.map((contribution: any, i: any) => (
-            <div
-              key={i}
-              className={`bg-tealLight rounded-lg shadow-xl flex mx-2 sm:w-4/5 lg:w-2/6 overflow-hidden justify-between self-center flex-col 
+        <div className="flex flex-col lg:flex-row gap-7 lg:gap-3 ">
+          <div className="flex flex-co items-start justify-center lg:justify-end">
+            {communityContributions.map((contribution: any, i: any) => (
+              <div
+                key={i}
+                className={`bg-tealLight rounded-lg shadow-xl w-7/12 lg:w-9/12 flex mx-2  overflow-hidden self-end  flex-col 
               }`}
-            >
-              <div>
-                <Image
-                  src={contribution.image}
-                  alt="Featured Story 2"
-                  className="w-full h-full aspect-auto object-cover cursor-pointer"
-                />
-              </div>
+              >
+                <div>
+                  <Image
+                    src={contribution.image}
+                    alt="Featured Story 2"
+                    className="w-full h-full aspect-auto object-cover cursor-pointer"
+                  />
+                </div>
 
-              <div className="p-4 flex  justify-end flex-col h-auto">
-                <span>
+                <div className="p-4 flex  justify-end flex-col h-auto">
+                  <span>
+                    <h3
+                      className={`text-md lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
+                    >
+                      {contribution.title}
+                    </h3>
+                    <p className="text-gray-400 text-xs mb-2">
+                      📅 {contribution.date} | 📌
+                      {contribution.location}
+                    </p>
+                  </span>
+                  <p className="text-gray-600 lg:line-clamp-3 sm:line-clamp-2">
+                    {contribution.description}
+                  </p>
+                  <p className="text-gray-500 text-xs self-end">
+                    ~ {contribution.writer}
+                  </p>
+                  <Link href={"/community/forums"}>
+                    <button className="hover:animate-buttonHover w-fit mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-7 py-3 rounded-md shadow-md">
+                      Read More
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col items-start justify-start w-full w gap-8">
+            {/* User Contributions */}
+            {communityContributions2.map((contribution: any, i: any) => (
+              <div
+                key={i}
+                className={`bg-tealLight rounded-lg shadow-xl flex ml-7 mr-1.5 overflow-hidden justify-between self-center md:self-start  
+              }`}
+              >
+                <div>
+                  <Image
+                    src={contribution.image}
+                    alt="Featured Story 2"
+                    className="max-full max-w-[11.5rem] object-cover cursor-pointer"
+                  />
+                </div>
+
+                <div className="p-4 flex  justify-end flex-col h-auto">
                   <h3
-                    className={`text-md lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
+                    className={`text-base lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
                   >
                     {contribution.title}
                   </h3>
-                  <p className="text-gray-400 text-xs mb-2">
-                    📅 {contribution.date} | 📌
-                    {contribution.location}
+
+                  <p className="text-gray-600 text-left indent-3 lg:line-clamp-3 line-clamp-2">
+                    {contribution.description}
                   </p>
-                </span>
-                <p className="text-gray-600 lg:line-clamp-3 sm:line-clamp-2">
-                  {contribution.description}
-                </p>
-                <p className="text-gray-500 text-xs self-end">
-                  ~ {contribution.writer}
-                </p>
-                <Link href={"/community/forums"}>
-                  <button className="hover:animate-buttonHover w-fit mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-7 py-3 rounded-md shadow-md">
-                    Read More
-                  </button>
-                </Link>
+                  <span className="flex justify-evenly items-center mt-2">
+                    <p className="text-gray-400 text-xs">
+                      📅 {contribution.date} | 📌
+                      {contribution.location}
+                    </p>
+                    <p className="text-gray-500 text-xs self-end">
+                      ~ {contribution.writer}
+                    </p>
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Testimonials or Quotes */}

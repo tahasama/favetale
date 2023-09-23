@@ -103,7 +103,7 @@ const GallerySection = () => {
           </motion.div>
 
           <motion.div
-            className="absolute inset-0 z-0 xl:top-20 bg-100% sm:bg-75%"
+            className="absolute inset-0 z-0 xl:top-20 bg-100% sm:bg-50%"
             style={{
               backgroundImage: `url(${pet7.src})`,
               backgroundPosition: "center center", // Center the image horizontally and vertically

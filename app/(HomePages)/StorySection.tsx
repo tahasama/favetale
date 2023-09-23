@@ -153,7 +153,7 @@ const StorySection = () => {
   const [hoveredCards, setHoveredCards] = useState();
 
   return (
-    <section className="bg-tealLight py-20">
+    <section className="bg-tealLight pt-20">
       <div className="text-center">
         <div className="grid place-items-center">
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
