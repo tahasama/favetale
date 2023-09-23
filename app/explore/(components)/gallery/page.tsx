@@ -1,5 +1,8 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
+import Image from "next/image";
+
 import i13 from "../../../images/13.jpg";
 import i14 from "../../../images/14.jpg";
 import i15 from "../../../images/15.jpg";
@@ -7,16 +10,14 @@ import i16 from "../../../images/16.jpg";
 import i17 from "../../../images/17.jpg";
 import i18 from "../../../images/18.jpg";
 import i19 from "../../../images/19.jpg";
-import Image from "next/image";
-import ImageModal from "./ImageModal";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import UploadImageModal from "./UploadImageModal";
+import { motion } from "framer-motion";
+import ImageModal from "./ImageModal";
 
 const Gallery = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState<any>("");
   console.log(
     "🚀 ~ file: GallerySection.tsx:31 ~ GallerySection ~ selectedImage:",
     selectedImage
@@ -30,7 +31,7 @@ const Gallery = () => {
   };
 
   return (
-    <div className="container  my-20  w-full">
+    <div className="  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
         <div className="bg-yellow-500 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
@@ -84,6 +85,7 @@ const Gallery = () => {
         />
       </div>
     </div>
+    // <div>HYUHYUHYU</div>
   );
 };
 

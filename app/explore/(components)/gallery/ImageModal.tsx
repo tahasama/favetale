@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
+const ImageModal = ({ isOpen, onClose, imageSrc }: any) => {
   const [comments, setComments] = useState<string[]>([
     "fffffff",
     "ggggggggggg",
@@ -40,7 +40,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
         <div className="bg-white shadow-lg relative lg:top-36 h-full">
           <Image
             src={imageSrc}
-            alt={title}
+            alt={"title"}
             className="lg:h-[93vh]"
             width={1000}
             height={1000}
