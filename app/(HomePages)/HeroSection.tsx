@@ -27,7 +27,7 @@ const HeroSection = () => {
               Find shared moments and memories of beloved companions.
             </p>
             <Link href={"/explore?section=Gallery"}>
-              <button className="hover:animate-buttonHover mt-4 lg:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-4 md:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
                 Discover
               </button>
             </Link>
@@ -39,7 +39,7 @@ const HeroSection = () => {
               Share your heartwarming pet tales with the world.
             </p>
             <Link href={"/explore?section=Stories"}>
-              <button className="hover:animate-buttonHover mt-4 lg:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-3 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-4 md:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-3 rounded-md transition-all duration-1000 cursor-pointer">
                 Inspire
               </button>
             </Link>
@@ -50,7 +50,7 @@ const HeroSection = () => {
           <Image
             src={heroImage}
             alt="Happy pets"
-            className="mx-auto object-cover md:w-5/6"
+            className="mx-auto object-cover w-5/6"
           />
         </div>
 
@@ -62,7 +62,7 @@ const HeroSection = () => {
               Get food, toys, gadget and all sort of things for your pet.
             </p>
             <Link href={"/store"}>
-              <button className="hover:animate-buttonHover mt-4 animate-fadeInOut lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-6 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-4 animate-fadeInOut md:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-6 rounded-md transition-all duration-1000 cursor-pointer">
                 Shop
               </button>
             </Link>
@@ -75,7 +75,7 @@ const HeroSection = () => {
             </p>
 
             <Link href={"/community"}>
-              <button className="hover:animate-buttonHover mt-4 animate-fadeInOut lg:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-4 animate-fadeInOut md:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
                 Connect
               </button>
             </Link>

@@ -53,6 +53,18 @@ module.exports = {
         bounceQ: "bounce1 1s linear  ",
         bounceZ: "bounce2 1s linear  ",
       },
+      backgroundSize: {
+        "50%": "50%",
+        "75%": "75%",
+        "85%": "85%",
+        "90%": "90%",
+        "100%": "100%",
+        16: "4rem",
+      },
+      scale: {
+        "25%": "25%",
+        "44%": "44%",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar"), require("@tailwindcss/typography")],

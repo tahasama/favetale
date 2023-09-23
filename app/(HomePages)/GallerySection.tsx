@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import pet1 from "../images/1.jpg";
@@ -19,6 +19,8 @@ import "swiper/css/navigation";
 import { Keyboard, Navigation, Pagination } from "swiper/modules";
 import ImageModal from "../explore/(components)/gallery/ImageModal";
 import Link from "next/link";
+import pet7 from "../images/pet7a.png";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
@@ -59,82 +61,99 @@ const GallerySection = () => {
         window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const ref = useRef<any>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 300]); // Adjust the range and values for text
+  const ops = useTransform(scrollYProgress, [0, 0.8], [1, 0]); // Adjust the range and values for text
+  // const ops1 = useTransform(scrollYProgress, [0.5, 0.52], [1, 0]); // Adjust the range and values for text
+  const ops1 = useTransform(scrollYProgress, [0.5, 0.42], [1, 0]); // Adjust the range and values for text
+
   return (
-    <section className="bg-tealLight py-12 -mt-10 sm:mt-0">
-      <div className="container mx-auto text-center">
-        <div className="grid place-items-center">
-          <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
-
-          <h2 className={`text-3xl font-semibold mb-4 ${vollkorn.className}`}>
-            Featured Pets
-          </h2>
-          <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
-        </div>
-
-        <div className=" mx-4 md:mx-2 sm:gap-4 lg:mx-2">
-          <Swiper
-            slidesPerView={
-              windowWidth < 700 ? 1.4 : windowWidth < 900 ? 2.4 : 3.4
-            }
-            spaceBetween={20}
-            keyboard={{
-              enabled: true,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={true}
-            modules={[Keyboard, Pagination, Navigation]}
-            className="my-swiper "
+    <section className="bg-tealLight py-12 w-auto -mt-10 sm:mt-0">
+      <div className=" text-center">
+        <div
+          className=" relative w-full h-[100vh] flex flex-col items-center"
+          ref={ref}
+        >
+          <motion.div
+            className={`absolute top-0 z-40 translate-x-1/2 w-fit p-3.5 rounded-md mx-4 md:mx-2 sm:gap-4 lg:mx-2`}
+            style={{ y: textTranslateY }}
           >
-            {pets.map((pet: any, index: any) => (
-              <SwiperSlide className="bg-tealDark  rounded-lg" key={index}>
-                <Image
-                  src={pet}
-                  alt="pet"
-                  className="w-full h-auto cursor-pointer  rounded-lg shadow-xl bg-tealDark"
-                  onClick={() => handleImageClick(pet)}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <ImageModal
-            isOpen={modalOpen}
-            onClose={() => setModalOpen(false)}
-            imageSrc={selectedImage?.src}
-            petImages={pets}
+            <div className="grid place-items-center">
+              <div className="bg-teal-500 h-1 w-40 ml-2 my-5"></div>
+
+              <h2
+                className={`lg:text-3xl font-semibold mb-4 ${vollkorn.className}`}
+              >
+                Discover Our Gallery
+              </h2>
+              <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
+            </div>
+            <Link href="/explore">
+              <button className="hover:animate-buttonHover my-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
+                Explore Gallery
+              </button>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="absolute inset-0 z-0 xl:top-20 bg-100% sm:bg-75%"
+            style={{
+              backgroundImage: `url(${pet7.src})`,
+              backgroundPosition: "center center", // Center the image horizontally and vertically
+              // backgroundSize: "55% auto", // Ensure the image fits while maintaining its aspect ratio
+              y: backgroundTranslateY,
+              // width: "70vh",
+              backgroundRepeat: "no-repeat",
+              opacity: ops,
+            }}
           />
         </div>
-        <div className="mt-10 flex justify-center">
-          <div className="bg-white rounded-lg shadow-md overflow-hidden mx-2 sm:w-2/5">
-            <div className="p-4 flex flex-col items-center space-y-3">
-              <p
-                className={`text-gray-600 text-2xl tracking-wider ${vollkorn.className}`}
-              >
-                Meet our winner of the Week!{" "}
-              </p>
-              <span className="text-5xl">👑</span>
-              <Image
-                src={pet4}
-                alt="Pet of the Week"
-                className="w-12/12 xl:w-10/12 h-auto rounded-lg cursor-pointer"
-                onClick={() => handleImageClick(pet4)}
-              />
-              <div className="mt-2 flex flex-col items-center justify-between w-full">
-                <div className="flex items-center">
-                  <span className="text-gray-600 mr-2">❤️ Likes: 100</span>
-                  <span className="text-gray-600">💬 Comments: 50</span>
-                </div>
-                <Link href={"/explore?section=Gallery"}>
-                  <button className="hover:animate-buttonHover mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3  sm:px-8 sm:py-3 shadow-xl rounded-3xl">
-                    Explore Gallery
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+      <div className="-mt-56 sm:-mt-44 lg:-mt-32 xl:-mt-32">
+        <Swiper
+          slidesPerView={
+            windowWidth < 700 ? 1.4 : windowWidth < 900 ? 2.4 : 3.4
+          }
+          spaceBetween={20}
+          keyboard={{
+            enabled: true,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Keyboard, Pagination, Navigation]}
+          className=" bg-tealLight"
+        >
+          {pets.map((pet: any, index: any) => (
+            <SwiperSlide
+              className="bg-tealDark m-2 rounded-lg scale-75 md:scale-100"
+              key={index}
+            >
+              <Image
+                src={pet}
+                alt="pet"
+                className="w-full h-auto cursor-pointer  rounded-lg shadow-xl bg-tealDark"
+                onClick={() => handleImageClick(pet)}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <ImageModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        imageSrc={selectedImage?.src}
+        petImages={pets}
+      />
     </section>
   );
 };

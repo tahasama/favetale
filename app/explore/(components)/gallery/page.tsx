@@ -79,7 +79,7 @@ const Gallery = () => {
         <ImageModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          imageSrc={selectedImage?.src}
+          imageSrc={selectedImage}
           petImages={petImages}
         />
       </div>
