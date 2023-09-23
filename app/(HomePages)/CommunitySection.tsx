@@ -60,11 +60,11 @@ const CommunitySection = () => {
           contributions from our community members below!
         </p>
         <div className="flex flex-col lg:flex-row gap-7 lg:gap-3 ">
-          <div className="flex flex-co items-start justify-center lg:justify-end">
+          <div className="flex  items-start justify-center lg:justify-end">
             {communityContributions.map((contribution: any, i: any) => (
               <div
                 key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-7/12 lg:w-9/12 flex mx-2  overflow-hidden self-end  flex-col 
+                className={`bg-tealLight rounded-lg shadow-xl w-7/12 lg:w-9/12 flex   overflow-hidden self-end  flex-col 
               }`}
               >
                 <div>
@@ -107,14 +107,14 @@ const CommunitySection = () => {
             {communityContributions2.map((contribution: any, i: any) => (
               <div
                 key={i}
-                className={`bg-tealLight rounded-lg shadow-xl flex ml-7 mr-1.5 overflow-hidden justify-between self-center md:self-start  
+                className={`bg-tealLight rounded-lg shadow-xl w-7/12 md:w-11/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center md:self-start  
               }`}
               >
                 <div>
                   <Image
                     src={contribution.image}
                     alt="Featured Story 2"
-                    className="max-full max-w-[11.5rem] object-cover cursor-pointer"
+                    className="max-w-full md:max-w-[11.8rem] object-cover cursor-pointer"
                   />
                 </div>
 
@@ -128,14 +128,21 @@ const CommunitySection = () => {
                   <p className="text-gray-600 text-left indent-3 lg:line-clamp-3 line-clamp-2">
                     {contribution.description}
                   </p>
-                  <span className="flex justify-evenly items-center mt-2">
-                    <p className="text-gray-400 text-xs">
-                      📅 {contribution.date} | 📌
-                      {contribution.location}
-                    </p>
-                    <p className="text-gray-500 text-xs self-end">
-                      ~ {contribution.writer}
-                    </p>
+                  <span className="flex flex-col md:flex-row justify-evenly items-center mt-2">
+                    <div className="flex">
+                      <p className="text-gray-400 text-xs">
+                        📅 {contribution.date} | 📌
+                        {contribution.location}
+                      </p>
+                      <p className="text-gray-500 text-xs self-center">
+                        ~ {contribution.writer}
+                      </p>
+                    </div>
+                    <Link href={"/community/forums"}>
+                      <button className="hover:animate-buttonHover md:hidden w-fit pt-5 text-indigo-400">
+                        Read More
+                      </button>
+                    </Link>
                   </span>
                 </div>
               </div>
