@@ -53,7 +53,7 @@ const CommunitySection = () => {
           </h2>
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
         </div>
-        <p className="text-lg indent-6 text-left text-slate-600 mb-8 mx-5">
+        <p className="text-lg indent-6 text-left text-slate-600 mb-8 mx-1.5 md:mx-24 lg:mx-56 xl:mx-64">
           Our community is a vibrant space where pet lovers from around the
           world come together to share their stories, connect with fellow
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
@@ -64,7 +64,7 @@ const CommunitySection = () => {
             {communityContributions.map((contribution: any, i: any) => (
               <div
                 key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-7/12 lg:w-9/12 flex   overflow-hidden self-end  flex-col 
+                className={`bg-tealLight rounded-lg shadow-xl w-11/12 md:w-5/12 lg:w-8/12 flex overflow-hidden self-end  flex-col 
               }`}
               >
                 <div>
@@ -102,12 +102,12 @@ const CommunitySection = () => {
               </div>
             ))}
           </div>
-          <div className="flex flex-col items-start justify-start w-full w gap-8">
+          <div className="flex flex-col items-start  justify-start w-full w gap-8">
             {/* User Contributions */}
             {communityContributions2.map((contribution: any, i: any) => (
               <div
                 key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-7/12 md:w-11/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center md:self-start  
+                className={`bg-tealLight rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-11/12 xl:w-10/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center lg:self-start  
               }`}
               >
                 <div>
@@ -118,14 +118,14 @@ const CommunitySection = () => {
                   />
                 </div>
 
-                <div className="p-4 flex  justify-end flex-col h-auto">
+                <div className="p-4 lg:p-2 flex  justify-end flex-col h-auto">
                   <h3
-                    className={`text-base lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
+                    className={`text-base xl:text-xl lg:text-lg font-semibold lg:mb-1 mb-3 ${vollkorn.className}`}
                   >
                     {contribution.title}
                   </h3>
 
-                  <p className="text-gray-600 text-left indent-3 lg:line-clamp-3 line-clamp-2">
+                  <p className="text-gray-600 text-left indent-3 xl:line-clamp-3 line-clamp-2">
                     {contribution.description}
                   </p>
                   <span className="flex flex-col md:flex-row justify-evenly items-center mt-2">
