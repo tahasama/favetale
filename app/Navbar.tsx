@@ -6,6 +6,8 @@ import SearchModal from "./SearchModal";
 import Image from "next/image";
 import logoPets from "./images/logoPets.png";
 import { useCart } from "./provider/CartProvider";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase";
 
 // const cormorant = Cormorant({ subsets: ["latin"] });
 // const cormorant2 = Cormorant({ subsets: ["latin-ext"], weight: "600" });
@@ -250,9 +252,24 @@ const Navbar = () => {
                       My Events
                     </span>
                   </Link> */}
-                  <button className="block w-full px-4 py-2 text-left hover:bg-teal-50 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
-                    Logout
-                  </button>
+                  <Link
+                    href="/auth"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    <button className="block w-full px-4 py-2 text-left hover:bg-teal-50 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
+                      Login
+                    </button>
+                  </Link>
+                  <Link
+                    href="/auth"
+                    onClick={() => {
+                      setIsDropdownOpen(!isDropdownOpen), signOut(auth);
+                    }}
+                  >
+                    <button className="block w-full px-4 py-2 text-left hover:bg-teal-50 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
+                      Logout
+                    </button>
+                  </Link>
                 </div>
               )}
             </div>

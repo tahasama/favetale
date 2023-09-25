@@ -263,7 +263,7 @@ const StorySection = () => {
         </div>
 
         <Link href="/explore?section=Stories">
-          <button className="hover:animate-buttonHover text-lg relative -top-20 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-3 sm:px-12 sm:py-4 shadow-xl rounded-2xl">
+          <button className="hover:animate-buttonHover relative -top-20 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-6 py-3.5 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
             Check stories
           </button>
         </Link>

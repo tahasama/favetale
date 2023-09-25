@@ -162,6 +162,16 @@ const UserProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState();
   const [expandedPurchase, setExpandedPurchase] = useState<any>(null);
+  const { userx } = useCart();
+  console.log("🚀 ~ file: page.tsx:166 ~ UserProfile ~ user:", userx);
+
+  // useEffect(() => {
+  //   first
+
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
 
   const openModal = (pet: any) => {
     setIsModalOpen(true);
@@ -183,7 +193,7 @@ const UserProfile = () => {
           className=" grid place-content-around place-items-start"
         >
           {/* Username */}
-          <h2 className="text-2xl font-semibold mb-2">John Doe</h2>
+          <h2 className="text-2xl font-semibold mb-2">{userx.name}</h2>
           <h2 className="text-md font-light mb-2">join on 2nd August 23</h2>
 
           {/* Bio */}
