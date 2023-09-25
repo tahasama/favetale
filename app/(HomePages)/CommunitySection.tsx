@@ -53,18 +53,18 @@ const CommunitySection = () => {
           </h2>
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-7"></div>
         </div>
-        <p className="text-lg indent-6 text-left text-slate-600 mb-8 mx-1.5 md:mx-24 lg:mx-56 xl:mx-64">
+        <p className="text-lg indent-6 text-left text-slate-600 mb-8 mx-2 md:mx-16 lg:mx-24 xl:mx-44">
           Our community is a vibrant space where pet lovers from around the
           world come together to share their stories, connect with fellow
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="flex flex-col lg:flex-row gap-7 lg:gap-3 ">
-          <div className="flex  items-start justify-center lg:justify-end">
+        <div className="flex flex-col lg:flex-row gap-7 lg:gap-3 lg:-ml-60 xl:-ml-40 ">
+          <div className="flex items-start justify-center lg:justify-end">
             {communityContributions.map((contribution: any, i: any) => (
               <div
                 key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-11/12 md:w-5/12 lg:w-8/12 flex overflow-hidden self-end  flex-col 
+                className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-5/12 lg:w-6/12 flex overflow-hidden self-end  flex-col 
               }`}
               >
                 <div>
@@ -107,7 +107,7 @@ const CommunitySection = () => {
             {communityContributions2.map((contribution: any, i: any) => (
               <div
                 key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-11/12 xl:w-10/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center lg:self-start  
+                className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-9/12 lg:w-11/12 xl:w-9/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center lg:self-start  
               }`}
               >
                 <div>
