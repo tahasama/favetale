@@ -194,7 +194,12 @@ const UserProfile = () => {
         >
           {/* Username */}
           <h2 className="text-2xl font-semibold mb-2">{userx.name}</h2>
-          <h2 className="text-md font-light mb-2">join on 2nd August 23</h2>
+          <p className="text-md font-light mb-2">
+            Join on: {userx.creationTime.slice(0, 16)}
+          </p>
+          <p className="text-md font-light mb-2">
+            Last visit on: {userx.lastSignInTime.slice(0, 16)}
+          </p>
 
           {/* Bio */}
           <p className="text-gray-600 mb-4">
@@ -230,7 +235,7 @@ const UserProfile = () => {
       </div>
 
       {/* Content Sections */}
-      <div className="mx-6  p-0 mt-12 ">
+      <div className="mx-10  p-0 mt-12 ">
         {/* My Images Section */}
         <div className="p-4 bg-violet-100 mb-3 rounded-md">
           <div className="bg-white shadow-md rounded-lg p-4 mb-3">

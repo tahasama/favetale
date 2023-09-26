@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const SearchModal = ({ isOpen, onClose, image }: any) => {
-  console.log("🚀 ~ file: ImageModal.tsx:6 ~ SearchModal ~ image:", image);
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose();

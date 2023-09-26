@@ -11,30 +11,12 @@ export const CartProvider = ({ children }: any) => {
   const [cartItems, setCartItems] = useState<any>([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const [userx, setUserx] = useState();
-
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-
-      const userRef = doc(db, "users", user.uid);
-
-      const userData = await getDoc(userRef);
-
-      if (userData.exists()) {
-        const user: any = userData.data();
-        setUserx(user);
-      } else {
-        // User document doesn't exist, handle this case
-        console.log("User document does not exist in Firestore.");
-      }
-
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
+  const [userx, setUserx] = useState({
+    uid: "",
+    name: "",
+    email: "",
+    creationTime: "",
+    lastSignInTime: "",
   });
 
   useEffect(() => {
@@ -43,6 +25,29 @@ export const CartProvider = ({ children }: any) => {
     if (savedCartItems) {
       setCart(JSON.parse(savedCartItems));
     }
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user !== null) {
+        const userRef = doc(db, "users", user.uid);
+
+        const userData = await getDoc(userRef);
+
+        if (userData.exists()) {
+          // const user: any = userData.data();
+          const userz: any = {
+            ...userData.data(),
+            id: userData.id,
+            creationTime: user.metadata.creationTime,
+            lastSignInTime: user.metadata.lastSignInTime,
+          };
+          setUserx(userz);
+        } else {
+          // dispatch(saveUser(null));
+        }
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -57,6 +62,7 @@ export const CartProvider = ({ children }: any) => {
         total,
         setTotal,
         userx,
+        setUserx,
       }}
     >
       {children}

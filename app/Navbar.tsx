@@ -16,10 +16,7 @@ const alegreya = Alegreya({ subsets: ["latin"], weight: "400" });
 const Navbar = () => {
   const [loggedIn, setloggedIn] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  console.log(
-    "🚀 ~ file: Navbar.tsx:17 ~ Navbar ~ isDropdownOpen:",
-    isDropdownOpen
-  );
+
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
   const { cart, setCart, quantities } = useCart();

@@ -1,6 +1,16 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadString,
+} from "firebase/storage";
+import { useCart } from "@/app/provider/CartProvider";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 
 const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   console.log("🚀 ~ file: ImageModal.tsx:6 ~ ImageModal ~ imageSrc:", imageSrc);
@@ -26,22 +36,54 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   };
 
   const [imageFile, setImageFile] = useState(null);
-  console.log(
-    "🚀 ~ file: UploadImageModal.tsx:29 ~ UploadImageModal ~ imageFile:",
-    imageFile
-  );
+
   const [category, setCategory] = useState("dogs"); // Default category
-  const uploaderId = "user123"; // Replace with your logic to get the uploader's ID
-  const timestamp = new Date().toLocaleString();
+
+  const { userx } = useCart();
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     setImageFile(file);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // add logic to upload image here
+    if (imageFile) {
+      const storage = getStorage();
+      const storageRef = ref(
+        storage,
+        `pet_images/${userx.id}/${Date.now()}.jpg`
+      );
+      // 'file' comes from the Blob or File API
+      try {
+        await uploadBytes(storageRef, imageFile);
+        const res = await getDownloadURL(storageRef);
+        // const imageRef = doc(db, "petImages"); // Assuming you have a 'users' collection
+        const imageData = {
+          image: res,
+          category: category,
+          postedOn: Date.now(),
+          comments: [],
+          likes: [],
+          hearts: [],
+        };
+
+        // Add a new document with a generated id
+        const imageRef = doc(collection(db, "petImages"));
+
+        // later...
+        await setDoc(imageRef, imageData).then(() => onClose());
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: UploadImageModal.tsx:66 ~ handleSubmit ~ error:",
+          error
+        );
+      }
+
+      // Clear the form and state
+      setImageFile(null);
+      setCategory("");
+    }
   };
 
   return (
