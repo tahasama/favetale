@@ -14,7 +14,7 @@ import { db } from "@/firebase";
 
 const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   console.log("🚀 ~ file: ImageModal.tsx:6 ~ ImageModal ~ imageSrc:", imageSrc);
-
+  const [loading, setLoading] = useState(false);
   const [comments, setComments] = useState<string[]>([
     "fffffff",
     "ggggggggggg",
@@ -47,7 +47,9 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   };
 
   const handleSubmit = async (e: any) => {
+    setLoading(true);
     e.preventDefault();
+
     if (imageFile) {
       const storage = getStorage();
       const storageRef = ref(
@@ -60,6 +62,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
         const res = await getDownloadURL(storageRef);
         // const imageRef = doc(db, "petImages"); // Assuming you have a 'users' collection
         const imageData = {
+          poster: userx,
           image: res,
           category: category,
           postedOn: Date.now(),
@@ -72,7 +75,9 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
         const imageRef = doc(collection(db, "petImages"));
 
         // later...
-        await setDoc(imageRef, imageData).then(() => onClose());
+        await setDoc(imageRef, imageData).then(() => {
+          onClose(), setLoading(false);
+        });
       } catch (error) {
         console.log(
           "🚀 ~ file: UploadImageModal.tsx:66 ~ handleSubmit ~ error:",
@@ -85,6 +90,8 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
       setCategory("");
     }
   };
+
+  const load = [".", ".", "."];
 
   return (
     <div
@@ -100,6 +107,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
           <h1 className="text-2xl lg:text-3xl mb-4 text-center">
             Upload an Image
           </h1>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="mb-4">
               <label htmlFor="image" className="block text-gray-700 mb-2">
@@ -127,7 +135,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                 className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
               >
                 <option value="">All</option>
-                <option value="cats">Cats</option>
+                <option value="cats">🐱 Cats</option>
                 <option value="dogs">🐶 Dogs</option>
                 <option value="birds">🦜 Birds</option>
                 <option value="fish">🐟 Fish</option>
@@ -140,7 +148,24 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 text-white py-3.5 px-5 rounded-full w-fit hover:animate-bounceQ"
               >
-                Upload Image
+                {!loading ? (
+                  "Upload Image"
+                ) : (
+                  <span className="flex">
+                    Loading
+                    <div className="flex justify-center ml-0.5 mt-1.5">
+                      <div className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                      <div
+                        className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
+                        style={{ animationDelay: "0.2s" }}
+                      ></div>
+                      <div
+                        className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
+                        style={{ animationDelay: "0.4s" }}
+                      ></div>
+                    </div>
+                  </span>
+                )}
               </button>
             </div>
           </form>

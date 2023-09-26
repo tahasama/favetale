@@ -50,7 +50,8 @@ module.exports = {
         fadeIn: "fade1 1s linear ",
         buttonActive: "button1 1s linear ",
         buttonHover: "button1 1s linear  ",
-        bounceQ: "bounce1 1s linear  ",
+        bounceQ: "bounce1 1s linear ",
+        bounceQ1: "bounce1 1s linear infinite",
         bounceZ: "bounce2 1s linear  ",
       },
       backgroundSize: {
