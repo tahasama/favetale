@@ -3,7 +3,7 @@ import { useCart } from "@/app/provider/CartProvider";
 import React from "react";
 
 const UploadpetModalOpenButton = () => {
-  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
+  const { setUploadpetModalOpen } = useCart();
 
   return (
     <button

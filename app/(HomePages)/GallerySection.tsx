@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import pet1 from "../images/1.jpg";
+import pet20 from "../images/pet20.jpg";
 import pet2 from "../images/2.jpg";
 import pet3 from "../images/3.jpg";
 import pet4 from "../images/4.jpg";
@@ -21,20 +21,20 @@ import ImageModal from "../explore/(components)/gallery/ImageModal";
 import Link from "next/link";
 import pet7 from "../images/pet7a.png";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useCart } from "../provider/CartProvider";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const GallerySection = () => {
-  const pets = [pet1, pet2, pet3, pet11, pet12];
+  const pets = [pet20, pet2, pet3, pet11, pet12];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState();
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const { selectedImage, setSelectedImage, setPetModalOpen } = useCart();
 
   const handleImageClick = (image: any) => {
     setSelectedImage(image);
-    setModalOpen(true);
+    setPetModalOpen(true);
   };
 
   const openModal = (pet: any) => {
@@ -116,7 +116,7 @@ const GallerySection = () => {
           />
         </div>
       </div>
-      <div className="-mt-56 sm:-mt-44 lg:-mt-32 xl:-mt-32">
+      <div className="-mt-56 sm:-mt-44 lg:-mt-32 xl:-mt-32 ">
         <Swiper
           slidesPerView={
             windowWidth < 700 ? 1.4 : windowWidth < 900 ? 2.4 : 3.4
@@ -134,26 +134,22 @@ const GallerySection = () => {
         >
           {pets.map((pet: any, index: any) => (
             <SwiperSlide
-              className="bg-tealDark m-2 rounded-lg scale-75 md:scale-100"
+              className="bg-tealDark !w-80 rounded-lg mt-2"
               key={index}
             >
               <Image
                 src={pet}
                 alt="pet"
-                className="w-full h-auto cursor-pointer  rounded-lg shadow-xl bg-tealDark"
+                className=" cursor-pointer  rounded-lg shadow-xl bg-tealDark"
                 onClick={() => handleImageClick(pet)}
               />
+              LLLL
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
-      <ImageModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        imageSrc={selectedImage?.src}
-        petImages={pets}
-      />
+      <ImageModal />
     </section>
   );
 };

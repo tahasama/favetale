@@ -14,29 +14,12 @@ import { db } from "@/firebase";
 
 const UploadImageModal = () => {
   const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
-  console.log(
-    "🚀 ~ file: UploadImageModal.tsx:17 ~ UploadImageModal ~ uploadpetModalOpen:",
-    uploadpetModalOpen
-  );
 
   const [loading, setLoading] = useState(false);
-  const [comments, setComments] = useState<string[]>([
-    "fffffff",
-    "ggggggggggg",
-    "hhhhhhhhhhhh",
-  ]); // State to hold comments
-  const [newComment, setNewComment] = useState(""); // State for the new comment
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       setUploadpetModalOpen(false); // Call the setUploadpetModalOpen(false) function to close the modal
-    }
-  };
-
-  const handleAddComment = () => {
-    if (newComment) {
-      setComments([...comments, newComment]);
-      setNewComment(""); // Clear the new comment input
     }
   };
 
@@ -61,11 +44,11 @@ const UploadImageModal = () => {
         storage,
         `pet_images/${userx.id}/${Date.now()}.jpg`
       );
-      // 'file' comes from the Blob or File API
+
       try {
         await uploadBytes(storageRef, imageFile);
         const res = await getDownloadURL(storageRef);
-        // const imageRef = doc(db, "petImages"); // Assuming you have a 'users' collection
+
         const imageData = {
           poster: userx,
           image: res,
@@ -76,27 +59,19 @@ const UploadImageModal = () => {
           hearts: [],
         };
 
-        // Add a new document with a generated id
         const imageRef = doc(collection(db, "petImages"));
 
-        // later...
         await setDoc(imageRef, imageData).then(() => {
           setUploadpetModalOpen(false), setLoading(false);
         });
       } catch (error) {
-        console.log(
-          "🚀 ~ file: UploadImageModal.tsx:66 ~ handleSubmit ~ error:",
-          error
-        );
+        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
       }
 
-      // Clear the form and state
       setImageFile(null);
       setCategory("");
     }
   };
-
-  const load = [".", ".", "."];
 
   return (
     <div
@@ -145,7 +120,6 @@ const UploadImageModal = () => {
                 <option value="birds">🦜 Birds</option>
                 <option value="fish">🐟 Fish</option>
                 <option value="small animals">🐹 Small Animals</option>
-                {/* Add more categories as needed */}
               </select>
             </div>
             <div className="grid place-items-center">

@@ -25,9 +25,7 @@ async function getData() {
     console.log("No matching documents.");
     return;
   }
-
   snapshot.forEach((doc) => {
-    // console.log(doc.id, "=>", doc.data());
     petImages.push({ id: doc.id, ...doc.data() });
   });
   return petImages;
@@ -36,21 +34,8 @@ async function getData() {
 const Gallery = async () => {
   const petImages = await getData();
 
-  // const {
-  //   uploadpetModalOpen,
-  //   setUploadpetModalOpen,
-  //   selectedImage,
-  //   setSelectedImage,
-  //   petModalOpen,
-  //   setPetModalOpen,
-  // } = useCart();
-
-  // const petImages = [i13, i14, i15, i16, i17, i18, i19];
-
   return (
-    // <p className="mt-60">JJJJJJJJJJJJJJJJJJJJJJJJ</p>
     <div className="  my-20  w-full">
-      {/* Prominent Call-to-Action */}
       <div className="mb-6">
         <div className="bg-yellow-500 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
           <h2 className="text-2xl sm:text-4xl font-semibold text- mb-5">
@@ -66,11 +51,12 @@ const Gallery = async () => {
 
       <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
         {petImages &&
-          petImages.map((image, index) => <PetImages image={image} />)}
+          petImages.map((image, index) => (
+            <PetImages image={image} index={index} />
+          ))}
         <ImageModal />
       </div>
     </div>
-    // <div>HYUHYUHYU</div>
   );
 };
 
