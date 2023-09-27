@@ -1,8 +1,14 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useCart } from "@/app/provider/CartProvider";
 
-const ImageModal = ({ isOpen, onClose, imageSrc }: any) => {
+const ImageModal = () => {
+  const { setPetModalOpen, petModalOpen, selectedImage } = useCart();
+  console.log(
+    "🚀 ~ file: ImageModal.tsx:8 ~ ImageModal ~ imageSrc:",
+    selectedImage
+  );
   const [comments, setComments] = useState<string[]>([
     "fffffff",
     "ggggggggggg",
@@ -12,7 +18,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      setPetModalOpen(false); // Call the onClose function to close the modal
     }
   };
 
@@ -30,7 +36,7 @@ const ImageModal = ({ isOpen, onClose, imageSrc }: any) => {
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
-        isOpen
+        petModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
@@ -38,16 +44,10 @@ const ImageModal = ({ isOpen, onClose, imageSrc }: any) => {
     >
       <div className="inset-0 flex flex-col justify-center items-center lg:my-1 lg:rounded-lg h-full overflow-auto lg:scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-300">
         <div className="bg-white shadow-lg relative lg:top-36 h-full">
-          <Image
-            src={imageSrc}
-            alt={"title"}
-            className="lg:h-[93vh]"
-            width={1000}
-            height={1000}
-          />
+          <img src={selectedImage} alt={"title"} className="lg:h-[93vh]" />
           <button
             className="absolute bg-gray-100/40 scale-125 hover:rotate-90 p-1 top-6 lg:top-10 ring-2 right-3 transition-all duration-500 rounded-full"
-            onClick={onClose}
+            onClick={() => setPetModalOpen(false)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

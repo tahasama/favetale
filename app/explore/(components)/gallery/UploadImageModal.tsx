@@ -12,8 +12,13 @@ import { useCart } from "@/app/provider/CartProvider";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 
-const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
-  console.log("🚀 ~ file: ImageModal.tsx:6 ~ ImageModal ~ imageSrc:", imageSrc);
+const UploadImageModal = () => {
+  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
+  console.log(
+    "🚀 ~ file: UploadImageModal.tsx:17 ~ UploadImageModal ~ uploadpetModalOpen:",
+    uploadpetModalOpen
+  );
+
   const [loading, setLoading] = useState(false);
   const [comments, setComments] = useState<string[]>([
     "fffffff",
@@ -24,7 +29,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      setUploadpetModalOpen(false); // Call the setUploadpetModalOpen(false) function to close the modal
     }
   };
 
@@ -76,7 +81,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
 
         // later...
         await setDoc(imageRef, imageData).then(() => {
-          onClose(), setLoading(false);
+          setUploadpetModalOpen(false), setLoading(false);
         });
       } catch (error) {
         console.log(
@@ -96,7 +101,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
-        isOpen
+        uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
@@ -135,7 +140,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                 className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
               >
                 <option value="">All</option>
-                <option value="cats">🐱 Cats</option>
+                <option value="cats">Cats</option>
                 <option value="dogs">🐶 Dogs</option>
                 <option value="birds">🦜 Birds</option>
                 <option value="fish">🐟 Fish</option>
@@ -149,7 +154,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                 className="bg-blue-500 hover:bg-blue-600 text-white py-3.5 px-5 rounded-full w-fit hover:animate-bounceQ"
               >
                 {!loading ? (
-                  "Upload Image"
+                  "   Upload Image"
                 ) : (
                   <span className="flex">
                     Loading
@@ -157,11 +162,11 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
                       <div className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
                       <div
                         className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
-                        style={{ animationDelay: "0.2s" }}
+                        style={{ animationDelay: "0.1s" }}
                       ></div>
                       <div
                         className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
-                        style={{ animationDelay: "0.4s" }}
+                        style={{ animationDelay: "0.2s" }}
                       ></div>
                     </div>
                   </span>
@@ -172,7 +177,7 @@ const UploadImageModal = ({ isOpen, onClose, imageSrc, title }: any) => {
         </div>
         <button
           className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4  ring-2 ring-gray-300 transition-all duration-500 rounded-full"
-          onClick={onClose}
+          onClick={() => setUploadpetModalOpen(false)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

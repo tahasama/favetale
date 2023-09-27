@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 
 import i13 from "../../../images/13.jpg";
@@ -13,24 +10,45 @@ import i19 from "../../../images/19.jpg";
 import UploadImageModal from "./UploadImageModal";
 import { motion } from "framer-motion";
 import ImageModal from "./ImageModal";
+import { useCart } from "@/app/provider/CartProvider";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { db } from "@/firebase";
+import UploadpetModalOpenButton from "./UploadpetModalOpenButton";
+import PetImages from "./PetImages";
 
-const Gallery = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<any>("");
-  console.log(
-    "🚀 ~ file: GallerySection.tsx:31 ~ GallerySection ~ selectedImage:",
-    selectedImage
-  );
+async function getData() {
+  const petImages: any[] = [];
+  const imageRef = collection(db, "petImages");
 
-  const petImages = [i13, i14, i15, i16, i17, i18, i19];
+  const snapshot = await getDocs(imageRef);
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return;
+  }
 
-  const handleImageClick = (image: any) => {
-    setSelectedImage(image);
-    setModalOpen(true);
-  };
+  snapshot.forEach((doc) => {
+    // console.log(doc.id, "=>", doc.data());
+    petImages.push({ id: doc.id, ...doc.data() });
+  });
+  return petImages;
+}
+
+const Gallery = async () => {
+  const petImages = await getData();
+
+  // const {
+  //   uploadpetModalOpen,
+  //   setUploadpetModalOpen,
+  //   selectedImage,
+  //   setSelectedImage,
+  //   petModalOpen,
+  //   setPetModalOpen,
+  // } = useCart();
+
+  // const petImages = [i13, i14, i15, i16, i17, i18, i19];
 
   return (
+    // <p className="mt-60">JJJJJJJJJJJJJJJJJJJJJJJJ</p>
     <div className="  my-20  w-full">
       {/* Prominent Call-to-Action */}
       <div className="mb-6">
@@ -41,48 +59,15 @@ const Gallery = () => {
           <p className="text-base sm:text-lg text-gray-700 mb-4 sm:mb-8">
             Find lots and lots of pet moments shared by our beloved community,
           </p>
-          <button
-            onClick={() => setUploadModalOpen(true)}
-            className="bg-amber-700 hover:text-amber-700 text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-tealLight  transition-colors duration-500"
-          >
-            Upload an Image
-          </button>
+          <UploadpetModalOpenButton />
         </div>
       </div>
-      <UploadImageModal
-        isOpen={uploadModalOpen}
-        onClose={() => setUploadModalOpen(false)}
-      />
+      <UploadImageModal />
 
       <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
-        {petImages.map((image, index) => (
-          <motion.div
-            key={index}
-            className="relative mb-8"
-            initial={{ opacity: 0, y: index * 100 + 100 }} // Initial state (hidden and slightly moved down)
-            animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
-            transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
-          >
-            <div
-              className="overflow-hidden rounded-lg shadow-md"
-              onClick={() => handleImageClick(image)}
-            >
-              <Image
-                src={image}
-                alt={`Pet Image ${index + 1}`}
-                className="w-full h-40 lg:h-[55vh]  object-cover cursor-pointer"
-                width={1000}
-                height={1000}
-              />
-            </div>
-          </motion.div>
-        ))}
-        <ImageModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          imageSrc={selectedImage}
-          petImages={petImages}
-        />
+        {petImages &&
+          petImages.map((image, index) => <PetImages image={image} />)}
+        <ImageModal />
       </div>
     </div>
     // <div>HYUHYUHYU</div>

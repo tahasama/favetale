@@ -18,6 +18,9 @@ export const CartProvider = ({ children }: any) => {
     creationTime: "",
     lastSignInTime: "",
   });
+  const [uploadpetModalOpen, setUploadpetModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<any>("");
+  const [petModalOpen, setPetModalOpen] = useState(false);
 
   useEffect(() => {
     // localStorage.clear();
@@ -63,6 +66,12 @@ export const CartProvider = ({ children }: any) => {
         setTotal,
         userx,
         setUserx,
+        uploadpetModalOpen,
+        setUploadpetModalOpen,
+        selectedImage,
+        setSelectedImage,
+        petModalOpen,
+        setPetModalOpen,
       }}
     >
       {children}
