@@ -1,6 +1,4 @@
-import React from "react";
-
-const Gallery = () => {
+const Gallery = async () => {
   return (
     <div className="  my-20  w-full">
       <div className="mb-6">
