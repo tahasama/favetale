@@ -5,14 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 import Stories from "./(components)/stories/page";
 import Blogs from "./(components)/blogs/page";
-// import Gallery from "./(components)/gallery/page";
 import Tips from "./(components)/tips/page";
 
 const ExplorePage = () => {
   const storedTab =
     (typeof window !== "undefined" && localStorage.getItem("activeTab")) ||
-    "Gallery";
-  // const storedTab = "Gallery";
+    "Stories";
 
   const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
@@ -36,12 +34,11 @@ const ExplorePage = () => {
 
   useEffect(() => {
     section === "Stories" && setActiveTab("Stories");
-    section === "Gallery" && setActiveTab("Gallery");
     section === "Blogs" && setActiveTab("Blogs");
     section === "Tips" && setActiveTab("Tips");
   }, [section]);
 
-  const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
+  const tabs = ["Blogs", "Stories", "Tips"];
 
   return (
     <div className=" bg-tealLight ">
@@ -64,7 +61,6 @@ const ExplorePage = () => {
           exit={{ opacity: 0, y: 1000 }}
           transition={{ duration: 0.5 }}
         >
-          {/* {activeTab === "Gallery" && <Gallery />} */}
           {activeTab === "Tips" && <Tips />}
           {activeTab === "Blogs" && <Blogs />}
           {activeTab === "Stories" && <Stories />}
