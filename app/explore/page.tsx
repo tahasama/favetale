@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 import Stories from "./(components)/stories/page";
 import Blogs from "./(components)/blogs/page";
-import Gallery from "./(components)/gallery/page";
+// import Gallery from "./(components)/gallery/page";
 import Tips from "./(components)/tips/page";
 
 const ExplorePage = () => {
@@ -64,7 +64,7 @@ const ExplorePage = () => {
           exit={{ opacity: 0, y: 1000 }}
           transition={{ duration: 0.5 }}
         >
-          {activeTab === "Gallery" && <Gallery />}
+          {/* {activeTab === "Gallery" && <Gallery />} */}
           {activeTab === "Tips" && <Tips />}
           {activeTab === "Blogs" && <Blogs />}
           {activeTab === "Stories" && <Stories />}

@@ -17,7 +17,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Keyboard, Navigation, Pagination } from "swiper/modules";
-import ImageModal from "../explore/(components)/gallery/ImageModal";
+// import ImageModal from "../explore/(components)/gallery/ImageModal";
 import Link from "next/link";
 import pet7 from "../images/pet7a.png";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -149,7 +149,7 @@ const GallerySection = () => {
         </Swiper>
       </div>
 
-      <ImageModal />
+      {/* <ImageModal /> */}
     </section>
   );
 };
