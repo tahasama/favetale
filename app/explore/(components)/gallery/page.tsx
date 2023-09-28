@@ -16,23 +16,23 @@ import { db } from "@/firebase";
 import UploadpetModalOpenButton from "./UploadpetModalOpenButton";
 import PetImages from "./PetImages";
 
-async function getData() {
-  const petImages: any[] = [];
-  const imageRef = collection(db, "petImages");
+// async function getData() {
+//   const petImages: any[] = [];
+//   const imageRef = collection(db, "petImages");
 
-  const snapshot = await getDocs(imageRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
-  snapshot.forEach((doc) => {
-    petImages.push({ id: doc.id, ...doc.data() });
-  });
-  return petImages;
-}
+//   const snapshot = await getDocs(imageRef);
+//   if (snapshot.empty) {
+//     console.log("No matching documents.");
+//     return;
+//   }
+//   snapshot.forEach((doc) => {
+//     petImages.push({ id: doc.id, ...doc.data() });
+//   });
+//   return petImages;
+// }
 
 const Gallery = async () => {
-  const petImages = await getData();
+  // const petImages = await getData();
 
   return (
     <div className="  my-20  w-full">
@@ -44,18 +44,18 @@ const Gallery = async () => {
           <p className="text-base sm:text-lg text-gray-700 mb-4 sm:mb-8">
             Find lots and lots of pet moments shared by our beloved community,
           </p>
-          <UploadpetModalOpenButton />
+          {/* <UploadpetModalOpenButton /> */}
         </div>
       </div>
-      <UploadImageModal />
+      {/* <UploadImageModal /> */}
 
-      <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
+      {/* <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
         {petImages &&
           petImages.map((image, index) => (
             <PetImages image={image} index={index} />
           ))}
         <ImageModal />
-      </div>
+      </div> */}
     </div>
   );
 };
