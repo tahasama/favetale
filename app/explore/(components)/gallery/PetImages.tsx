@@ -10,8 +10,8 @@ const petImages = ({ image, index }: any) => {
     <motion.div
       key={image.id}
       className="relative mb-8"
-      initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
-      animate={{ opacity: 1 }} // Animation state (visible and at normal position)
+      initial={{ opacity: 0, y: index * 100 + 100 }} // Initial state (hidden and slightly moved down)
+      animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
       transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
     >
       <div

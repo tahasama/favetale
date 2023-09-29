@@ -16,6 +16,13 @@ export default function Loading() {
         >
           <div className="flex flex-col bg-white shadow-md overflow-hidden  mb-6">
             <div className="bg-white p-3 smp-6 rounded-lg shadow-md">
+              <Image
+                src={blog.image}
+                alt={blog.title}
+                className="mb-4 rounded-lg"
+                width={500}
+                height={500}
+              />
               <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
               <p className="text-gray-600">{blog.excerpt}</p>
             </div>
