@@ -12,9 +12,19 @@ import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
 
 import Quill from "quill";
 import dynamic from "next/dynamic";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useCart } from "@/app/provider/CartProvider";
 // import JoditEditor from "jodit-react";
 
 const BlogModal = ({ isOpen, onClose }: any) => {
+  const router = useRouter();
+
+  const { userx, setUploadpetModalOpen } = useCart();
+  const [loading, setLoading] = useState(false);
+
   const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
   const [content, setContent] = useState(
@@ -46,12 +56,38 @@ const BlogModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const publishBlog = () => {
-    // Placeholder function to publish the blog with title, content, and tags.
-    console.log("Publishing blog with title nnnnnnnnnnnn:", title);
-    console.log("Content:", content);
-    console.log("Tags:", tags);
-    console.log("Image:", imageFile);
+  const publishBlog = async (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+
+    if (imageFile) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `blogs/${userx.id}/${Date.now()}.jpg`);
+
+      try {
+        await uploadBytes(storageRef, imageFile);
+        const res = await getDownloadURL(storageRef);
+
+        const blogData = {
+          title,
+          content,
+          tags,
+          image: res,
+          createdAt: serverTimestamp(),
+        };
+
+        await addDoc(collection(db, "blogs"), blogData).then(() => {
+          setUploadpetModalOpen(false), setLoading(false);
+        });
+      } catch (error) {
+        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+      }
+      setImageFile(null);
+      setTags([]);
+      setContent("");
+      setTitle("");
+      router.push("/profile");
+    }
   };
 
   const [imageFile, setImageFile] = useState<any>(null);
@@ -73,12 +109,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
         <br />
         For quick step back ctrl + Z
       </>`,
-  };
-
-  const thafunction = (x: any) => {
-    console.log("🚀 ~ file: BlogModal.tsx:78 ~ thafunction ~ x:", x);
-    setContent((prev) => prev + x);
-    return {};
   };
 
   return (
@@ -168,10 +198,28 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                 </button>
 
                 <button
+                  type="submit"
                   className="ring-1 ring-green-600 hover:bg-green-700 hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                   onClick={publishBlog}
                 >
-                  Publish
+                  {!loading ? (
+                    "Publish"
+                  ) : (
+                    <span className="flex">
+                      Loading
+                      <div className="flex justify-center ml-0.5 mt-1.5">
+                        <div className="w-1 h-1 bg-green-700 hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div
+                          className="w-1 h-1 bg-green-700 hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                    </span>
+                  )}
                 </button>
               </div>
               <div className=" mb-6">

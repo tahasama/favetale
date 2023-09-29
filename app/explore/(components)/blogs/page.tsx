@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import blog1 from "../../../images/blog/blog1.jpg";
 import blog2 from "../../../images/blog/blog2.jpg";
 import blog3 from "../../../images/blog/blog3.jpg";
@@ -10,6 +10,10 @@ import blog6 from "../../../images/blog/blog6.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import BlogModal from "./BlogModal";
+import ClientComponent from "./ClientComponent";
+import Blog from "./BlogCard";
+import ServerComponent from "./ServerComponent";
+import Loading from "./loading";
 
 const Blogs = () => {
   const blogsData = [
@@ -60,59 +64,10 @@ const Blogs = () => {
 
   return (
     <div className="container mt-20  w-full">
-      {/* Prominent Call-to-Action */}
-      <div className="mb-6">
-        <div className="bg-sky-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
-          <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-5">
-            Discover Our Blog
-          </h2>
-          <p className="text-base sm:text-lg text-gray-200 mb-4 sm:mb-8">
-            Explore insightful articles and tips from our community of pet
-            lovers. Enhance your knowledge and share in the joy of pet
-            companionship!
-          </p>
-          <button
-            onClick={() => setUploadModalOpen(true)}
-            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-sky-700 transition-colors duration-500"
-          >
-            Write a Blog
-          </button>
-        </div>
-      </div>
-
-      <BlogModal
-        isOpen={uploadModalOpen}
-        onClose={() => setUploadModalOpen(false)}
-      />
-
-      {/* Masonry Layout */}
-      <div className="columns-1 md:columns-2 lg:columns-3 gap-5 sm:mx-6 mx-1">
-        {blogsData.map((blog, index) => (
-          <motion.div
-            key={blog.id}
-            initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
-            animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
-            transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
-          >
-            <Link
-              href={`/explore/blogs/${blog.id}`}
-              className="flex flex-col bg-white shadow-md overflow-hidden  mb-6"
-            >
-              <div className="bg-white p-3 smp-6 rounded-lg shadow-md">
-                <Image
-                  src={blog.image}
-                  alt={blog.title}
-                  className="mb-4 rounded-lg"
-                  width={500}
-                  height={500}
-                />
-                <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
-                <p className="text-gray-600">{blog.excerpt}</p>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+      <ClientComponent />
+      <Suspense fallback={<Loading />}>
+        <ServerComponent />
+      </Suspense>
     </div>
   );
 };

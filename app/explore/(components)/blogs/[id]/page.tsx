@@ -445,10 +445,10 @@ const Blog = () => {
 
   // State to handle adding comments
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState(blogData.comments);
+  const [comments, setComments] = useState([]);
 
   const [liked, setLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(blogData.likes);
+  const [likesCount, setLikesCount] = useState([]);
 
   const commentsSectionRef = useRef<any>(null);
 
@@ -457,35 +457,35 @@ const Blog = () => {
   };
 
   // Function to add a new comment
-  const handleAddComment = () => {
-    if (newComment.trim() !== "") {
-      const newCommentObj = {
-        text: newComment,
-        user: {
-          name: "Your Name",
-          image: "/path/to/your/image.jpg",
-        },
-      };
-      setComments((prevComments) => [...prevComments, newCommentObj]);
-      setNewComment("");
-    }
-  };
+  // const handleAddComment = () => {
+  //   if (newComment.trim() !== "") {
+  //     const newCommentObj = {
+  //       text: newComment,
+  //       user: {
+  //         name: "Your Name",
+  //         image: "/path/to/your/image.jpg",
+  //       },
+  //     };
+  //     setComments((prevComments) => [...prevComments, newCommentObj]);
+  //     setNewComment("");
+  //   }
+  // };
 
-  const toggleLike = () => {
-    if (liked) {
-      // Unlike
-      setLikesCount(likesCount - 1);
-    } else {
-      // Like
-      setLikesCount(likesCount + 1);
-    }
-    setLiked(!liked);
-  };
+  // const toggleLike = () => {
+  //   if (liked) {
+  //     // Unlike
+  //     setLikesCount(likesCount - 1);
+  //   } else {
+  //     // Like
+  //     setLikesCount(likesCount + 1);
+  //   }
+  //   setLiked(!liked);
+  // };
 
   return (
     <div className="max-w-3xl mx-auto p-4 mt-24 bg-white">
       {/* Blog Title */}
-      <h1 className="text-3xl font-bold mb-4">{blogData.title}</h1>
+      {/* <h1 className="text-3xl font-bold mb-4">{blogData.title}</h1> */}
 
       {/* Writer's Information */}
       <div className="flex items-center mb-4 gap-2">
@@ -509,7 +509,7 @@ const Blog = () => {
       <div className="my-6 flex items-center space-x-4 text-gray-600">
         <div
           className="flex items-center space-x-2 cursor-pointer group justify-center"
-          onClick={toggleLike}
+          // onClick={toggleLike}
         >
           <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
             👍
@@ -562,7 +562,7 @@ const Blog = () => {
             ></textarea>
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded w-fit"
-              onClick={handleAddComment}
+              // onClick={handleAddComment}
             >
               Add Comment
             </button>
@@ -575,30 +575,30 @@ const Blog = () => {
         {comments.map((comment, index) => (
           <div key={index} className="mb-4">
             <div className="flex items-center space-x-4">
-              <Link
+              {/* <Link
                 href={`/profile/${comment.user.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                <Image
+              > */}
+              {/* <Image
                   src={comment.user.image}
                   alt={comment.user.name}
                   className="w-10 h-10 rounded-full object-cover"
                   width={500}
                   height={500}
-                />
-              </Link>
+                /> */}
+              {/* </Link> */}
               <span className="text-gray-600">
-                <Link
+                {/* <Link
                   href={`/profile/${comment.user.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {comment.user.name}
-                </Link>
+                </Link> */}
               </span>
             </div>
-            <p className="mt-2 text-gray-800">{comment.text}</p>
+            {/* <p className="mt-2 text-gray-800">{comment.text}</p> */}
           </div>
         ))}
       </div>

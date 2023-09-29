@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 
 const petImages = ({ image, index }: any) => {
-  const { selectedImage, setSelectedImage, setPetModalOpen } = useCart();
+  const { setSelectedImage, setUploadpetModalOpen } = useCart();
 
   return (
     <motion.div
@@ -17,7 +17,7 @@ const petImages = ({ image, index }: any) => {
       <div
         className="overflow-hidden rounded-lg shadow-md"
         onClick={() => {
-          setSelectedImage(image), setPetModalOpen(true);
+          setSelectedImage(image), setUploadpetModalOpen(true);
         }}
       >
         <img

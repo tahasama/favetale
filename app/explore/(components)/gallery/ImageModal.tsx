@@ -24,11 +24,11 @@ TimeAgo.addDefaultLocale(en);
 
 const ImageModal = () => {
   const {
-    setPetModalOpen,
-    petModalOpen,
     selectedImage,
     setSelectedImage,
     userx,
+    uploadpetModalOpen,
+    setUploadpetModalOpen,
   } = useCart();
 
   const [comments, setComments] = useState<any[]>([]);
@@ -70,7 +70,7 @@ const ImageModal = () => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      setPetModalOpen(false);
+      setUploadpetModalOpen(false);
     }
   };
 
@@ -187,7 +187,7 @@ const ImageModal = () => {
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
-        petModalOpen
+        uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
@@ -202,7 +202,7 @@ const ImageModal = () => {
           />
           <button
             className="absolute bg-gray-100/40 scale-125 hover:rotate-90 p-1 top-3 lg:top-4 ring-2 right-3 md:right-4 transition-all duration-500 rounded-full"
-            onClick={() => setPetModalOpen(false)}
+            onClick={() => setUploadpetModalOpen(false)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
