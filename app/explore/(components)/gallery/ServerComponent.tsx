@@ -1,5 +1,4 @@
 import React from "react";
-import Gallery from "./page";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 

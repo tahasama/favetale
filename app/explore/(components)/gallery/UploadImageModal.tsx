@@ -1,13 +1,7 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-} from "firebase/storage";
+import React, { useState } from "react";
+
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";

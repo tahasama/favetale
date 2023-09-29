@@ -1,5 +1,4 @@
 import React from "react";
-import ClientComponent from "./ClientComponent";
 import ServerComponent from "./ServerComponent";
 import Layout from "./layout";
 
