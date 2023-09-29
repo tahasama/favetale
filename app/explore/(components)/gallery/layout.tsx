@@ -5,10 +5,7 @@ import ClientComponent from "./ClientComponent";
 export default function Layout({ children }: any) {
   return (
     <>
-      <main>
-        <ClientComponent />
-        <Suspense fallback={<Loading />}>{children}</Suspense>
-      </main>
+      <main>{children}</main>
     </>
   );
 }
