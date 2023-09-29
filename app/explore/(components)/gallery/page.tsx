@@ -4,6 +4,7 @@ import ServerComponent from "./ServerComponent";
 import Layout from "./layout";
 import Loading from "./loading";
 
+export const revalidate = 10;
 const Gallery = () => {
   return (
     <>

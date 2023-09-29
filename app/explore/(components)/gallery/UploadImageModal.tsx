@@ -1,13 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";
+import { useParams } from "next/navigation";
 
 const UploadImageModal = () => {
   const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
@@ -61,9 +64,9 @@ const UploadImageModal = () => {
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
       }
-
       setImageFile(null);
       setCategory("");
+      router.push("/profile");
     }
   };
 
@@ -109,7 +112,7 @@ const UploadImageModal = () => {
                 className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
               >
                 <option value="">All</option>
-                <option value="cats">Cats</option>
+                <option value="cats">🐱 Cats</option>
                 <option value="dogs">🐶 Dogs</option>
                 <option value="birds">🦜 Birds</option>
                 <option value="fish">🐟 Fish</option>
