@@ -7,12 +7,10 @@ import Loading from "./loading";
 const Gallery = () => {
   return (
     <>
-      <Layout>
-        <ClientComponent />
-        <Suspense fallback={<Loading />}>
-          <ServerComponent />
-        </Suspense>
-      </Layout>
+      <ClientComponent />
+      <Suspense fallback={<Loading />}>
+        <ServerComponent />
+      </Suspense>
     </>
   );
 };
