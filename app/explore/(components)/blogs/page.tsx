@@ -63,7 +63,7 @@ const Blogs = () => {
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   return (
-    <div className="container mt-20  w-full">
+    <div className="mt-20 w-full">
       <ClientComponent />
       <Suspense fallback={<Loading />}>
         <ServerComponent />

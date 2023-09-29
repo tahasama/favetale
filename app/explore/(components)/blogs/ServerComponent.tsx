@@ -26,7 +26,7 @@ const ServerComponent = async () => {
   );
 
   return (
-    <div className="columns-1 md:columns-2 lg:columns-3 gap-5 sm:mx-6 mx-1">
+    <div className="columns-1 md:columns-2 lg:columns-3 gap-5 sm:mx-6 mx-1 pb-4 ">
       {blogsData &&
         blogsData.map((blog: any, index: any) => (
           <BlogCard blog={blog} index={index} />

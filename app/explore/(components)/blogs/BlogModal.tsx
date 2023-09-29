@@ -19,17 +19,33 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 // import JoditEditor from "jodit-react";
 
+const JoditEditor = React.lazy(() => import("jodit-react"));
+
+const MemoizedJoditEditor = React.memo(
+  ({ content, setContent, config }: any) => {
+    const editor = useRef(null);
+
+    return (
+      <div className="mb-6">
+        <JoditEditor
+          ref={editor}
+          value={content}
+          config={config}
+          onBlur={(newContent: any) => setContent(newContent)}
+        />
+      </div>
+    );
+  }
+);
 const BlogModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
 
-  const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+  // const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
-  const [content, setContent] = useState(
-    "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
-  );
+  const [content, setContent] = useState("");
   const editor = useRef(null);
 
   const handleModalClick = (e: any) => {
@@ -69,6 +85,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
         const res = await getDownloadURL(storageRef);
 
         const blogData = {
+          writer: userx,
           title,
           content,
           tags,
@@ -103,12 +120,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
     placeholder: `
         <h3>Start your blog...</h3>
-        <br />
-        <br />
-        <br />
-        <br />
-        For quick step back ctrl + Z
-      </>`,
+      `,
   };
 
   return (
@@ -199,7 +211,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
 
                 <button
                   type="submit"
-                  className="ring-1 ring-green-600 hover:bg-green-700 hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                   onClick={publishBlog}
                 >
                   {!loading ? (
@@ -208,13 +220,13 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                     <span className="flex">
                       Loading
                       <div className="flex justify-center ml-0.5 mt-1.5">
-                        <div className="w-1 h-1 bg-green-700 hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
                         <div
-                          className="w-1 h-1 bg-green-700 hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.1s" }}
                         ></div>
                         <div
-                          className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>
@@ -222,15 +234,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   )}
                 </button>
               </div>
-              <div className=" mb-6">
-                <JoditEditor
-                  ref={editor}
-                  value={content}
-                  config={config}
-                  // onBlur={(x: any) => thafunction(x)}
-                  onBlur={(newContent: any) => setContent(newContent)}
-                />
-              </div>
+              <MemoizedJoditEditor />
             </div>
             <button
               className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
