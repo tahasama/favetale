@@ -8,15 +8,11 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { useCart } from "@/app/provider/CartProvider";
 
 const BlogModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
-  const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
-
-  // const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
   const [content, setContent] = useState("");
   const editor = useRef(null);
