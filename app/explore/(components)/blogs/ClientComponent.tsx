@@ -2,7 +2,7 @@
 import React from "react";
 
 import { useCart } from "@/app/provider/CartProvider";
-// import BlogModal from "./BlogModal";
+import BlogModal from "./BlogModal";
 
 const ClientComponent = () => {
   const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
@@ -29,10 +29,10 @@ const ClientComponent = () => {
         </div>
       </div>
 
-      {/* <BlogModal
+      <BlogModal
         isOpen={uploadpetModalOpen}
         onClose={() => setUploadpetModalOpen(false)}
-      /> */}
+      />
     </>
   );
 };
