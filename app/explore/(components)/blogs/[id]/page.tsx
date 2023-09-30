@@ -3,23 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import Link from "next/link";
 
-import user1 from "../../../../images/users/user1.jpg";
-import user2 from "../../../../images/users/user2.jpg";
-import user3 from "../../../../images/users/user3.jpg";
-import user4 from "../../../../images/users/user4.jpg";
-import user5 from "../../../../images/users/user5.jpg";
-
-import blog1 from "../../../../images/blog/blog1.jpg";
-import blog2 from "../../../../images/blog/blog2.jpg";
-import blog3 from "../../../../images/blog/blog3.jpg";
-import blog4 from "../../../../images/blog/blog4.jpg";
-import blog5 from "../../../../images/blog/blog5.jpg";
-import blog6 from "../../../../images/blog/blog6.jpg";
-import blog7 from "../../../../images/blog/blog7.jpg";
 import {
   FieldValue,
   addDoc,
@@ -478,9 +463,6 @@ const Blog = () => {
   // State to handle adding comments
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState<any[]>([]);
-
-  const [liked, setLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState([]);
 
   const commentsSectionRef = useRef<any>(null);
 
