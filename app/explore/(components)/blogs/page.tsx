@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { Suspense } from "react";
 import blog1 from "../../../images/blog/blog1.jpg";
 import blog2 from "../../../images/blog/blog2.jpg";

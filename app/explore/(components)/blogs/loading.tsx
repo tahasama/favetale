@@ -14,18 +14,8 @@ export default function Loading() {
           animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
           transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
         >
-          <div className="flex flex-col bg-white shadow-md overflow-hidden  mb-6">
-            <div className="bg-white p-3 smp-6 rounded-lg shadow-md">
-              <Image
-                src={blog.image}
-                alt={blog.title}
-                className="mb-4 rounded-lg"
-                width={500}
-                height={500}
-              />
-              <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
-              <p className="text-gray-600">{blog.excerpt}</p>
-            </div>
+          <div className="flex flex-col bg-slate-300 shadow-md overflow-hidden  mb-6">
+            <div className="bg-slate-300 h-20 w-20 p-3 smp-6 rounded-lg shadow-md"></div>
           </div>
         </motion.div>;
       })}
