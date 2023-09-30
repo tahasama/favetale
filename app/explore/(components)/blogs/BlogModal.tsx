@@ -25,24 +25,16 @@ import { useCart } from "@/app/provider/CartProvider";
 //     const editor = useRef(null);
 
 //     return (
-//       <div className="mb-6">
-//         <JoditEditor
-//           ref={editor}
-//           value={content}
-//           config={config}
-//           onBlur={(newContent: any) => setContent(newContent)}
-//         />
-//       </div>
+//
 //     );
 //   }
 // );
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const BlogModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
-
-  // const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
   const [content, setContent] = useState("");
   const editor = useRef(null);
@@ -233,7 +225,15 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   )}
                 </button>
               </div>
-              {/* <MemoizedJoditEditor /> */}
+
+              <div className="mb-6">
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={config}
+                  onBlur={(newContent: any) => setContent(newContent)}
+                />
+              </div>
             </div>
             <button
               className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
