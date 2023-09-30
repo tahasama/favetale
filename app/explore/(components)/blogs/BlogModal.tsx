@@ -64,41 +64,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const publishBlog = async (e: any) => {
-    setLoading(true);
-    e.preventDefault();
-
-    if (imageFile) {
-      const storage = getStorage();
-      const storageRef = ref(storage, `blogs/${userx.id}/${Date.now()}.jpg`);
-
-      try {
-        await uploadBytes(storageRef, imageFile);
-        const res = await getDownloadURL(storageRef);
-
-        const blogData = {
-          writer: userx,
-          title,
-          content,
-          tags,
-          image: res,
-          createdAt: serverTimestamp(),
-        };
-
-        await addDoc(collection(db, "blogs"), blogData).then(() => {
-          setUploadpetModalOpen(false), setLoading(false);
-        });
-      } catch (error) {
-        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
-      }
-      setImageFile(null);
-      setTags([]);
-      setContent("");
-      setTitle("");
-      router.push("/profile");
-    }
-  };
-
   const [imageFile, setImageFile] = useState<any>(null);
 
   return (
