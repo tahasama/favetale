@@ -26,23 +26,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
   const [tags, setTags] = useState<string[]>([]); // State to hold tags
   const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
 
-  const handleTagChange = (e: any) => {
-    setNewTag(e.target.value);
-  };
-
-  const handleTitleChange = (newTitle: string) => {
-    setTitle(newTitle);
-  };
-
-  const addTag = () => {
-    if (newTag) {
-      setTags([...tags, newTag]);
-      setNewTag(""); // Clear the input field after adding a tag
-    }
-  };
-
-  const [imageFile, setImageFile] = useState<any>(null);
-
   return (
     <div
       className={`linka fixed inset-0 flex flex-col items-center justify-center full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
