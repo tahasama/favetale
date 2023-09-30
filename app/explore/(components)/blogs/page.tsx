@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import React, { Suspense, useState } from "react";
 import blog1 from "../../../images/blog/blog1.jpg";
