@@ -13,7 +13,7 @@ const BlogCard = ({ blog, index }: any) => {
     // >
     <Link
       href={`/explore/blogs/${blog.id}`}
-      className="flex flex-col shadow-md overflow-hidden "
+      className="flex flex-col shadow-md overflow-hidden mb-5"
     >
       <div className="bg-white py-3 rounded-lg shadow-md grid place-items-center">
         <Image
