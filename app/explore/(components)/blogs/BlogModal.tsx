@@ -9,26 +9,7 @@ import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
-// import JoditEditor from "jodit-react";
 
-// const JoditEditor = React.lazy(() => import("jodit-react"));
-
-// const MemoizedJoditEditor = React.memo(
-//   ({ content, setContent, config }: any) => {
-//     const editor = useRef(null);
-
-//     return (
-//       <div className="mb-6">
-//         <JoditEditor
-//           ref={editor}
-//           value={content}
-//           config={config}
-//           onBlur={(newContent: any) => setContent(newContent)}
-//         />
-//       </div>
-//     );
-//   }
-// );
 const BlogModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
