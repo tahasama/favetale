@@ -19,24 +19,24 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 // import JoditEditor from "jodit-react";
 
-const JoditEditor = React.lazy(() => import("jodit-react"));
+// const JoditEditor = React.lazy(() => import("jodit-react"));
 
-const MemoizedJoditEditor = React.memo(
-  ({ content, setContent, config }: any) => {
-    const editor = useRef(null);
+// const MemoizedJoditEditor = React.memo(
+//   ({ content, setContent, config }: any) => {
+//     const editor = useRef(null);
 
-    return (
-      <div className="mb-6">
-        <JoditEditor
-          ref={editor}
-          value={content}
-          config={config}
-          onBlur={(newContent: any) => setContent(newContent)}
-        />
-      </div>
-    );
-  }
-);
+//     return (
+//       <div className="mb-6">
+//         <JoditEditor
+//           ref={editor}
+//           value={content}
+//           config={config}
+//           onBlur={(newContent: any) => setContent(newContent)}
+//         />
+//       </div>
+//     );
+//   }
+// );
 const BlogModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
@@ -234,7 +234,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   )}
                 </button>
               </div>
-              <MemoizedJoditEditor />
+              {/* <MemoizedJoditEditor /> */}
             </div>
             <button
               className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
