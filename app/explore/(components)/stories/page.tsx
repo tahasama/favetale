@@ -10,8 +10,11 @@ import story6 from "../../../images/stories/story6.jpg";
 import story7 from "../../../images/stories/story7.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import StoryModal from "./StoryModal";
+import ServerComponent from "./ServerComponent";
+import ClientComponent from "./ClientComponent";
+import Loading from "./loading";
 
 const Stories = () => {
   const storiesData = [
@@ -49,78 +52,10 @@ const Stories = () => {
 
   return (
     <div className="container z-10  my-20  w-full">
-      {/* Prominent Call-to-Action */}
-      <div className="mb-6">
-        <div className="bg-indigo-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
-          <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-5">
-            Share Your Inspiring Story
-          </h2>
-          <p className="text-base sm:text-lg text-gray-200 mb-4 sm:mb-8">
-            Contribute your unique story to our community and inspire others!
-          </p>
-          <button
-            onClick={() => setUploadModalOpen(true)}
-            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-500"
-          >
-            Share a story
-          </button>
-        </div>
-      </div>
-
-      <StoryModal
-        isOpen={uploadModalOpen}
-        onClose={() => setUploadModalOpen(false)}
-      />
-
-      {/* Story Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:mx-7 mx-2 gap-6 mb-4">
-        {storiesData.map((story, index) => (
-          <motion.div
-            key={story.id}
-            initial={{
-              opacity: 0,
-              y: index * 100 + 100,
-              // transform: "scale(1.1)",
-            }} // Initial state (hidden and slightly moved down)
-            animate={{
-              opacity: 1,
-              y: 0,
-              // transform: "scale(1)",
-            }} // Animation state (visible and at normal position)
-            transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
-          >
-            <Link href={`/explore/stories/${story.id}`} className="block">
-              <div
-                className={`bg-white rounded-lg shadow-lg overflow-hidden mb-5 sm:h-60`}
-              >
-                <div className="flex flex-col sm:flex-row h-full">
-                  <div className="p-4 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-lg font-semibold mb-4 mt-2">
-                        {story.title}
-                      </h3>
-                      <p className="text-gray-600 mb-2 line-clamp-4">
-                        {story.excerpt}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 mt-2">story.timestamp</p>
-                      <p className="text-tealDark font-semibold">story.user</p>
-                    </div>
-                  </div>
-                  <Image
-                    src={story.image}
-                    alt={story.title}
-                    className="sm:w-1/3 sm:h-auto object-cover w-auto"
-                    width={1000}
-                    height={1000}
-                  />
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+      <ClientComponent />
+      <Suspense fallback={<Loading />}>
+        <ServerComponent />
+      </Suspense>
     </div>
   );
 };

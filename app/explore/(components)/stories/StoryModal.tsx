@@ -1,15 +1,42 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import styles
+import ReactMarkdown from "react-markdown";
+import grayMatter from "gray-matter";
+import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
+import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
+
+import Quill from "quill";
 import dynamic from "next/dynamic";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useCart } from "@/app/provider/CartProvider";
+// import JoditEditor from "jodit-react";
 
+// const JoditEditor = React.lazy(() => import("jodit-react"));
+
+// const MemoizedJoditEditor = React.memo(
+//   ({ content, setContent, config }: any) => {
+//     const editor = useRef(null);
+
+//     return (
+//
+//     );
+//   }
+// );
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const StoryModal = ({ isOpen, onClose }: any) => {
-  const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+  const router = useRouter();
 
-  const [content, setContent] = useState(
-    "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />"
-  );
+  const { userx, setUploadpetModalOpen } = useCart();
+  const [loading, setLoading] = useState(false);
+
+  const [content, setContent] = useState("");
   const editor = useRef(null);
 
   const handleModalClick = (e: any) => {
@@ -36,12 +63,39 @@ const StoryModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const publishBlog = () => {
-    // Placeholder function to publish the blog with title, content, and tags.
-    console.log("Publishing blog with title nnnnnnnnnnnn:", title);
-    console.log("Content:", content);
-    console.log("Tags:", tags);
-    console.log("Image:", imageFile);
+  const publishStory = async (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+
+    if (imageFile) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `stories/${userx.id}/${Date.now()}.jpg`);
+
+      try {
+        await uploadBytes(storageRef, imageFile);
+        const res = await getDownloadURL(storageRef);
+
+        const StoryData = {
+          writer: userx,
+          title,
+          content,
+          tags,
+          image: res,
+          createdAt: serverTimestamp(),
+        };
+
+        await addDoc(collection(db, "stories"), StoryData).then(() => {
+          setUploadpetModalOpen(false), setLoading(false);
+        });
+      } catch (error) {
+        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+      }
+      setImageFile(null);
+      setTags([]);
+      setContent("");
+      setTitle("");
+      router.push("/profile");
+    }
   };
 
   const [imageFile, setImageFile] = useState<any>(null);
@@ -56,29 +110,13 @@ const StoryModal = ({ isOpen, onClose }: any) => {
   const config: any = {
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
     placeholder: `
-        <h3>Start your blog...</h3>
-        <br />
-        <br />
-        <br />
-        <br />
-        For quick step back ctrl + Z
-      </>`,
+        <h3>Start your Story...</h3>
+      `,
   };
-
-  const JoditEditorMemoized = useMemo(() => {
-    return (
-      <JoditEditor
-        ref={editor}
-        value={content}
-        config={config}
-        onBlur={(newContent: any) => setContent(newContent)}
-      />
-    );
-  }, [content]);
 
   return (
     <div
-      className={`linka fixed inset-0 flex flex-col items-center justify-center full w-full mb-4 bg-white  h-full z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`linka fixed inset-0 flex flex-col items-center justify-center full w-full mb-4 bg-white  h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
@@ -86,14 +124,14 @@ const StoryModal = ({ isOpen, onClose }: any) => {
       onClick={handleModalClick}
     >
       <div
-        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto  h-full w-full lg:${
+        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto my-1 h-full w-full lg:${
           preview ? "w-9/12" : "w-7/12"
         } mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
       >
         {!preview ? (
           <div className="md:p-6 py-4 px-1.5 rounded-lg  h-full ">
             <div>
-              <h2 className="mb-4"> Share a story</h2>
+              <h2 className="mb-4"> Share a Story</h2>
               <div className="flex items-center mb-4 gap-3">
                 <label htmlFor="title">Add title: </label>
                 <input
@@ -157,19 +195,45 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                 </button>
                 <button
                   className="ring-1 ring-pink-500 hover:bg-pink-500 hover:text-white tracking-wide transition-colors duration-300 text-pink-500 py-2 px-2 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={publishBlog}
+                  onClick={publishStory}
                 >
                   Save/Draft
                 </button>
 
                 <button
-                  className="ring-1 ring-green-600 hover:bg-green-700 hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={publishBlog}
+                  type="submit"
+                  className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  onClick={publishStory}
                 >
-                  Publish
+                  {!loading ? (
+                    "Publish"
+                  ) : (
+                    <span className="flex">
+                      Loading
+                      <div className="flex justify-center ml-0.5 mt-1.5">
+                        <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div
+                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                    </span>
+                  )}
                 </button>
               </div>
-              <div className=" mb-6">{JoditEditorMemoized}</div>
+
+              <div className="mb-6">
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={config}
+                  onBlur={(newContent: any) => setContent(newContent)}
+                />
+              </div>
             </div>
             <button
               className="absolute  scale-125 hover:rotate-90 p-1 top-4 right-3  ring-1 ring-gray-300 transition-all duration-500 rounded-full"
