@@ -5,6 +5,8 @@ import DiscussionModal from "./DiscussionModal";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import DiscussionCard from "./DiscussionCard";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 async function getData() {
   const discussionsData: any[] = [];
@@ -219,8 +221,9 @@ const Forum = async ({ params: { id } }: any) => {
 
   return (
     <div className=" bg-tealLight grid place-items-center w-full h-full">
-      <div className="mx-5 pt-5 mt-16 lg:mt-0 bg-tealLight lg:w-8/12 ">
-        {/* <span className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
+      <Suspense fallback={<Loading />}>
+        <div className="mx-5 pt-5 mt-16 lg:mt-0 bg-tealLight lg:w-8/12 ">
+          {/* <span className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
           <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
           <button
             onClick={openModal}
@@ -230,20 +233,23 @@ const Forum = async ({ params: { id } }: any) => {
           </button>
         </span>
         <DiscussionModal isOpen={isModalOpen} onClose={closeModal} /> */}
-        <p className="text-gray-600 mb-4 text-base">{forumData.description}</p>
-        <div className="text-gray-400 text-sm mb-4">
-          Category:{" "}
-          <span className="px-2 py-1 bg-slate-400 border-slate-400 border-2 text-white rounded-xl">
-            {forumData.category}
-          </span>
+          <p className="text-gray-600 mb-4 text-base">
+            {forumData.description}
+          </p>
+          <div className="text-gray-400 text-sm mb-4">
+            Category:{" "}
+            <span className="px-2 py-1 bg-slate-400 border-slate-400 border-2 text-white rounded-xl">
+              {forumData.category}
+            </span>
+          </div>
         </div>
+        <div>
+          {discussionsDataFiltered.map((discussion: any) => (
+            <DiscussionCard discussion={discussion} />
+          ))}
 
-        {discussionsDataFiltered.map((discussion: any) => (
-          <DiscussionCard discussion={discussion} />
-        ))}
-
-        {/* Display tags for the selected forum */}
-        {/* <div className="mb-4">
+          {/* Display tags for the selected forum */}
+          {/* <div className="mb-4">
           {discussionsDataFiltered.tags &&
             discussionsDataFiltered?.tags.map((tag: any) => (
               <button
@@ -258,7 +264,7 @@ const Forum = async ({ params: { id } }: any) => {
                 {tag}
               </button>
             ))} */}
-        {/*  <button
+          {/*  <button
             className={`${
               !selectedTag
                 ? "bg-indigo-500 text-white"
@@ -269,9 +275,9 @@ const Forum = async ({ params: { id } }: any) => {
             All
           </button>
         </div> */}
-        {/* List of discussions within the selected forum */}
-        <div className="space-y-4">
-          {/* {filteredDiscussions.map((discussion: any) => (
+          {/* List of discussions within the selected forum */}
+          <div className="space-y-4">
+            {/* {filteredDiscussions.map((discussion: any) => (
             <div
               key={discussion.id}
               className="border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out  hover:translate-x-[1px] hover:translate-y-[1px]"
@@ -295,8 +301,9 @@ const Forum = async ({ params: { id } }: any) => {
               </div>
             </div>
           ))} */}
+          </div>
         </div>
-      </div>
+      </Suspense>
     </div>
   );
 };
