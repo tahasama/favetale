@@ -2,12 +2,19 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useCart } from "@/app/provider/CartProvider";
+import { db } from "@/firebase";
 
 const DiscussionModal = ({ isOpen, onClose }: any) => {
+  const router = useRouter();
+  const { userx, setUploadpetModalOpen } = useCart();
+
   const [selectedCategory, setSelectedCategory] = useState<string>("Health");
   const [selectedTags, setSelectedTags] = useState<any[]>([]);
   const [discussionTitle, setDiscussionTitle] = useState("");
   const [discussionContent, setDiscussionContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const categoriesToTags: any = {
     Health: ["Wellness", "Diet", "Vaccinations"],
@@ -31,12 +38,34 @@ const DiscussionModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Handle discussion submission here
     console.log("Category:", selectedCategory);
     console.log("Tags:", selectedTags);
     console.log("Title:", discussionTitle);
     console.log("Content:", discussionContent);
+    try {
+      const discussionData = {
+        writer: userx,
+        category: selectedCategory,
+        tags: selectedTags,
+        title: discussionTitle,
+        discussionContent: discussionContent,
+        createdAt: serverTimestamp(),
+      };
+
+      await addDoc(collection(db, "discussions"), discussionData).then(() => {
+        setUploadpetModalOpen(false), setLoading(false);
+      });
+    } catch (error) {
+      console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+    }
+
+    setSelectedCategory("");
+    setSelectedTags([]);
+    setDiscussionTitle("");
+    setDiscussionContent("");
+    router.push("/profile");
 
     // Close the modal or perform any other action as needed
     onClose();

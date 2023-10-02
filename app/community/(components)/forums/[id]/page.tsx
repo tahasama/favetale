@@ -1,9 +1,43 @@
-"use client";
-import { useParams, useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+// "use client";
+// import { useParams, useRouter } from "next/navigation";
+// import React, { useRef, useState } from "react";
 import DiscussionModal from "./DiscussionModal";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/firebase";
+import DiscussionCard from "./DiscussionCard";
 
-const Forum = () => {
+async function getData() {
+  const discussionsData: any[] = [];
+  const discussionRef = collection(db, "discussions");
+  const snapshot = await getDocs(discussionRef);
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return;
+  }
+  snapshot.forEach((doc: any) => {
+    discussionsData.push({ id: doc.id, ...doc.data() });
+  });
+  return discussionsData;
+}
+
+const Forum = async ({ params: { id } }: any) => {
+  console.log("🚀 ~ file: page.tsx:9 ~ Discussion ~ forumId:", id);
+  const discussionsData = await getData();
+  const categoryMap: any = {
+    1: "Health",
+    2: "Training",
+    3: "Behavior",
+    4: "Adoption",
+  };
+  const discussionsDataFiltered: any = discussionsData?.filter(
+    (discussionFiltered: any) =>
+      discussionFiltered.category === (categoryMap[id] || "Product")
+  );
+  console.log(
+    "🚀 ~ file: page.tsx:35 ~ Forum ~ discussionsDataFiltered:",
+    discussionsDataFiltered
+  );
+
   const forumsData = [
     {
       id: 1,
@@ -127,40 +161,40 @@ const Forum = () => {
       discussions: [],
     },
   ];
-  const router = useRouter();
+  // const router = useRouter();
 
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const forumData = forumsData.filter((blog: any) => blog.id === Number(id))[0];
 
   // State to handle adding comments
-  const [newComment, setNewComment] = useState("");
-  //   const [comments, setComments] = useState(forumData.comments);
+  // const [newComment, setNewComment] = useState("");
+  // //   const [comments, setComments] = useState(forumData.comments);
 
-  const [liked, setLiked] = useState(false);
-  //   const [likesCount, setLikesCount] = useState(forumData.likes);
+  // const [liked, setLiked] = useState(false);
+  // //   const [likesCount, setLikesCount] = useState(forumData.likes);
 
-  const commentsSectionRef = useRef<any>(null);
+  // const commentsSectionRef = useRef<any>(null);
 
-  const scrollToComments = () => {
-    commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
-  };
+  // const scrollToComments = () => {
+  //   commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
+  // };
 
-  const [selectedTag, setSelectedTag] = useState(null);
+  // const [selectedTag, setSelectedTag] = useState(null);
 
   // Filter discussions based on the selected tag
-  const filteredDiscussions = selectedTag
-    ? forumData.discussions.filter((discussion: any) =>
-        discussion.tags.includes(selectedTag)
-      )
-    : forumData.discussions;
+  // const filteredDiscussions = selectedTag
+  //   ? forumData.discussions.filter((discussion: any) =>
+  //       discussion.tags.includes(selectedTag)
+  //     )
+  //   : forumData.discussions;
 
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
-  // Function to toggle the create discussion modal
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
+  // // Function to toggle the create discussion modal
+  // const toggleModal = () => {
+  //   setShowModal(!showModal);
+  // };
 
   // Function to create a new discussion (you can customize this)
   const createDiscussion = () => {
@@ -170,23 +204,23 @@ const Forum = () => {
     // After creating the discussion, you can redirect
     // the user to the newly created discussion page.
     // For now, let's just close the modal.
-    toggleModal();
+    // toggleModal();
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (pet: any) => {
-    setIsModalOpen(true);
-  };
+  // const openModal = (pet: any) => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <div className=" bg-tealLight grid place-items-center w-full h-full">
       <div className="mx-5 pt-5 mt-16 lg:mt-0 bg-tealLight lg:w-8/12 ">
-        <span className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
+        {/* <span className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between">
           <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
           <button
             onClick={openModal}
@@ -195,7 +229,7 @@ const Forum = () => {
             Start a discussion
           </button>
         </span>
-        <DiscussionModal isOpen={isModalOpen} onClose={closeModal} />
+        <DiscussionModal isOpen={isModalOpen} onClose={closeModal} /> */}
         <p className="text-gray-600 mb-4 text-base">{forumData.description}</p>
         <div className="text-gray-400 text-sm mb-4">
           Category:{" "}
@@ -204,23 +238,27 @@ const Forum = () => {
           </span>
         </div>
 
+        {discussionsDataFiltered.map((discussion: any) => (
+          <DiscussionCard discussion={discussion} />
+        ))}
+
         {/* Display tags for the selected forum */}
-        <div className="mb-4">
-          Tags:{" "}
-          {forumData.tags.map((tag: any) => (
-            <button
-              key={tag}
-              className={`${
-                selectedTag === tag
-                  ? "bg-indigo-500 text-white"
-                  : "bg-gray-200 text-gray-700"
-              } px-2 py-1 rounded-md text-xs mr-2 cursor-pointer`}
-              onClick={() => setSelectedTag(tag)}
-            >
-              {tag}
-            </button>
-          ))}
-          <button
+        {/* <div className="mb-4">
+          {discussionsDataFiltered.tags &&
+            discussionsDataFiltered?.tags.map((tag: any) => (
+              <button
+                key={tag}
+                // className={`${
+                //   selectedTag === tag
+                //     ? "bg-indigo-500 text-white"
+                //     : "bg-gray-200 text-gray-700"
+                // } px-2 py-1 rounded-md text-xs mr-2 cursor-pointer`}
+                // onClick={() => setSelectedTag(tag)}
+              >
+                {tag}
+              </button>
+            ))} */}
+        {/*  <button
             className={`${
               !selectedTag
                 ? "bg-indigo-500 text-white"
@@ -230,11 +268,10 @@ const Forum = () => {
           >
             All
           </button>
-        </div>
-
+        </div> */}
         {/* List of discussions within the selected forum */}
         <div className="space-y-4">
-          {filteredDiscussions.map((discussion: any) => (
+          {/* {filteredDiscussions.map((discussion: any) => (
             <div
               key={discussion.id}
               className="border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out  hover:translate-x-[1px] hover:translate-y-[1px]"
@@ -257,7 +294,7 @@ const Forum = () => {
                 ))}
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
