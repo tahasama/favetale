@@ -1,13 +1,13 @@
+import Link from "next/link";
 import React from "react";
 
-const DiscussionCard = ({ discussion }: any) => {
+const DiscussionCard = ({ discussion, id }: any) => {
+  console.log("🚀 ~ file: DiscussionCard.tsx:5 ~ DiscussionCard ~ id:", id);
   return (
-    <div
+    <Link
       key={discussion.id}
       className="border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out  hover:translate-x-[1px] hover:translate-y-[1px]"
-      //   onClick={() =>
-      //     router.push(`/community/forums/${id}/discussion/${discussion.id}`)
-      //   }
+      href={`/community/forums/${id}/discussion/${discussion.id}`}
     >
       <h3 className="text-xl font-semibold mb-2">{discussion.title}</h3>
       <p className="text-gray-600 mb-2">{discussion.writer.name}</p>
@@ -23,7 +23,7 @@ const DiscussionCard = ({ discussion }: any) => {
           </span>
         ))}
       </div>
-    </div>
+    </Link>
   );
 };
 

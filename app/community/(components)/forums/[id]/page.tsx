@@ -23,7 +23,6 @@ async function getData() {
 }
 
 const Forum = async ({ params: { id } }: any) => {
-  console.log("🚀 ~ file: page.tsx:9 ~ Discussion ~ forumId:", id);
   const discussionsData = await getData();
   const categoryMap: any = {
     1: "Health",
@@ -34,10 +33,6 @@ const Forum = async ({ params: { id } }: any) => {
   const discussionsDataFiltered: any = discussionsData?.filter(
     (discussionFiltered: any) =>
       discussionFiltered.category === (categoryMap[id] || "Product")
-  );
-  console.log(
-    "🚀 ~ file: page.tsx:35 ~ Forum ~ discussionsDataFiltered:",
-    discussionsDataFiltered
   );
 
   const forumsData = [
@@ -245,7 +240,7 @@ const Forum = async ({ params: { id } }: any) => {
         </div>
         <div>
           {discussionsDataFiltered.map((discussion: any) => (
-            <DiscussionCard discussion={discussion} />
+            <DiscussionCard discussion={discussion} id={id} />
           ))}
 
           {/* Display tags for the selected forum */}

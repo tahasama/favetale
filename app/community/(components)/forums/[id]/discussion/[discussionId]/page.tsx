@@ -1,13 +1,17 @@
 // "use client";
 import { db } from "@/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { Lato } from "next/font/google";
 import { useParams } from "next/navigation";
 // import React, { useState } from "react";
 
 const lato = Lato({ weight: "400", subsets: [] });
 
-const Discussion = async () => {
+const Discussion = async ({ params: { discussionId } }: any) => {
+  console.log(
+    "🚀 ~ file: page.tsx:11 ~ Discussion ~ discussionId:",
+    discussionId
+  );
   // const forumsData = [
   //   {
   //     id: 1,
@@ -208,6 +212,9 @@ const Discussion = async () => {
   //   }
   // };
 
+  const res = await getDoc(doc(db, "discussions", discussionId));
+  const discussionData: any = res.data();
+
   const adjustTextareaRows = (textarea: any) => {
     textarea.rows = textarea.value.split("\n").length || 1;
   };
@@ -216,14 +223,16 @@ const Discussion = async () => {
     <div className="mt-20 bg-tealLight w-full h-full grid place-items-center">
       <div className="px-2 lg:px-0 bg-tealLight w-full lg:w-7/12">
         <br />
-        {/* <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
-        <p className="text-gray-600 mb-2">Author: {discussionData.author}</p>
+        <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
+        <p className="text-gray-600 mb-2">
+          Author: {discussionData.writer.name}
+        </p>
         <p className="text-gray-400 text-sm mb-2">
           Date: {discussionData.date}
         </p>
         <p className={`mb-4 text-base lg:text-lg ${lato.className}`}>
-          {discussionData.content}
-        </p> */}
+          {discussionData.discussionContent}
+        </p>
         {/* Participation input */}
         <div className="mt-6 mb-4 border px-4 py-5 rounded-lg bg-white shadow-md">
           {/* <textarea
@@ -271,7 +280,6 @@ const Discussion = async () => {
             </div>
           ))}
         </div> */}
-        HHHHHHHHHHHHHHHHHHHHHHHHHOOOOOOo8888
       </div>
     </div>
   );
