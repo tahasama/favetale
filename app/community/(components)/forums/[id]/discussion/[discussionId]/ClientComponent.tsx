@@ -269,17 +269,17 @@ const ClientComponent = ({ discussionId }: any) => {
               </p>
             </div>
 
-            <div className="flex items-center mt-4">
+            <div className="flex items-center mt-2">
               <button
                 onClick={() => handleAgree(reply.id)}
-                className="bg-emerald-100 text-white px-3 py-1.5 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
               >
                 👍
                 {/* {reply.commentData.likes || 0} */}
               </button>
               <button
                 onClick={() => handleDisagree(reply.id)}
-                className="bg-pink-100 text-white px-3 py-1.5 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                className="bg-pink-100 text-white px-2 py-1 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
               >
                 👎
                 {/* {discommentData.likes[reply.id] || 0} */}
