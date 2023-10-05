@@ -226,7 +226,7 @@ const ClientComponent = ({ discussionId }: any) => {
   return (
     <>
       {/* Add Comment */}
-      <div className="mt-12 mb-4">
+      <div className="mt-8 mb-6">
         <div className="flex items-start space-x-4">
           {userx.image ? (
             <Link href="/profile" target="_blank" rel="noopener noreferrer">
@@ -269,7 +269,7 @@ const ClientComponent = ({ discussionId }: any) => {
               </p>
             </div>
 
-            <div className="flex items-center mt-2">
+            <div className="flex items-center my-2 ">
               <button
                 onClick={() => handleAgree(reply.id)}
                 className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"

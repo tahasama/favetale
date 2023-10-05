@@ -18,6 +18,7 @@ const ServerComponent = ({ discussionData }: any) => {
       <p className={`mb-4 text-base lg:text-lg ${lato.className}`}>
         {discussionData.discussionContent}
       </p>
+      <div className="border-b-2 mb-0"></div>
     </>
   );
 };
