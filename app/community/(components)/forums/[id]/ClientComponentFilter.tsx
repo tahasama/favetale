@@ -3,7 +3,11 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 
 const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
-  const [selectedTag, setSelectedTag] = useState<any>([]);
+  const [selectedTag, setSelectedTag] = useState<any>(null);
+  console.log(
+    "🚀 ~ file: ClientComponentFilter.tsx:7 ~ ClientComponentFilter ~ selectedTag:",
+    selectedTag
+  );
 
   const xxx: any[] = discussionsDataFiltered.map((c: any) => c.tags).flat();
   const uniqueTags: any[] = [...new Set(xxx)];
@@ -13,6 +17,10 @@ const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
         discussion.tags.includes(selectedTag)
       )
     : discussionsDataFiltered;
+  console.log(
+    "🚀 ~ file: ClientComponentFilter.tsx:16 ~ ClientComponentFilter ~ discussionsDataFiltered:",
+    discussionsDataFiltered
+  );
 
   return (
     <>
