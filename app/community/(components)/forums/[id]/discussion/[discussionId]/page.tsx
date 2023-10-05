@@ -223,7 +223,7 @@ const Discussion = async ({ params: { discussionId } }: any) => {
   };
 
   return (
-    <div className="mt-20 bg-tealLight w-full h-full flex justify-center">
+    <div className="mt-10 bg-tealLight w-full h-full flex justify-center">
       <div className=" mt-12 w-full lg:w-7/12 mb-4 border px-4 py-5 rounded-lg bg-white shadow-md">
         <Suspense fallback>
           <ServerComponent discussionData={discussionData} />
