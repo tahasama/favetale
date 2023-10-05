@@ -1,32 +1,19 @@
-// "use client";
-// import { useParams, useRouter } from "next/navigation";
-// import React, { useRef, useState } from "react";
-import DiscussionModal from "./DiscussionModal";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/firebase";
-import { Suspense } from "react";
-import Loading from "./loading";
-import ServerComponent from "./ServerComponent";
-import ClientComponent from "./ClientComponentButtons";
-import ClientComponentButtuns from "./ClientComponentButtons";
+"use client";
+import Link from "next/link";
+import React, { useMemo, useState } from "react";
 
-const Forum = async ({ params: { id } }: any) => {
-  // const router = useRouter();
+const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
+  console.log(
+    "🚀 ~ file: ClientComponentFilter.tsx:6 ~ ClientComponentFilter ~ discussionsDataFiltered:",
+    discussionsDataFiltered
+  );
 
-  // const { id } = useParams();
-
-  // State to handle adding comments
-  // const [newComment, setNewComment] = useState("");
-  // //   const [comments, setComments] = useState(forumData.comments);
-
-  // const [liked, setLiked] = useState(false);
-  // //   const [likesCount, setLikesCount] = useState(forumData.likes);
-
-  // const commentsSectionRef = useRef<any>(null);
-
-  // const scrollToComments = () => {
-  //   commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
-  // };
+  const [selectedTag, setSelectedTag] = useState<string>("");
+  console.log(
+    "🚀 ~ file: ClientComponentFilter.tsx:12 ~ ClientComponentFilter ~ selectedTag:",
+    typeof selectedTag
+  );
+  useState;
 
   const forumsData = [
     {
@@ -155,25 +142,71 @@ const Forum = async ({ params: { id } }: any) => {
     (forum: any) => forum.id === Number(id)
   )[0];
 
-  return (
-    <div className=" bg-tealLight flex justify-center w-full h-full">
-      <div className="mx-5  mt-20 lg:mt-40 bg-tealLight lg:w-8/12 ">
-        <span className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-          <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
+  const xxx = discussionsDataFiltered.map((c: any) => c.tags);
 
-          <ClientComponentButtuns id={id} />
-        </span>
-        <p className="text-gray-600 mb-4 text-base">{forumData.description}</p>
-        <div className="text-gray-400 text-sm mb-4">
-          Category:{" "}
-          <span className="px-2 py-1 bg-slate-400 border-slate-400 border-2 text-white rounded-xl">
-            {forumData.category}
-          </span>
-        </div>
-        <ServerComponent id={id} />
+  const filteredDiscussions = selectedTag
+    ? discussionsDataFiltered.filter((discussion: any) =>
+        discussion.tags.includes(selectedTag[0])
+      )
+    : discussionsDataFiltered;
+  console.log(
+    "🚀 ~ file: ClientComponentFilter.tsx:146 ~ ClientComponentFilter ~ filteredDiscussions:"
+  );
+  return (
+    <>
+      <div className="mb-4">
+        {xxx &&
+          xxx?.map((tag: string) => (
+            <button
+              key={tag}
+              className={`${
+                selectedTag === tag
+                  ? "bg-indigo-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              } px-3 py-1.5 rounded-md text-xs mr-2 cursor-pointer`}
+              onClick={() => setSelectedTag(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+        <button
+          className={`${
+            !selectedTag
+              ? "bg-indigo-500 text-white"
+              : "bg-gray-200 text-gray-700"
+          } px-3 py-1.5 rounded-md text-xs`}
+          onClick={() => setSelectedTag("")}
+        >
+          All
+        </button>
       </div>
-    </div>
+      {filteredDiscussions.map((discussion: any) => (
+        <div
+          key={discussion.id}
+          className="w-full my-3 border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out  hover:translate-x-[1px] hover:translate-y-[1px]"
+        >
+          <Link href={`/community/forums/${id}/discussion/${discussion.id}`}>
+            <h3 className="text-xl font-semibold mb-2">{discussion.title}</h3>
+            <p className="text-gray-600 mb-2">{discussion.writer.name}</p>
+            <p className="text-gray-400 text-sm mb-2">
+              {new Date(
+                filteredDiscussions[0].createdAt.seconds * 1000
+              ).toDateString()}
+            </p>
+            <p>{discussion.content}</p>
+            <div className="text-gray-600 mt-2">
+              Tags:{" "}
+              {discussion.tags.map((tag: any) => (
+                <span key={tag} className="text-indigo-500 mr-2">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </Link>
+        </div>
+      ))}
+    </>
   );
 };
 
-export default Forum;
+export default ClientComponentFilter;

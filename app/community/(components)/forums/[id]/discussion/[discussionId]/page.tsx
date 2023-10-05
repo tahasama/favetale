@@ -220,15 +220,16 @@ const Discussion = async ({ params: { discussionId } }: any) => {
   };
 
   return (
-    <div className="mt-20 bg-tealLight w-full h-full grid place-items-center">
-      <div className="px-2 lg:px-0 bg-tealLight w-full lg:w-7/12">
+    <div className="mt-20 bg-tealLight w-full h-full flex justify-center">
+      <div className="px-2 lg:px-0 mt-12 bg-tealLight w-full lg:w-7/12">
         <br />
         <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
         <p className="text-gray-600 mb-2">
           Author: {discussionData.writer.name}
         </p>
         <p className="text-gray-400 text-sm mb-2">
-          Date: {discussionData.date}
+          Date:{" "}
+          {new Date(discussionData.createdAt.seconds * 1000).toDateString()}
         </p>
         <p className={`mb-4 text-base lg:text-lg ${lato.className}`}>
           {discussionData.discussionContent}

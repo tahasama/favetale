@@ -18,7 +18,7 @@ const ForumCard = ({ forum, index, discussionsData }: any) => {
       <Link
         key={forum.id}
         href={`/community/forums/${forum.id}`}
-        className="block hover:scale-105 transition-all duration-300"
+        className="block hover:scale-[1.015] transition-all duration-300"
       >
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold mb-2  flex justify-between items-center">
