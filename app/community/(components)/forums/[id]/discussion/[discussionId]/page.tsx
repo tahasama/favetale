@@ -3,6 +3,9 @@ import { db } from "@/firebase";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { Lato } from "next/font/google";
 import { useParams } from "next/navigation";
+import ServerComponent from "./ServerComponent";
+import ClientComponent from "./ClientComponent";
+import { Suspense } from "react";
 // import React, { useState } from "react";
 
 const lato = Lato({ weight: "400", subsets: [] });
@@ -221,66 +224,11 @@ const Discussion = async ({ params: { discussionId } }: any) => {
 
   return (
     <div className="mt-20 bg-tealLight w-full h-full flex justify-center">
-      <div className="px-2 lg:px-0 mt-12 bg-tealLight w-full lg:w-7/12">
-        <br />
-        <h2 className="text-2xl font-semibold mb-4">{discussionData.title}</h2>
-        <p className="text-gray-600 mb-2">
-          Author: {discussionData.writer.name}
-        </p>
-        <p className="text-gray-400 text-sm mb-2">
-          Date:{" "}
-          {new Date(discussionData.createdAt.seconds * 1000).toDateString()}
-        </p>
-        <p className={`mb-4 text-base lg:text-lg ${lato.className}`}>
-          {discussionData.discussionContent}
-        </p>
-        {/* Participation input */}
-        <div className="mt-6 mb-4 border px-4 py-5 rounded-lg bg-white shadow-md">
-          {/* <textarea
-            rows={2}
-            placeholder="Participate in the discussion..."
-            className="border rounded-lg w-full py-2 px-4 bg-"
-            value={newComment}
-            onChange={(e) => {
-              setNewComment(e.target.value);
-              adjustTextareaRows(e.target);
-            }}
-          /> */}
-          {/* <button
-            onClick={handleAddComment}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-blue-600 focus:outline-none"
-          >
-            Send
-          </button> */}
-        </div>
-        {/* List of replies to the discussion */}
-        {/* <div className="space-y-4 ">
-          {comments.map((reply) => (
-            <div
-              key={reply.id}
-              className="border p-4 rounded-lg bg-white shadow-md"
-            >
-              <p className="text-gray-600 mb-2">Author: {reply.author}</p>
-              <p className="text-gray-400 text-sm mb-2">Date: {reply.date}</p>
-              <p>{reply.content}</p>
-
-              <div className="flex items-center  mt-4">
-                <button
-                  onClick={() => handleAgree(reply.id)}
-                  className="bg-emerald-100 text-white px-4 py-2 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
-                >
-                  👍{likes[reply.id] || 0}
-                </button>
-                <button
-                  onClick={() => handleDisagree(reply.id)}
-                  className="bg-pink-100 text-white px-4 py-2 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
-                >
-                  👎{dislikes[reply.id] || 0}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div> */}
+      <div className=" mt-12 w-full lg:w-7/12 mb-4 border px-4 py-5 rounded-lg bg-white shadow-md">
+        <Suspense fallback>
+          <ServerComponent discussionData={discussionData} />
+        </Suspense>
+        <ClientComponent discussionId={discussionId} />
       </div>
     </div>
   );
