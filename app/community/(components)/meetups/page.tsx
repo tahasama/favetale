@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -22,6 +22,9 @@ import img9 from "../../../images/9.jpg";
 import img10 from "../../../images/10.jpg";
 import img11 from "../../../images/11.jpg";
 import img12 from "../../../images/12.jpg";
+import ClientComponent from "./ClientComponent";
+import MeetupCard from "./MeetupCard";
+import ServerComponent from "./ServerComponent";
 
 const Meetups = () => {
   const meetups = [
@@ -232,29 +235,7 @@ const Meetups = () => {
 
   return (
     <div className=" bg-tealLight">
-      <div className="bg-fuchsia-700 p-6 sm:p-12 text-left rounded-br-3xl leading-loose tracking-wide">
-        <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
-          {" "}
-          Join Pet Meetups
-        </h2>
-        <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
-          Connect with local pet lovers, attend fun events, and create lasting
-          memories with your furry friends.
-        </p>
-
-        <button
-          onClick={() => setUploadModalOpen(true)}
-          className="bg-tealLight hover:animate-buttonHover hover:text-white px-3 lg:px-4 py-2 lg:py-3 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
-        >
-          Create a Gathering
-        </button>
-      </div>
-
-      <MeetupsModal
-        isOpen={uploadModalOpen}
-        onClose={() => setUploadModalOpen(false)}
-      />
-
+      <ClientComponent />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-1 p-6">
         <div>
           <label
@@ -354,49 +335,7 @@ const Meetups = () => {
           {error}
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-6">
-        {searchResults.map((meetup, index) => (
-          <Link href={`community/meetups/${meetup.id}`}>
-            <motion.div
-              initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
-              animate={{ opacity: 1 }} // Animation state (visible and at normal position)
-              transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
-              key={meetup.id}
-              className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-tealLight to-purple-100 hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="relative">
-                <Image
-                  src={meetup.image}
-                  alt={meetup.name}
-                  className="w-full h-40 object-cover"
-                  width={1000}
-                  height={1000}
-                />
-                <div className="absolute bottom-0 left-0 bg-teal-600 text-white px-3 py-1 m-4 rounded-md">
-                  {meetup.startDate}
-                </div>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{meetup.name}</h3>
-                <p className="text-gray-600 mb-2">{meetup.location.country}</p>
-                <p className="text-gray-600 mb-2">{meetup.location.city}</p>
-                <p className="text-gray-600 mb-2">{meetup.location.zipCode}</p>
-                <p className="text-gray-600 mb-2">
-                  {" "}
-                  From <span className="text-red-600">
-                    {meetup.startDate}
-                  </span>{" "}
-                  to <span className="text-red-600">{meetup.endDate}</span>
-                </p>
-                <p className="text-gray-600">{meetup.description}</p>
-                <button className="mt-3 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
-                  Join Meetup
-                </button>
-              </div>
-            </motion.div>
-          </Link>
-        ))}
-      </div>
+      <ServerComponent searchResults={searchResults} />
     </div>
   );
 };

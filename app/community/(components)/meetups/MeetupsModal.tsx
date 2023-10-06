@@ -2,12 +2,14 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/firebase";
 
 const MeetupsModal = ({ isOpen, onClose }: any) => {
   const meetups = [
     {
       id: 1,
-      name: "Tech Enthusiasts Meetup",
+      title: "Tech Enthusiasts Meetup",
       location: {
         country: "USA",
         city: "New York",
@@ -19,7 +21,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
     },
     {
       id: 2,
-      name: "Art Lovers Gathering",
+      title: "Art Lovers Gathering",
       location: {
         country: "USA",
         city: "Los Angeles",
@@ -38,29 +40,28 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const [newGathering, setNewGathering] = useState({
-    id: 0,
-    name: "",
+    title: "",
     location: {
       country: "",
       city: "",
       zipCode: "",
     },
-    date: "",
-    time: "",
+    startDate: "",
+    endDate: "",
+    timeFrom: "",
+    timeTo: "",
     description: "",
   });
-
   console.log(
-    "🚀 ~ file: meetupsModal.tsx:9 ~ MeetupsModal ~ searchResults:",
-    searchResults
+    "🚀 ~ file: MeetupsModal.tsx:53 ~ MeetupsModal ~ newGathering:",
+    newGathering
   );
+
   const [error, setError] = useState("");
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose(); // Call the onClose function to close the modal
-
-      console.log("🚀 ~ file: discussionModal.tsx:48 ~ handleModalClick ~ c:");
     }
   };
 
@@ -82,10 +83,6 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
         (!zipCode || meetupLocation.zipCode.toLowerCase());
       return criteriaMatch;
     });
-    console.log(
-      "🚀 ~ file: meetupsModal.tsx:71 ~ filteredMeetups ~ filteredMeetups:",
-      filteredMeetups
-    );
 
     if (filteredMeetups.length === 0) {
       setError("No meetups found for the provided criteria.");
@@ -95,10 +92,38 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const handleCreateGathering = () => {
-    // Perform actions to create a new gathering
-    // For example, add it to your meetups array or send it to the server
-    meetups.push(newGathering);
+  const handleCreateGathering = async () => {
+    try {
+      // Define the Firestore collection where gatherings will be stored
+      const gatheringsCollection = collection(db, "gatherings");
+
+      // Add a new gathering document to the collection
+      const newGatheringRef = await addDoc(gatheringsCollection, newGathering);
+      console.log(
+        "🚀 ~ file: MeetupsModal.tsx:96 ~ handleCreateGathering ~ newGathering:",
+        newGathering
+      );
+
+      console.log("Gathering created with ID: ", newGatheringRef.id);
+
+      // Clear the form or perform any other necessary actions
+      setNewGathering({
+        title: "",
+        location: {
+          country: "",
+          city: "",
+          zipCode: "",
+        },
+        startDate: "",
+        endDate: "",
+        timeFrom: "",
+        timeTo: "",
+        description: "",
+      });
+      // onClose();
+    } catch (error) {
+      console.error("Error creating gathering: ", error);
+    }
   };
 
   return (
@@ -114,26 +139,29 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
         <h2 className="text-xl lg:text-2xl font-semibold mb-4 mt-6 lg:mt-0">
           Create a New Gathering
         </h2>
-        <form>
-          <div className="mb-3">
-            <label htmlFor="name" className="text-gray-600 font-semibold block">
-              Name:
+        <form onSubmit={handleCreateGathering}>
+          <div className="flex mb-3">
+            <label
+              htmlFor="title"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
+            >
+              Title:
             </label>
             <input
               type="text"
-              id="name"
-              placeholder="Enter Name"
+              id="title"
+              placeholder="Add a title"
               className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
-              value={newGathering.name}
+              value={newGathering.title}
               onChange={(e) =>
-                setNewGathering({ ...newGathering, name: e.target.value })
+                setNewGathering({ ...newGathering, title: e.target.value })
               }
             />
           </div>
-          <div className="mb-3">
+          <div className="flex mb-3">
             <label
               htmlFor="country"
-              className="text-gray-600 font-semibold block"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
             >
               Country:
             </label>
@@ -154,8 +182,11 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               }
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="city" className="text-gray-600 font-semibold block">
+          <div className="flex mb-3">
+            <label
+              htmlFor="city"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
+            >
               City:
             </label>
             <input
@@ -172,10 +203,10 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               }
             />
           </div>
-          <div className="mb-3">
+          <div className="flex mb-3">
             <label
               htmlFor="zipCode"
-              className="text-gray-600 font-semibold block"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
             >
               ZIP Code:
             </label>
@@ -196,38 +227,81 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               }
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="date" className="text-gray-600 font-semibold block">
-              Date:
+          <div className="flex mb-3">
+            <label
+              htmlFor="date"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
+            >
+              Start Date :
             </label>
             <input
               type="date"
-              id="date"
+              id="startDate"
               className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
-              value={newGathering.date}
+              value={newGathering.startDate}
               onChange={(e) =>
-                setNewGathering({ ...newGathering, date: e.target.value })
+                setNewGathering({ ...newGathering, startDate: e.target.value })
               }
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="time" className="text-gray-600 font-semibold block">
-              Time:
+          <div className="flex mb-3">
+            <label
+              htmlFor="date"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
+            >
+              End Date:
             </label>
             <input
-              type="time"
-              id="time"
+              type="date"
+              id="endDate"
               className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
-              value={newGathering.time}
+              value={newGathering.endDate}
               onChange={(e) =>
-                setNewGathering({ ...newGathering, time: e.target.value })
+                setNewGathering({ ...newGathering, endDate: e.target.value })
               }
             />
           </div>
-          <div className="mb-3">
+          <div className="flex mb-3">
+            <label
+              htmlFor="time"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
+            >
+              Time:
+            </label>
+            <div className="flex gap-6 w-full">
+              <div className="flex gap-6 w-full items-center">
+                <p>From:</p>
+                <input
+                  type="time"
+                  id="timeFrom"
+                  className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+                  value={newGathering.timeFrom}
+                  onChange={(e) =>
+                    setNewGathering({
+                      ...newGathering,
+                      timeFrom: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="flex gap-6 w-full items-center">
+                <p>To:</p>
+                <input
+                  type="time"
+                  id="timeTo"
+                  className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+                  value={newGathering.timeTo}
+                  onChange={(e) =>
+                    setNewGathering({ ...newGathering, timeTo: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex mb-3">
             <label
               htmlFor="description"
-              className="text-gray-600 font-semibold block"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
             >
               Description:
             </label>
@@ -245,12 +319,11 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               }
             />
           </div>
-          <button
-            onClick={handleCreateGathering}
-            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded w-full"
-          >
-            Create
-          </button>
+          <div className="w-full flex justify-center">
+            <button className="bg-violet-600 hover:bg-violet-700 mt-2 text-white text-lg font-semibold py-2 px-4 rounded w-7/12">
+              Create
+            </button>
+          </div>
         </form>
         <button
           className=" text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 absolute ring-1 ring-gray-300 top-5 right-2 lg:top-4 xl:top-3 lg:right-3 transition-all duration-500 rounded-full"
