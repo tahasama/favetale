@@ -16,10 +16,6 @@ const ExplorePage = () => {
 
   const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
 
-  const searchParams = useSearchParams();
-
-  const section = searchParams.get("section");
-
   const handleTabClick = (tabName: string) => {
     // router.push(`/explore?section=${tabName}`);
     // const lowerTabName = tabName.toLocaleLowerCase();
@@ -33,13 +29,6 @@ const ExplorePage = () => {
     typeof window !== "undefined" &&
       localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
-
-  useEffect(() => {
-    section === "Stories" && setActiveTab("Stories");
-    section === "Gallery" && setActiveTab("Gallery");
-    section === "Blogs" && setActiveTab("Blogs");
-    section === "Tips" && setActiveTab("Tips");
-  }, [section]);
 
   const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
 
