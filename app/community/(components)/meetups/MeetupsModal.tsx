@@ -137,8 +137,8 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="p-6 w-full lg:w-6/12 rounded-lg relative bg-white border-2 border-slate-300 shadow-xl">
-        <h2 className="text-xl lg:text-2xl font-semibold mb-4 mt-6 lg:mt-0">
+      <div className="h-fit p-6 w-full lg:w-6/12 rounded-lg relative bg-white border-2 border-slate-300 shadow-xl">
+        <h2 className="text-lg lg:text-xl font-semibold mb-4 mt-6 lg:mb-7  lg:mt-0">
           Create a New Gathering
         </h2>
         <form>
@@ -153,7 +153,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="title"
               placeholder="Add a title"
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.title}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, title: e.target.value })
@@ -171,7 +171,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="country"
               placeholder="Enter Country"
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.location.country}
               onChange={(e) =>
                 setNewGathering({
@@ -195,7 +195,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="city"
               placeholder="Enter City"
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.location.city}
               onChange={(e) =>
                 setNewGathering({
@@ -216,7 +216,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="zipCode"
               placeholder="Enter ZIP Code"
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.location.zipCode}
               onChange={(e) =>
                 setNewGathering({
@@ -239,7 +239,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <input
               type="date"
               id="startDate"
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.startDate}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, startDate: e.target.value })
@@ -256,7 +256,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <input
               type="date"
               id="endDate"
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.endDate}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, endDate: e.target.value })
@@ -276,7 +276,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
                 <input
                   type="time"
                   id="timeFrom"
-                  className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+                  className="border rounded py-1.5 px-2  lg:px-3 w-full"
                   value={newGathering.timeFrom}
                   onChange={(e) =>
                     setNewGathering({
@@ -291,7 +291,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
                 <input
                   type="time"
                   id="timeTo"
-                  className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+                  className="border rounded py-1.5 px-2  lg:px-3 w-full"
                   value={newGathering.timeTo}
                   onChange={(e) =>
                     setNewGathering({ ...newGathering, timeTo: e.target.value })
@@ -311,7 +311,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               id="description"
               placeholder="Enter Description"
               rows={3}
-              className="border rounded py-1.5 px-2 lg:py-2 lg:px-3 w-full"
+              className="border rounded py-1.5 px-2  lg:px-3 w-full"
               value={newGathering.description}
               onChange={(e) =>
                 setNewGathering({
