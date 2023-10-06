@@ -92,7 +92,9 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const handleCreateGathering = async () => {
+  const handleCreateGathering = async (e: any) => {
+    e.preventDefault();
+
     try {
       // Define the Firestore collection where gatherings will be stored
       const gatheringsCollection = collection(db, "gatherings");
@@ -120,7 +122,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
         timeTo: "",
         description: "",
       });
-      // onClose();
+      onClose();
     } catch (error) {
       console.error("Error creating gathering: ", error);
     }
@@ -139,7 +141,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
         <h2 className="text-xl lg:text-2xl font-semibold mb-4 mt-6 lg:mt-0">
           Create a New Gathering
         </h2>
-        <form onSubmit={handleCreateGathering}>
+        <form>
           <div className="flex mb-3">
             <label
               htmlFor="title"
@@ -320,7 +322,10 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             />
           </div>
           <div className="w-full flex justify-center">
-            <button className="bg-violet-600 hover:bg-violet-700 mt-2 text-white text-lg font-semibold py-2 px-4 rounded w-7/12">
+            <button
+              onClick={(e: any) => handleCreateGathering(e)}
+              className="bg-violet-600 hover:bg-violet-700 mt-2 text-white text-lg font-semibold py-2 px-4 rounded w-7/12"
+            >
               Create
             </button>
           </div>
