@@ -14,13 +14,15 @@ const MeetupCard = ({ meetup }: any) => {
         className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-tealLight to-purple-100 hover:shadow-xl transition-shadow duration-300"
       >
         <div className="relative">
-          <Image
-            src={meetup.image}
-            alt={meetup.name}
-            className="w-full h-40 object-cover"
-            width={1000}
-            height={1000}
-          />
+          {meetup.image && (
+            <Image
+              src={meetup.image}
+              alt={meetup.name}
+              className="w-full h-40 object-cover"
+              width={1000}
+              height={1000}
+            />
+          )}
           <div className="absolute bottom-0 left-0 bg-teal-600 text-white px-3 py-1 m-4 rounded-md">
             {meetup.startDate}
           </div>

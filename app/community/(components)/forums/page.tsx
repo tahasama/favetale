@@ -77,7 +77,7 @@ const Forums = () => {
   };
 
   return (
-    <div className="container bg-gradient-to-b from-tealLight to-sky-200 h-screen">
+    <div className=" bg-gradient-to-b from-tealLight to-sky-200 h-screen">
       <ClientComponent />
       <Suspense fallback={<Loading />}>
         <ServerComponent />

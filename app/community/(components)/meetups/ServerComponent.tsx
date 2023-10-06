@@ -2,6 +2,7 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import MeetupCard from "./MeetupCard";
+import FilterComponent from "./FilterComponent";
 
 async function getData() {
   const blogsData: any[] = [];
@@ -26,12 +27,8 @@ const ServerComponent = async () => {
   );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-6">
-      {meetupsData?.map((meetup: any, index: any) => (
-        <>
-          <MeetupCard meetup={meetup} />
-        </>
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2 w-full">
+      <FilterComponent meetupsData={meetupsData} />
     </div>
   );
 };

@@ -4,42 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/firebase";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { useCart } from "@/app/provider/CartProvider";
 
 const MeetupsModal = ({ isOpen, onClose }: any) => {
-  const meetups = [
-    {
-      id: 1,
-      title: "Tech Enthusiasts Meetup",
-      location: {
-        country: "USA",
-        city: "New York",
-        zipCode: "10001",
-      },
-      date: "2023-09-15",
-      time: "6:00 PM",
-      description: "Join us for a tech discussion!",
-    },
-    {
-      id: 2,
-      title: "Art Lovers Gathering",
-      location: {
-        country: "USA",
-        city: "Los Angeles",
-        zipCode: "90001",
-      },
-      date: "2023-09-20",
-      time: "7:00 PM",
-      description: "A creative evening of art and culture.",
-    },
-    // Add more meetups with actual data
-  ];
-
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-
-  const [newGathering, setNewGathering] = useState({
+  const [newGathering, setNewGathering] = useState<any>({
     title: "",
     location: {
       country: "",
@@ -51,6 +20,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
     timeFrom: "",
     timeTo: "",
     description: "",
+    image: "",
   });
   console.log(
     "🚀 ~ file: MeetupsModal.tsx:53 ~ MeetupsModal ~ newGathering:",
@@ -67,65 +37,65 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
 
   // ...
 
-  // Function to handle location search by criteria
-  const handleLocationSearch = () => {
-    if (!country && !city && !zipCode) {
-      setError("Please enter at least one search criteria.");
-      return;
-    }
+  const [imageFile, setImageFile] = useState<any>("");
 
-    // Perform a keyword-based search
-    const filteredMeetups = meetups.filter((meetup) => {
-      const meetupLocation = meetup.location;
-      const criteriaMatch =
-        (!country || meetupLocation.country.toLowerCase()) &&
-        (!city || meetupLocation.city.toLowerCase()) &&
-        (!zipCode || meetupLocation.zipCode.toLowerCase());
-      return criteriaMatch;
-    });
-
-    if (filteredMeetups.length === 0) {
-      setError("No meetups found for the provided criteria.");
-    } else {
-      setSearchResults(filteredMeetups);
-      setError(""); // Clear any previous error messages
-    }
-  };
+  const { userx } = useCart();
 
   const handleCreateGathering = async (e: any) => {
     e.preventDefault();
 
-    try {
-      // Define the Firestore collection where gatherings will be stored
-      const gatheringsCollection = collection(db, "gatherings");
-
-      // Add a new gathering document to the collection
-      const newGatheringRef = await addDoc(gatheringsCollection, newGathering);
-      console.log(
-        "🚀 ~ file: MeetupsModal.tsx:96 ~ handleCreateGathering ~ newGathering:",
-        newGathering
-      );
-
-      console.log("Gathering created with ID: ", newGatheringRef.id);
-
-      // Clear the form or perform any other necessary actions
-      setNewGathering({
-        title: "",
-        location: {
-          country: "",
-          city: "",
-          zipCode: "",
-        },
-        startDate: "",
-        endDate: "",
-        timeFrom: "",
-        timeTo: "",
-        description: "",
+    if (imageFile) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `meetups/${userx.id}/${Date.now()}.jpg`);
+      await uploadBytes(storageRef, imageFile);
+      const res = await getDownloadURL(storageRef).then((x: any) => {
+        setNewGathering({
+          ...newGathering,
+          image: res,
+        });
       });
-      onClose();
-    } catch (error) {
-      console.error("Error creating gathering: ", error);
+
+      try {
+        // Define the Firestore collection where gatherings will be stored
+        const gatheringsCollection = collection(db, "gatherings");
+
+        // Add a new gathering document to the collection
+        const newGatheringRef = await addDoc(gatheringsCollection, {
+          ...newGathering,
+          image: res,
+        });
+        console.log(
+          "🚀 ~ file: MeetupsModal.tsx:96 ~ handleCreateGathering ~ newGathering:",
+          newGathering
+        );
+
+        console.log("Gathering created with ID: ", newGatheringRef.id);
+
+        // Clear the form or perform any other necessary actions
+        setNewGathering({
+          title: "",
+          location: {
+            country: "",
+            city: "",
+            zipCode: "",
+          },
+          startDate: "",
+          endDate: "",
+          timeFrom: "",
+          timeTo: "",
+          description: "",
+          image: "",
+        });
+        onClose();
+      } catch (error) {
+        console.error("Error creating gathering: ", error);
+      }
     }
+  };
+
+  const handleImageChange = (e: any) => {
+    const file = e.target.files[0];
+    setImageFile(file);
   };
 
   return (
@@ -153,7 +123,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="title"
               placeholder="Add a title"
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.title}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, title: e.target.value })
@@ -171,7 +141,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="country"
               placeholder="Enter Country"
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.location.country}
               onChange={(e) =>
                 setNewGathering({
@@ -195,7 +165,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="city"
               placeholder="Enter City"
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.location.city}
               onChange={(e) =>
                 setNewGathering({
@@ -216,7 +186,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               type="text"
               id="zipCode"
               placeholder="Enter ZIP Code"
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.location.zipCode}
               onChange={(e) =>
                 setNewGathering({
@@ -239,7 +209,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <input
               type="date"
               id="startDate"
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.startDate}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, startDate: e.target.value })
@@ -256,7 +226,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
             <input
               type="date"
               id="endDate"
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.endDate}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, endDate: e.target.value })
@@ -276,7 +246,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
                 <input
                   type="time"
                   id="timeFrom"
-                  className="border rounded py-1.5 px-2  lg:px-3 w-full"
+                  className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
                   value={newGathering.timeFrom}
                   onChange={(e) =>
                     setNewGathering({
@@ -291,7 +261,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
                 <input
                   type="time"
                   id="timeTo"
-                  className="border rounded py-1.5 px-2  lg:px-3 w-full"
+                  className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
                   value={newGathering.timeTo}
                   onChange={(e) =>
                     setNewGathering({ ...newGathering, timeTo: e.target.value })
@@ -311,7 +281,7 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               id="description"
               placeholder="Enter Description"
               rows={3}
-              className="border rounded py-1.5 px-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.description}
               onChange={(e) =>
                 setNewGathering({
@@ -321,6 +291,23 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
               }
             />
           </div>
+          <div className="flex mb-3">
+            <label
+              htmlFor="image"
+              className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
+            >
+              Image:
+            </label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+              className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
+            />
+          </div>
+
           <div className="w-full flex justify-center">
             <button
               onClick={(e: any) => handleCreateGathering(e)}
