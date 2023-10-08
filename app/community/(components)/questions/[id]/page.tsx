@@ -307,9 +307,10 @@ function Question() {
     id && fetchComments();
   }, [id]);
 
-  const handleAgree = async (replyId: any) => {
+  const handleAgree = async () => {
+    console.log("🚀 ~ file: page.tsx:313 ~ handleAgree ~ id:", id);
     try {
-      const likeRef = doc(db, "comments", String(replyId));
+      const likeRef = doc(db, "questions", String(id));
       const commentDoc = await getDoc(likeRef);
       const commentData = commentDoc.data();
 
@@ -319,22 +320,26 @@ function Question() {
       }
 
       const userId = userx.id; // Assuming you have userx defined
+      console.log(
+        "🚀 ~ file: page.tsx:323 ~ handleAgree ~ userx.id:",
+        userx.id
+      );
       if (commentData) {
-        if (commentData.likes.includes(userId)) {
+        if (commentData.upvotes.includes(userId)) {
           // User has previously agreed, so remove the like
           await updateDoc(likeRef, {
-            likes: arrayRemove(userId),
+            upvotes: arrayRemove(userId),
           });
         } else {
           // User is agreeing for the first time
           await updateDoc(likeRef, {
-            likes: arrayUnion(userId),
+            upvotes: arrayUnion(userId),
           });
 
           // Check if the user previously disagreed and remove the dislike
-          if (commentData.dislikes.includes(userId)) {
+          if (commentData.downvotes.includes(userId)) {
             await updateDoc(likeRef, {
-              dislikes: arrayRemove(userId),
+              downvotes: arrayRemove(userId),
             });
           }
         }
@@ -346,9 +351,9 @@ function Question() {
     }
   };
 
-  const handleDisagree = async (replyId: any) => {
+  const handleDisagree = async () => {
     try {
-      const commentRef = doc(db, "comments", String(replyId));
+      const commentRef = doc(db, "questions", String(id));
       const commentDoc = await getDoc(commentRef);
 
       if (!commentDoc.exists) {
@@ -360,21 +365,21 @@ function Question() {
       const userId = userx.id; // Assuming you have userx defined
 
       if (commentData) {
-        if (commentData.dislikes.includes(userId)) {
+        if (commentData.downvotes.includes(userId)) {
           // User has previously disagreed, so remove the dislike
           await updateDoc(commentRef, {
-            dislikes: arrayRemove(userId),
+            downvotes: arrayRemove(userId),
           });
         } else {
           // User is disagreeing for the first time
           await updateDoc(commentRef, {
-            dislikes: arrayUnion(userId),
+            downvotes: arrayUnion(userId),
           });
 
           // Check if the user previously liked and remove the like
-          if (commentData.likes.includes(userId)) {
+          if (commentData.upvotes.includes(userId)) {
             await updateDoc(commentRef, {
-              likes: arrayRemove(userId),
+              upvotes: arrayRemove(userId),
             });
           }
         }
@@ -401,6 +406,23 @@ function Question() {
           {selectedImage && selectedImage.content}
         </p>
         <div className="border-b-2 mb-0"></div>
+
+        <div className="flex items-center my-2 ">
+          <button
+            onClick={handleAgree}
+            className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+          >
+            👍
+            {/* {reply.commentData.likes || 0} */}
+          </button>
+          <button
+            onClick={handleDisagree}
+            className="bg-pink-100 text-white px-2 py-1 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+          >
+            👎
+            {/* {discommentData.likes[reply.id] || 0} */}
+          </button>
+        </div>
       </>
 
       {/* Answer Area */}
@@ -448,23 +470,6 @@ function Question() {
               <p className="text-gray-400 text-sm mb-2">
                 <ReactTimeAgo date={reply.timestamp} locale="en-US" />
               </p>
-            </div>
-
-            <div className="flex items-center my-2 ">
-              <button
-                onClick={() => handleAgree(reply.id)}
-                className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
-              >
-                👍
-                {/* {reply.commentData.likes || 0} */}
-              </button>
-              <button
-                onClick={() => handleDisagree(reply.id)}
-                className="bg-pink-100 text-white px-2 py-1 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
-              >
-                👎
-                {/* {discommentData.likes[reply.id] || 0} */}
-              </button>
             </div>
           </div>
         ))}
