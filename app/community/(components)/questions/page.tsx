@@ -1,8 +1,8 @@
-"use client";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import React, { useState } from "react";
+import React, { Suspense } from "react";
 import QuestionModal from "./[id]/QuestionModal";
+import ServerComponent from "./ServerComponent";
+import ClientComponent from "./ClientComponent";
+import Loading from "./loading";
 
 const Questions = () => {
   const questionsData = [
@@ -64,79 +64,12 @@ const Questions = () => {
     },
   ];
 
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
-
   return (
     <>
-      <div className="">
-        <div className="bg-amber-500 rounded-br-3xl p-6 sm:p-12 text-left leading-loose tracking-wide">
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
-            Explore Pet Questions
-          </h2>
-          <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
-            Find answers to common pet-related questions, share your knowledge,
-            and engage with our community of pet lovers!
-          </p>
-
-          <button
-            onClick={() => setUploadModalOpen(true)}
-            className="bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-500"
-          >
-            Ask a Questions
-          </button>
-        </div>
-      </div>
-      <QuestionModal
-        isOpen={uploadModalOpen}
-        onClose={() => setUploadModalOpen(false)}
-      />
-      <div className="container mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">
-        <div className="flex flex-col w-full md:w-2/3 p-3 mt-10 gap-4">
-          {questionsData.map((question, index) => (
-            <Link href={`/community/questions/${question.id}`}>
-              <motion.div
-                initial={{ opacity: 0, y: index * 50 + 100 }} // Initial state (hidden and slightly moved down)
-                animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
-                transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
-                key={question.id}
-                className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
-              >
-                <div className="mb-4 md:mb-0 md:mr-4 flex flex-col items-start md:items-center">
-                  <div className="flex items-center mb-1">
-                    <button className="text-indigo-500 font-semibold mr-2">
-                      <span role="img" aria-label="Upvote">
-                        👍
-                      </span>{" "}
-                      {question.upvotes}
-                    </button>
-                    <button className="text-red-500 font-semibold">
-                      <span role="img" aria-label="Downvote">
-                        👎
-                      </span>{" "}
-                      {question.downvotes}
-                    </button>
-                  </div>
-                  <div className="text-gray-600">
-                    {question.answers} Answers
-                  </div>
-                </div>
-                <div className="hidden md:block">
-                  <hr className="border-r border-gray-300 h-12 mx-6" />
-                </div>
-                <div className="flex-grow">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {question.title}
-                  </h3>
-                  <h4 className="text-md mb-2">{question.description}</h4>
-                  <p className="text-gray-600 mb-2">
-                    Asked by {question.author} on {question.date}
-                  </p>
-                </div>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <ClientComponent />
+      <Suspense fallback={<Loading />}>
+        <ServerComponent />
+      </Suspense>
     </>
   );
 };
