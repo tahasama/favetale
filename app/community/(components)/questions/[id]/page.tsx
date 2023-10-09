@@ -391,7 +391,7 @@ function Question() {
     }
   };
   return (
-    <div className=" mx-auto  md:w-9/12 p-4 mt-24">
+    <div className=" mx-auto  md:w-8/12 p-4 mt-24">
       <>
         <h1 className="text-3xl font-semibold mb-4">{selectedImage.title}</h1>
         <p className="text-gray-600 mb-2">
@@ -400,7 +400,7 @@ function Question() {
         <p className="text-gray-400 text-sm mb-2">
           Date:{" "}
           {selectedImage &&
-            selectedImage.createdAt.toDate().toLocaleString().slice(0, 18)}{" "}
+            new Date(selectedImage.createdAt.seconds * 1000).toDateString()}
         </p>
         <p className={`mb-4 text-base lg:text-lg {lato.className}`}>
           {selectedImage && selectedImage.content}

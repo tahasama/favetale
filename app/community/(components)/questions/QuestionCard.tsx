@@ -42,7 +42,7 @@ const BlogCard = ({ question, index }: any) => {
           <p className="text-gray-600 mb-2">
             Asked by{" "}
             <span className="text-yellow-700">{question.writer.name}</span> on{" "}
-            {question.createdAt.toDate().toLocaleString()}
+            {new Date(question.createdAt.seconds * 1000).toDateString()}
           </p>
         </div>
       </motion.div>
