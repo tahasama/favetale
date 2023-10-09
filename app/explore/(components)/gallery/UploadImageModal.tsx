@@ -9,7 +9,13 @@ import { db } from "@/firebase";
 import { useParams } from "next/navigation";
 
 const UploadImageModal = () => {
-  const { imageModalOpen, setImageModalOpen, selectedImage } = useCart();
+  const {
+    imageModalOpen,
+    setImageModalOpen,
+    selectedImage,
+    setUploadModalOpen,
+    setUploadpetModalOpen,
+  } = useCart();
 
   const router = useRouter();
 
@@ -22,8 +28,9 @@ const UploadImageModal = () => {
   };
 
   const [imageFile, setImageFile] = useState(null);
+  const [error, setError] = useState("");
 
-  const [category, setCategory] = useState("dogs"); // Default category
+  const [category, setCategory] = useState<any>(null); // Default category
 
   const { userx } = useCart();
 
@@ -33,10 +40,22 @@ const UploadImageModal = () => {
   };
 
   const handleSubmit = async (e: any) => {
-    setLoading(true);
     e.preventDefault();
 
-    if (imageFile) {
+    if (!selectedImage) {
+      if (!category) {
+        setError("Please choose a category");
+        return;
+      }
+      if (!imageFile) {
+        setError("Please select an image");
+        return;
+      }
+    }
+
+    setLoading(true);
+
+    if (selectedImage?.id || (imageFile && category !== undefined)) {
       const storage = getStorage();
       const storageRef = ref(
         storage,
@@ -44,28 +63,35 @@ const UploadImageModal = () => {
       );
 
       try {
-        await uploadBytes(storageRef, imageFile);
-        const res = await getDownloadURL(storageRef);
-        if (selectedImage.id) {
-          const imageData = {
-            image: res,
-            category: category,
-          };
-          console.log(
-            "🚀 ~ file: UploadImageModal.tsx:54 ~ handleSubmit ~ imageData:",
-            imageData
-          );
+        // Check if a new image file needs to be uploaded
+        if (imageFile) {
+          await uploadBytes(storageRef, imageFile);
+        }
 
-          await updateDoc(
-            doc(db, "petImages", selectedImage.id),
-            imageData
-          ).then(() => {
-            setImageModalOpen(false), setLoading(false);
+        const imageUrl = imageFile
+          ? await getDownloadURL(storageRef)
+          : selectedImage?.image;
+
+        const updateData: any = {};
+
+        if (category !== "") {
+          updateData.category = category;
+        }
+
+        if (imageUrl) {
+          updateData.image = imageUrl;
+        }
+
+        if (selectedImage?.id) {
+          // If updating an image, update the Firestore document
+          const imageRef = doc(db, "petImages", selectedImage.id);
+          await updateDoc(imageRef, updateData).then(() => {
+            setImageModalOpen(false);
           });
         } else {
           const imageData = {
             poster: userx,
-            image: res,
+            image: imageUrl,
             category: category,
             postedOn: Date.now(),
             comments: [],
@@ -73,17 +99,21 @@ const UploadImageModal = () => {
             hearts: [],
           };
 
+          // If creating a new image, add a new Firestore document
           await addDoc(collection(db, "petImages"), imageData).then(() => {
-            setImageModalOpen(false), setLoading(false);
+            setImageModalOpen(false);
           });
         }
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
       }
-      setImageFile(null);
-      setCategory("");
-      router.push("/profile");
     }
+
+    setImageFile(null);
+    setCategory(null);
+    setUploadpetModalOpen(false);
+    setLoading(false);
+    setError("");
   };
 
   return (
@@ -111,23 +141,28 @@ const UploadImageModal = () => {
                 id="image"
                 accept="image/*"
                 onChange={handleImageChange}
-                required
+                required={!selectedImage}
                 className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
               />
             </div>
 
             <div className="mb-4">
               <label htmlFor="category" className="block text-gray-700 mb-2">
-                Select a category:
+                Select a category:{" "}
+                <span className="font-light text-red-400">{error}</span>
               </label>
               <select
                 id="category"
-                onChange={(e) => setCategory(e.target.value)}
-                value={category}
-                required
+                onChange={(e) => {
+                  setCategory(e.target.value), setError("");
+                }}
+                value={!category ? selectedImage?.category : category}
+                required={!selectedImage}
                 className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
               >
-                <option value="">All</option>
+                <option selected disabled>
+                  Choose one
+                </option>
                 <option value="cats">🐱 Cats</option>
                 <option value="dogs">🐶 Dogs</option>
                 <option value="birds">🦜 Birds</option>
@@ -137,11 +172,16 @@ const UploadImageModal = () => {
             </div>
             <div className="grid place-items-center">
               <button
+                disabled={!selectedImage && error !== "" && true}
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 text-white py-3.5 px-5 rounded-full w-fit hover:animate-bounceQ"
               >
                 {!loading ? (
-                  "   Upload Image"
+                  !selectedImage ? (
+                    "Upload Image"
+                  ) : (
+                    "Update Image"
+                  )
                 ) : (
                   <span className="flex">
                     Loading

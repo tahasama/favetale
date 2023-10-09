@@ -3,10 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/app/provider/CartProvider";
 import {
+  DocumentData,
+  DocumentReference,
   addDoc,
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -189,6 +192,35 @@ const ImageModal = () => {
 
   const { imageModalOpen, setImageModalOpen } = useCart();
 
+  const removeImage = async () => {
+    try {
+      // Step 2: Iterate through the comments and delete each comment document
+      const deleteCommentPromises: any[] = [];
+      comments.forEach((commentDoc: any) => {
+        const deleteCommentPromise = deleteDoc(
+          doc(db, "comments", commentDoc.id)
+        );
+        deleteCommentPromises.push(deleteCommentPromise);
+      });
+
+      // Step 3: Delete the selected image document
+      const deleteImagePromise = deleteDoc(
+        doc(db, "petImages", selectedImage.id)
+      ); // Assuming 'petImages' is the collection name for images
+
+      // Wait for all comment deletions to complete
+      await Promise.all(deleteCommentPromises);
+
+      // After all comments are deleted, delete the image
+      await deleteImagePromise;
+
+      // Optionally, you can handle success or show a message here
+      console.log("Image and related comments deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting image and related comments:", error);
+    }
+  };
+
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-40 backdrop-blur-md backdrop-brightness-50 ${
@@ -249,7 +281,7 @@ const ImageModal = () => {
                 <AiOutlineEdit color={"#94a3b8"} size={24} />
               </button>
               <button
-                // onClick={updateLikes}
+                onClick={removeImage}
                 className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
               >
                 <span className="text-slate-300 text-base md:text-xl"></span>
