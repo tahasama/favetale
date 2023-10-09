@@ -5,6 +5,12 @@ import Meetups from "./(components)/meetups/page";
 import Events from "./(components)/events/page";
 import Questions from "./(components)/questions/page";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  FiMessageSquare,
+  FiUsers,
+  FiCalendar,
+  FiHelpCircle,
+} from "react-icons/fi";
 
 const CommunityPage = () => {
   const storedTab =
@@ -24,27 +30,34 @@ const CommunityPage = () => {
       localStorage.setItem("communityActiveTab", activeTab);
   }, [activeTab]);
 
-  const tabs = ["Forums", "Meetups", "Events", "Questions"];
+  const tabs = [
+    { name: "Forums", icon: <FiMessageSquare /> },
+    { name: "Meetups", icon: <FiUsers /> },
+    { name: "Events", icon: <FiCalendar /> },
+    { name: "Questions", icon: <FiHelpCircle /> },
+  ];
 
   return (
     <div className="mt-20">
-      <div className="sticky top-20 flex z-40 justify-center  w-full bg-tealLight">
+      <div className="sticky top-0 flex z-40 justify-center w-full bg-tealLight">
         {tabs.map((tab) => (
           <TabButton
-            tabName={tab}
-            isActive={activeTab === tab}
-            onClick={() => handleTabClick(tab)}
+            key={tab.name}
+            tabName={tab.name}
+            isActive={activeTab === tab.name}
+            onClick={() => handleTabClick(tab.name)}
+            icon={tab.icon}
           />
         ))}
       </div>
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="wait">
         {/* Content for the active tab */}
         <motion.div
           key={activeTab}
-          initial={{ opacity: 0, x: -1000 }}
+          initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 1000 }}
-          transition={{ duration: 0.5 }}
+          exit={{ opacity: 0, x: 20 }}
+          transition={{ duration: 0.3 }}
         >
           {activeTab === "Forums" && <Forums />}
           {activeTab === "Meetups" && <Meetups />}
@@ -56,40 +69,28 @@ const CommunityPage = () => {
   );
 };
 
-const TabButton = ({ tabName, isActive, onClick }: any) => {
+const TabButton = ({ tabName, isActive, onClick, icon }: any) => {
   return (
     <button
-      className={`w-full py-4 border-l-2  bg-gray-100  text-gray-600 rounded-t-lg ${
+      className={`flex items-center justify-center w-full py-4 border-l-2 group  bg-gray-100 text-gray-600 rounded-t-lg ${
         isActive
-          ? "bg-indigo-50 border-l-2 border-l-gray-300"
+          ? "bg-indigo-50 border-l-2 border-l-gray-300 flex-col transition-all ease-linear duration-1000"
           : "border-slate-200"
-      } transition-colors duration-500 hover:bg-purple-100`}
+      } transition-all duration-1000 hover:bg-purple-100`}
       onClick={onClick}
     >
-      {tabName}
+      <span
+        className={`${
+          isActive
+            ? "absolute top-[2rem] md:top-[2.5rem] scale-[140%] md:scale-[180%] bg-indigo-50 group-hover:bg-purple-100  rounded-full p-1.5 transition-all ease-linear"
+            : "block"
+        } `}
+      >
+        {icon}
+      </span>
+      <span className="ml-2 z-50 text-xs md:text-base">{tabName}</span>
     </button>
   );
 };
-
-// Define the content components for each tab
-// const Forums = () => {
-//   // Render content for the "Pet Images" tab
-//   return <div>HHHHHHHHh</div>;
-// };
-
-// const Meetups = () => {
-//   // Render content for the "Advice & Tips" tab
-//   return <div>wooooz</div>;
-// };
-
-// const Events = () => {
-//   // Render content for the "Blogs" tab
-//   return <div>yaaay</div>;
-// };
-
-// const Questions = () => {
-//   // Render content for the "Inspiring User Stories" tab
-//   return <div>hahahaha</div>;
-// };
 
 export default CommunityPage;

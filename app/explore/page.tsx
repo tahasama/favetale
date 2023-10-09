@@ -7,6 +7,8 @@ import Stories from "./(components)/stories/page";
 import Blogs from "./(components)/blogs/page";
 import Gallery from "./(components)/gallery/page";
 import Tips from "./(components)/tips/page";
+import { FiImage, FiBook, FiClipboard } from "react-icons/fi";
+import { FaLightbulb } from "react-icons/fa";
 
 const ExplorePage = () => {
   const storedTab =
@@ -30,17 +32,25 @@ const ExplorePage = () => {
       localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
+  // const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
+
+  const tabs = [
+    { name: "Gallery", icon: <FiImage /> },
+    { name: "Blogs", icon: <FiBook /> },
+    { name: "Stories", icon: <FiClipboard /> },
+    { name: "Tips", icon: <FaLightbulb /> },
+  ];
 
   return (
-    <div className=" bg-tealLight ">
-      <div className="sticky top-[80px]  flex justify-between z-40 w-full bg-tealLight">
-        {tabs.map((tab, index) => (
+    <div className="mt-0">
+      <div className="sticky top-20 flex z-40 justify-center w-full bg-tealLight">
+        {tabs.map((tab) => (
           <TabButton
-            key={index}
-            tabName={tab}
-            isActive={activeTab === tab}
-            onClick={() => handleTabClick(tab)}
+            key={tab.name}
+            tabName={tab.name}
+            isActive={activeTab === tab.name}
+            onClick={() => handleTabClick(tab.name)}
+            icon={tab.icon}
           />
         ))}
       </div>
@@ -63,15 +73,26 @@ const ExplorePage = () => {
   );
 };
 
-const TabButton = ({ tabName, isActive, onClick }: any) => {
+const TabButton = ({ tabName, isActive, onClick, icon }: any) => {
   return (
     <button
-      className={`w-full py-4 border-l-2  bg-gray-100  text-gray-600 rounded-t-lg ${
-        isActive ? "bg-indigo-50 border-l-2 l-gray-300" : "border-slate-200"
-      } transition-colors duration-500 hover:bg-purple-100`}
+      className={`flex items-center justify-center w-full py-4 border-l-2 group  bg-gray-100 text-gray-600 rounded-t-lg ${
+        isActive
+          ? "bg-indigo-50 border-l-2 border-l-gray-300 flex-col transition-all ease-linear duration-1000"
+          : "border-slate-200"
+      } transition-all duration-1000 hover:bg-purple-100`}
       onClick={onClick}
     >
-      {tabName}
+      <span
+        className={`${
+          isActive
+            ? "absolute top-[2rem] md:top-[2.5rem] scale-[140%] md:scale-[180%] bg-indigo-50 group-hover:bg-purple-100  rounded-full p-1.5 transition-all ease-linear"
+            : "block"
+        } `}
+      >
+        {icon}
+      </span>
+      <span className={`ml-2 z-50 text-xs md:text-base`}>{tabName}</span>
     </button>
   );
 };
