@@ -16,10 +16,13 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/firebase";
+import { AiOutlineEdit, AiFillDelete } from "react-icons/ai";
+
 import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en.json";
+import UploadImageModal from "./UploadImageModal";
 TimeAgo.addDefaultLocale(en);
 
 const ImageModal = () => {
@@ -30,12 +33,12 @@ const ImageModal = () => {
     uploadpetModalOpen,
     setUploadpetModalOpen,
   } = useCart();
+  console.log(
+    "🚀 ~ file: ImageModal.tsx:36 ~ ImageModal ~ selectedImage:",
+    selectedImage
+  );
 
   const [comments, setComments] = useState<any[]>([]);
-  console.log(
-    "🚀 ~ file: ImageModal.tsx:59 ~ ImageModal ~ comments:",
-    comments
-  );
 
   // Function to fetch comments
   const fetchComments = async () => {
@@ -184,9 +187,11 @@ const ImageModal = () => {
     }
   };
 
+  const { imageModalOpen, setImageModalOpen } = useCart();
+
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-40 backdrop-blur-md backdrop-brightness-50 ${
         uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
@@ -233,6 +238,25 @@ const ImageModal = () => {
               👍
             </button>
           </div>
+
+          {selectedImage && selectedImage.poster.id === userx.id && (
+            <div className="absolute top-3 flex gap-3 md:gap-5 left-2 md:left-4">
+              <button
+                onClick={() => setImageModalOpen(true)}
+                className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-slate-300 text-base md:text-xl"></span>
+                <AiOutlineEdit color={"#94a3b8"} size={24} />
+              </button>
+              <button
+                // onClick={updateLikes}
+                className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-slate-300 text-base md:text-xl"></span>
+                <AiFillDelete color={"#94a3b8"} size={24} />
+              </button>
+            </div>
+          )}
         </div>
         <div className="w-full bg-white px-4 py-2 relative top-0 lg:-top-11 ">
           <h3 className="text-sm md:text-xl font-semibold mb-2 text-start">

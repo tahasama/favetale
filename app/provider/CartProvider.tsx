@@ -19,6 +19,7 @@ export const CartProvider = ({ children }: any) => {
     lastSignInTime: "",
   });
   const [uploadpetModalOpen, setUploadpetModalOpen] = useState(false);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>("");
   // const [petModalOpen, setPetModalOpen] = useState(false);
 
@@ -70,6 +71,8 @@ export const CartProvider = ({ children }: any) => {
         setUploadpetModalOpen,
         selectedImage,
         setSelectedImage,
+        imageModalOpen,
+        setImageModalOpen,
         // petModalOpen,
         // setPetModalOpen,
       }}

@@ -4,19 +4,20 @@ import { useRouter } from "next/navigation";
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useParams } from "next/navigation";
 
 const UploadImageModal = () => {
-  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
+  const { imageModalOpen, setImageModalOpen, selectedImage } = useCart();
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      setUploadpetModalOpen(false); // Call the setUploadpetModalOpen(false) function to close the modal
+      setImageModalOpen(false); // Call the setUploadpetModalOpen(false) function to close the modal
     }
   };
 
@@ -45,22 +46,37 @@ const UploadImageModal = () => {
       try {
         await uploadBytes(storageRef, imageFile);
         const res = await getDownloadURL(storageRef);
+        if (selectedImage.id) {
+          const imageData = {
+            image: res,
+            category: category,
+          };
+          console.log(
+            "🚀 ~ file: UploadImageModal.tsx:54 ~ handleSubmit ~ imageData:",
+            imageData
+          );
 
-        const imageData = {
-          poster: userx,
-          image: res,
-          category: category,
-          postedOn: Date.now(),
-          comments: [],
-          likes: [],
-          hearts: [],
-        };
+          await updateDoc(
+            doc(db, "petImages", selectedImage.id),
+            imageData
+          ).then(() => {
+            setImageModalOpen(false), setLoading(false);
+          });
+        } else {
+          const imageData = {
+            poster: userx,
+            image: res,
+            category: category,
+            postedOn: Date.now(),
+            comments: [],
+            likes: [],
+            hearts: [],
+          };
 
-        const imageRef = doc(collection(db, "petImages"));
-
-        await setDoc(imageRef, imageData).then(() => {
-          setUploadpetModalOpen(false), setLoading(false);
-        });
+          await addDoc(collection(db, "petImages"), imageData).then(() => {
+            setImageModalOpen(false), setLoading(false);
+          });
+        }
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
       }
@@ -73,7 +89,7 @@ const UploadImageModal = () => {
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
-        uploadpetModalOpen
+        imageModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
@@ -148,7 +164,7 @@ const UploadImageModal = () => {
         </div>
         <button
           className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4  ring-2 ring-gray-300 transition-all duration-500 rounded-full"
-          onClick={() => setUploadpetModalOpen(false)}
+          onClick={() => setImageModalOpen(false)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
