@@ -11,7 +11,13 @@ import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
 
 import Quill from "quill";
 import dynamic from "next/dynamic";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -30,13 +36,14 @@ import { useCart } from "@/app/provider/CartProvider";
 //   }
 // );
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
-const BlogModal = ({ isOpen, onClose }: any) => {
+const BlogModal = ({ isOpen, onClose, blog }: any) => {
+  console.log("🚀 ~ file: BlogModal.tsx:34 ~ BlogModal ~ blog:", blog);
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
 
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(blog ? blog.content : "");
   const editor = useRef(null);
 
   const handleModalClick = (e: any) => {
@@ -45,8 +52,14 @@ const BlogModal = ({ isOpen, onClose }: any) => {
     }
   };
   const [title, setTitle] = useState(""); // State to hold the title
+
   const [tags, setTags] = useState<string[]>([]); // State to hold tags
   const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    blog && (setTitle(blog.title), setTags(blog.tags));
+  }, [blog]);
 
   const handleTagChange = (e: any) => {
     setNewTag(e.target.value);
@@ -67,34 +80,71 @@ const BlogModal = ({ isOpen, onClose }: any) => {
     setLoading(true);
     e.preventDefault();
 
-    if (imageFile) {
+    if (blog?.id || imageFile || content || title) {
+      console.log(
+        "🚀 ~ file: BlogModal.tsx:84 ~ publishBlog ~ title: hallllllllllllllo",
+        blog?.id
+      );
       const storage = getStorage();
       const storageRef = ref(storage, `blogs/${userx.id}/${Date.now()}.jpg`);
 
       try {
-        await uploadBytes(storageRef, imageFile);
-        const res = await getDownloadURL(storageRef);
+        if (imageFile) {
+          await uploadBytes(storageRef, imageFile);
+        }
 
-        const blogData = {
-          writer: userx,
-          title,
-          content,
-          tags,
-          image: res,
-          createdAt: serverTimestamp(),
-        };
+        const imageUrl = imageFile
+          ? await getDownloadURL(storageRef)
+          : blog?.image;
 
-        await addDoc(collection(db, "blogs"), blogData).then(() => {
-          setUploadpetModalOpen(false), setLoading(false);
-        });
+        if (blog?.id) {
+          console.log("3333333333333 publishBlog ~ blog?.id:", blog?.id);
+          // If updating an existing blog post
+          const blogRef = doc(db, "blogs", blog.id);
+          const updateData: any = {};
+
+          if (title) {
+            updateData.title = title;
+          }
+
+          if (content) {
+            updateData.content = content;
+          }
+
+          if (tags.length !== 0) {
+            updateData.tags = tags;
+          }
+
+          if (imageUrl) {
+            updateData.image = imageUrl;
+          }
+
+          await updateDoc(blogRef, updateData);
+        } else {
+          // If creating a new blog post
+          const blogData = {
+            writer: userx,
+            title,
+            content,
+            tags,
+            image: imageUrl,
+            createdAt: serverTimestamp(),
+          };
+
+          await addDoc(collection(db, "blogs"), blogData);
+        }
+
+        setUploadpetModalOpen(false);
+        setLoading(false);
+        setImageFile(null);
+        setTags([]);
+        setContent("");
+        setTitle("");
+        setError("");
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+        setLoading(false);
       }
-      setImageFile(null);
-      setTags([]);
-      setContent("");
-      setTitle("");
-      router.push("/profile");
     }
   };
 
@@ -151,7 +201,6 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   id="image"
                   accept="image/*"
                   onChange={handleImageChange}
-                  required
                   className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
                 />
                 <p className="mt-1.5">
@@ -176,7 +225,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
                   </button>
                 </div>
                 <div className="mt-2 space-x-2">
-                  {tags.map((tag, index) => (
+                  {tags.map((tag: any, index: any) => (
                     <span
                       key={index}
                       className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md"
@@ -229,7 +278,7 @@ const BlogModal = ({ isOpen, onClose }: any) => {
               <div className="mb-6">
                 <JoditEditor
                   ref={editor}
-                  value={content}
+                  value={blog ? blog.content : content}
                   config={config}
                   onBlur={(newContent: any) => setContent(newContent)}
                 />

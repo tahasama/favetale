@@ -9,6 +9,7 @@ import {
   FieldValue,
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -20,6 +21,8 @@ import { db } from "@/firebase";
 import { useCart } from "@/app/provider/CartProvider";
 
 import parse from "html-react-parser";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
+import BlogModal from "../BlogModal";
 
 const Blog = () => {
   // const blogsData = [
@@ -440,7 +443,15 @@ const Blog = () => {
 
   const { id } = useParams();
   // console.log("🚀 ~ file: page.tsx:453 ~ Blog ~ id:", typeof id);
-  const { userx, setSelectedImage, selectedImage } = useCart();
+  const {
+    userx,
+    setSelectedImage,
+    selectedImage,
+    setImageModalOpen,
+    uploadpetModalOpen,
+    setUploadpetModalOpen,
+  } = useCart();
+  console.log("🚀 ~ file: page.tsx:454 ~ Blog ~ selectedImage:", selectedImage);
 
   useEffect(() => {
     const getBlog = async () => {
@@ -449,7 +460,7 @@ const Blog = () => {
 
       if (docSnap.exists()) {
         // console.log("Document data:");
-        setSelectedImage({ ...docSnap.data(), id: docSnap.data().id });
+        setSelectedImage({ ...docSnap.data(), id: docSnap.id });
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
@@ -494,7 +505,7 @@ const Blog = () => {
         const fetchedComments: any[] = [];
 
         querySnapshot.forEach((doc) => {
-          fetchedComments.push({ id: doc.data().id, ...doc.data() });
+          fetchedComments.push({ id: doc.id, ...doc.data() });
         });
 
         setComments(fetchedComments);
@@ -539,10 +550,6 @@ const Blog = () => {
 
       if (petImageData) {
         const currentLikes = petImageData.likes || [];
-        console.log(
-          "🚀 ~ file: page.tsx:561 ~ updateLikes ~ currentLikes:",
-          currentLikes
-        );
 
         // Check if userToAdd is already in the array
         if (currentLikes.includes(userx.id)) {
@@ -577,10 +584,48 @@ const Blog = () => {
       console.error("Error updating heart:", error);
     }
   };
+
+  const removeImage = async () => {
+    console.log("lets delete", comments);
+    try {
+      // Step 2: Iterate through the comments and delete each comment document
+      const deleteCommentPromises: any[] = [];
+      comments.forEach((commentDoc: any) => {
+        const deleteCommentPromise = deleteDoc(
+          doc(db, "comments", commentDoc.id)
+        );
+        deleteCommentPromises.push(deleteCommentPromise);
+      });
+      console.log(
+        "🚀 ~ file: page.tsx:598 ~ comments.forEach ~ deleteCommentPromises:"
+      );
+
+      // Step 3: Delete the selected image document
+      const deleteImagePromise = deleteDoc(doc(db, "blogs", selectedImage.id)); // Assuming 'petImages' is the collection name for images
+
+      // Wait for all comment deletions to complete
+      await Promise.all(deleteCommentPromises);
+
+      // After all comments are deleted, delete the image
+      await deleteImagePromise;
+
+      // Optionally, you can handle success or show a message here
+      console.log("Image and related comments deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting image and related comments:", error);
+    }
+  };
+
   return (
     <div className="max-w-3xl mx-auto p-4 mt-24 bg-white">
       {/* Blog Title */}
-      <div className="h-fit">
+      <div className="h-fit relative">
+        <BlogModal
+          isOpen={uploadpetModalOpen}
+          onClose={() => setUploadpetModalOpen(false)}
+          blog={selectedImage}
+        />
+
         <h1 className="text-3xl font-bold mb-4">{selectedImage.title}</h1>
 
         {/* Writer's Information */}
@@ -613,25 +658,45 @@ const Blog = () => {
         </p>
 
         {/* Likes and Comments */}
-        <div className="my-6 flex items-center space-x-4 text-gray-600">
-          <div
-            className="flex items-center space-x-0 cursor-pointer group justify-center"
-            onClick={updateLikes}
-          >
-            <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
-              👍
-            </span>
-            <p>{selectedImage.likes && selectedImage.likes.length}</p>
+        <div className="flex justify-between">
+          <div className="my-6 flex items-center space-x-4 text-gray-600">
+            <div
+              className="flex items-center space-x-0 cursor-pointer group justify-center"
+              onClick={updateLikes}
+            >
+              <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
+                👍
+              </span>
+              <p>{selectedImage.likes && selectedImage.likes.length}</p>
+            </div>
+            <div
+              className="flex items-center space-x-1 cursor-pointer group"
+              onClick={scrollToComments}
+            >
+              <span className="text-lg group-active:scale-150 group-hover:scale-125 transition-all duration-300">
+                💬
+              </span>
+              <p>{comments.length} Comments</p>
+            </div>
           </div>
-          <div
-            className="flex items-center space-x-1 cursor-pointer group"
-            onClick={scrollToComments}
-          >
-            <span className="text-lg group-active:scale-150 group-hover:scale-125 transition-all duration-300">
-              💬
-            </span>
-            <p>{comments.length} Comments</p>
-          </div>
+          {selectedImage && selectedImage.writer.id === userx.id && (
+            <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4">
+              <button
+                onClick={() => setUploadpetModalOpen(true)}
+                className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-slate-300 text-base md:text-xl"></span>
+                <AiOutlineEdit color={"#94a3b8"} size={24} />
+              </button>
+              <button
+                onClick={removeImage}
+                className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-slate-300 text-base md:text-xl"></span>
+                <AiFillDelete color={"#94a3b8"} size={24} />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Blog Image */}
@@ -683,39 +748,40 @@ const Blog = () => {
 
       {/* Comments */}
       <div className="mt-6" ref={commentsSectionRef}>
-        {comments.map((comment, index) => (
-          <div key={index} className="mb-4">
-            <div className="flex items-center space-x-4">
-              {comment.commenter.image ? (
-                <Link
-                  href={`/profile/${comment.commenter.name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src={comment.commenter.image}
-                    alt={comment.commenter.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                    width={500}
-                    height={500}
-                  />
-                </Link>
-              ) : (
-                <div className="w-7 h-7 rounded-full bg-emerald-300 px-3"></div>
-              )}
-              <span className="text-gray-600">
-                <Link
-                  href={`/profile/${comment.commenter.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {comment.commenter.name}
-                </Link>
-              </span>
+        {comments &&
+          comments.map((comment, index) => (
+            <div key={index} className="mb-4">
+              <div className="flex items-center space-x-4">
+                {comment.commenter.image ? (
+                  <Link
+                    href={`/profile/${comment.commenter.name}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={comment.commenter.image}
+                      alt={comment.commenter.name}
+                      className="w-10 h-10 rounded-full object-cover"
+                      width={500}
+                      height={500}
+                    />
+                  </Link>
+                ) : (
+                  <div className="w-7 h-7 rounded-full bg-emerald-300 px-3"></div>
+                )}
+                <span className="text-gray-600">
+                  <Link
+                    href={`/profile/${comment.commenter.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {comment.commenter.name}
+                  </Link>
+                </span>
+              </div>
+              <p className="mt-2 text-gray-800 indent-4">{comment.comment}</p>
             </div>
-            <p className="mt-2 text-gray-800 indent-4">{comment.comment}</p>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
