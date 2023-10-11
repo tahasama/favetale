@@ -2,18 +2,36 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
 
-const DiscussionModal = ({ isOpen, onClose }: any) => {
+const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
+  console.log(
+    "🚀 ~ file: DiscussionModal.tsx:10 ~ DiscussionModal ~ discussionData:",
+    discussion
+  );
   const router = useRouter();
   const { userx, setUploadpetModalOpen } = useCart();
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("Health");
-  const [selectedTags, setSelectedTags] = useState<any[]>([]);
-  const [discussionTitle, setDiscussionTitle] = useState("");
-  const [discussionContent, setDiscussionContent] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    discussion ? discussion.category : "Health"
+  );
+  const [selectedTags, setSelectedTags] = useState<any[]>(
+    discussion ? discussion.tags : []
+  );
+  const [discussionTitle, setDiscussionTitle] = useState(
+    discussion ? discussion.title : ""
+  );
+  const [discussionContent, setDiscussionContent] = useState(
+    discussion ? discussion.discussionContent : ""
+  );
   const [loading, setLoading] = useState(false);
 
   const categoriesToTags: any = {
@@ -39,11 +57,6 @@ const DiscussionModal = ({ isOpen, onClose }: any) => {
   };
 
   const handleSubmit = async () => {
-    // Handle discussion submission here
-    console.log("Category:", selectedCategory);
-    console.log("Tags:", selectedTags);
-    console.log("Title:", discussionTitle);
-    console.log("Content:", discussionContent);
     try {
       const discussionData = {
         writer: userx,
@@ -54,21 +67,32 @@ const DiscussionModal = ({ isOpen, onClose }: any) => {
         createdAt: serverTimestamp(),
       };
 
-      await addDoc(collection(db, "discussions"), discussionData).then(() => {
-        setUploadpetModalOpen(false), setLoading(false);
-      });
+      if (discussion.id) {
+        // Updating an existing discussion
+        const discussionRef = doc(db, "discussions", discussion.id);
+        const updateData = { ...discussionData }; // Update the fields you want to change
+
+        await updateDoc(discussionRef, updateData);
+      } else {
+        // Creating a new discussion
+        await addDoc(collection(db, "discussions"), discussionData);
+      }
+
+      setUploadpetModalOpen(false);
+      setLoading(false);
+
+      setSelectedCategory("");
+      setSelectedTags([]);
+      setDiscussionTitle("");
+      setDiscussionContent("");
+
+      router.push("/profile");
+
+      // Close the modal or perform any other action as needed
+      onClose();
     } catch (error) {
       console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
     }
-
-    setSelectedCategory("");
-    setSelectedTags([]);
-    setDiscussionTitle("");
-    setDiscussionContent("");
-    router.push("/profile");
-
-    // Close the modal or perform any other action as needed
-    onClose();
   };
 
   const handleModalClick = (e: any) => {

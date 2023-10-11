@@ -216,7 +216,7 @@ const Discussion = async ({ params: { discussionId } }: any) => {
   // };
 
   const res = await getDoc(doc(db, "discussions", discussionId));
-  const discussionData: any = res.data();
+  const discussionData: any = { ...res.data(), id: res.id };
 
   const adjustTextareaRows = (textarea: any) => {
     textarea.rows = textarea.value.split("\n").length || 1;
@@ -228,7 +228,7 @@ const Discussion = async ({ params: { discussionId } }: any) => {
         <Suspense fallback>
           <ServerComponent discussionData={discussionData} />
         </Suspense>
-        <ClientComponent discussionId={discussionId} />
+        <ClientComponent discussionData={discussionData} />
       </div>
     </div>
   );
