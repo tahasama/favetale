@@ -57,13 +57,14 @@ const Navbar = () => {
   // Close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: any) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      } else if (
+      if (
         dropdownRef2.current &&
         !dropdownRef2.current.contains(event.target)
       ) {
         setIsDropdownOpen2(false);
+      }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
       }
     };
 
@@ -76,12 +77,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-tealLight h-20 flex justify-between pl-1 sm:px-3 items-center gap-0 z-40 fixed top-0 w-full`}
+      className={`bg-tealLight h-20 flex justify-between pl-1 sm:px-3 items-center gap-0 z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
           <span
             // onClick={toggleDropdown2}
+            ref={dropdownRef2}
             onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
             className="cursor-pointer sm:pr-8   scale-110  md:scale-100 md:hidden block"
           >
@@ -108,10 +110,7 @@ const Navbar = () => {
             }`}
           >
             {isDropdownOpen2 && (
-              <div
-                ref={dropdownRef2}
-                className="absolute left-1 mt-2  bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden"
-              >
+              <div className="absolute left-1 mt-2  bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden">
                 <Link href="/explore" onClick={() => setIsDropdownOpen2(false)}>
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Explore
@@ -207,6 +206,7 @@ const Navbar = () => {
             <span
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="cursor-pointer group-hover:text-tealDark"
+              ref={dropdownRef}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -225,10 +225,7 @@ const Navbar = () => {
               }`}
             >
               {isDropdownOpen && (
-                <div
-                  ref={dropdownRef}
-                  className=" absolute right-0 mt-2  bg-slate-50 rounded-lg shadow-lg"
-                >
+                <div className=" absolute right-0 mt-2  bg-slate-50 rounded-lg shadow-lg">
                   {/* Dropdown menu for logged-in users */}
                   <Link
                     href="/profile"
