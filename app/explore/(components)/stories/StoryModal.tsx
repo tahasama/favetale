@@ -11,7 +11,13 @@ import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
 
 import Quill from "quill";
 import dynamic from "next/dynamic";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -30,13 +36,14 @@ import { useCart } from "@/app/provider/CartProvider";
 //   }
 // );
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
-const StoryModal = ({ isOpen, onClose }: any) => {
+const StoryModal = ({ isOpen, onClose, story }: any) => {
+  console.log("🚀 ~ file: storyModal.tsx:34 ~ storyModal ~ story:", story);
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
 
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(story ? story.content : "");
   const editor = useRef(null);
 
   const handleModalClick = (e: any) => {
@@ -45,8 +52,14 @@ const StoryModal = ({ isOpen, onClose }: any) => {
     }
   };
   const [title, setTitle] = useState(""); // State to hold the title
+
   const [tags, setTags] = useState<string[]>([]); // State to hold tags
   const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    story && (setTitle(story.title), setTags(story.tags));
+  }, [story]);
 
   const handleTagChange = (e: any) => {
     setNewTag(e.target.value);
@@ -63,38 +76,75 @@ const StoryModal = ({ isOpen, onClose }: any) => {
     }
   };
 
-  const publishStory = async (e: any) => {
+  const publishstory = async (e: any) => {
     setLoading(true);
     e.preventDefault();
 
-    if (imageFile) {
+    if (story?.id || imageFile || content || title) {
+      console.log(
+        "🚀 ~ file: storyModal.tsx:84 ~ publishstory ~ title: hallllllllllllllo",
+        story?.id
+      );
       const storage = getStorage();
-      const storageRef = ref(storage, `stories/${userx.id}/${Date.now()}.jpg`);
+      const storageRef = ref(storage, `storys/${userx.id}/${Date.now()}.jpg`);
 
       try {
-        await uploadBytes(storageRef, imageFile);
-        const res = await getDownloadURL(storageRef);
+        if (imageFile) {
+          await uploadBytes(storageRef, imageFile);
+        }
 
-        const StoryData = {
-          writer: userx,
-          title,
-          content,
-          tags,
-          image: res,
-          createdAt: serverTimestamp(),
-        };
+        const imageUrl = imageFile
+          ? await getDownloadURL(storageRef)
+          : story?.image;
 
-        await addDoc(collection(db, "stories"), StoryData).then(() => {
-          setUploadpetModalOpen(false), setLoading(false);
-        });
+        if (story?.id) {
+          console.log("3333333333333 publishstory ~ story?.id:", story?.id);
+          // If updating an existing story post
+          const storyRef = doc(db, "Storys", story.id);
+          const updateData: any = {};
+
+          if (title) {
+            updateData.title = title;
+          }
+
+          if (content) {
+            updateData.content = content;
+          }
+
+          if (tags.length !== 0) {
+            updateData.tags = tags;
+          }
+
+          if (imageUrl) {
+            updateData.image = imageUrl;
+          }
+
+          await updateDoc(storyRef, updateData);
+        } else {
+          // If creating a new story post
+          const storyData = {
+            writer: userx,
+            title,
+            content,
+            tags,
+            image: imageUrl,
+            createdAt: serverTimestamp(),
+          };
+
+          await addDoc(collection(db, "Storys"), storyData);
+        }
+
+        setUploadpetModalOpen(false);
+        setLoading(false);
+        setImageFile(null);
+        setTags([]);
+        setContent("");
+        setTitle("");
+        setError("");
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+        setLoading(false);
       }
-      setImageFile(null);
-      setTags([]);
-      setContent("");
-      setTitle("");
-      router.push("/profile");
     }
   };
 
@@ -110,7 +160,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
   const config: any = {
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
     placeholder: `
-        <h3>Start your Story...</h3>
+        <h3>Start your story...</h3>
       `,
   };
 
@@ -131,7 +181,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
         {!preview ? (
           <div className="md:p-6 py-4 px-1.5 rounded-lg  h-full ">
             <div>
-              <h2 className="mb-4"> Share a Story</h2>
+              <h2 className="mb-4"> Write a story</h2>
               <div className="flex items-center mb-4 gap-3">
                 <label htmlFor="title">Add title: </label>
                 <input
@@ -151,7 +201,6 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   id="image"
                   accept="image/*"
                   onChange={handleImageChange}
-                  required
                   className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
                 />
                 <p className="mt-1.5">
@@ -176,7 +225,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                   </button>
                 </div>
                 <div className="mt-2 space-x-2">
-                  {tags.map((tag, index) => (
+                  {tags.map((tag: any, index: any) => (
                     <span
                       key={index}
                       className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md"
@@ -195,7 +244,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                 </button>
                 <button
                   className="ring-1 ring-pink-500 hover:bg-pink-500 hover:text-white tracking-wide transition-colors duration-300 text-pink-500 py-2 px-2 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={publishStory}
+                  onClick={publishstory}
                 >
                   Save/Draft
                 </button>
@@ -203,7 +252,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
                 <button
                   type="submit"
                   className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={publishStory}
+                  onClick={publishstory}
                 >
                   {!loading ? (
                     "Publish"
@@ -229,7 +278,7 @@ const StoryModal = ({ isOpen, onClose }: any) => {
               <div className="mb-6">
                 <JoditEditor
                   ref={editor}
-                  value={content}
+                  value={story ? story.content : content}
                   config={config}
                   onBlur={(newContent: any) => setContent(newContent)}
                 />

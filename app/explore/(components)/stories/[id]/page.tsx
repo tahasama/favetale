@@ -9,6 +9,7 @@ import {
   FieldValue,
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -20,6 +21,8 @@ import { db } from "@/firebase";
 import { useCart } from "@/app/provider/CartProvider";
 
 import parse from "html-react-parser";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
+import StoryModal from "../StoryModal";
 
 function Story() {
   // Sample story data (replace with your own)
@@ -190,7 +193,14 @@ function Story() {
 
   const { id } = useParams();
   // console.log("🚀 ~ file: page.tsx:453 ~ Story ~ id:", typeof id);
-  const { userx, setSelectedImage, selectedImage } = useCart();
+  const {
+    userx,
+    setSelectedImage,
+    selectedImage,
+    setImageModalOpen,
+    uploadpetModalOpen,
+    setUploadpetModalOpen,
+  } = useCart();
 
   useEffect(() => {
     const getStory = async () => {
@@ -199,7 +209,7 @@ function Story() {
 
       if (docSnap.exists()) {
         // console.log("Document data:");
-        setSelectedImage({ ...docSnap.data(), id: docSnap.data().id });
+        setSelectedImage({ ...docSnap.data(), id: docSnap.id });
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
@@ -244,7 +254,7 @@ function Story() {
         const fetchedComments: any[] = [];
 
         querySnapshot.forEach((doc) => {
-          fetchedComments.push({ id: doc.data().id, ...doc.data() });
+          fetchedComments.push({ id: doc.id, ...doc.data() });
         });
 
         setComments(fetchedComments);
@@ -262,6 +272,37 @@ function Story() {
   useEffect(() => {
     id && fetchComments();
   }, [id]);
+
+  const removeImage = async () => {
+    console.log("lets delete", comments);
+    try {
+      // Step 2: Iterate through the comments and delete each comment document
+      const deleteCommentPromises: any[] = [];
+      comments.forEach((commentDoc: any) => {
+        const deleteCommentPromise = deleteDoc(
+          doc(db, "comments", commentDoc.id)
+        );
+        deleteCommentPromises.push(deleteCommentPromise);
+      });
+      console.log(
+        "🚀 ~ file: page.tsx:598 ~ comments.forEach ~ deleteCommentPromises:"
+      );
+
+      // Step 3: Delete the selected image document
+      const deleteImagePromise = deleteDoc(doc(db, "Storys", selectedImage.id)); // Assuming 'petImages' is the collection name for images
+
+      // Wait for all comment deletions to complete
+      await Promise.all(deleteCommentPromises);
+
+      // After all comments are deleted, delete the image
+      await deleteImagePromise;
+
+      // Optionally, you can handle success or show a message here
+      console.log("Image and related comments deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting image and related comments:", error);
+    }
+  };
 
   const handleAddComment = async () => {
     if (newComment) {
@@ -331,6 +372,11 @@ function Story() {
     <div className="max-w-3xl mx-auto p-4 mt-24 bg-white">
       {/* Story Title */}
       <div className="h-fit">
+        <StoryModal
+          isOpen={uploadpetModalOpen}
+          onClose={() => setUploadpetModalOpen(false)}
+          story={selectedImage}
+        />
         <h1 className="text-3xl font-bold mb-4">{selectedImage.title}</h1>
 
         {/* Writer's Information */}
@@ -363,25 +409,46 @@ function Story() {
         </p>
 
         {/* Likes and Comments */}
-        <div className="my-6 flex items-center space-x-4 text-gray-600">
-          <div
-            className="flex items-center space-x-0 cursor-pointer group justify-center"
-            onClick={updateLikes}
-          >
-            <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
-              ❤️
-            </span>
-            <p>{selectedImage.likes && selectedImage.likes.length}</p>
+        <div className="flex justify-between">
+          <div className="my-6 flex items-center space-x-4 text-gray-600">
+            <div
+              className="flex items-center space-x-0 cursor-pointer group justify-center"
+              onClick={updateLikes}
+            >
+              <span className="text-lg group-active:scale-150 group-hover:scale-125 -mt-1 transition-all duration-300">
+                ❤️
+              </span>
+              <p>{selectedImage.likes && selectedImage.likes.length}</p>
+            </div>
+            <div
+              className="flex items-center space-x-1 cursor-pointer group"
+              onClick={scrollToComments}
+            >
+              <span className="text-lg group-active:scale-150 group-hover:scale-125 transition-all duration-300">
+                💬
+              </span>
+              <p>{comments.length} Comments</p>
+            </div>
           </div>
-          <div
-            className="flex items-center space-x-1 cursor-pointer group"
-            onClick={scrollToComments}
-          >
-            <span className="text-lg group-active:scale-150 group-hover:scale-125 transition-all duration-300">
-              💬
-            </span>
-            <p>{comments.length} Comments</p>
-          </div>
+
+          {selectedImage && selectedImage.writer.id === userx.id && (
+            <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4">
+              <button
+                onClick={() => setUploadpetModalOpen(true)}
+                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-slate-300 text-base md:text-xl"></span>
+                <AiOutlineEdit color={"#94a3b8"} size={24} />
+              </button>
+              <button
+                onClick={removeImage}
+                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-slate-300 text-base md:text-xl"></span>
+                <AiFillDelete color={"#94a3b8"} size={24} />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Story Image */}

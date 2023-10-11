@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import parse from "html-react-parser";
 
 const StoryCard = ({ story, index }: any) => {
   return (
@@ -24,18 +25,23 @@ const StoryCard = ({ story, index }: any) => {
           className={`bg-white rounded-lg shadow-lg overflow-hidden mb-5 sm:h-60`}
         >
           <div className="flex flex-col sm:flex-row justify-between h-full">
-            <div className="p-4 flex flex-col justify-between">
+            <div className="flex flex-col justify-between px-4 ">
               <div>
                 <h3 className="text-lg font-semibold mb-4 mt-2">
                   {story.title}
                 </h3>
                 <p className="text-gray-600 mb-2 line-clamp-4">
-                  {story.excerpt}
+                  {parse(story.content)}
                 </p>
               </div>
-              <div>
-                <p className="text-gray-400 mt-2">story.timestamp</p>
-                <p className="text-tealDark font-semibold">story.user</p>
+              <div className="mb-2">
+                <p className="text-gray-400 mt-2">
+                  {story.createdAt.toDate().toDateString()}
+                </p>
+
+                <p className="text-tealDark font-semibold">
+                  {story.writer.name}
+                </p>
               </div>
             </div>
             <Image
