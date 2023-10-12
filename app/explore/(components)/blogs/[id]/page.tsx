@@ -481,20 +481,6 @@ const Blog = () => {
     commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Function to add a new comment
-  // const handleAddComment = () => {
-  //   if (newComment.trim() !== "") {
-  //     const newCommentObj = {
-  //       text: newComment,
-  //       user: {
-  //         name: "Your Name",
-  //         image: "/path/to/your/image.jpg",
-  //       },
-  //     };
-  //     setComments((prevComments) => [...prevComments, newCommentObj]);
-  //     setNewComment("");
-  //   }
-  // };
   const fetchComments = async () => {
     try {
       if (id) {

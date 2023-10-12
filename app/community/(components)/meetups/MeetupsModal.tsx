@@ -48,11 +48,10 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
       const storage = getStorage();
       const storageRef = ref(storage, `meetups/${userx.id}/${Date.now()}.jpg`);
       await uploadBytes(storageRef, imageFile);
-      const res = await getDownloadURL(storageRef).then((x: any) => {
-        setNewGathering({
-          ...newGathering,
-          image: res,
-        });
+      const res = await getDownloadURL(storageRef);
+      setNewGathering({
+        ...newGathering,
+        image: res,
       });
 
       try {

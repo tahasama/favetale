@@ -1,0 +1,89 @@
+"use client";
+import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import ImageModal from "./ImageModal";
+import { useCart } from "@/app/provider/CartProvider";
+import { db } from "@/firebase";
+import { query, collection, where, getDocs, addDoc } from "firebase/firestore";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
+import MeetupsModal from "../MeetupsModal";
+
+const ClientComponent = ({ event, id }: any) => {
+  const ref = useRef<any>(null);
+
+  const {
+    userx,
+    setSelectedImage,
+    selectedImage,
+    uploadpetModalOpen,
+    setUploadpetModalOpen,
+  } = useCart();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
+  const commentsSectionRef = useRef<any>(null);
+
+  return (
+    <div
+      className="grid place-items-center relative w-full h-[70vh] overflow-hidden"
+      ref={ref}
+    >
+      {/* {event && event.writer.id === userx.id && ( */}
+
+      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-40 backdrop-brightness-75 backdrop-blur-sm p-4">
+        <button
+          onClick={() => setUploadpetModalOpen(true)}
+          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+        >
+          <span className="text-base md:text-xl"></span>
+          <AiOutlineEdit color={"#d4dae2"} size={24} />
+        </button>
+        <button
+          //   onClick={removeImage}
+          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+        >
+          <span className="text-base md:text-xl"></span>
+          <AiFillDelete color={"#d4dae2"} size={24} />
+        </button>
+      </div>
+
+      <MeetupsModal
+        isOpen={uploadpetModalOpen}
+        onClose={() => setUploadpetModalOpen(false)}
+        event={event}
+      />
+
+      {/* )} */}
+      <motion.p
+        className="font-semibold tracking-wider leading-loose text-center md:text-start text-4xl lg:text-5xl xl:text-6xl z-0 absolute  text-teal-600"
+        style={{ y: textTranslateY }}
+      >
+        {event && event.title}
+      </motion.p>
+
+      <motion.div
+        className="absolute  inset-0 z-0"
+        style={{
+          backgroundImage: `url(${event && event.image})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          //   height: "50%",
+          y: backgroundTranslateY,
+        }}
+      />
+
+      {/* <ImageModal
+        isOpen={uploadpetModalOpen}
+        onClose={() => setUploadpetModalOpen(false)}
+        images={event && event.images}
+        // initialIndex={selectedImageIndex}
+      /> */}
+    </div>
+  );
+};
+
+export default ClientComponent;
