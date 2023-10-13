@@ -2,26 +2,34 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 
-const MeetupsModal = ({ isOpen, onClose }: any) => {
-  const [newGathering, setNewGathering] = useState<any>({
-    title: "",
-    location: {
-      country: "",
-      city: "",
-      zipCode: "",
-    },
-    startDate: "",
-    endDate: "",
-    timeFrom: "",
-    timeTo: "",
-    description: "",
-    image: "",
-  });
+const MeetupsModal = ({ isOpen, onClose, event }: any) => {
+  console.log("🚀 ~ file: MeetupsModal.tsx:11 ~ MeetupsModal ~ event:", event);
+  const [newGathering, setNewGathering] = useState<any>(
+    !event
+      ? {
+          title: "",
+          location: {
+            country: "",
+            city: "",
+            zipCode: "",
+          },
+          startDate: "",
+          endDate: "",
+          timeFrom: "",
+          timeTo: "",
+          description: "",
+          image: "",
+          images: [],
+        }
+      : {
+          ...event,
+        }
+  );
   console.log(
     "🚀 ~ file: MeetupsModal.tsx:53 ~ MeetupsModal ~ newGathering:",
     newGathering
@@ -44,30 +52,49 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
   const handleCreateGathering = async (e: any) => {
     e.preventDefault();
 
-    if (imageFile) {
-      const storage = getStorage();
-      const storageRef = ref(storage, `meetups/${userx.id}/${Date.now()}.jpg`);
-      await uploadBytes(storageRef, imageFile);
-      const res = await getDownloadURL(storageRef);
-      setNewGathering({
-        ...newGathering,
-        image: res,
-      });
+    try {
+      const gatheringsCollection = collection(db, "gatherings");
 
-      try {
-        // Define the Firestore collection where gatherings will be stored
-        const gatheringsCollection = collection(db, "gatherings");
+      if (!event) {
+        // If 'event' doesn't exist, it's a new gathering
+        if (!imageFile) {
+          setError("Image file is required when creating a gathering.");
+          return;
+        }
 
-        // Add a new gathering document to the collection
-        const newGatheringRef = await addDoc(gatheringsCollection, {
+        // Check if all required fields are present
+        if (
+          !newGathering.title ||
+          !newGathering.location.country ||
+          !newGathering.location.city ||
+          !newGathering.location.zipCode ||
+          !newGathering.startDate ||
+          !newGathering.endDate ||
+          !newGathering.timeFrom ||
+          !newGathering.timeTo ||
+          !newGathering.description
+        ) {
+          setError("All fields are necessary to create an event.");
+          return;
+        }
+
+        const storage = getStorage();
+        const storageRef = ref(
+          storage,
+          `meetups/${userx.id}/${Date.now()}.jpg`
+        );
+        await uploadBytes(storageRef, imageFile);
+        const res = await getDownloadURL(storageRef);
+
+        const newGatheringData = {
           ...newGathering,
           image: res,
-        });
-        console.log(
-          "🚀 ~ file: MeetupsModal.tsx:96 ~ handleCreateGathering ~ newGathering:",
-          newGathering
-        );
+        };
 
+        const newGatheringRef = await addDoc(
+          gatheringsCollection,
+          newGatheringData
+        );
         console.log("Gathering created with ID: ", newGatheringRef.id);
 
         // Clear the form or perform any other necessary actions
@@ -84,11 +111,43 @@ const MeetupsModal = ({ isOpen, onClose }: any) => {
           timeTo: "",
           description: "",
           image: "",
+          images: [],
         });
-        onClose();
-      } catch (error) {
-        console.error("Error creating gathering: ", error);
+      } else {
+        // It's an existing gathering
+        if (!imageFile) {
+          // If no new image is selected during the update, retain the existing image URL
+          newGathering.image = event.image;
+        } else {
+          // If a new image is selected, update it
+          const storage = getStorage();
+          const storageRef = ref(
+            storage,
+            `meetups/${userx.id}/${Date.now()}.jpg`
+          );
+          await uploadBytes(storageRef, imageFile);
+          const res = await getDownloadURL(storageRef);
+
+          // Update the image URL
+          newGathering.image = res;
+        }
+
+        // Update the gathering in Firestore
+        const gatheringRef = doc(db, "gatherings", event.id);
+        await updateDoc(gatheringRef, newGathering);
+        console.log("Gathering updated with ID: ", event.id);
+
+        // Clear the form or perform any other necessary actions
+        setNewGathering({
+          ...newGathering,
+          image: "", // Clear the image field
+        });
       }
+
+      setError(""); // Clear any previous error message
+      onClose();
+    } catch (error) {
+      console.error("Error creating or updating gathering: ", error);
     }
   };
 
