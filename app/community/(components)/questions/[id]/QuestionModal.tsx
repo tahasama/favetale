@@ -1,39 +1,40 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import styles
-import ReactMarkdown from "react-markdown";
-import grayMatter from "gray-matter";
-import remarkGfm from "remark-gfm";
-import parse from "html-react-parser";
-import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
 
-import Quill from "quill";
-import dynamic from "next/dynamic";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 
-const QuestionModal = ({ isOpen, onClose }: any) => {
-  const router = useRouter();
+const QuestionModal = ({ isOpen, onClose, id }: any) => {
+  const { userx, setUploadpetModalOpen, selectedImage } = useCart();
 
-  const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
-
-  const [content, setContent] = useState("");
-  const editor = useRef(null);
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose(); // Call the onClose function to close the modal
     }
   };
+  const [content, setContent] = useState("");
   const [title, setTitle] = useState(""); // State to hold the title
   const [tags, setTags] = useState<string[]>([]); // State to hold tags
   const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
+
+  useEffect(() => {
+    if (id && selectedImage) {
+      setTitle(selectedImage.title || "");
+      setTags(selectedImage.tags || []);
+      setContent(selectedImage.content || "");
+    }
+  }, [id, selectedImage]);
 
   const handleTagChange = (e: any) => {
     setNewTag(e.target.value);
@@ -54,71 +55,101 @@ const QuestionModal = ({ isOpen, onClose }: any) => {
     setLoading(true);
     e.preventDefault();
 
-    if (imageFile) {
-      const storage = getStorage();
-      const storageRef = ref(
-        storage,
-        `questions/${userx.id}/${Date.now()}.jpg`
-      );
+    try {
+      const questionsCollection = collection(db, "questions");
 
-      try {
-        await uploadBytes(storageRef, imageFile);
-        const res = await getDownloadURL(storageRef);
+      if (selectedImage) {
+        // If the question has an ID, it's an update
+        if (imageFile) {
+          const storage = getStorage();
+          const storageRef = ref(
+            storage,
+            `questions/${userx.id}/${Date.now()}.jpg`
+          );
 
-        const blogData = {
-          writer: userx,
-          title,
-          content,
-          tags,
-          image: res,
-          createdAt: serverTimestamp(),
-          upvotes: [],
-          downvotes: [],
-        };
+          await uploadBytes(storageRef, imageFile);
+          const res = await getDownloadURL(storageRef);
 
-        await addDoc(collection(db, "questions"), blogData).then(() => {
-          setUploadpetModalOpen(false), setLoading(false);
-        });
-      } catch (error) {
-        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+          const updatedQuestionData = {
+            writer: userx,
+            title,
+            content,
+            tags,
+            image: res,
+          };
+
+          // Update the question in Firestore
+          const questionRef = doc(db, "questions", selectedImage.id);
+          await updateDoc(questionRef, updatedQuestionData);
+        } else {
+          const updatedQuestionData = {
+            writer: userx,
+            title,
+            content,
+            tags,
+          };
+
+          // Update the question in Firestore without changing the image
+          const questionRef = doc(db, "questions", selectedImage.id);
+          await updateDoc(questionRef, updatedQuestionData);
+        }
+      } else {
+        // It's a new question
+        if (imageFile) {
+          const storage = getStorage();
+          const storageRef = ref(
+            storage,
+            `questions/${userx.id}/${Date.now()}.jpg`
+          );
+
+          await uploadBytes(storageRef, imageFile);
+          const res = await getDownloadURL(storageRef);
+
+          const newQuestionData = {
+            writer: userx,
+            title,
+            content,
+            tags,
+            image: res,
+            createdAt: serverTimestamp(),
+            upvotes: [],
+            downvotes: [],
+          };
+
+          // Create a new question in Firestore
+          await addDoc(questionsCollection, newQuestionData);
+        } else {
+          const newQuestionData = {
+            writer: userx,
+            title,
+            content,
+            tags,
+            createdAt: serverTimestamp(),
+            upvotes: [],
+            downvotes: [],
+          };
+
+          // Create a new question in Firestore without an image
+          await addDoc(questionsCollection, newQuestionData);
+        }
       }
 
-      router.push("/profile");
-    } else {
-      const blogData = {
-        writer: userx,
-        title,
-        content,
-        tags,
-        createdAt: serverTimestamp(),
-        upvotes: [],
-        downvotes: [],
-      };
-
-      await addDoc(collection(db, "questions"), blogData).then(() => {
-        setUploadpetModalOpen(false), setLoading(false);
-      });
+      setUploadpetModalOpen(false);
+      setLoading(false);
+      setImageFile(null);
+      setTags([]);
+      setContent("");
+      setTitle("");
+    } catch (error) {
+      console.log("Error sending or updating question: ", error);
     }
-    setImageFile(null);
-    setTags([]);
-    setContent("");
-    setTitle("");
   };
 
   const [imageFile, setImageFile] = useState<any>(null);
 
-  const [preview, setPreview] = useState(false);
-
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     setImageFile(file);
-  };
-
-  const config: any = {
-    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-    placeholder: `
-        <h3>Start your blog...</h3>
-      `,
   };
 
   const adjustTextareaRows = (textarea: any) => {
@@ -135,13 +166,12 @@ const QuestionModal = ({ isOpen, onClose }: any) => {
       onClick={handleModalClick}
     >
       <div
-        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto my-1 h-full w-full lg:${
-          preview ? "w-9/12" : "w-7/12"
-        } mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
+        className={` inset-0 relative flex flex-col justify-start  lg:overflow-auto my-1 h-full w-full lg:w-7/12
+        mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
       >
         <div className="md:p-6 py-4 px-1.5 rounded-lg  h-full ">
           <div className="flex flex-col gap-4">
-            <h2 className="mb-4"> Write a Blog</h2>
+            <h2 className="mb-4">Ask a Question</h2>
             <div className="flex items-center mb-4 gap-3">
               <label htmlFor="title">Add title: </label>
               <input
@@ -186,20 +216,22 @@ const QuestionModal = ({ isOpen, onClose }: any) => {
                 </button>
               </div>
               <div className="mt-2 space-x-2">
-                {tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                {((id && selectedImage?.tags) || tags).map(
+                  (tag: any, index: any) => (
+                    <span
+                      key={index}
+                      className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md"
+                    >
+                      {tag}
+                    </span>
+                  )
+                )}
               </div>
             </div>
             <div className="mb-6">
               <textarea
                 rows={2}
-                placeholder="Add a comment..."
+                placeholder="Add a question..."
                 className="border lg:rounded h-40  w-full rounded-2xl px-2 py-1 mr-2 flex-grow"
                 value={content}
                 onChange={(e) => {

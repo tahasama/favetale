@@ -14,6 +14,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -29,11 +30,13 @@ import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
+import QuestionModal from "./QuestionModal";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
 
-function Question() {
+function Question({ params: { id } }: any) {
   // const questionsData = [
   //   {
   //     id: 1,
@@ -176,10 +179,15 @@ function Question() {
   //   },
   // ];
 
-  const { id } = useParams();
   console.log("🚀 ~ file: page.tsx:195 ~ question ~ id:", id);
 
-  const { userx, setSelectedImage, selectedImage } = useCart();
+  const {
+    userx,
+    setSelectedImage,
+    selectedImage,
+    uploadpetModalOpen,
+    setUploadpetModalOpen,
+  } = useCart();
   console.log(
     "🚀 ~ file: page.tsx:188 ~ Question ~ setSelectedImage:",
     selectedImage
@@ -192,7 +200,7 @@ function Question() {
 
       if (docSnap.exists()) {
         // console.log("Document data:");
-        setSelectedImage({ ...docSnap.data(), id: docSnap.data().id });
+        setSelectedImage({ ...docSnap.data(), id: docSnap.id });
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!!!!");
@@ -390,8 +398,39 @@ function Question() {
       console.error("Error updating comment:", error);
     }
   };
+
+  const removeImage = async () => {
+    console.log("lets delete", comments);
+    try {
+      // Step 2: Iterate through the comments and delete each comment document
+      const deleteCommentPromises: any[] = [];
+      comments.forEach((commentDoc: any) => {
+        const deleteCommentPromise = deleteDoc(
+          doc(db, "comments", commentDoc.id)
+        );
+        deleteCommentPromises.push(deleteCommentPromise);
+      });
+      console.log(
+        "🚀 ~ file: page.tsx:598 ~ comments.forEach ~ deleteCommentPromises:"
+      );
+
+      // Step 3: Delete the selected image document
+      const deleteImagePromise = deleteDoc(doc(db, "questions", id)); // Assuming 'petImages' is the collection name for images
+
+      // Wait for all comment deletions to complete
+      await Promise.all(deleteCommentPromises);
+
+      // After all comments are deleted, delete the image
+      await deleteImagePromise;
+
+      // Optionally, you can handle success or show a message here
+      console.log("Image and related comments deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting image and related comments:", error);
+    }
+  };
   return (
-    <div className=" mx-auto  md:w-8/12 p-4 mt-24">
+    <div className=" mx-auto relative md:w-8/12 p-4 mt-24">
       <>
         <h1 className="text-3xl font-semibold mb-4">{selectedImage.title}</h1>
         <p className="text-gray-600 mb-2">
@@ -424,7 +463,28 @@ function Question() {
           </button>
         </div>
       </>
+      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-40  p-4">
+        <button
+          onClick={() => setUploadpetModalOpen(true)}
+          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+        >
+          <span className="text-base md:text-xl"></span>
+          <AiOutlineEdit color={"#a9aeb4"} size={24} />
+        </button>
+        <button
+          onClick={removeImage}
+          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+        >
+          <span className="text-base md:text-xl"></span>
+          <AiFillDelete color={"#a9aeb4"} size={24} />
+        </button>
+      </div>
 
+      <QuestionModal
+        isOpen={uploadpetModalOpen}
+        onClose={() => setUploadpetModalOpen(false)}
+        id={id}
+      />
       {/* Answer Area */}
 
       <div className="mt-8 mb-6">
