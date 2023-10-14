@@ -665,24 +665,26 @@ const Blog = () => {
               <p>{comments.length} Comments</p>
             </div>
           </div>
-          {selectedImage && selectedImage.writer.id === userx.id && (
-            <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4">
-              <button
-                onClick={() => setUploadpetModalOpen(true)}
-                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-              >
-                <span className="text-slate-300 text-base md:text-xl"></span>
-                <AiOutlineEdit color={"#94a3b8"} size={24} />
-              </button>
-              <button
-                onClick={removeImage}
-                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-              >
-                <span className="text-slate-300 text-base md:text-xl"></span>
-                <AiFillDelete color={"#94a3b8"} size={24} />
-              </button>
-            </div>
-          )}
+          {selectedImage &&
+            selectedImage.writer &&
+            selectedImage.writer.id === userx.id && (
+              <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4">
+                <button
+                  onClick={() => setUploadpetModalOpen(true)}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-slate-300 text-base md:text-xl"></span>
+                  <AiOutlineEdit color={"#94a3b8"} size={24} />
+                </button>
+                <button
+                  onClick={removeImage}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-slate-300 text-base md:text-xl"></span>
+                  <AiFillDelete color={"#94a3b8"} size={24} />
+                </button>
+              </div>
+            )}
         </div>
 
         {/* Blog Image */}
