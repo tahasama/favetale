@@ -55,15 +55,78 @@ const Navbar = () => {
   };
 
   // Close the dropdown when clicking outside
+  // useEffect(() => {
+  //   const handleClickOutside = (event: any) => {
+  //     if (
+  //       dropdownRef2.current &&
+  //       !dropdownRef2.current.contains(event.target)
+  //     ) {
+  //       setIsDropdownOpen2(false);
+  //     }
+  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setIsDropdownOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [dropdownRef, dropdownRef2]);
+
+  // useEffect(() => {
+  //   const handleClickOutside = (event: any) => {
+  //     if (
+  //       dropdownRef2.current &&
+  //       !dropdownRef2.current.contains(event.target) &&
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(event.target)
+  //     ) {
+  //       setIsDropdownOpen2(false);
+  //       setIsDropdownOpen(false);
+  //     } else if (
+  //       dropdownRef2.current &&
+  //       !dropdownRef2.current.contains(event.target)
+  //     ) {
+  //       setIsDropdownOpen2(false);
+  //     } else if (
+  //       dropdownRef.current &&
+  //       !dropdownRef.current.contains(event.target)
+  //     ) {
+  //       setIsDropdownOpen(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [dropdownRef, dropdownRef2]);
+
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (
         dropdownRef2.current &&
+        !dropdownRef2.current.contains(event.target) &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        // Delay the closing of the dropdown to allow for navigation
+        setTimeout(() => {
+          setIsDropdownOpen2(false);
+          setIsDropdownOpen(false);
+        }, 250); // Adjust the delay time as needed
+      } else if (
+        dropdownRef2.current &&
         !dropdownRef2.current.contains(event.target)
       ) {
         setIsDropdownOpen2(false);
-      }
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      } else if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -105,7 +168,7 @@ const Navbar = () => {
             </svg>
           </span>
           <div
-            className={`absolute left-0 mt-2  bg-white rounded-lg shadow-lg transition-opacity ${
+            className={`absolute left-0 mt-2 z-50  bg-white rounded-lg shadow-lg transition-opacity ${
               isDropdownOpen2 ? "opacity-100" : "opacity-0 hidden"
             }`}
           >
@@ -144,11 +207,11 @@ const Navbar = () => {
           </span>
         </Link>
       </div>
+      <SearchModal isOpen={isModalOpen} onClose={closeModal} />
       <div
         className={`mx-0 flex items-center justify-between sm:-mr-2 md:ml-0  scale-90  md:scale-100 md:space-x-10 lg:space-x-10 text-xl ${alegreya.className}`}
       >
         <>
-          <SearchModal isOpen={isModalOpen} onClose={closeModal} />
           <div className="relative" onClick={openModal}>
             <input
               type="text"
@@ -220,7 +283,7 @@ const Navbar = () => {
               </svg>
             </span>
             <div
-              className={`absolute right-0 mt-2 w-44 p-1 bg-white rounded-lg shadow-lg transition-opacity ${
+              className={`absolute right-1  mt-2 w-44 bg-white rounded-lg shadow-lg transition-opacity ${
                 isDropdownOpen ? "opacity-100" : "opacity-0 hidden"
               }`}
             >
