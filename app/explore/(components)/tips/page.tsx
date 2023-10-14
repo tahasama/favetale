@@ -116,7 +116,7 @@ const Tips = () => {
     controls.set({ opacity: 0, y: 500 });
 
     // Start the animation
-    controls.start({ opacity: 1, y: -24 });
+    controls.start({ opacity: 1, y: -70 });
   }, []);
 
   const handleSlideChange = () => {
@@ -125,7 +125,7 @@ const Tips = () => {
     controls.set({ opacity: 0, y: 500 });
 
     // Start the animation
-    controls.start({ opacity: 1, y: -24 });
+    controls.start({ opacity: 1, y: -70 });
   };
 
   const u = [1, 2, 3, 4, 5, 6];
