@@ -204,7 +204,7 @@ function Story() {
 
   useEffect(() => {
     const getStory = async () => {
-      const docRef = doc(db, "Storys", String(id));
+      const docRef = doc(db, "storys", String(id));
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -289,7 +289,7 @@ function Story() {
       );
 
       // Step 3: Delete the selected image document
-      const deleteImagePromise = deleteDoc(doc(db, "Storys", selectedImage.id)); // Assuming 'petImages' is the collection name for images
+      const deleteImagePromise = deleteDoc(doc(db, "storys", selectedImage.id)); // Assuming 'petImages' is the collection name for images
 
       // Wait for all comment deletions to complete
       await Promise.all(deleteCommentPromises);
@@ -321,7 +321,7 @@ function Story() {
   };
 
   const updateLikes = async () => {
-    const likeRef = doc(db, "Storys", String(id));
+    const likeRef = doc(db, "storys", String(id));
     const documentSnapshot = await getDoc(likeRef);
     const petImageData = documentSnapshot.data();
 

@@ -100,7 +100,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
         if (story?.id) {
           console.log("3333333333333 publishstory ~ story?.id:", story?.id);
           // If updating an existing story post
-          const storyRef = doc(db, "Storys", story.id);
+          const storyRef = doc(db, "storys", story.id);
           const updateData: any = {};
 
           if (title) {
@@ -131,7 +131,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
             createdAt: serverTimestamp(),
           };
 
-          await addDoc(collection(db, "Storys"), storyData);
+          await addDoc(collection(db, "storys"), storyData);
         }
 
         setUploadpetModalOpen(false);

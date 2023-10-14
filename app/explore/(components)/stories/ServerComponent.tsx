@@ -5,7 +5,7 @@ import StoryCard from "./StoryCard";
 
 async function getData() {
   const storiesData: any[] = [];
-  const storyRef = collection(db, "Storys");
+  const storyRef = collection(db, "storys");
 
   const snapshot = await getDocs(storyRef);
   if (snapshot.empty) {
