@@ -25,6 +25,7 @@ const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
   return (
     <>
       <div className="mb-4">
+        Select a tag to filter by : &nbsp;
         {xxx &&
           uniqueTags?.map((tag: string) => (
             <button
