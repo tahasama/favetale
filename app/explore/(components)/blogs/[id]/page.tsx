@@ -23,6 +23,11 @@ import { useCart } from "@/app/provider/CartProvider";
 import parse from "html-react-parser";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import BlogModal from "../BlogModal";
+import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
+TimeAgo.addDefaultLocale(en);
+
+import en from "javascript-time-ago/locale/en.json";
 
 const Blog = () => {
   // const blogsData = [
@@ -764,7 +769,13 @@ const Blog = () => {
                     rel="noopener noreferrer"
                   >
                     {comment.commenter.name}
-                  </Link>
+                  </Link>{" "}
+                  &nbsp;
+                  <ReactTimeAgo
+                    date={comment.timestamp}
+                    className="text-sky-700 text-xs"
+                    locale="en-US"
+                  />
                 </span>
               </div>
               <p className="mt-2 text-gray-800 indent-4">{comment.comment}</p>

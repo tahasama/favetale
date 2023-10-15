@@ -43,7 +43,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
   const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
 
-  const [content, setContent] = useState(blog ? blog.content : "");
+  const [content, setContent] = useState("");
   const editor = useRef(null);
 
   const handleModalClick = (e: any) => {
@@ -58,7 +58,8 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    blog && (setTitle(blog.title), setTags(blog.tags));
+    blog &&
+      (setTitle(blog.title), setContent(blog.content), setTags(blog.tags));
   }, [blog]);
 
   const handleTagChange = (e: any) => {
@@ -278,7 +279,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
               <div className="mb-6">
                 <JoditEditor
                   ref={editor}
-                  value={blog ? blog.content : content}
+                  value={content}
                   config={config}
                   onBlur={(newContent: any) => setContent(newContent)}
                 />
