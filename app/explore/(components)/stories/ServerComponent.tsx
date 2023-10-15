@@ -1,11 +1,11 @@
 import React from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase";
 import StoryCard from "./StoryCard";
 
 async function getData() {
   const storiesData: any[] = [];
-  const storyRef = collection(db, "storys");
+  const storyRef = query(collection(db, "storys"), where("draft", "==", false));
 
   const snapshot = await getDocs(storyRef);
   if (snapshot.empty) {

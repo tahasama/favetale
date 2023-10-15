@@ -1,11 +1,11 @@
 import React from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase";
 import BlogCard from "./BlogCard";
 
 async function getData() {
   const blogsData: any[] = [];
-  const blogRef = collection(db, "blogs");
+  const blogRef = query(collection(db, "blogs"), where("draft", "==", false));
 
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {

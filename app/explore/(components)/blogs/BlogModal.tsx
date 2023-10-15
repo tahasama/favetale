@@ -77,15 +77,28 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
     }
   };
 
-  const publishBlog = async (e: any) => {
+  const removeTag = (index: any) => {
+    const newTags = [...tags];
+    newTags.splice(index, 1);
+    setTags(newTags);
+  };
+
+  const publishBlog = async (e: any, isDraft: boolean) => {
     setLoading(true);
     e.preventDefault();
 
-    if (blog?.id || imageFile || content || title) {
-      console.log(
-        "🚀 ~ file: BlogModal.tsx:84 ~ publishBlog ~ title: hallllllllllllllo",
-        blog?.id
-      );
+    if (imageFile || content || title) {
+      const updateData: any = {};
+
+      if (isDraft) {
+        // Logic to save as a draft
+        // For example, you can add/update the draft property in your blogData
+        updateData.draft = true;
+      } else {
+        // Logic to publish
+        updateData.draft = false; // Set draft to false for publishing
+      }
+
       const storage = getStorage();
       const storageRef = ref(storage, `blogs/${userx.id}/${Date.now()}.jpg`);
 
@@ -99,10 +112,8 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
           : blog?.image;
 
         if (blog?.id) {
-          console.log("3333333333333 publishBlog ~ blog?.id:", blog?.id);
           // If updating an existing blog post
           const blogRef = doc(db, "blogs", blog.id);
-          const updateData: any = {};
 
           if (title) {
             updateData.title = title;
@@ -130,6 +141,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
             tags,
             image: imageUrl,
             createdAt: serverTimestamp(),
+            ...updateData, // Add the draft property
           };
 
           await addDoc(collection(db, "blogs"), blogData);
@@ -225,13 +237,19 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
                     Add Tag
                   </button>
                 </div>
-                <div className="mt-2 space-x-2">
+                <div className="mt-3 space-x-2">
                   {tags.map((tag: any, index: any) => (
                     <span
                       key={index}
-                      className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md"
+                      className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md relative"
                     >
                       {tag}
+                      <button
+                        onClick={() => removeTag(index)}
+                        className="absolute -top-2 bg-sky-700 -right-2 px-1.5 text-white rounded-full cursor-pointer"
+                      >
+                        x
+                      </button>
                     </span>
                   ))}
                 </div>
@@ -243,17 +261,36 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
                 >
                   Preview
                 </button>
+
                 <button
-                  className="ring-1 ring-pink-500 hover:bg-pink-500 hover:text-white tracking-wide transition-colors duration-300 text-pink-500 py-2 px-2 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={publishBlog}
+                  type="submit"
+                  className="ring-1 ring-pink-500 hover:bg-pink-500group hover:text-white transition-colors duration-300 text-pink-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  onClick={(e) => publishBlog(e, true)}
                 >
-                  Save/Draft
+                  {!loading ? (
+                    "Save/Draft"
+                  ) : (
+                    <span className="flex">
+                      Loading
+                      <div className="flex justify-center ml-0.5 mt-1.5">
+                        <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div
+                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                    </span>
+                  )}
                 </button>
 
                 <button
                   type="submit"
                   className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={publishBlog}
+                  onClick={(e) => publishBlog(e, false)}
                 >
                   {!loading ? (
                     "Publish"
