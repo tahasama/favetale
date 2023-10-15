@@ -43,7 +43,7 @@ const ExplorePage = () => {
 
   return (
     <div className="mt-0">
-      <div className="sticky top-20 flex z-40 justify-center w-full bg-tealLight">
+      <div className="sticky top-20 flex z-30 justify-center w-full bg-tealLight">
         {tabs.map((tab) => (
           <TabButton
             key={tab.name}
@@ -92,7 +92,7 @@ const TabButton = ({ tabName, isActive, onClick, icon }: any) => {
       >
         {icon}
       </span>
-      <span className={`ml-2 z-50 text-xs md:text-base ${isActive && "mt-3"}`}>
+      <span className={`ml-2 text-xs md:text-base ${isActive && "mt-3"}`}>
         {tabName}
       </span>
     </button>

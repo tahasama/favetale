@@ -42,6 +42,10 @@ const ImageModal = () => {
   );
 
   const [comments, setComments] = useState<any[]>([]);
+  console.log(
+    "🚀 ~ file: ImageModal.tsx:45 ~ ImageModal ~ comments:",
+    comments[0]
+  );
 
   // Function to fetch comments
   const fetchComments = async () => {
@@ -223,7 +227,7 @@ const ImageModal = () => {
 
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-40 backdrop-blur-md backdrop-brightness-50 ${
         uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
@@ -250,10 +254,10 @@ const ImageModal = () => {
               <path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
             </svg>
           </button>
-          <div className="absolute bottom-6  flex gap-3 md:gap-5 left-2 backdrop-blur-sm backdrop-brightness-95 pl-2 py-0.5">
+          <div className="absolute bottom-3  flex left-2   py-0.5">
             <button
               onClick={updateHearts}
-              className="text-xl flex justify-center items-center md:text-3xl  hover:scale-105 active:scale-110 transition-all duration-300"
+              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-l-lg px-1.5 py-0.5"
             >
               <span className="text-slate-300 text-base md:text-xl ">
                 {selectedImage.hearts ? selectedImage.hearts.length : 0}
@@ -262,7 +266,7 @@ const ImageModal = () => {
             </button>
             <button
               onClick={updateLikes}
-              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 rounded-r"
+              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-r-lg px-1.5 py-0.5"
             >
               <span className="text-slate-300 text-base md:text-xl">
                 {selectedImage.likes ? selectedImage.likes.length : 0}
@@ -272,20 +276,20 @@ const ImageModal = () => {
           </div>
 
           {selectedImage && selectedImage.poster.id === userx.id && (
-            <div className="absolute top-3 flex gap-3 md:gap-5 left-2 md:left-4">
+            <div className="absolute top-3 flex gap-3 md:gap-5 left-2 md:left-4 backdrop-blur-sm backdrop-brightness-75 px-3 py-2 rounded-lg">
               <button
                 onClick={() => setImageModalOpen(true)}
-                className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
+                className="text-xl md:text-3xl  hover:scale-105 active:scale-110 transition-all duration-300"
               >
                 <span className="text-slate-300 text-base md:text-xl"></span>
-                <AiOutlineEdit color={"#94a3b8"} size={24} />
+                <AiOutlineEdit color={"#d4dae2"} size={24} />
               </button>
               <button
                 onClick={removeImage}
-                className="text-xl md:text-3xl backdrop-blur-sm hover:scale-105 active:scale-110 transition-all duration-300"
+                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
               >
                 <span className="text-slate-300 text-base md:text-xl"></span>
-                <AiFillDelete color={"#94a3b8"} size={24} />
+                <AiFillDelete color={"#d4dae2"} size={24} />
               </button>
             </div>
           )}
