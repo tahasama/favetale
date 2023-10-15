@@ -11,6 +11,8 @@ import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
+import UploadImageMeetupModal from "./UploadImageMeetupModal";
+import UploadpetModalOpenButton from "./UploadpetModalOpenButton";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -23,7 +25,11 @@ const ClientBottomComponent = ({ event, id }: any) => {
     setSelectedImage,
     selectedImage,
     uploadpetModalOpen,
+    setMeetupModalOpen,
+    setImageModalOpen,
     setUploadpetModalOpen,
+    petModalOpen,
+    setPetModalOpen,
     setComments,
     comments,
   } = useCart();
@@ -94,7 +100,7 @@ const ClientBottomComponent = ({ event, id }: any) => {
 
   return (
     <>
-      <div className="mt-6">
+      <div className="mt-6 mx-2">
         <h2 className="text-xl font-semibold mb-2" ref={commentsSectionRef}>
           Comments 💬
         </h2>
@@ -128,7 +134,7 @@ const ClientBottomComponent = ({ event, id }: any) => {
             </div>
           </div>
         </div>
-        <div className="space-y-4" ref={commentsSectionRef}>
+        <div className="space-y-4 mx-2" ref={commentsSectionRef}>
           {comments.map((reply: any) => (
             <div key={reply.id} className="border-b-2 p-3 rounded-r-lg">
               <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
@@ -142,15 +148,23 @@ const ClientBottomComponent = ({ event, id }: any) => {
           ))}
         </div>
       </div>
-      <div className="mt-6">
-        <h2 className="text-xl font-semibold mb-4">Memorable moments 📷</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-4">
+        <div className="flex justify-between mx-2 items-center">
+          <h2 className="text-xl font-semibold ">
+            Memorable moments 📷 ({event.images.length} images)
+          </h2>
+          <UploadpetModalOpenButton />
+        </div>
+
+        <UploadImageMeetupModal id={id} />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-3 pb-3">
           {event &&
-            event.images.map((image: any, index: any) => (
+            event.images.slice(0, 3).map((image: any, index: any) => (
               <div
                 key={index}
                 className="relative group cursor-pointer"
-                onClick={() => setUploadpetModalOpen(true)}
+                onClick={() => setPetModalOpen(true)}
               >
                 <img
                   src={image}
@@ -164,6 +178,11 @@ const ClientBottomComponent = ({ event, id }: any) => {
                 </div>
               </div>
             ))}
+          <ImageModal
+            isOpen={petModalOpen}
+            onClose={() => setPetModalOpen(false)}
+            images={event.images}
+          />
         </div>
       </div>
     </>

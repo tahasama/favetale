@@ -24,7 +24,7 @@ const ClientComponent = ({ event, id }: any) => {
     setSelectedImage,
     selectedImage,
     uploadpetModalOpen,
-    setUploadpetModalOpen,
+    setMeetupModalOpen,
     comments,
   } = useCart();
 
@@ -74,9 +74,9 @@ const ClientComponent = ({ event, id }: any) => {
     >
       {/* {event && event.writer.id === userx.id && ( */}
 
-      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-40 backdrop-brightness-75 backdrop-blur-sm p-4">
+      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-30 backdrop-brightness-75 backdrop-blur-sm p-4">
         <button
-          onClick={() => setUploadpetModalOpen(true)}
+          onClick={() => setMeetupModalOpen(true)}
           className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
         >
           <span className="text-base md:text-xl"></span>
@@ -93,7 +93,7 @@ const ClientComponent = ({ event, id }: any) => {
 
       <MeetupsModal
         isOpen={uploadpetModalOpen}
-        onClose={() => setUploadpetModalOpen(false)}
+        onClose={() => setMeetupModalOpen(false)}
         event={event}
       />
 
@@ -118,7 +118,7 @@ const ClientComponent = ({ event, id }: any) => {
 
       {/* <ImageModal
         isOpen={uploadpetModalOpen}
-        onClose={() => setUploadpetModalOpen(false)}
+        onClose={() => setMeetupModalOpen(false)}
         images={event && event.images}
         // initialIndex={selectedImageIndex}
       /> */}

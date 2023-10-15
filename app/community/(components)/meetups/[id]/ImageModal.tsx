@@ -45,7 +45,7 @@ const ImageModal = ({ isOpen, onClose, images }: any) => {
                 className="flex justify-center items-center rounded-2xl "
                 key={index}
               >
-                <div className="flex justify-center py-2 items-center rounded-xl bg-gradient-to-b from-tealLight to-blue-300">
+                <div className="flex justify-center py-2 items-center rounded-xl">
                   <Image
                     src={pet}
                     alt="pet"

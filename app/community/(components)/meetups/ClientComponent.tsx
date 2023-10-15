@@ -4,7 +4,7 @@ import React from "react";
 import MeetupsModal from "./MeetupsModal";
 
 const ClientComponent = () => {
-  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
+  const { meetupModalOpen, setMeetupModalOpen } = useCart();
 
   return (
     <div className="bg-fuchsia-700 p-6 sm:p-12 text-left rounded-br-3xl leading-loose tracking-wide">
@@ -18,14 +18,14 @@ const ClientComponent = () => {
       </p>
 
       <button
-        onClick={() => setUploadpetModalOpen(true)}
+        onClick={() => setMeetupModalOpen(true)}
         className="bg-tealLight hover:animate-buttonHover hover:text-white px-3 lg:px-4 py-2 lg:py-3 rounded-md hover:bg-fuchsia-400 transition-colors duration-500"
       >
         Create a Gathering
       </button>
       <MeetupsModal
-        isOpen={uploadpetModalOpen}
-        onClose={() => setUploadpetModalOpen(false)}
+        isOpen={meetupModalOpen}
+        onClose={() => setMeetupModalOpen(false)}
       />
     </div>
   );
