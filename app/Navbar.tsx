@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
-  const { cart, setCart, quantities } = useCart();
+  const { cart, setCart, quantities, userx } = useCart();
 
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
@@ -291,7 +291,7 @@ const Navbar = () => {
                 <div className=" absolute right-0 mt-2  bg-slate-50 rounded-lg shadow-lg">
                   {/* Dropdown menu for logged-in users */}
                   <Link
-                    href="/profile"
+                    href={`/profile/${userx.id} `}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >
                     <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">

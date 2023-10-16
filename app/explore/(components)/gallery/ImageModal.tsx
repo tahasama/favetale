@@ -26,6 +26,7 @@ import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en.json";
 import UploadImageModal from "./UploadImageModal";
+import Link from "next/link";
 TimeAgo.addDefaultLocale(en);
 
 const ImageModal = () => {
@@ -36,16 +37,8 @@ const ImageModal = () => {
     uploadpetModalOpen,
     setUploadpetModalOpen,
   } = useCart();
-  console.log(
-    "🚀 ~ file: ImageModal.tsx:36 ~ ImageModal ~ selectedImage:",
-    selectedImage
-  );
 
   const [comments, setComments] = useState<any[]>([]);
-  console.log(
-    "🚀 ~ file: ImageModal.tsx:45 ~ ImageModal ~ comments:",
-    comments[0]
-  );
 
   // Function to fetch comments
   const fetchComments = async () => {
@@ -291,6 +284,16 @@ const ImageModal = () => {
                 <span className="text-slate-300 text-base md:text-xl"></span>
                 <AiFillDelete color={"#d4dae2"} size={24} />
               </button>
+              <p className="text-slate-300">
+                Posted by :{" "}
+                <Link
+                  href={`/profile/${selectedImage.poster.id}`}
+                  className="capitalize text-sky-500 underline underline-offset-2"
+                >
+                  {" "}
+                  {selectedImage.poster.name}
+                </Link>
+              </p>
             </div>
           )}
         </div>

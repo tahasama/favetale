@@ -1,46 +1,48 @@
 "use client";
 import React, { useState } from "react";
-import user from "../images/user/userf.jpg";
-import catu from "../images/user/catu.jpg";
-import catu2 from "../images/user/catu2.jpg";
-import catu3 from "../images/user/catu3.jpg";
+import user from "../../images/user/userf.jpg";
+import catu from "../../images/user/catu.jpg";
+import catu2 from "../../images/user/catu2.jpg";
+import catu3 from "../../images/user/catu3.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { Keyboard, Pagination, Navigation } from "swiper/modules";
 
-import i16 from "../images/16.jpg";
-import i17 from "../images/17.jpg";
-import i18 from "../images/18.jpg";
-import i19 from "../images/19.jpg";
+import i16 from "../../images/16.jpg";
+import i17 from "../../images/17.jpg";
+import i18 from "../../images/18.jpg";
+import i19 from "../../images/19.jpg";
 
-import blog1 from "../images/blog/blog1.jpg";
-import blog2 from "../images/blog/blog2.jpg";
-import blog3 from "../images/blog/blog3.jpg";
-import blog4 from "../images/blog/blog4.jpg";
-import blog5 from "../images/blog/blog5.jpg";
-import blog6 from "../images/blog/blog6.jpg";
+import blog1 from "../../images/blog/blog1.jpg";
+import blog2 from "../../images/blog/blog2.jpg";
+import blog3 from "../../images/blog/blog3.jpg";
+import blog4 from "../../images/blog/blog4.jpg";
+import blog5 from "../../images/blog/blog5.jpg";
+import blog6 from "../../images/blog/blog6.jpg";
 
-import story1 from "../images/stories/story1.jpg";
-import story2 from "../images/stories/story2.jpg";
-import story3 from "../images/stories/story3.jpg";
-import story4 from "../images/stories/story4.jpg";
-import story5 from "../images/stories/story5.jpg";
-import story6 from "../images/stories/story6.jpg";
-import story7 from "../images/stories/story7.jpg";
+import story1 from "../../images/stories/story1.jpg";
+import story2 from "../../images/stories/story2.jpg";
+import story3 from "../../images/stories/story3.jpg";
+import story4 from "../../images/stories/story4.jpg";
+import story5 from "../../images/stories/story5.jpg";
+import story6 from "../../images/stories/story6.jpg";
+import story7 from "../../images/stories/story7.jpg";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import ImageModal from "./ImageModal";
+import ImageModal from "../ImageModal";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-import cage from "../images/store/cage.jpg";
-import feeder from "../images/store/feeder.jpg";
-import scratch from "../images/store/scratch.jpg";
-import { useCart } from "../provider/CartProvider";
+import cage from "../../images/store/cage.jpg";
+import feeder from "../../images/store/feeder.jpg";
+import scratch from "../../images/store/scratch.jpg";
+import { useCart } from "../../provider/CartProvider";
+import { useParams } from "next/navigation";
 
-const UserProfile = () => {
+const UserProfile = ({ params: { id } }: any) => {
+  console.log("🚀 ~ file: page.tsx:46 ~ UserProfile ~ params:", id);
   const catus = [catu, catu2, catu3];
   const petImages = [i16, i17, i18, i19];
   const blogsData = [

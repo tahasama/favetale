@@ -24,6 +24,7 @@ export const CartProvider = ({ children }: any) => {
   const [petModalOpen, setPetModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<any>("");
   const [comments, setComments] = useState<any[]>([]);
+  const [filterImage, setFilterImage] = useState<any>("");
 
   // const [petModalOpen, setPetModalOpen] = useState(false);
 
@@ -83,6 +84,8 @@ export const CartProvider = ({ children }: any) => {
         setMeetupModalOpen,
         petModalOpen,
         setPetModalOpen,
+        filterImage,
+        setFilterImage,
       }}
     >
       {children}
