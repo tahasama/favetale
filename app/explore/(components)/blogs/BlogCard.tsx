@@ -29,7 +29,8 @@ const BlogCard = ({ blog, index }: any) => {
             writer : {blog.writer.name}{" "}
           </p>
           <p className="text-green-800 indent-4 ">
-            {blog.createdAt && blog.createdAt.toDate().toDateString()}
+            {blog.createdAt &&
+              new Date(blog.createdAt.seconds * 1000).toDateString()}
           </p>
         </div>
       </div>
