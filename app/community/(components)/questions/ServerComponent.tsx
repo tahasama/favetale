@@ -26,7 +26,7 @@ const ServerComponent = async () => {
   );
 
   return (
-    <div className="container mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">
+    <div className="mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">
       <div className="flex flex-col w-full md:w-2/3 p-3 mt-10 gap-4">
         {questionsData &&
           questionsData.map((question: any, index: any) => (
