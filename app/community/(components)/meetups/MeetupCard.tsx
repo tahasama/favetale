@@ -66,6 +66,9 @@ const MeetupCard = ({ meetup }: any) => {
           <button className="mt-3 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
             Join Meetup
           </button>
+          <button className="mt-3 ml-10 bg-gradient-to-r from-slate-500 to-slate-400 text-white px-4 py-2 rounded-md hover:from-slate-600 hover:to-slate-400 transition-colors">
+            {meetup.participants.length} participants
+          </button>
         </div>
       </motion.div>
     </Link>
