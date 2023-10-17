@@ -99,7 +99,7 @@ const ClientComponent = ({ event, id }: any) => {
 
       {/* )} */}
       <motion.p
-        className="font-semibold tracking-wider leading-loose text-center md:text-start text-4xl lg:text-5xl xl:text-6xl z-10 absolute  text-teal-600"
+        className="font-semibold tracking-wider backdrop-blur-sm backdrop-brightness-110 px-1.5 rounded-lg leading-loose text-center md:text-start text-4xl lg:text-5xl xl:text-6xl z-10 absolute  text-teal-600"
         style={{ y: textTranslateY }}
       >
         {event && event.title}

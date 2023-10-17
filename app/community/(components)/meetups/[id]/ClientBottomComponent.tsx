@@ -13,6 +13,7 @@ import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
 import UploadImageMeetupModal from "./UploadImageMeetupModal";
 import UploadpetModalOpenButton from "./UploadpetModalOpenButton";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -136,10 +137,31 @@ const ClientBottomComponent = ({ event, id }: any) => {
         </div>
         <div className="space-y-4 mx-2" ref={commentsSectionRef}>
           {comments.map((reply: any) => (
-            <div key={reply.id} className="border-b-2 p-3 rounded-r-lg">
-              <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
-              <div className="flex gap-4">
-                <p className="text-gray-600 mb-2">@ {reply.commenter.name}</p>
+            <div
+              key={reply.id}
+              className="border-y-2 px-5 pb-3 pt-6 rounded-r-lg"
+            >
+              <div className="flex items-center">
+                {userx.image ? (
+                  <Link
+                    href="/profile"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={reply.commenter.image}
+                      alt="Your Name"
+                      className="w-10 h-10 rounded-full"
+                    />
+                  </Link>
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-sky-300 px-3 mr-4"></div>
+                )}
+                <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
+              </div>
+
+              <div className="flex gap-4 my-2">
+                <p className="text-gray-600 ml-4">@ {reply.commenter.name}</p>
                 <p className="text-gray-400 text-sm mb-2">
                   <ReactTimeAgo date={reply.timestamp} locale="en-US" />
                 </p>
@@ -178,6 +200,16 @@ const ClientBottomComponent = ({ event, id }: any) => {
                 </div>
               </div>
             ))}
+          <div
+            className="w-full h-60 bg-gradient-to-br from-sky-100 to-sky-300 group rounded-lg flex justify-center flex-col items-center cursor-pointer gap-3"
+            onClick={() => setPetModalOpen(true)}
+          >
+            <AiOutlinePlusCircle
+              size={44}
+              className="group-hover:scale-125 transition-transform duration-200"
+            />
+            <span className="text-slate-700 text-lg"> Click for more...</span>
+          </div>
           <ImageModal
             isOpen={petModalOpen}
             onClose={() => setPetModalOpen(false)}

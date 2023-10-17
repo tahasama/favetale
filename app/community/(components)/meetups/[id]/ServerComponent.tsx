@@ -6,29 +6,34 @@ const ServerComponent = ({ event }: any) => {
     event
   );
   return (
-    <div className="p-2 md:p-6 bg-gradient-to-b h-auto from-tealLight to-blue-300">
-      <div className="flex flex-col md:flex-row justify-between">
-        <div>
-          <p className="text-xl font-semibold mb-4">{event && event.title}</p>
-          <p className="text-gray-600 md:text-lg mb-2">
-            {event && event.description}
-          </p>
-          <p className="text-gray-600 md:text-lg">
-            <span className="font-semibold">Date:</span> {event.startDate} to
-            {event.endDate}
-          </p>
-          <p className="text-gray-600 md:text-lg">
-            <span className="font-semibold">Time:</span> From:{event.timeFrom}{" "}
-            to: {event.timeTo}
-          </p>
-          <p className="text-gray-600 md:text-lg">
-            <span className="font-semibold">Location:</span>{" "}
-            {event && event.location.city}
-          </p>
+    <div className="p-2 md:p-6 bg-gradient-to-b h-auto from-blue-200 to-white">
+      <div className="event-card bg-white rounded-lg shadow-md p-6">
+        <h1 className="text-3xl font-bold mb-4">{event?.title}</h1>
+        <p className="text-gray-600 text-lg mb-2">{event?.description}</p>
+
+        <div className="text-gray-600 text-lg">
+          <div className="flex items-center mb-2">
+            <span className="font-semibold mr-2">Date:</span>
+            <span>
+              {event?.startDate} to {event?.endDate}
+            </span>
+          </div>
+          <div className="flex items-center mb-2">
+            <span className="font-semibold mr-2">Time:</span>
+            <span>
+              {event?.timeFrom} - {event?.timeTo}
+            </span>
+          </div>
+          <div className="mb-2">
+            <span className="font-semibold">Location:</span>
+
+            <span className="mr-2">{event?.location.zipcode}, </span>
+
+            <span className="mr-2 capitalize">{event?.location.city}, </span>
+
+            <span className="uppercase">{event?.location.country}</span>
+          </div>
         </div>
-        <button className="h-12 md:h-16 w-28 md:w-40  md:text-lg hover:animate-bounceQ bg-gradient-to-r from-indigo-500 to-indigo-300 text-white rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
-          Join Meetup
-        </button>
       </div>
     </div>
   );

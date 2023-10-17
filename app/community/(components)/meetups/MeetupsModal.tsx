@@ -238,12 +238,12 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               htmlFor="zipCode"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
             >
-              ZIP Code:
+              Adresse :
             </label>
             <input
               type="text"
               id="zipCode"
-              placeholder="Enter ZIP Code"
+              placeholder="Enter Adress ex: park the pets 60000..."
               className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
               value={newGathering.location.zipCode}
               onChange={(e) =>
@@ -306,12 +306,16 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
                   id="timeFrom"
                   className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
                   value={newGathering.timeFrom}
-                  onChange={(e) =>
-                    setNewGathering({
-                      ...newGathering,
-                      timeFrom: e.target.value,
-                    })
-                  }
+                  onChange={(e) => {
+                    console.log(
+                      "🚀 ~ file: MeetupsModal.tsx:313 ~ MeetupsModal ~ e.target.value:",
+                      e.target.value
+                    ),
+                      setNewGathering({
+                        ...newGathering,
+                        timeFrom: e.target.value,
+                      });
+                  }}
                 />
               </div>
               <div className="flex gap-6 w-full items-center">
