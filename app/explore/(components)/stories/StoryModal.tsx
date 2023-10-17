@@ -42,6 +42,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
 
   const { userx, setUploadpetModalOpen } = useCart();
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
 
   const [content, setContent] = useState(story ? story.content : "");
   const editor = useRef(null);
@@ -83,7 +84,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
   };
 
   const publishstory = async (e: any, isDraft: boolean) => {
-    setLoading(true);
+    isDraft ? setLoading(true) : setLoading2(true);
     e.preventDefault();
 
     if (imageFile || content || title) {
@@ -139,7 +140,9 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
             content,
             tags,
             image: imageUrl,
+            draft: isDraft,
             createdAt: serverTimestamp(),
+
             ...updateData, // Add the draft property
           };
 
@@ -148,6 +151,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
 
         setUploadpetModalOpen(false);
         setLoading(false);
+        setLoading2(false);
         setImageFile(null);
         setTags([]);
         setContent("");
@@ -156,6 +160,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
         setLoading(false);
+        setLoading2(false);
       }
     }
   };
@@ -262,7 +267,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
                 </button>
                 <button
                   type="submit"
-                  className="ring-1 ring-pink-500 hover:bg-pink-500group hover:text-white transition-colors duration-300 text-pink-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  className="ring-1 ring-pink-500 hover:bg-pink-500 group hover:text-white transition-colors duration-300 text-pink-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                   onClick={(e) => publishstory(e, true)}
                 >
                   {!loading ? (
@@ -271,13 +276,13 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
                     <span className="flex">
                       Loading
                       <div className="flex justify-center ml-0.5 mt-1.5">
-                        <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div className="w-1 h-1 bg-pink-600 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
                         <div
-                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          className="w-1 h-1 bg-pink-600 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.1s" }}
                         ></div>
                         <div
-                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          className="w-1 h-1 bg-pink-600 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>
@@ -288,9 +293,9 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
                 <button
                   type="submit"
                   className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
-                  onClick={(e) => publishstory(e, true)}
+                  onClick={(e) => publishstory(e, false)}
                 >
-                  {!loading ? (
+                  {!loading2 ? (
                     "Publish"
                   ) : (
                     <span className="flex">
