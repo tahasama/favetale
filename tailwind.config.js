@@ -44,6 +44,11 @@ module.exports = {
           "50%": { translate: "0px 1px" },
           "100%": { translate: "0px 0px" },
         },
+        skeleton: {
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
       },
       animation: {
         fadeInOut: "fade 2s linear ",
@@ -53,6 +58,7 @@ module.exports = {
         bounceQ: "bounce1 1s linear ",
         bounceQ1: "bounce1 1s linear infinite",
         bounceZ: "bounce2 1s linear  ",
+        move: "skeleton 1s linear infinite",
       },
       backgroundSize: {
         "50%": "50%",

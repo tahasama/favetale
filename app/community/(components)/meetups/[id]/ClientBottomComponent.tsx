@@ -200,16 +200,23 @@ const ClientBottomComponent = ({ event, id }: any) => {
                 </div>
               </div>
             ))}
-          <div
-            className="w-full h-60 bg-gradient-to-br from-sky-100 to-sky-300 group rounded-lg flex justify-center flex-col items-center cursor-pointer gap-3"
-            onClick={() => setPetModalOpen(true)}
-          >
-            <AiOutlinePlusCircle
-              size={44}
-              className="group-hover:scale-125 transition-transform duration-200"
-            />
-            <span className="text-slate-700 text-lg"> Click for more...</span>
-          </div>
+          {event.images.length > 2 && (
+            <div
+              className="relative w-full h-60 bg-gradient-to-br z-40 from-sky-100 to-sky-300 group rounded-lg flex justify-center flex-col items-center cursor-pointer gap-3"
+              onClick={() => setPetModalOpen(true)}
+            >
+              <AiOutlinePlusCircle
+                size={44}
+                className="group-hover:scale-125 transition-transform duration-200"
+              />
+              <span className="text-slate-700 text-lg"> Click for more...</span>
+
+              {/* loading UI
+            <div className="overflow-hidden w-full h-full relative">
+              <span className=" bg-gradient-to-r from-transparent via-slate-500 animate-move to-transparent absolute w-full h-full -left-40 inset-0 z-50  overflow-hidden"></span>
+            </div> */}
+            </div>
+          )}
           <ImageModal
             isOpen={petModalOpen}
             onClose={() => setPetModalOpen(false)}

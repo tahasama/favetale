@@ -18,7 +18,7 @@ const MeetupCard = ({ meetup }: any) => {
             <Image
               src={meetup.image}
               alt={meetup.name}
-              className="w-full h-40 object-cover"
+              className="w-full h-52 object-cover"
               width={1000}
               height={1000}
             />
@@ -27,18 +27,42 @@ const MeetupCard = ({ meetup }: any) => {
             {meetup.startDate}
           </div>
         </div>
-        <div className="p-4">
-          <h3 className="text-lg font-semibold mb-2">{meetup.name}</h3>
-          <p className="text-gray-600 mb-2">{meetup.location.country}</p>
-          <p className="text-gray-600 mb-2">{meetup.location.city}</p>
-          <p className="text-gray-600 mb-2">{meetup.location.zipCode}</p>
-          <p className="text-gray-600 mb-2">
-            {" "}
-            From <span className="text-red-600">
-              {meetup.startDate}
-            </span> to <span className="text-red-600">{meetup.endDate}</span>
-          </p>
-          <p className="text-gray-600">{meetup.description}</p>
+        <div className="p-2 md:p-6 bg-gradient-to-b h-auto from-blue-200 to-white">
+          <div className="p-0">
+            <h2 className="text-2xl font-bold mb-2">{meetup?.title}</h2>
+            <p className="text-gray-600 text-lg mb-2">{meetup?.description}</p>
+
+            <div className="text-gray-600 text-lg">
+              <div className="flex items-center mb-2">
+                <span className="font-semibold mr-2">Date:</span>
+                <span className="text-red-500 mr-2 text-base">
+                  {meetup?.startDate}{" "}
+                </span>{" "}
+                to
+                <span className="text-red-500 ml-2 text-base">
+                  {meetup?.endDate}{" "}
+                </span>
+              </div>
+              <div className="flex items-center mb-2">
+                <span className="font-semibold mr-2">Time:</span>
+                <span className="text-base">
+                  {meetup?.timeFrom} - {meetup?.timeTo}
+                </span>
+              </div>
+              <div className="mb-2">
+                <span className="font-semibold">Location:</span>
+
+                <span className="mr-2">{meetup?.location.zipcode}, </span>
+
+                <span className="mr-2 capitalize">
+                  {meetup?.location.city},{" "}
+                </span>
+
+                <span className="uppercase">{meetup?.location.country}</span>
+              </div>
+            </div>
+          </div>
+
           <button className="mt-3 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors">
             Join Meetup
           </button>

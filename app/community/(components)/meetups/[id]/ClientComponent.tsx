@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import MeetupsModal from "../MeetupsModal";
+import JoinButton from "./JoinButton";
 
 const ClientComponent = ({ event, id }: any) => {
   const ref = useRef<any>(null);
@@ -72,24 +73,24 @@ const ClientComponent = ({ event, id }: any) => {
       className="grid place-items-center relative w-full h-[70vh] overflow-hidden"
       ref={ref}
     >
-      {/* {event && event.writer.id === userx.id && ( */}
-
-      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-30 backdrop-brightness-75 backdrop-blur-sm p-4">
-        <button
-          onClick={() => setMeetupModalOpen(true)}
-          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-        >
-          <span className="text-base md:text-xl"></span>
-          <AiOutlineEdit color={"#d4dae2"} size={24} />
-        </button>
-        <button
-          onClick={removeImage}
-          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-        >
-          <span className="text-base md:text-xl"></span>
-          <AiFillDelete color={"#d4dae2"} size={24} />
-        </button>
-      </div>
+      {event && event.writer.id === userx.id && (
+        <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-30 backdrop-brightness-75 backdrop-blur-sm p-4">
+          <button
+            onClick={() => setMeetupModalOpen(true)}
+            className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+          >
+            <span className="text-base md:text-xl"></span>
+            <AiOutlineEdit color={"#d4dae2"} size={24} />
+          </button>
+          <button
+            onClick={removeImage}
+            className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+          >
+            <span className="text-base md:text-xl"></span>
+            <AiFillDelete color={"#d4dae2"} size={24} />
+          </button>
+        </div>
+      )}
 
       <MeetupsModal
         isOpen={uploadpetModalOpen}
@@ -97,10 +98,16 @@ const ClientComponent = ({ event, id }: any) => {
         event={event}
       />
 
-      {/* )} */}
       <motion.p
-        className="font-semibold tracking-wider backdrop-blur-sm backdrop-brightness-110 px-1.5 rounded-lg leading-loose text-center md:text-start text-4xl lg:text-5xl xl:text-6xl z-10 absolute  text-teal-600"
         style={{ y: textTranslateY }}
+        className="font-semibold tracking-wider -mt-36 px-1.5 rounded-lg leading-loose text-center md:text-start text-base lg:text-2xl xl:text-2xl z-10 absolute"
+      >
+        <JoinButton newEvent={event} />
+      </motion.p>
+
+      <motion.p
+        style={{ y: textTranslateY }}
+        className="font-semibold tracking-wider backdrop-blur-sm backdrop-brightness-75  px-1.5 rounded-lg leading-loose text-center md:text-start text-4xl lg:text-5xl xl:text-6xl z-10 absolute capitalize  text-tealLight"
       >
         {event && event.title}
       </motion.p>
@@ -115,13 +122,6 @@ const ClientComponent = ({ event, id }: any) => {
           y: backgroundTranslateY,
         }}
       />
-
-      {/* <ImageModal
-        isOpen={uploadpetModalOpen}
-        onClose={() => setMeetupModalOpen(false)}
-        images={event && event.images}
-        // initialIndex={selectedImageIndex}
-      /> */}
     </div>
   );
 };

@@ -174,6 +174,7 @@ async function Event({ params: { id } }: any) {
   return (
     <div className="relative  h-full text-black py-12 ">
       <ClientComponent event={event} id={id} />
+
       <Suspense fallback={<Loading />}>
         <ServerComponent event={event} />
       </Suspense>

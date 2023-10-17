@@ -34,6 +34,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
     "🚀 ~ file: MeetupsModal.tsx:53 ~ MeetupsModal ~ newGathering:",
     newGathering
   );
+  const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
 
@@ -51,7 +52,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
 
   const handleCreateGathering = async (e: any) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const gatheringsCollection = collection(db, "gatherings");
 
@@ -77,6 +78,8 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           setError("All fields are necessary to create an event.");
           return;
         }
+
+        newGathering.writer = userx;
 
         const storage = getStorage();
         const storageRef = ref(
@@ -145,9 +148,11 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
       }
 
       setError(""); // Clear any previous error message
+      setLoading(false);
       onClose();
     } catch (error) {
       console.error("Error creating or updating gathering: ", error);
+      setLoading(false);
     }
   };
 
@@ -375,7 +380,24 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               onClick={(e: any) => handleCreateGathering(e)}
               className="bg-violet-600 hover:bg-violet-700 mt-2 text-white text-lg font-semibold py-2 px-4 rounded w-7/12"
             >
-              Create
+              {!loading ? (
+                "Save/Draft"
+              ) : (
+                <span className="flex">
+                  Loading
+                  <div className="flex justify-center ml-0.5 mt-1.5">
+                    <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                    <div
+                      className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                  </div>
+                </span>
+              )}
             </button>
           </div>
         </form>

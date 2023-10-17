@@ -1,4 +1,5 @@
 import React from "react";
+import JoinButton from "./JoinButton";
 
 const ServerComponent = ({ event }: any) => {
   console.log(
@@ -8,7 +9,9 @@ const ServerComponent = ({ event }: any) => {
   return (
     <div className="p-2 md:p-6 bg-gradient-to-b h-auto from-blue-200 to-white">
       <div className="event-card bg-white rounded-lg shadow-md p-6">
+        {/* <JoinButton newEvent={event} /> */}
         <h1 className="text-3xl font-bold mb-4">{event?.title}</h1>
+
         <p className="text-gray-600 text-lg mb-2">{event?.description}</p>
 
         <div className="text-gray-600 text-lg">
