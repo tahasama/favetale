@@ -238,20 +238,21 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
                   </button>
                 </div>
                 <div className="mt-3 space-x-2">
-                  {tags.map((tag: any, index: any) => (
-                    <span
-                      key={index}
-                      className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md relative"
-                    >
-                      {tag}
-                      <button
-                        onClick={() => removeTag(index)}
-                        className="absolute -top-2 bg-sky-700 -right-2 px-1.5 text-white rounded-full cursor-pointer"
+                  {tags &&
+                    tags.map((tag: any, index: any) => (
+                      <span
+                        key={index}
+                        className="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-md relative"
                       >
-                        x
-                      </button>
-                    </span>
-                  ))}
+                        {tag}
+                        <button
+                          onClick={() => removeTag(index)}
+                          className="absolute -top-2 bg-sky-700 -right-2 px-1.5 text-white rounded-full cursor-pointer"
+                        >
+                          x
+                        </button>
+                      </span>
+                    ))}
                 </div>
               </div>
               <div className="mb-6  flex justify-center lg:justify-end space-x-5 lg:space-x-4">
