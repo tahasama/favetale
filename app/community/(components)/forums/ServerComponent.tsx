@@ -19,10 +19,6 @@ async function getData() {
 
 const ServerComponent = async () => {
   const discussionsData = await getData();
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:22 ~ ServerComponent ~ discussionsData:",
-    discussionsData
-  );
 
   const forumData = [
     {
@@ -63,10 +59,21 @@ const ServerComponent = async () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-2 ">
-      {forumData.map((forum: any, index: any, discussionsData: any) => (
-        <ForumCard forum={forum} index={index} discussions={discussionsData} />
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-2">
+      {forumData.map((forum) => {
+        // Filter discussions for the current forum
+        const filteredDiscussions = discussionsData?.filter(
+          (discussion) => discussion.category === forum.category
+        );
+
+        return (
+          <ForumCard
+            key={forum.id} // Remember to add a unique key for each item in the map function
+            forum={forum}
+            discussions={filteredDiscussions}
+          />
+        );
+      })}
     </div>
   );
 };

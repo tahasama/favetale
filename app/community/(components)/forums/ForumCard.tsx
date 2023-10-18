@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const ForumCard = ({ forum, index, discussionsData }: any) => {
+const ForumCard = ({ forum, index, discussions }: any) => {
   console.log(
     "🚀 ~ file: ForumCard.tsx:8 ~ ForumCard ~ discussionsData:",
-    discussionsData
+    discussions.length
   );
+
   return (
     <motion.div
       initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
@@ -31,10 +32,10 @@ const ForumCard = ({ forum, index, discussionsData }: any) => {
           <p className="text-gray-400 text-sm">{forum.lastPost}</p>
           <div className="flex items-center mt-2">
             <div className="bg-indigo-500 text-white px-2 py-1 rounded-md text-xs mr-2">
-              {forum.posts} posts
+              {discussions.length}&nbsp;posts
             </div>
             <div className="bg-gray-100 text-gray-500 px-2 py-1 rounded-md text-xs">
-              Join the discussion
+              Join the discussions
             </div>
           </div>
         </div>
