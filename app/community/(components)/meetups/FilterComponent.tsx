@@ -116,13 +116,13 @@ const FilterComponent = ({ meetupsData }: any) => {
         <div className="col-span-full">
           <button
             onClick={handleSearch}
-            className="bg-violet-600 hover:bg-violet-700  text-white text-lg font-bold py-2 px-0  rounded w-full sm:w-[20%]"
+            className="bg-violet-600 hover:bg-violet-700  text-white text-lg font-bold py-2 px-0  rounded w-full sm:w-[18%] shadow-slate-700 shadow-md hover:animate-bounceQ active:animate-bounceQ"
           >
             Search
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {searchResults?.map((meetup: any, index: any) => (
           <>
             <MeetupCard meetup={meetup} />
