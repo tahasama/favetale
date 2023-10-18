@@ -17,6 +17,7 @@ const petImages = ({ image, index }: any) => {
       key={image.id}
       className={`relative mb-8 ${
         filterImage === "All" ||
+        filterImage === "" ||
         (image.category === filterImage?.toLowerCase() ? "block" : "hidden")
       }`}
       initial={{ opacity: 0, y: index * 100 + 100 }} // Initial state (hidden and slightly moved down)
