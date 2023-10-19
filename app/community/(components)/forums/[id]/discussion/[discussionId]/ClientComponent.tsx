@@ -302,7 +302,7 @@ const ClientComponent = ({ discussionData }: any) => {
       )}
       {/* Add Comment */}
       <div className="mt-8 mb-6">
-        <div className="flex items-start space-x-4">
+        <div className="flex items-start space-x-3">
           {userx.image ? (
             <Link href="/profile" target="_blank" rel="noopener noreferrer">
               <img
@@ -312,7 +312,7 @@ const ClientComponent = ({ discussionData }: any) => {
               />
             </Link>
           ) : (
-            <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
+            <div className="w-9 h-9 rounded-full bg-sky-300 px-3"></div>
           )}
           <div className="flex flex-col space-y-4 w-full">
             <textarea
