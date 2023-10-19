@@ -15,6 +15,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -40,8 +41,9 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
   console.log("🚀 ~ file: BlogModal.tsx:34 ~ BlogModal ~ blog:", blog);
   const router = useRouter();
 
-  const { userx, setUploadpetModalOpen } = useCart();
+  const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
 
   const [content, setContent] = useState("");
   const editor = useRef(null);
@@ -83,7 +85,22 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
     setTags(newTags);
   };
 
+  const getBlog = async (blogId: any) => {
+    const docRef = doc(db, "blogs", String(blogId));
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:");
+      setSelectedImage({ ...docSnap.data(), id: docSnap.id });
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
+
   const publishBlog = async (e: any, isDraft: boolean) => {
+    isDraft ? setLoading(true) : setLoading2(true);
+
     setLoading(true);
     e.preventDefault();
 
@@ -132,6 +149,8 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
           }
 
           await updateDoc(blogRef, updateData);
+          // router.push(`/explore/blogs/${blog.id}`);
+          getBlog(blog.id);
         } else {
           // If creating a new blog post
           const blogData = {
@@ -144,11 +163,17 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
             ...updateData, // Add the draft property
           };
 
-          await addDoc(collection(db, "blogs"), blogData);
+          const blog = await addDoc(collection(db, "blogs"), blogData);
+          console.log(
+            "🚀 ~ file: BlogModal.tsx:148 ~ publishBlog ~ blog:",
+            blog.id
+          );
+          router.push(`/explore/blogs/${blog.id}`);
         }
 
         setUploadpetModalOpen(false);
         setLoading(false);
+        setLoading2(false);
         setImageFile(null);
         setTags([]);
         setContent("");
@@ -157,6 +182,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
         setLoading(false);
+        setLoading2(false);
       }
     }
   };
@@ -265,7 +291,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
 
                 <button
                   type="submit"
-                  className="ring-1 ring-pink-500 hover:bg-pink-500group hover:text-white transition-colors duration-300 text-pink-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                  className="ring-1 ring-pink-500 hover:bg-pink-500 group hover:text-white transition-colors duration-300 text-pink-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                   onClick={(e) => publishBlog(e, true)}
                 >
                   {!loading ? (
@@ -274,7 +300,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
                     <span className="flex">
                       Loading
                       <div className="flex justify-center ml-0.5 mt-1.5">
-                        <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div className="w-1 h-1 bg-pink-500 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
                         <div
                           className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.1s" }}
@@ -293,7 +319,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
                   className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-4 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                   onClick={(e) => publishBlog(e, false)}
                 >
-                  {!loading ? (
+                  {!loading2 ? (
                     "Publish"
                   ) : (
                     <span className="flex">

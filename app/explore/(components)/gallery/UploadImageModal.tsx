@@ -114,6 +114,7 @@ const UploadImageModal = () => {
     setUploadpetModalOpen(false);
     setLoading(false);
     setError("");
+    router.push(`/profile/${userx.id}`);
   };
 
   return (

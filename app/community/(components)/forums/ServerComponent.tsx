@@ -19,6 +19,10 @@ async function getData() {
 
 const ServerComponent = async () => {
   const discussionsData = await getData();
+  console.log(
+    "🚀 ~ file: ServerComponent.tsx:22 ~ ServerComponent ~ discussionsData:",
+    discussionsData
+  );
 
   const forumData = [
     {
@@ -53,7 +57,7 @@ const ServerComponent = async () => {
       id: 5,
       title: "Pet Product Reviews",
       description: "Discuss and review various pet products and gadgets.",
-      category: "Product",
+      category: "Products",
       tags: ["Toys", "Grooming", "Food"],
     },
   ];

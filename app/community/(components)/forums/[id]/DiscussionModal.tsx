@@ -6,6 +6,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -17,8 +18,10 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
     "🚀 ~ file: DiscussionModal.tsx:10 ~ DiscussionModal ~ discussionData:",
     discussion
   );
+
   const router = useRouter();
-  const { userx, setUploadpetModalOpen } = useCart();
+
+  const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
 
   const [selectedCategory, setSelectedCategory] = useState<string>(
     discussion ? discussion.category : "Health"
@@ -39,7 +42,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
     Training: ["Obedience", "Behavior", "Training Tools"],
     Behavior: ["Aggression", "Anxiety", "Training"],
     Adoption: ["Rescue", "Happy Endings", "Foster Care"],
-    "Product Reviews": ["Toys", "Grooming", "Food"],
+    Products: ["Toys", "Grooming", "Food"],
   };
 
   const handleCategoryChange = (event: any) => {
@@ -67,15 +70,24 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
         createdAt: serverTimestamp(),
       };
 
-      if (discussion.id) {
+      if (discussion?.id) {
         // Updating an existing discussion
         const discussionRef = doc(db, "discussions", discussion.id);
         const updateData = { ...discussionData }; // Update the fields you want to change
 
         await updateDoc(discussionRef, updateData);
+        router.refresh();
       } else {
         // Creating a new discussion
-        await addDoc(collection(db, "discussions"), discussionData);
+        const discussion = await addDoc(
+          collection(db, "discussions"),
+          discussionData
+        );
+        router.push(
+          `/community/forums/${
+            Object.keys(categoriesToTags).indexOf(discussionData.category) + 1
+          }/discussion/${discussion.id}`
+        );
       }
 
       setUploadpetModalOpen(false);
@@ -86,7 +98,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
       setDiscussionTitle("");
       setDiscussionContent("");
 
-      router.push("/profile");
+      // router.push("/profile");
 
       // Close the modal or perform any other action as needed
       onClose();
@@ -151,19 +163,21 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
             Tags
           </label>
           <div className="flex flex-wrap gap-2">
-            {categoriesToTags[selectedCategory].map((tag: any) => (
-              <button
-                key={tag}
-                className={`${
-                  selectedTags.includes(tag)
-                    ? "bg-indigo-500 text-white"
-                    : "bg-gray-200 text-gray-700"
-                } px-2 py-1 rounded-md text-xs cursor-pointer`}
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
-              </button>
-            ))}
+            {categoriesToTags &&
+              categoriesToTags[selectedCategory] &&
+              categoriesToTags[selectedCategory].map((tag: any) => (
+                <button
+                  key={tag}
+                  className={`${
+                    selectedTags.includes(tag)
+                      ? "bg-indigo-500 text-white"
+                      : "bg-gray-200 text-gray-700"
+                  } px-2 py-1 rounded-md text-xs cursor-pointer`}
+                  onClick={() => toggleTag(tag)}
+                >
+                  {tag}
+                </button>
+              ))}
           </div>
         </div>
 
@@ -193,12 +207,31 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
         </div>
 
         {/* Submit Button */}
-        <button
-          className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none"
-          onClick={handleSubmit}
-        >
-          Create Discussion
-        </button>
+        <div className="w-full flex justify-center mt-1">
+          <button
+            onClick={handleSubmit}
+            className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none text-lg"
+          >
+            {!loading ? (
+              "Create Discussion"
+            ) : (
+              <span className="flex justify-center px-1">
+                Loading
+                <div className="flex justify-center ml-0.5 mt-2.5">
+                  <div className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                  <div
+                    className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                    style={{ animationDelay: "0.1s" }}
+                  ></div>
+                  <div
+                    className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                    style={{ animationDelay: "0.2s" }}
+                  ></div>
+                </div>
+              </span>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

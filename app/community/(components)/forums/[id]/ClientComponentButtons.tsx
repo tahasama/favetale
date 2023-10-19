@@ -16,6 +16,7 @@ const ClientComponentButtuns = ({ id }: any) => {
       <DiscussionModal
         isOpen={uploadpetModalOpen}
         onClose={() => setUploadpetModalOpen(false)}
+        forumId={id}
       />
     </>
   );

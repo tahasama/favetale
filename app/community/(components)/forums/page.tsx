@@ -59,7 +59,7 @@ const Forums = () => {
       description: "Discuss and review various pet products and gadgets.",
       lastPost: "5 hours ago",
       posts: 45,
-      category: "Product Reviews",
+      category: "Products",
       tags: ["Toys", "Grooming", "Food"],
       sticky: false,
       participants: ["user999", "user888", "user777"],

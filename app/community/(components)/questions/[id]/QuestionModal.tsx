@@ -5,6 +5,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -14,8 +15,9 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 
 const QuestionModal = ({ isOpen, onClose, id }: any) => {
-  const { userx, setUploadpetModalOpen, selectedImage } = useCart();
-
+  const { userx, setUploadpetModalOpen, selectedImage, setSelectedImage } =
+    useCart();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handleModalClick = (e: any) => {
@@ -51,6 +53,18 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
     }
   };
 
+  const getQuestion = async () => {
+    const docRef = doc(db, "questions", String(id));
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:");
+      setSelectedImage({ ...docSnap.data(), id: docSnap.id });
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!!!!");
+    }
+  };
   const SendQuestion = async (e: any) => {
     setLoading(true);
     e.preventDefault();
@@ -81,6 +95,7 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
           // Update the question in Firestore
           const questionRef = doc(db, "questions", selectedImage.id);
           await updateDoc(questionRef, updatedQuestionData);
+          getQuestion();
         } else {
           const updatedQuestionData = {
             writer: userx,
@@ -92,6 +107,7 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
           // Update the question in Firestore without changing the image
           const questionRef = doc(db, "questions", selectedImage.id);
           await updateDoc(questionRef, updatedQuestionData);
+          getQuestion();
         }
       } else {
         // It's a new question
@@ -117,7 +133,8 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
           };
 
           // Create a new question in Firestore
-          await addDoc(questionsCollection, newQuestionData);
+          const question = await addDoc(questionsCollection, newQuestionData);
+          router.push(`/community/questions/${question.id}`);
         } else {
           const newQuestionData = {
             writer: userx,
@@ -130,7 +147,8 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
           };
 
           // Create a new question in Firestore without an image
-          await addDoc(questionsCollection, newQuestionData);
+          const question = await addDoc(questionsCollection, newQuestionData);
+          router.push(`/community/questions/${question.id}`);
         }
       }
 

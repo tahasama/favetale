@@ -144,7 +144,7 @@ const Forum = async ({ params: { id } }: any) => {
       description: "Discuss and review various pet products and gadgets.",
       lastPost: "5 hours ago",
       posts: 45,
-      category: "Product Reviews",
+      category: "Products",
       tags: ["Toys", "Grooming", "Food"],
       sticky: false,
       participants: ["user999", "user888", "user777"],
@@ -156,7 +156,7 @@ const Forum = async ({ params: { id } }: any) => {
   )[0];
 
   return (
-    <div className=" bg-tealLight flex justify-center w-full h-auto">
+    <div className=" bg-tealLight flex justify-center w-full h-full">
       <div className="mx-5  mt-20 lg:mt-40 bg-tealLight lg:w-7/12 ">
         <span className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
           <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>

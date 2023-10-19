@@ -32,10 +32,10 @@ const ServerComponent = async ({ id, selectedTag }: any) => {
     2: "Training",
     3: "Behavior",
     4: "Adoption",
+    5: "Products",
   };
   const discussionsDataFiltered: any = discussionsData?.filter(
-    (discussionFiltered: any) =>
-      discussionFiltered.category === (categoryMap[id] || "Product")
+    (discussionFiltered: any) => discussionFiltered.category === categoryMap[id]
   );
   console.log(
     "🚀 ~ file: ServerComponent.tsx:40 ~ ServerComponent ~ discussionsDataFiltered:",

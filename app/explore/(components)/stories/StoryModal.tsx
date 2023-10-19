@@ -15,6 +15,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -40,7 +41,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
   console.log("🚀 ~ file: storyModal.tsx:34 ~ storyModal ~ story:", story);
   const router = useRouter();
 
-  const { userx, setUploadpetModalOpen } = useCart();
+  const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
 
@@ -81,6 +82,19 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
     const newTags = [...tags];
     newTags.splice(index, 1);
     setTags(newTags);
+  };
+
+  const getStory = async (storyId: any) => {
+    const docRef = doc(db, "storys", String(storyId));
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:");
+      setSelectedImage({ ...docSnap.data(), id: docSnap.id });
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
   };
 
   const publishstory = async (e: any, isDraft: boolean) => {
@@ -132,6 +146,8 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
           }
 
           await updateDoc(storyRef, updateData);
+          router.push(`/explore/stories/${story.id}`);
+          getStory(story.id);
         } else {
           // If creating a new story post
           const storyData = {
@@ -146,7 +162,8 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
             ...updateData, // Add the draft property
           };
 
-          await addDoc(collection(db, "storys"), storyData);
+          const story = await addDoc(collection(db, "storys"), storyData);
+          router.push(`/explore/stories/${story.id}`);
         }
 
         setUploadpetModalOpen(false);

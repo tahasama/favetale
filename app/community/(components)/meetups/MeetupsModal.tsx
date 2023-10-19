@@ -9,6 +9,7 @@ import { useCart } from "@/app/provider/CartProvider";
 
 const MeetupsModal = ({ isOpen, onClose, event }: any) => {
   console.log("🚀 ~ file: MeetupsModal.tsx:11 ~ MeetupsModal ~ event:", event);
+  const router = useRouter();
   const [newGathering, setNewGathering] = useState<any>(
     !event
       ? {
@@ -25,6 +26,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           description: "",
           image: "",
           images: [],
+          participants: [],
         }
       : {
           ...event,
@@ -99,6 +101,9 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           newGatheringData
         );
         console.log("Gathering created with ID: ", newGatheringRef.id);
+
+        onClose();
+        router.push(`/community/meetups/${newGatheringRef.id}`);
 
         // Clear the form or perform any other necessary actions
         setNewGathering({
@@ -381,18 +386,18 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               className="bg-violet-600 hover:bg-violet-700 mt-2 text-white text-lg font-semibold py-2 px-4 rounded w-7/12"
             >
               {!loading ? (
-                "Save/Draft"
+                "Create a meetup"
               ) : (
-                <span className="flex">
+                <span className="flex justify-center">
                   Loading
-                  <div className="flex justify-center ml-0.5 mt-1.5">
-                    <div className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                  <div className="flex justify-center ml-0.5 mt-2.5">
+                    <div className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
                     <div
-                      className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                      className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                       style={{ animationDelay: "0.1s" }}
                     ></div>
                     <div
-                      className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                      className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                       style={{ animationDelay: "0.2s" }}
                     ></div>
                   </div>

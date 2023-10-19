@@ -77,9 +77,7 @@ const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
                 ))}
               </div>
               <p className="text-gray-400 text-sm my-2">
-                {new Date(
-                  filteredDiscussions[0].createdAt.seconds * 1000
-                ).toDateString()}
+                {new Date(discussion.createdAt.seconds * 1000).toDateString()}
               </p>
             </div>
           </Link>
