@@ -20,11 +20,11 @@ const Category = () => {
   ];
   return (
     <section className="py-10">
-      <div className="container mx-auto text-center">
+      <div className="flex flex-col items-center text-center">
         <h2 className="text-3xl md:text-4xl mt-3 indent-12 font-semibold mb-12">
           Featured Categories
         </h2>
-        <div className="flex flex-wrap justify-around gap-10">
+        <div className="flex flex-wrap justify-around gap-3 md:w-6/12">
           {featuredCategories.map((category, index) => (
             <Link
               key={index}
@@ -34,7 +34,7 @@ const Category = () => {
               <img
                 src={category.image.src}
                 alt={category.title}
-                className="shadow-md rounded-full object-cover h-24 w-24 md:h-36 md:w-36"
+                className="shadow-md rounded-full object-cover h-16 w-16 md:h-24 md:w-24"
               />
               <p className={`${montserrat.className} mt-2 text-lg`}>
                 {category.title}
