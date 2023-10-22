@@ -27,6 +27,7 @@ import Blogs from "./Blogs";
 import Stories from "./Stories";
 import Discussions from "./Discussions";
 import Questions from "./Questions";
+import Loading from "@/app/community/(components)/forums/loading";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
@@ -114,7 +115,7 @@ const UserProfile = ({ params: { id } }: any) => {
           </div>
         ))}
       </div>
-      <Suspense>
+      <Suspense fallback={<Loading />}>
         {tab === "Gallery" && <Gallery userx={userx} />}
         {tab === "Blogs" && <Blogs userx={userx} />}
         {tab === "Stories" && <Stories userx={userx} />}
