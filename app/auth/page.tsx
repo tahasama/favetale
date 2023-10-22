@@ -40,7 +40,7 @@ const SignUp = () => {
         email: email,
       };
       await setDoc(userRef, userData);
-      router.push("/profile");
+      router.push(`/profile/${user.uid}`);
 
       return user;
     } catch (error: any) {
@@ -64,7 +64,7 @@ const SignUp = () => {
       const user = userCredential.user;
       console.log("🚀 ~ file: page.tsx:22 ~ handleSignUp ~ user:", user);
 
-      router.push("/profile");
+      router.push(`/profile/${user.uid}`);
 
       return user;
     } catch (error: any) {
@@ -99,7 +99,8 @@ const SignUp = () => {
 
             // Set the user data in the component state
             setError(""); // Clear any previous errors
-            router.push("/profile"); // Redirect to the profile page
+            router.push(`/profile/${user.uid}`);
+            // Redirect to the profile page
           } else {
             // Handle the case where user or user.uid is missing
             setError("User information is missing or invalid");
