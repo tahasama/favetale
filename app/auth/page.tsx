@@ -22,6 +22,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [login, setLogin] = useState(true);
 
   const handleSignUp = async () => {
     try {
@@ -115,96 +116,130 @@ const SignUp = () => {
   }, []); // Only runs once when the component mounts
 
   return (
-    <div className="min-h-screen flex flex-row items-center justify-center">
-      <div className="max-w-md w-full p-4  space-y-4 flex-grow">
-        <h1 className="text-2xl font-semibold">Sign Up</h1>
-        {error && <p className="text-red-500">{error}</p>}
-        <div>
-          <label htmlFor="Username" className="block text-gray-600">
-            Username
-          </label>
-          <input
-            type="text"
-            id="Username"
-            className="w-full border border-gray-300 rounded-md p-2"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block text-gray-600">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="w-full border border-gray-300 rounded-md p-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password" className="block text-gray-600">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="w-full border border-gray-300 rounded-md p-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
-          className="bg-blue-500 text-white rounded-md p-2 w-full"
-          onClick={handleSignUp}
-        >
-          Sign Up
-        </button>
+    <div className="h-[calc(100vh-70px)] flex flex-row items-center justify-center">
+      <div
+        className={`absolute max-w-md w-full p-4 mt-20 space-y-4 flex-grow ${
+          login ? " opacity-0 -translate-y-96" : "opacity-1000"
+        }  transition-all duration-700`}
+      >
+        {login ? null : (
+          <>
+            <h1 className="text-2xl font-semibold">Sign Up</h1>
+            {error && <p className="text-red-500">{error}</p>}
+            <div>
+              <label htmlFor="Username" className="block text-gray-600">
+                Username
+              </label>
+              <input
+                type="text"
+                id="Username"
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-gray-600">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-gray-600">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button
+              className="bg-blue-500 text-white rounded-md p-2 w-full"
+              onClick={handleSignUp}
+            >
+              Sign Up
+            </button>
+            <p>
+              Already have an account? sing in{" "}
+              <span
+                onClick={() => setLogin(!login)}
+                className="underline underline-offset-2 text-sky-500 cursor-pointer"
+              >
+                Here
+              </span>
+            </p>
+          </>
+        )}
       </div>
-      <div className="max-w-md w-full p-4  space-y-4 flex-1">
-        <div>
-          <h1 className="text-2xl font-semibold">Sign In</h1>
-          {error && <p className="text-red-500">{error}</p>}
-        </div>
 
-        <div>
-          <label htmlFor="email" className="block text-gray-600">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="w-full border border-gray-300 rounded-md p-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="Password" className="block text-gray-600">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="w-full border border-gray-300 rounded-md p-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
-          className="bg-blue-500 text-white rounded-md p-2 w-full"
-          onClick={handleSignIn}
-        >
-          Sign In
-        </button>
-
-        <button
-          className="bg-rose-500 text-white rounded-md p-2 w-full"
-          onClick={() => signInWithRedirect(auth, provider)}
-        >
-          Sign In with google
-        </button>
+      <div
+        className={`absolute max-w-md w-full mt-20 p-4 space-y-4 flex-1 ${
+          !login ? "opacity-0 -translate-y-96" : "opacity-1000"
+        } transition-all duration-700`}
+      >
+        {!login ? null : (
+          <>
+            {" "}
+            <div>
+              <h1 className="text-2xl font-semibold">Sign In</h1>
+              {error && <p className="text-red-500">{error}</p>}
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-gray-600">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="Password" className="block text-gray-600">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="w-full border border-gray-300 rounded-md p-2"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button
+              className="bg-blue-500 text-white rounded-md p-2 w-full"
+              onClick={handleSignIn}
+            >
+              Sign In
+            </button>
+            <button
+              className="bg-rose-500 text-white rounded-md p-2 w-full"
+              onClick={() => signInWithRedirect(auth, provider)}
+            >
+              Sign In with google
+            </button>
+            <p className="pt-4">
+              Dont have an account? sign up{" "}
+              <span
+                onClick={() => setLogin(!login)}
+                className="underline underline-offset-2 text-sky-500 cursor-pointer"
+              >
+                Here
+              </span>
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
