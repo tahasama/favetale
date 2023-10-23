@@ -1,12 +1,21 @@
+import ImageModal from "@/app/explore/(components)/gallery/ImageModal";
+import PetImages from "@/app/explore/(components)/gallery/PetImages";
 import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, or, query, where } from "firebase/firestore";
+import { Playball, Roboto_Mono } from "next/font/google";
 import React from "react";
+
+const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
 async function getData(userx: any) {
   const blogsData: any[] = [];
   const blogRef = query(
     collection(db, "petImages"),
-    where("poster.id", "==", userx.id)
+    or(
+      where("poster.id", "==", userx),
+      where("likes", "array-contains", userx),
+      where("hearts", "array-contains", userx)
+    )
   );
 
   const snapshot = await getDocs(blogRef);
@@ -20,22 +29,42 @@ async function getData(userx: any) {
   return blogsData;
 }
 const Gallery = async ({ tab, userx }: any) => {
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:23 ~ ServerComponent ~ userx:",
-    userx
-  );
   const meetupsData = await getData(userx);
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:25 ~ ServerComponent ~ meetupsData:",
-    meetupsData
-  );
-
   return (
-    <div>
-      ServerComponent{" "}
-      {meetupsData?.map((meetup: any) => (
-        <p>{meetup.id}</p>
-      ))}
+    <div className="m-6 flex h-full">
+      <div className="flex flex-col">
+        <p
+          className={`text-base  lg:text-xl ${font.className} text-center underline underline-offset-2`}
+        >
+          My Collection
+        </p>
+        <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
+          {meetupsData
+            ?.filter((meetups: any) => meetups.poster.id === userx)
+            .map((meetup: any, index: any) => (
+              <PetImages image={meetup} index={index} />
+            ))}
+        </div>
+      </div>
+      <div className=" border-r-2 mx-5 border-slate-300"></div>
+      <div className="flex flex-col">
+        <p
+          className={`text-base  lg:text-xl ${font.className} text-center underline underline-offset-2`}
+        >
+          My Reactions
+        </p>
+        <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
+          {meetupsData
+            ?.filter(
+              (meetups: any) =>
+                meetups.likes.includes(userx) || meetups.hearts.includes(userx)
+            )
+            .map((meetup: any, index: any) => (
+              <PetImages image={meetup} index={index} />
+            ))}
+        </div>
+      </div>
+      <ImageModal />
     </div>
   );
 };
