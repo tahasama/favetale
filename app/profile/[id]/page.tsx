@@ -101,7 +101,7 @@ const UserProfile = ({ params: { id } }: any) => {
         {tabs.map((ta: any, index: any) => (
           <div
             onClick={() => setTab(ta.name)}
-            className="relative grid place-items-center w-32 h-32 bg-tealLight ring-1 ring-teal-00 rounded-lg cursor-pointer hover:scale-[1.02] hover:shadow-md transition-all duration-150"
+            className="relative grid place-items-center w-32 h-32 bg-tealLight ring-1 ring-teal-00 rounded-lg cursor-pointer hover:scale-[1.02] shadow-md hover:shadow-lg transition-all duration-200"
           >
             <div className="scale-[2.4] text-blue-900">{ta.icon}</div>
             <div
