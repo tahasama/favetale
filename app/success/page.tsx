@@ -6,50 +6,67 @@ import stripe from "stripe";
 import Stripe from "stripe";
 import { useCart } from "../provider/CartProvider";
 import PurchasePage from "./Purshase";
+import {
+  addDoc,
+  collection,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "@/firebase";
 
 const Success = ({ searchParams: { session_id } }: any) => {
-  const [orderData, setOrderData] = useState<any>(null);
-  // console.log(
-  //   "🚀 ~ file: page.tsx:10 ~ Success ~ orderData:",
-  //   orderData.customer_details
-  // );
-  const fff = localStorage.getItem("cart");
-  // console.log("🚀 ~ file: page.tsx:12 ~ Success ~ fff:", fff);
-  const { cart } = useCart();
-  // console.log("🚀 ~ file: page.tsx:15 ~ Success ~ cart:", cart);
+  const { userx } = useCart();
+  const [purchaseData, setPurchaseData] = useState([]);
+  console.log("🚀 ~ file: page.tsx:22 ~ Success ~ purchaseData:", purchaseData);
 
-  const getPurshase = () => {
-    if (orderData) {
-      const purchase = {
-        userId: "myId1234",
-        ...orderData.customer_details,
-        cart: [...cart], // Create a new array to avoid modifying the original array
-      };
-      console.log("🚀 ~ file: page.tsx:22 ~ getPurshase ~ purchase:", purchase);
-      localStorage.setItem("purshase", JSON.stringify(purchase));
-    } else {
-      console.log("Purchase not found in localStorage.");
-    }
+  const storedPurchase = async (purchase: any) => {
+    await addDoc(collection(db, "purchases"), purchase);
   };
-
-  const storedPurchase = localStorage.getItem("purshase");
-  if (storedPurchase) {
-    const purchase = JSON.parse(storedPurchase); // Deserialize the string back to an object
-    console.log("Retrieved purchase:", purchase);
-  } else {
-    console.log("Purchase not found in localStorage.");
-  }
 
   const getData = async () => {
     const res = await fetch(`/api/checkout?session_id=${session_id}`);
     const ress = await res.json();
     // console.log("🚀 ~ file: page.tsx:16 ~ getData ~ ress:", typeof ress);
-    setOrderData(JSON.parse(ress.body));
+    const orderData = JSON.parse(ress.body);
+    const cartAfter: any = localStorage.getItem("cartAfter");
+    const cart = JSON.parse(cartAfter);
+    if (orderData) {
+      const purchase = {
+        userId: userx.id,
+        ...orderData.customer_details,
+        session_id: session_id,
+        cart: cart,
+      };
+      console.log("🚀 ~ file: page.tsx:33 ~ getData ~ purchase:", purchase);
+      localStorage.setItem("purshase", JSON.stringify(purchase));
+      try {
+        const snapshot = await getDocs(
+          query(
+            collection(db, "purchases"),
+            where("session_id", "==", session_id)
+          )
+        );
+        if (snapshot.empty) {
+          storedPurchase(purchase);
+          return;
+        } else {
+          snapshot.forEach((doc: any) => {
+            setPurchaseData({ id: doc.id, ...doc.data() });
+          });
+        }
+      } catch (error) {
+        console.log("🚀 ~ file: page.tsx:42 ~ getData ~ error:", error);
+      }
+    } else {
+      console.log("Purchase not found in localStorage.");
+    }
   };
 
   useEffect(() => {
-    getData().then(() => getPurshase());
-  }, []);
+    userx.id && getData();
+  }, [userx]);
 
   return (
     <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 bg-white">
@@ -83,7 +100,7 @@ const Success = ({ searchParams: { session_id } }: any) => {
           </a>
         </div>
       </div>
-      <PurchasePage />
+      <PurchasePage purchase={purchaseData} />
     </main>
   );
 };

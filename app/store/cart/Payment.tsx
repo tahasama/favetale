@@ -34,6 +34,7 @@ export default function App() {
       if (response.ok) {
         const session = await response.json();
         window.location.href = session.url;
+        localStorage.setItem("cartAfter", JSON.stringify(cart));
         localStorage.setItem("cartItems", "");
       } else {
         console.error("Error creating session:", response.statusText);
