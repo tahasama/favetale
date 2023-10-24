@@ -5,10 +5,6 @@ import Link from "next/link";
 const lato = Lato({ weight: "400", subsets: [] });
 
 const ServerComponent = ({ discussionData }: any) => {
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:7 ~ ServerComponent ~ discussionData:",
-    discussionData
-  );
   return (
     <>
       <Link

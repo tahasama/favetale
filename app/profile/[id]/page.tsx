@@ -72,7 +72,7 @@ const UserProfile = ({ params: { id } }: any) => {
         {tab === "Gallery" && <Gallery userx={id} />}
         {tab === "Blogs" && <Blogs userx={id} />}
         {tab === "Stories" && <Stories userx={id} />}
-        {tab === "Discussions" && <Discussions userx={id} />}
+        {tab === "Forums" && <Discussions userx={id} />}
         {tab === "Questions" && <Questions userx={id} />}
         {tab === "Meetups" && <Meetups userx={id} />}
         {/* {tab === "Meetups" && <Events userx={userx} />}

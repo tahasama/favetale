@@ -23,10 +23,7 @@ async function getData(selectedTag: any) {
 
 const ServerComponent = async ({ id, selectedTag }: any) => {
   const discussionsData = await getData(selectedTag);
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:26 ~ ServerComponent ~ discussionsData:",
-    discussionsData
-  );
+
   const categoryMap: any = {
     1: "Health",
     2: "Training",
@@ -37,10 +34,7 @@ const ServerComponent = async ({ id, selectedTag }: any) => {
   const discussionsDataFiltered: any = discussionsData?.filter(
     (discussionFiltered: any) => discussionFiltered.category === categoryMap[id]
   );
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:40 ~ ServerComponent ~ discussionsDataFiltered:",
-    discussionsDataFiltered
-  );
+
   return (
     <Suspense fallback={<Loading />}>
       <ClientComponentFilter

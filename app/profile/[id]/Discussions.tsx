@@ -1,14 +1,14 @@
 import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
+import DiscussionCard from "./DiscussionCard";
 
 async function getData(userx: any) {
   const blogsData: any[] = [];
   const blogRef = query(
     collection(db, "discussions"),
-    where("writer.uid", "==", userx.id)
+    or(where("writer.id", "==", userx))
   );
-
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
@@ -20,21 +20,13 @@ async function getData(userx: any) {
   return blogsData;
 }
 const Discussions = async ({ tab, userx }: any) => {
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:23 ~ ServerComponent ~ userx:",
-    userx
-  );
   const meetupsData = await getData(userx);
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:25 ~ ServerComponent ~ meetupsData:",
-    meetupsData
-  );
 
   return (
     <div>
       ServerComponent{" "}
-      {meetupsData?.map((meetup: any) => (
-        <p>{meetup.id}</p>
+      {meetupsData?.map((discussion: any) => (
+        <DiscussionCard discussion={discussion} />
       ))}
     </div>
   );

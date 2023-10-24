@@ -19,10 +19,6 @@ async function getData() {
 
 const ServerComponent = async () => {
   const discussionsData = await getData();
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:22 ~ ServerComponent ~ discussionsData:",
-    discussionsData
-  );
 
   const forumData = [
     {
