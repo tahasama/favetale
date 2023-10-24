@@ -431,7 +431,7 @@ function Story() {
             </div>
           </div>
 
-          {selectedImage && selectedImage.writer.id === userx.id && (
+          {selectedImage && selectedImage?.writer.id === userx.id && (
             <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4">
               <button
                 onClick={() => setUploadpetModalOpen(true)}

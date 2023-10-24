@@ -158,7 +158,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
             image: imageUrl,
             draft: isDraft,
             createdAt: serverTimestamp(),
-
+            likes: [],
             ...updateData, // Add the draft property
           };
 

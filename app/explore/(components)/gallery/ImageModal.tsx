@@ -268,7 +268,7 @@ const ImageModal = () => {
             </button>
           </div>
 
-          {selectedImage && selectedImage.poster.id === userx.id && (
+          {selectedImage && selectedImage?.poster?.id === userx.id && (
             <div className="absolute top-3 flex gap-3 md:gap-5 left-2 md:left-4 backdrop-blur-sm backdrop-brightness-75 px-3 py-2 rounded-lg">
               <button
                 onClick={() => setImageModalOpen(true)}

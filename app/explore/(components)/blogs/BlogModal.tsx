@@ -99,7 +99,9 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
   };
 
   const publishBlog = async (e: any, isDraft: boolean) => {
-    isDraft ? setLoading(true) : setLoading2(true);
+    isDraft
+      ? (setLoading(true), setLoading2(false))
+      : (setLoading(false), setLoading2(true));
 
     setLoading(true);
     e.preventDefault();
@@ -159,6 +161,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
             content,
             tags,
             image: imageUrl,
+            likes: [],
             createdAt: serverTimestamp(),
             ...updateData, // Add the draft property
           };
@@ -302,11 +305,11 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
                       <div className="flex justify-center ml-0.5 mt-1.5">
                         <div className="w-1 h-1 bg-pink-500 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
                         <div
-                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          className="w-1 h-1 bg-pink-500 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.1s" }}
                         ></div>
                         <div
-                          className="w-1 h-1 bg-green-700 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          className="w-1 h-1 bg-pink-500 group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>
