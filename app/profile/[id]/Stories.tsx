@@ -1,6 +1,6 @@
 import StoryCard from "@/app/explore/(components)/stories/StoryCard";
 import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
 
 import BlogCard from "@/app/explore/(components)/blogs/BlogCard";
@@ -12,7 +12,7 @@ async function getData(userx: any) {
   const blogsData: any[] = [];
   const blogRef = query(
     collection(db, "storys"),
-    where("writer.id", "==", userx)
+    or(where("writer.id", "==", userx), where("likes", "array-contains", userx))
   );
 
   const snapshot = await getDocs(blogRef);
