@@ -144,6 +144,7 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
             createdAt: serverTimestamp(),
             upvotes: [],
             downvotes: [],
+            answerers: [],
           };
 
           // Create a new question in Firestore without an image

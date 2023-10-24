@@ -284,6 +284,9 @@ function Question({ params: { id } }: any) {
         dislikes: [],
       });
       // const newCommentId = commentRef.id;
+      await updateDoc(doc(db, "questions", String(id)), {
+        answerers: arrayUnion(userx.id),
+      });
     }
     fetchComments();
     setNewComment("");
