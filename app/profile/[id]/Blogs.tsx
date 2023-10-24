@@ -31,7 +31,7 @@ const Blogs = async ({ tab, userx }: any) => {
   );
 
   return (
-    <div className="m-6 flex h-full">
+    <div className="m-6 h-full">
       <div className="flex flex-col">
         <p
           className={`text-base  lg:text-xl ${font.className} text-center underline underline-offset-2`}

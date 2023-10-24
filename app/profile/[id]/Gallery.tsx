@@ -2,8 +2,8 @@ import ImageModal from "@/app/explore/(components)/gallery/ImageModal";
 import PetImages from "@/app/explore/(components)/gallery/PetImages";
 import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
-import { Playball, Roboto_Mono } from "next/font/google";
 import React from "react";
+import { Playball, Roboto_Mono } from "next/font/google";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
@@ -31,7 +31,7 @@ async function getData(userx: any) {
 const Gallery = async ({ tab, userx }: any) => {
   const meetupsData = await getData(userx);
   return (
-    <div className="m-6 flex h-full">
+    <div className="m-6  h-full">
       <div className="flex flex-col">
         <p
           className={`text-base  lg:text-xl ${font.className} text-center underline underline-offset-2`}
@@ -46,7 +46,7 @@ const Gallery = async ({ tab, userx }: any) => {
             ))}
         </div>
       </div>
-      <div className=" border-r-2 mx-5 border-slate-300"></div>
+      {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       <div className="flex flex-col">
         <p
           className={`text-base  lg:text-xl ${font.className} text-center underline underline-offset-2`}
