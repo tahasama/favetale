@@ -23,12 +23,8 @@ async function getData(userx: any) {
   });
   return blogsData;
 }
-const Blogs = async ({ tab, userx }: any) => {
+const Blogs = async ({ userx }: any) => {
   const meetupsData: any = await getData(userx);
-  console.log(
-    "🚀 ~ file: Blogs.tsx:29 ~ Blogs ~ meetupsData:",
-    meetupsData[0].likes.includes(userx)
-  );
 
   return (
     <div className="m-6 h-full">

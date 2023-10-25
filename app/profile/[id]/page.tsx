@@ -29,6 +29,7 @@ import Discussions from "./Discussions";
 import Questions from "./Questions";
 import Loading from "@/app/community/(components)/forums/loading";
 import ClientComponent from "./ClientComponent";
+import Purchases from "./Purchases";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
@@ -75,8 +76,8 @@ const UserProfile = ({ params: { id } }: any) => {
         {tab === "Forums" && <Discussions userx={id} />}
         {tab === "Questions" && <Questions userx={id} />}
         {tab === "Meetups" && <Meetups userx={id} />}
-        {/* {tab === "Meetups" && <Events userx={userx} />}
-        {tab === "Meetups" && <Purchases userx={userx} />} */}
+        {/* {tab === "Meetups" && <Events userx={userx} />} */}
+        {tab === "Purchases" && <Purchases userx={id} />}
       </Suspense>
     </div>
   );

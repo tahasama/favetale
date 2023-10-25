@@ -12,34 +12,40 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   where,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
 const Success = ({ searchParams: { session_id } }: any) => {
   const { userx } = useCart();
-  const [purchaseData, setPurchaseData] = useState([]);
-  console.log("🚀 ~ file: page.tsx:22 ~ Success ~ purchaseData:", purchaseData);
+  const [purchaseData, setPurchaseData] = useState<any[]>([]);
+  console.log(
+    "🚀 ~ file: page.tsx:22 ~ Success ~ purchaseData:",
+    purchaseData && purchaseData
+  );
 
   const storedPurchase = async (purchase: any) => {
     await addDoc(collection(db, "purchases"), purchase);
   };
 
   const getData = async () => {
+    console.log("🚀 ~ file: page.tsx:33 ~ getData ~ async:IIIIIIIII");
     const res = await fetch(`/api/checkout?session_id=${session_id}`);
     const ress = await res.json();
-    // console.log("🚀 ~ file: page.tsx:16 ~ getData ~ ress:", typeof ress);
     const orderData = JSON.parse(ress.body);
     const cartAfter: any = localStorage.getItem("cartAfter");
     const cart = JSON.parse(cartAfter);
     if (orderData) {
+      console.log("🚀 ~ file: page.tsx:33 ~ getData ~ async:OOOOOOOOO");
+
       const purchase = {
         userId: userx.id,
         ...orderData.customer_details,
         session_id: session_id,
         cart: cart,
+        date: serverTimestamp(),
       };
-      console.log("🚀 ~ file: page.tsx:33 ~ getData ~ purchase:", purchase);
       localStorage.setItem("purshase", JSON.stringify(purchase));
       try {
         const snapshot = await getDocs(
@@ -50,11 +56,13 @@ const Success = ({ searchParams: { session_id } }: any) => {
         );
         if (snapshot.empty) {
           storedPurchase(purchase);
+          setPurchaseData(purchase);
           return;
         } else {
           snapshot.forEach((doc: any) => {
             setPurchaseData({ id: doc.id, ...doc.data() });
           });
+          return purchaseData;
         }
       } catch (error) {
         console.log("🚀 ~ file: page.tsx:42 ~ getData ~ error:", error);
@@ -65,8 +73,8 @@ const Success = ({ searchParams: { session_id } }: any) => {
   };
 
   useEffect(() => {
-    userx.id && getData();
-  }, [userx]);
+    userx.id && purchaseData.length === 0 && getData();
+  }, [userx, purchaseData]);
 
   return (
     <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 bg-white">
@@ -100,7 +108,9 @@ const Success = ({ searchParams: { session_id } }: any) => {
           </a>
         </div>
       </div>
-      <PurchasePage purchase={purchaseData} />
+      {purchaseData && purchaseData.length !== 0 && (
+        <PurchasePage purchase={purchaseData} />
+      )}
     </main>
   );
 };

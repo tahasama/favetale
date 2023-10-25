@@ -38,7 +38,7 @@ import { useCart } from "@/app/provider/CartProvider";
 // );
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const BlogModal = ({ isOpen, onClose, blog }: any) => {
-  console.log("🚀 ~ file: BlogModal.tsx:34 ~ BlogModal ~ blog:", blog);
+  console.log("🚀 ~ file: BlogModal.tsx:41 ~ BlogModal ~ isOpen:", isOpen);
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
