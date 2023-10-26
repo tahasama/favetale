@@ -27,7 +27,7 @@ const Purchases = async ({ userx }: any) => {
   const purchaseData: any = await getData(userx);
 
   return (
-    <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
+    <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-10 xl:gap-20 mx-4 md:mx-5 lg:mx-7 xl:mx-auto max-w-6xl">
       {purchaseData?.map((purchase: any) => (
         <PurchaseClient purchase={purchase} />
       ))}
