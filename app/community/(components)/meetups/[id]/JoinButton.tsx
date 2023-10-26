@@ -54,7 +54,7 @@ const JoinButton = ({ newEvent }: any) => {
     <button
       onClick={participate}
       disabled={isJoining} // Disable the button during the API call
-      className={`w-auto bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-4 py-2 rounded-md hover:from-indigo-600 hover:to-indigo-400 transition-colors ${
+      className={`w-auto ring-2 backdrop-blur-sm backdrop-brightness-50 ring-indigo-500 text-white px-4 py-2 rounded-md hover:animate-bounceZ hover:from-indigo-600 hover:to-indigo-400 transition-colors ${
         isJoining ? "opacity-50 cursor-not-allowed" : ""
       }`}
     >

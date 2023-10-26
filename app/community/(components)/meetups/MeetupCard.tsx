@@ -5,7 +5,7 @@ import Link from "next/link";
 import MeetupsModal from "./MeetupsModal";
 const MeetupCard = ({ meetup }: any) => {
   return (
-    <Link href={`community/meetups/${meetup.id}`}>
+    <Link href={`/community/meetups/${meetup.id}`}>
       <motion.div
         initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
         animate={{ opacity: 1 }} // Animation state (visible and at normal position)

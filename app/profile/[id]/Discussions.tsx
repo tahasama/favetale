@@ -23,7 +23,7 @@ const Discussions = async ({ tab, userx }: any) => {
   const meetupsData = await getData(userx);
 
   return (
-    <div>
+    <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
       {meetupsData?.map((discussion: any) => (
         <DiscussionCard discussion={discussion} />
       ))}
