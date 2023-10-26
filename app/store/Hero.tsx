@@ -26,9 +26,11 @@ const Hero = () => {
         <p className="text-lg mb-8">
           Your one-stop destination for all your pet needs
         </p>
-        <button className="hover:animate-bounceQ bg-teal-600 hover:bg-teal-600 text-white px-5 py-3 md:px-8 md:py-4 text-lg rounded-md shadow-md transition-all duration-1000 cursor-pointer">
-          <Link href={"/store/Allproduct"}>Shop Now</Link>
-        </button>
+        <Link href={"/store/Allproduct"}>
+          <button className="hover:animate-bounceQ bg-teal-600 hover:bg-teal-600 text-white px-5 py-3 md:px-8 md:py-4 text-lg rounded-md shadow-md transition-all duration-1000 cursor-pointer">
+            Shop Now
+          </button>
+        </Link>
       </div>
     </section>
   );
