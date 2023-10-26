@@ -93,13 +93,13 @@ const ProductModal = ({
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
         <div className="flex flex-col md:flex-row gap-8 lg:p-8 shadow-md lg:min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
-          <div className=" flex flex-col items-center justify-center ">
+          <div className=" flex flex-col items-center justify-center w-1/2">
             <Image
               src={product?.images[selectedImage]}
               alt={product?.name}
               width={1000}
               height={1000}
-              className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain"
+              className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
             />
             <div className="flex mt-4">
               {product?.images.map((image: any, index: any) => (
