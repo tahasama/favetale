@@ -18,10 +18,10 @@ const DiscussionCard = ({ discussion }: any) => {
   };
 
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center mt-10">
       <div
         key={discussion.id}
-        className="w-full my-3 border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out md:w-7/12 hover:translate-x-[1px] hover:translate-y-[1px]"
+        className="w-full my-3 border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out md:w-6/12 hover:translate-x-[1px] hover:translate-y-[1px]"
       >
         <Link
           href={`/community/forums/${Object.keys(categoryMap).find(
@@ -40,11 +40,12 @@ const DiscussionCard = ({ discussion }: any) => {
                 {discussion.category}{" "}
               </span>
             </Link>
-            <Link
-              href={`/profile/${discussion.writer.id}`}
-              className="capitalize text-sky-500 underline underline-offset-2"
-            >
-              {discussion.writer.name}
+
+            <Link href={`/profile/${discussion.writer.id}`}>
+              by : &nbsp;
+              <span className="capitalize text-sky-500 underline underline-offset-2">
+                {discussion.writer.name}
+              </span>
             </Link>
           </div>
           <h3 className="text-xl font-semibold mt-2 indent-3">

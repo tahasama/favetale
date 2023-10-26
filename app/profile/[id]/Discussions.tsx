@@ -24,7 +24,6 @@ const Discussions = async ({ tab, userx }: any) => {
 
   return (
     <div>
-      ServerComponent{" "}
       {meetupsData?.map((discussion: any) => (
         <DiscussionCard discussion={discussion} />
       ))}
