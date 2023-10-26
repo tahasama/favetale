@@ -140,7 +140,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-tealLight h-20 flex justify-between pl-1 sm:px-3 items-center gap-0 z-40 fixed top-0 w-full`}
+      className={`bg-tealLight h-20 flex justify-between pl-1 sm:px-3 items-center gap-0 z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>

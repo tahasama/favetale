@@ -466,7 +466,7 @@ function Question({ params: { id } }: any) {
           </button>
         </div>
       </>
-      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-40  p-4">
+      <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-0 rounded-l-3xl absolute top-8 z-30  p-4">
         <button
           onClick={() => setUploadpetModalOpen(true)}
           className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
