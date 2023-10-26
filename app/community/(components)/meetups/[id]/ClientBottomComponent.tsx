@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import ImageModal from "./ImageModal";
 import { useCart } from "@/app/provider/CartProvider";
@@ -21,43 +21,21 @@ TimeAgo.addLocale(ru);
 const ClientBottomComponent = ({ event, id }: any) => {
   const ref = useRef<any>(null);
 
-  const {
-    userx,
-    setSelectedImage,
-    selectedImage,
-    uploadpetModalOpen,
-    setMeetupModalOpen,
-    setImageModalOpen,
-    setUploadpetModalOpen,
-    petModalOpen,
-    setPetModalOpen,
-    setComments,
-    comments,
-  } = useCart();
+  const { userx, petModalOpen, setPetModalOpen, setComments, comments } =
+    useCart();
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
+
   const commentsSectionRef = useRef<any>(null);
 
-  const scrollToComments = () => {
-    commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const adjustTextareaRows = (textarea: any) => {
-    textarea.rows = textarea.value.split("\n").length || 1;
-  };
-
-  // State to handle adding comments
   const [newComment, setNewComment] = useState("");
 
   const fetchComments = async () => {
     try {
       if (id) {
-        // Check if selectedImage.id is defined
         const q = query(collection(db, "comments"), where("imageId", "==", id));
         const querySnapshot = await getDocs(q);
 
@@ -68,17 +46,12 @@ const ClientBottomComponent = ({ event, id }: any) => {
         });
 
         setComments(fetchedComments);
-        console.log(
-          "🚀 ~ file: page.tsx:512 ~ fetchComments ~ fetchedComments:",
-          fetchedComments
-        );
       }
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
   };
 
-  // Fetch comments when the component mounts
   useEffect(() => {
     id && fetchComments();
   }, [id]);
@@ -93,7 +66,6 @@ const ClientBottomComponent = ({ event, id }: any) => {
         likes: [],
         dislikes: [],
       });
-      // const newCommentId = commentRef.id;
     }
     fetchComments();
     setNewComment("");

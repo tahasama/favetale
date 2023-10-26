@@ -167,7 +167,6 @@ async function Event({ params: { id } }: any) {
   // ];
   // const { id } = useParams();
 
-  console.log("🚀 ~ file: page.tsx:195 ~ Event ~ id:", id);
   const res = await getDoc(doc(db, "gatherings", id));
   const event: any = { ...res.data(), id: res.id };
 

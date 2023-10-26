@@ -1,33 +1,7 @@
-// "use client";
-// import { useParams, useRouter } from "next/navigation";
-// import React, { useRef, useState } from "react";
-import DiscussionModal from "./DiscussionModal";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/firebase";
-import { Suspense } from "react";
-import Loading from "./loading";
 import ServerComponent from "./ServerComponent";
-import ClientComponent from "./ClientComponentButtons";
 import ClientComponentButtuns from "./ClientComponentButtons";
 
 const Forum = async ({ params: { id } }: any) => {
-  // const router = useRouter();
-
-  // const { id } = useParams();
-
-  // State to handle adding comments
-  // const [newComment, setNewComment] = useState("");
-  // //   const [comments, setComments] = useState(forumData.comments);
-
-  // const [liked, setLiked] = useState(false);
-  // //   const [likesCount, setLikesCount] = useState(forumData.likes);
-
-  // const commentsSectionRef = useRef<any>(null);
-
-  // const scrollToComments = () => {
-  //   commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
-  // };
-
   const forumsData = [
     {
       id: 1,

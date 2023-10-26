@@ -1,14 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 
 const MeetupsModal = ({ isOpen, onClose, event }: any) => {
-  console.log("🚀 ~ file: MeetupsModal.tsx:11 ~ MeetupsModal ~ event:", event);
   const router = useRouter();
   const [newGathering, setNewGathering] = useState<any>(
     !event
@@ -32,21 +30,16 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           ...event,
         }
   );
-  console.log(
-    "🚀 ~ file: MeetupsModal.tsx:53 ~ MeetupsModal ~ newGathering:",
-    newGathering
-  );
+
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      onClose();
     }
   };
-
-  // ...
 
   const [imageFile, setImageFile] = useState<any>("");
 
@@ -59,13 +52,11 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
       const gatheringsCollection = collection(db, "gatherings");
 
       if (!event) {
-        // If 'event' doesn't exist, it's a new gathering
         if (!imageFile) {
           setError("Image file is required when creating a gathering.");
           return;
         }
 
-        // Check if all required fields are present
         if (
           !newGathering.title ||
           !newGathering.location.country ||
@@ -100,12 +91,10 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           gatheringsCollection,
           newGatheringData
         );
-        console.log("Gathering created with ID: ", newGatheringRef.id);
 
         onClose();
         router.push(`/community/meetups/${newGatheringRef.id}`);
 
-        // Clear the form or perform any other necessary actions
         setNewGathering({
           title: "",
           location: {
@@ -122,12 +111,9 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           images: [],
         });
       } else {
-        // It's an existing gathering
         if (!imageFile) {
-          // If no new image is selected during the update, retain the existing image URL
           newGathering.image = event.image;
         } else {
-          // If a new image is selected, update it
           const storage = getStorage();
           const storageRef = ref(
             storage,
@@ -136,23 +122,19 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           await uploadBytes(storageRef, imageFile);
           const res = await getDownloadURL(storageRef);
 
-          // Update the image URL
           newGathering.image = res;
         }
 
-        // Update the gathering in Firestore
         const gatheringRef = doc(db, "gatherings", event.id);
         await updateDoc(gatheringRef, newGathering);
-        console.log("Gathering updated with ID: ", event.id);
 
-        // Clear the form or perform any other necessary actions
         setNewGathering({
           ...newGathering,
-          image: "", // Clear the image field
+          image: "",
         });
       }
 
-      setError(""); // Clear any previous error message
+      setError("");
       setLoading(false);
       onClose();
     } catch (error) {
@@ -317,14 +299,10 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
                   className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
                   value={newGathering.timeFrom}
                   onChange={(e) => {
-                    console.log(
-                      "🚀 ~ file: MeetupsModal.tsx:313 ~ MeetupsModal ~ e.target.value:",
-                      e.target.value
-                    ),
-                      setNewGathering({
-                        ...newGathering,
-                        timeFrom: e.target.value,
-                      });
+                    setNewGathering({
+                      ...newGathering,
+                      timeFrom: e.target.value,
+                    });
                   }}
                 />
               </div>

@@ -18,14 +18,13 @@ const CommunityPage = () => {
       localStorage.getItem("communityActiveTab")) ||
     "Forums";
 
-  const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
+  const [activeTab, setActiveTab] = useState<string>(storedTab);
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
   };
 
   useEffect(() => {
-    // Save the activeTab to localStorage whenever it changes.
     typeof window !== "undefined" &&
       localStorage.setItem("communityActiveTab", activeTab);
   }, [activeTab]);
@@ -51,7 +50,6 @@ const CommunityPage = () => {
         ))}
       </div>
       <AnimatePresence mode="wait">
-        {/* Content for the active tab */}
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, x: -20 }}

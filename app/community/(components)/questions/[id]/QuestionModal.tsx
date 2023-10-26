@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   addDoc,
@@ -22,13 +22,13 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      onClose();
     }
   };
   const [content, setContent] = useState("");
-  const [title, setTitle] = useState(""); // State to hold the title
-  const [tags, setTags] = useState<string[]>([]); // State to hold tags
-  const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState<string>("");
 
   useEffect(() => {
     if (id && selectedImage) {
@@ -49,7 +49,7 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
   const addTag = () => {
     if (newTag) {
       setTags([...tags, newTag]);
-      setNewTag(""); // Clear the input field after adding a tag
+      setNewTag("");
     }
   };
 
@@ -58,10 +58,8 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // console.log("Document data:");
       setSelectedImage({ ...docSnap.data(), id: docSnap.id });
     } else {
-      // docSnap.data() will be undefined in this case
       console.log("No such document!!!!");
     }
   };
@@ -73,7 +71,6 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
       const questionsCollection = collection(db, "questions");
 
       if (selectedImage) {
-        // If the question has an ID, it's an update
         if (imageFile) {
           const storage = getStorage();
           const storageRef = ref(
@@ -92,7 +89,6 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
             image: res,
           };
 
-          // Update the question in Firestore
           const questionRef = doc(db, "questions", selectedImage.id);
           await updateDoc(questionRef, updatedQuestionData);
           getQuestion();
@@ -104,13 +100,11 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
             tags,
           };
 
-          // Update the question in Firestore without changing the image
           const questionRef = doc(db, "questions", selectedImage.id);
           await updateDoc(questionRef, updatedQuestionData);
           getQuestion();
         }
       } else {
-        // It's a new question
         if (imageFile) {
           const storage = getStorage();
           const storageRef = ref(
@@ -132,7 +126,6 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
             downvotes: [],
           };
 
-          // Create a new question in Firestore
           const question = await addDoc(questionsCollection, newQuestionData);
           router.push(`/community/questions/${question.id}`);
         } else {
@@ -147,7 +140,6 @@ const QuestionModal = ({ isOpen, onClose, id }: any) => {
             answerers: [],
           };
 
-          // Create a new question in Firestore without an image
           const question = await addDoc(questionsCollection, newQuestionData);
           router.push(`/community/questions/${question.id}`);
         }

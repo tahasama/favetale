@@ -1,20 +1,14 @@
 // "use client";
 import { db } from "@/firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { Lato } from "next/font/google";
-import { useParams } from "next/navigation";
 import ServerComponent from "./ServerComponent";
 import ClientComponent from "./ClientComponent";
 import { Suspense } from "react";
-// import React, { useState } from "react";
 
 const lato = Lato({ weight: "400", subsets: [] });
 
 const Discussion = async ({ params: { discussionId } }: any) => {
-  console.log(
-    "🚀 ~ file: page.tsx:11 ~ Discussion ~ discussionId:",
-    discussionId
-  );
   // const forumsData = [
   //   {
   //     id: 1,
@@ -217,10 +211,6 @@ const Discussion = async ({ params: { discussionId } }: any) => {
 
   const res = await getDoc(doc(db, "discussions", discussionId));
   const discussionData: any = { ...res.data(), id: res.id };
-
-  const adjustTextareaRows = (textarea: any) => {
-    textarea.rows = textarea.value.split("\n").length || 1;
-  };
 
   return (
     <div className="mt-10 bg-tealLight w-full h-full flex justify-center">

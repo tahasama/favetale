@@ -2,14 +2,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import MeetupsModal from "./MeetupsModal";
 const MeetupCard = ({ meetup }: any) => {
   return (
     <Link href={`/community/meetups/${meetup.id}`}>
       <motion.div
-        initial={{ opacity: 0 }} // Initial state (hidden and slightly moved down)
-        animate={{ opacity: 1 }} // Animation state (visible and at normal position)
-        transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.75, delay: 0.5 }}
         key={meetup.id}
         className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-purple-100 to-purple-50 hover:shadow-xl transition-shadow duration-300"
       >

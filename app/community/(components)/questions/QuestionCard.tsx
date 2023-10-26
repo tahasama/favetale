@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -8,9 +7,9 @@ const BlogCard = ({ question, index }: any) => {
   return (
     <Link href={`/community/questions/${question.id}`}>
       <motion.div
-        initial={{ opacity: 0, y: index * 50 + 100 }} // Initial state (hidden and slightly moved down)
-        animate={{ opacity: 1, y: 0 }} // Animation state (visible and at normal position)
-        transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
+        initial={{ opacity: 0, y: index * 50 + 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.75, delay: 0.5 }}
         key={question.id}
         className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
       >

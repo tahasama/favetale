@@ -61,14 +61,13 @@ const ServerComponent = async () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-2">
       {forumData.map((forum) => {
-        // Filter discussions for the current forum
         const filteredDiscussions = discussionsData?.filter(
           (discussion) => discussion.category === forum.category
         );
 
         return (
           <ForumCard
-            key={forum.id} // Remember to add a unique key for each item in the map function
+            key={forum.id}
             forum={forum}
             discussions={filteredDiscussions}
           />

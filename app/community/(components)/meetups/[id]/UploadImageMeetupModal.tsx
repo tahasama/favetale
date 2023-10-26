@@ -5,22 +5,14 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import React, { useState } from "react";
 
 const UploadImageMeetupModal = ({ id }: any) => {
-  console.log(
-    "🚀 ~ file: UploadImageMeetupModal.tsx:8 ~ UploadImageMeetupModal ~ id:",
-    id
-  );
-  const {
-    imageModalOpen,
-    setImageModalOpen,
-    setUploadModalOpen,
-    setUploadpetModalOpen,
-  } = useCart();
+  const { imageModalOpen, setImageModalOpen, setUploadpetModalOpen } =
+    useCart();
 
   const [loading, setLoading] = useState(false);
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      setImageModalOpen(false); // Call the setUploadpetModalOpen(false) function to close the modal
+      setImageModalOpen(false);
     }
   };
 
@@ -47,25 +39,21 @@ const UploadImageMeetupModal = ({ id }: any) => {
       );
 
       try {
-        // Check if a new image file needs to be uploaded
         await uploadBytes(storageRef, imageFile);
 
         const imageUrl = await getDownloadURL(storageRef);
 
         const imageRef = doc(db, "gatherings", id);
 
-        // Get the existing document data
         const docSnap = await getDoc(imageRef);
         const existingData = docSnap.data();
 
-        // Initialize or update the 'images' array
         const updateData = {
           images: existingData?.images
             ? [...existingData.images, imageUrl]
             : [imageUrl],
         };
 
-        // If updating an image, update the Firestore document
         await updateDoc(imageRef, updateData).then(() => {
           setImageModalOpen(false);
         });

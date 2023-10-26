@@ -1,12 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import {
   addDoc,
   collection,
   doc,
-  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -14,14 +12,9 @@ import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
 
 const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
-  console.log(
-    "🚀 ~ file: DiscussionModal.tsx:10 ~ DiscussionModal ~ discussionData:",
-    discussion
-  );
-
   const router = useRouter();
 
-  const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
+  const { userx, setUploadpetModalOpen } = useCart();
 
   const [selectedCategory, setSelectedCategory] = useState<string>(
     discussion ? discussion.category : "Health"
@@ -48,7 +41,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
   const handleCategoryChange = (event: any) => {
     const category = event.target.value;
     setSelectedCategory(category);
-    setSelectedTags([]); // Reset tags when category changes
+    setSelectedTags([]);
   };
 
   const toggleTag = (tag: any) => {
@@ -71,14 +64,12 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
       };
 
       if (discussion?.id) {
-        // Updating an existing discussion
         const discussionRef = doc(db, "discussions", discussion.id);
-        const updateData = { ...discussionData }; // Update the fields you want to change
+        const updateData = { ...discussionData };
 
         await updateDoc(discussionRef, updateData);
         router.refresh();
       } else {
-        // Creating a new discussion
         const discussion = await addDoc(
           collection(db, "discussions"),
           discussionData
@@ -98,9 +89,6 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
       setDiscussionTitle("");
       setDiscussionContent("");
 
-      // router.push("/profile");
-
-      // Close the modal or perform any other action as needed
       onClose();
     } catch (error) {
       console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
@@ -109,9 +97,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
-
-      console.log("🚀 ~ file: discussionModal.tsx:48 ~ handleModalClick ~ c:");
+      onClose();
     }
   };
   return (
@@ -139,7 +125,6 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
         </button>
         <h2 className="text-xl font-semibold mb-4">Start a Discussion</h2>
 
-        {/* Category Dropdown */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Category
@@ -157,7 +142,6 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
           </select>
         </div>
 
-        {/* Tags Selection */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Tags
@@ -181,7 +165,6 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
           </div>
         </div>
 
-        {/* Discussion Title */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Title
@@ -194,7 +177,6 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
           />
         </div>
 
-        {/* Discussion Content */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Description
@@ -206,7 +188,6 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
         <div className="w-full flex justify-center mt-1">
           <button
             onClick={handleSubmit}

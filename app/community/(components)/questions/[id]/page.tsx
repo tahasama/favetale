@@ -6,8 +6,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { useParams } from "next/navigation";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useCart } from "@/app/provider/CartProvider";
 import {
   addDoc,
@@ -179,8 +177,6 @@ function Question({ params: { id } }: any) {
   //   },
   // ];
 
-  console.log("🚀 ~ file: page.tsx:195 ~ question ~ id:", id);
-
   const {
     userx,
     setSelectedImage,
@@ -188,10 +184,6 @@ function Question({ params: { id } }: any) {
     uploadpetModalOpen,
     setUploadpetModalOpen,
   } = useCart();
-  console.log(
-    "🚀 ~ file: page.tsx:188 ~ Question ~ setSelectedImage:",
-    selectedImage
-  );
 
   useEffect(() => {
     const getQuestion = async () => {
@@ -199,77 +191,18 @@ function Question({ params: { id } }: any) {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        // console.log("Document data:");
         setSelectedImage({ ...docSnap.data(), id: docSnap.id });
       } else {
-        // docSnap.data() will be undefined in this case
         console.log("No such document!!!!");
       }
     };
     getQuestion();
   }, [id]);
 
-  // const question = questionsData.filter(
-  //   (blog: any) => blog.id === Number(id)
-  // )[0];
-  // console.log("🚀 ~ file: page.tsx:197 ~ question ~ question:", question);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
-
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0); // Track the clicked image's index
-
-  const openModal = (pet: any) => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const ref = useRef<any>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
   const commentsSectionRef = useRef<any>(null);
-
-  const scrollToComments = () => {
-    commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const [liked, setLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(
-    (selectedImage.upvotes && selectedImage.upvotes.length) ?? 0
-  );
-
-  const toggleLike = () => {
-    if (liked) {
-      // Unlike
-      setLikesCount(likesCount - 1);
-    } else {
-      // Like
-      setLikesCount(likesCount + 1);
-    }
-    setLiked(!liked);
-  };
 
   const [newComment, setNewComment] = useState("");
 
-  // Function to handle upvoting an answer
-  const handleUpvote = (answerId: any) => {
-    // Implement upvoting logic here
-  };
-
-  // Function to handle downvoting an answer
-  const handleDownvote = (answerId: any) => {
-    // Implement downvoting logic here
-  };
-
-  const [newAnswer, setNewAnswer] = useState("");
   const [comments, setComments] = useState<any[]>([]);
 
   // Function to add a new answer
@@ -283,7 +216,6 @@ function Question({ params: { id } }: any) {
         likes: [],
         dislikes: [],
       });
-      // const newCommentId = commentRef.id;
       await updateDoc(doc(db, "questions", String(id)), {
         answerers: arrayUnion(userx.id),
       });
@@ -294,7 +226,6 @@ function Question({ params: { id } }: any) {
   const fetchComments = async () => {
     try {
       if (id) {
-        // Check if selectedImage.id is defined
         const q = query(collection(db, "comments"), where("imageId", "==", id));
         const querySnapshot = await getDocs(q);
 
@@ -305,10 +236,6 @@ function Question({ params: { id } }: any) {
         });
 
         setComments(fetchedComments);
-        console.log(
-          "🚀 ~ file: page.tsx:512 ~ fetchComments ~ fetchedComments:",
-          fetchedComments
-        );
       }
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -319,7 +246,6 @@ function Question({ params: { id } }: any) {
   }, [id]);
 
   const handleAgree = async () => {
-    console.log("🚀 ~ file: page.tsx:313 ~ handleAgree ~ id:", id);
     try {
       const likeRef = doc(db, "questions", String(id));
       const commentDoc = await getDoc(likeRef);
@@ -330,24 +256,18 @@ function Question({ params: { id } }: any) {
         return;
       }
 
-      const userId = userx.id; // Assuming you have userx defined
-      console.log(
-        "🚀 ~ file: page.tsx:323 ~ handleAgree ~ userx.id:",
-        userx.id
-      );
+      const userId = userx.id;
+
       if (commentData) {
         if (commentData.upvotes.includes(userId)) {
-          // User has previously agreed, so remove the like
           await updateDoc(likeRef, {
             upvotes: arrayRemove(userId),
           });
         } else {
-          // User is agreeing for the first time
           await updateDoc(likeRef, {
             upvotes: arrayUnion(userId),
           });
 
-          // Check if the user previously disagreed and remove the dislike
           if (commentData.downvotes.includes(userId)) {
             await updateDoc(likeRef, {
               downvotes: arrayRemove(userId),
@@ -355,8 +275,6 @@ function Question({ params: { id } }: any) {
           }
         }
       }
-
-      console.log("Comment updated successfully!");
     } catch (error) {
       console.error("Error updating comment:", error);
     }
@@ -373,21 +291,18 @@ function Question({ params: { id } }: any) {
       }
 
       const commentData = commentDoc.data();
-      const userId = userx.id; // Assuming you have userx defined
+      const userId = userx.id;
 
       if (commentData) {
         if (commentData.downvotes.includes(userId)) {
-          // User has previously disagreed, so remove the dislike
           await updateDoc(commentRef, {
             downvotes: arrayRemove(userId),
           });
         } else {
-          // User is disagreeing for the first time
           await updateDoc(commentRef, {
             downvotes: arrayUnion(userId),
           });
 
-          // Check if the user previously liked and remove the like
           if (commentData.upvotes.includes(userId)) {
             await updateDoc(commentRef, {
               upvotes: arrayRemove(userId),
@@ -395,17 +310,13 @@ function Question({ params: { id } }: any) {
           }
         }
       }
-
-      console.log("Comment updated successfully!");
     } catch (error) {
       console.error("Error updating comment:", error);
     }
   };
 
   const removeImage = async () => {
-    console.log("lets delete", comments);
     try {
-      // Step 2: Iterate through the comments and delete each comment document
       const deleteCommentPromises: any[] = [];
       comments.forEach((commentDoc: any) => {
         const deleteCommentPromise = deleteDoc(
@@ -413,21 +324,12 @@ function Question({ params: { id } }: any) {
         );
         deleteCommentPromises.push(deleteCommentPromise);
       });
-      console.log(
-        "🚀 ~ file: page.tsx:598 ~ comments.forEach ~ deleteCommentPromises:"
-      );
 
-      // Step 3: Delete the selected image document
-      const deleteImagePromise = deleteDoc(doc(db, "questions", id)); // Assuming 'petImages' is the collection name for images
+      const deleteImagePromise = deleteDoc(doc(db, "questions", id));
 
-      // Wait for all comment deletions to complete
       await Promise.all(deleteCommentPromises);
 
-      // After all comments are deleted, delete the image
       await deleteImagePromise;
-
-      // Optionally, you can handle success or show a message here
-      console.log("Image and related comments deleted successfully.");
     } catch (error) {
       console.error("Error deleting image and related comments:", error);
     }

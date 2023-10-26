@@ -20,10 +20,6 @@ async function getData() {
 
 const ServerComponent = async () => {
   const questionsData = await getData();
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:22 ~ ServerComponent ~ question:",
-    questionsData
-  );
 
   return (
     <div className="mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">

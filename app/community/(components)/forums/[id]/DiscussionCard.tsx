@@ -4,10 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 const DiscussionCard = ({ discussion }: any, { id }: any) => {
-  console.log(
-    "🚀 ~ file: DiscussionCard.tsx:7 ~ DiscussionCard ~ discussion:",
-    discussion
-  );
   return (
     <div
       key={discussion.id}

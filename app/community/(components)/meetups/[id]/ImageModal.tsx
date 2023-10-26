@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Navigation, Pagination } from "swiper/modules";
@@ -9,7 +7,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 const ImageModal = ({ isOpen, onClose, images }: any) => {
-  console.log("🚀 ~ file: ImageModal.tsx:6 ~ SearchModal ~ image:", images);
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose();

@@ -6,14 +6,12 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useParams } from "next/navigation";
 
 const UploadImageModal = () => {
   const {
     imageModalOpen,
     setImageModalOpen,
     selectedImage,
-    setUploadModalOpen,
     setUploadpetModalOpen,
   } = useCart();
 
@@ -23,14 +21,14 @@ const UploadImageModal = () => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      setImageModalOpen(false); // Call the setUploadpetModalOpen(false) function to close the modal
+      setImageModalOpen(false);
     }
   };
 
   const [imageFile, setImageFile] = useState(null);
   const [error, setError] = useState("");
 
-  const [category, setCategory] = useState<any>(null); // Default category
+  const [category, setCategory] = useState<any>(null);
 
   const { userx } = useCart();
 
@@ -63,7 +61,6 @@ const UploadImageModal = () => {
       );
 
       try {
-        // Check if a new image file needs to be uploaded
         if (imageFile) {
           await uploadBytes(storageRef, imageFile);
         }
@@ -83,7 +80,6 @@ const UploadImageModal = () => {
         }
 
         if (selectedImage?.id) {
-          // If updating an image, update the Firestore document
           const imageRef = doc(db, "petImages", selectedImage.id);
           await updateDoc(imageRef, updateData).then(() => {
             setImageModalOpen(false);
@@ -99,7 +95,6 @@ const UploadImageModal = () => {
             hearts: [],
           };
 
-          // If creating a new image, add a new Firestore document
           await addDoc(collection(db, "petImages"), imageData).then(() => {
             setImageModalOpen(false);
           });
