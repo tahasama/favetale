@@ -28,7 +28,7 @@ const ServerComponent = async () => {
   );
 
   return (
-    <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
+    <div className="mt-10 pb-4  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
       {petImages &&
         petImages.map((image, index) => (
           <PetImages image={image} index={index} />

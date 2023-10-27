@@ -21,8 +21,8 @@ import {
   FiHelpCircle,
 } from "react-icons/fi";
 import Meetups from "./Meetups";
-import Images from "./Gallery";
-import Gallery from "./Gallery";
+import Images from "./gallery/page";
+import Gallery from "./gallery/page";
 import Blogs from "./Blogs";
 import Stories from "./Stories";
 import Discussions from "./Discussions";

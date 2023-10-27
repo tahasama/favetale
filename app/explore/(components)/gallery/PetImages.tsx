@@ -15,7 +15,7 @@ const petImages = ({ image, index }: any) => {
   return (
     <motion.div
       key={image.id}
-      className={`relative mb-8 ${
+      className={`relative flex-grow ${
         filterImage === "All" ||
         filterImage === "" ||
         (image.category === filterImage?.toLowerCase() ? "block" : "hidden")
