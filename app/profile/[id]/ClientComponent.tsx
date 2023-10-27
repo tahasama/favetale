@@ -23,7 +23,7 @@ import {
 import Meetups from "./Meetups";
 import Images from "./gallery/page";
 import Gallery from "./gallery/page";
-import Blogs from "./Blogs";
+import Blogs from "./blogs/page";
 import Stories from "./Stories";
 import Discussions from "./Discussions";
 import Questions from "./Questions";
