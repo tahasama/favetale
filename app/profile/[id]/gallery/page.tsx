@@ -33,64 +33,74 @@ const Gallery = async ({ tab, userx }: any) => {
   const meetupsData = await getData(userx);
   return (
     <div className="m-6 flex h-full gap-10 justify-center">
-      <div className="flex flex-col w-2/5 ">
-        <p
-          className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
-        >
-          My Collection
-        </p>
-        <Link
-          href={`/profile/${userx}/gallery/myGallery`}
-          className={`text-slate-600 my-2 ${font.className}`}
-        >
-          View all{" "}
-          {
-            meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
-              .length
-          }{" "}
-          images
-        </Link>
-        <div className="mt-0 flex  gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
-          {meetupsData
-            ?.filter((meetups: any) => meetups.poster.id === userx)
-            .slice(0, 2)
-            .map((meetup: any, index: any) => (
-              <PetImages image={meetup} index={index} />
-            ))}
+      {meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
+        .length !== 0 && (
+        <div className="flex flex-col w-2/5 ">
+          <p
+            className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
+          >
+            My Collection
+          </p>
+          <Link
+            href={`/profile/${userx}/gallery/myGallery`}
+            className={`text-slate-600 my-2 ${font.className}`}
+          >
+            View all{" "}
+            {
+              meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
+                .length
+            }{" "}
+            images
+          </Link>
+          <div className="mt-0 flex  gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+            {meetupsData
+              ?.filter((meetups: any) => meetups.poster.id === userx)
+              .slice(0, 2)
+              .map((meetup: any, index: any) => (
+                <PetImages image={meetup} index={index} />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
       {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
-      <div className="flex flex-col w-2/5">
-        <p
-          className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
-        >
-          My Reactions
-        </p>
-        <Link
-          href={`/profile/${userx}/gallery/myCollection`}
-          className={`text-slate-600 my-2 ${font.className}`}
-        >
-          View all{" "}
-          {
-            meetupsData?.filter(
-              (meetups: any) =>
-                meetups.likes.includes(userx) || meetups.hearts.includes(userx)
-            ).length
-          }{" "}
-          images
-        </Link>
-        <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
-          {meetupsData
-            ?.filter(
-              (meetups: any) =>
-                meetups.likes.includes(userx) || meetups.hearts.includes(userx)
-            )
-            .slice(0, 3)
-            .map((meetup: any, index: any) => (
-              <PetImages image={meetup} index={index} />
-            ))}
+      {meetupsData?.filter(
+        (meetups: any) =>
+          meetups.likes.includes(userx) || meetups.hearts.includes(userx)
+      ).length !== 0 && (
+        <div className="flex flex-col w-2/5">
+          <p
+            className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
+          >
+            My Reactions
+          </p>
+          <Link
+            href={`/profile/${userx}/gallery/myCollection`}
+            className={`text-slate-600 my-2 ${font.className}`}
+          >
+            View all{" "}
+            {
+              meetupsData?.filter(
+                (meetups: any) =>
+                  meetups.likes.includes(userx) ||
+                  meetups.hearts.includes(userx)
+              ).length
+            }{" "}
+            images
+          </Link>
+          <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+            {meetupsData
+              ?.filter(
+                (meetups: any) =>
+                  meetups.likes.includes(userx) ||
+                  meetups.hearts.includes(userx)
+              )
+              .slice(0, 3)
+              .map((meetup: any, index: any) => (
+                <PetImages image={meetup} index={index} />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
       <ImageModal />
     </div>
   );
