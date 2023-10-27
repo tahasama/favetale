@@ -162,6 +162,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
             tags,
             image: imageUrl,
             likes: [],
+            hearts: [],
             createdAt: serverTimestamp(),
             ...updateData, // Add the draft property
           };

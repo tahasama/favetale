@@ -23,7 +23,7 @@ async function getData(userx: any) {
   });
   return blogsData;
 }
-const myGallery = async ({ params: { id } }: any) => {
+const myDraft = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
 
   return (
@@ -31,14 +31,13 @@ const myGallery = async ({ params: { id } }: any) => {
       <p
         className={`text-base  lg:text-xl ${font.className} text-center underline underline-offset-2`}
       >
-        My Blogs
+        My Draft
       </p>
 
       <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
         {meetupsData
           ?.filter(
-            (meetups: any) =>
-              meetups.writer.id === id && meetups.draft === false
+            (meetups: any) => meetups.writer.id === id && meetups.draft === true
           )
           .map((meetup: any, index: any) => (
             <BlogCard blog={meetup} index={index} />
@@ -48,4 +47,4 @@ const myGallery = async ({ params: { id } }: any) => {
   );
 };
 
-export default myGallery;
+export default myDraft;

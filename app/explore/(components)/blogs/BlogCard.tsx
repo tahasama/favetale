@@ -13,7 +13,7 @@ const BlogCard = ({ blog, index }: any) => {
     // >
     <Link
       href={`/explore/blogs/${blog.id}`}
-      className="flex flex-col shadow-md overflow-hidden w-[100%] rounded-t-lg hover:scale-[1.007] transition-all duration-300"
+      className="flex flex-col  overflow-hidden w-[100%] rounded-t-lg hover:scale-[1.007] transition-all duration-300"
     >
       <div className="bg-white p-0 rounded-lg relative shadow-md grid place-items-center">
         <Image
