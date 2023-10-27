@@ -20,7 +20,7 @@ import {
   FiCalendar,
   FiHelpCircle,
 } from "react-icons/fi";
-import Meetups from "./Meetups";
+import Meetups from "./meetups/page";
 import Images from "./gallery/page";
 import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
