@@ -10,7 +10,7 @@ const MeetupCard = ({ meetup }: any) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.75, delay: 0.5 }}
         key={meetup.id}
-        className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden m-2 bg-gradient-to-b from-purple-100 to-purple-50 hover:shadow-xl transition-shadow duration-300"
+        className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden m-2 hover:shadow-xl transition-shadow duration-300"
       >
         <div className="relative">
           {meetup.image && (
@@ -26,7 +26,7 @@ const MeetupCard = ({ meetup }: any) => {
             {meetup.startDate}
           </div>
         </div>
-        <div className="p-2 md:p-6 bg-gradient-to-b h-auto">
+        <div className="p-2 md:p-6  bg-gradient-to-b from-sky-100 to-white ">
           <div className="p-0">
             <h2 className="text-2xl font-bold mb-2">{meetup?.title}</h2>
             <p className="text-gray-600 text-lg mb-2">{meetup?.description}</p>

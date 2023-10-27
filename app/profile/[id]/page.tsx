@@ -25,7 +25,7 @@ import Images from "./gallery/page";
 import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
 import Stories from "./Stories";
-import Discussions from "./Discussions";
+import Discussions from "./Discussions/page";
 import Questions from "./Questions";
 import Loading from "@/app/community/(components)/forums/loading";
 import ClientComponent from "./ClientComponent";

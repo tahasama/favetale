@@ -21,15 +21,7 @@ async function getData(userx: any) {
   return blogsData;
 }
 const Meetups = async ({ tab, userx }: any) => {
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:23 ~ ServerComponent ~ userx:",
-    userx
-  );
   const meetupsData = await getData(userx);
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:25 ~ ServerComponent ~ meetupsData:",
-    meetupsData
-  );
 
   return (
     <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
