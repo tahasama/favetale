@@ -24,12 +24,12 @@ import Meetups from "./meetups/page";
 import Images from "./gallery/page";
 import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
-import Stories from "./Stories/page";
 import Discussions from "./Discussions/page";
 import Loading from "@/app/community/(components)/forums/loading";
 import ClientComponent from "./ClientComponent";
 import Purchases from "./Purchases";
 import Questions from "./questions/page";
+import Stories from "./Stories/page";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
