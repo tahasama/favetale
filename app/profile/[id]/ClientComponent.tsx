@@ -26,7 +26,7 @@ import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
 import Stories from "./Stories";
 import Discussions from "./Discussions/page";
-import Questions from "./Questions";
+import Questions from "./question/page";
 import Loading from "@/app/community/(components)/forums/loading";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });

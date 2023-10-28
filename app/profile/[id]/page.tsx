@@ -26,10 +26,10 @@ import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
 import Stories from "./Stories";
 import Discussions from "./Discussions/page";
-import Questions from "./Questions";
 import Loading from "@/app/community/(components)/forums/loading";
 import ClientComponent from "./ClientComponent";
 import Purchases from "./Purchases";
+import Questions from "./questions/page";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 

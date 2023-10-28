@@ -32,7 +32,7 @@ const Blogs = async ({ userx }: any) => {
       {meetupsData?.filter(
         (meetups: any) => meetups.writer.id === userx && meetups.draft === false
       ).length !== 0 && (
-        <div className="flex flex-col w-2/5 ">
+        <div className="flex flex-col w-3/12 ">
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -57,7 +57,7 @@ const Blogs = async ({ userx }: any) => {
                 (meetups: any) =>
                   meetups.writer.id === userx && meetups.draft === false
               )
-              .slice(0, 2)
+              .slice(0, 1)
               .map((meetup: any, index: any) => (
                 <BlogCard blog={meetup} index={index} />
               ))}
@@ -68,7 +68,7 @@ const Blogs = async ({ userx }: any) => {
       {meetupsData?.filter(
         (meetups: any) => meetups.writer.id === userx && meetups.draft === true
       ).length !== 0 && (
-        <div className="flex flex-col w-2/5">
+        <div className="flex flex-col w-3/12">
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -94,7 +94,7 @@ const Blogs = async ({ userx }: any) => {
                 (meetups: any) =>
                   meetups.writer.id === userx && meetups.draft === true
               )
-              ?.slice(0, 2)
+              ?.slice(0, 1)
               .map((meetup: any, index: any) => (
                 <BlogCard blog={meetup} index={index} />
               ))}
@@ -103,7 +103,7 @@ const Blogs = async ({ userx }: any) => {
       )}
       {meetupsData?.filter((meetups: any) => meetups.likes.includes(userx))
         .length !== 0 && (
-        <div className="flex flex-col w-2/5">
+        <div className="flex flex-col w-3/12">
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -119,13 +119,13 @@ const Blogs = async ({ userx }: any) => {
                 meetups.likes.includes(userx)
               ).length
             }{" "}
-            blogs
+            reactions
           </Link>
           <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
 
               .filter((meetups: any) => meetups.likes.includes(userx))
-              ?.slice(0, 2)
+              ?.slice(0, 1)
               .map((meetup: any, index: any) => (
                 <BlogCard blog={meetup} index={index} />
               ))}
