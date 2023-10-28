@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
@@ -22,7 +23,7 @@ const StoryCard = ({ story, index }: any) => {
     >
       <Link href={`/explore/stories/${story.id}`} className="block">
         <div
-          className={`bg-white rounded-lg shadow-lg overflow-hidden mb-5 sm:h-60`}
+          className={`bg-white rounded-lg shadow-lg overflow-hidden sm:h-60`}
         >
           <div className="flex flex-col sm:flex-row justify-between h-full">
             <div className="flex flex-col justify-between px-4 ">
@@ -36,7 +37,8 @@ const StoryCard = ({ story, index }: any) => {
               </div>
               <div className="mb-2">
                 <p className="text-gray-400 mt-2">
-                  {story.createdAt.toDate().toDateString()}
+                  {story.createdAt &&
+                    new Date(story.createdAt.seconds * 1000).toDateString()}
                 </p>
 
                 <p className="text-tealDark font-semibold">
