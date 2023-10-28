@@ -33,8 +33,8 @@ const Questions = async ({ tab, userx }: any) => {
   const meetupsData = await getData(userx);
 
   return (
-    <div className="m-6 flex h-full gap-10 justify-center">
-      <div className="flex flex-col w-2/5 ">
+    <div className="m-6 flex  flex-col md:flex-row h-full gap-10 justify-center">
+      <div className="flex flex-col md:w-2/5 ">
         <p
           className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
         >
@@ -62,7 +62,7 @@ const Questions = async ({ tab, userx }: any) => {
             ))}
         </div>
       </div>
-      <div className="flex flex-col w-2/5 ">
+      <div className="flex flex-col md:w-2/5 ">
         <p
           className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
         >
@@ -91,7 +91,7 @@ const Questions = async ({ tab, userx }: any) => {
             ))}
         </div>
       </div>
-      <div className="flex flex-col w-2/5 ">
+      <div className="flex flex-col md:w-2/5 ">
         <p
           className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
         >

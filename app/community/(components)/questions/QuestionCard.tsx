@@ -11,9 +11,9 @@ const BlogCard = ({ question, index }: any) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.75, delay: 0.5 }}
         key={question.id}
-        className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:flex-row md:items-center md:justify-between"
+        className="bg-white cursor-pointer hover:animate-bounceQ p-7 rounded-lg shadow-md x flex flex-col md:items-center md:justify-between"
       >
-        <div className="mb-4 md:mb-0 w-1/12 flex flex-col items-start md:items-center">
+        <div className="mb-3 flex gap-4 items-start md:items-center justify-start w-full">
           <div className="flex items-center mb-1">
             <button className="text-indigo-500 font-semibold mr-2">
               <span role="img" aria-label="Upvote">
@@ -37,18 +37,23 @@ const BlogCard = ({ question, index }: any) => {
             <p className="ml-2">Answers</p>
           </div>
         </div>
-        <div className="hidden md:block md:mx-2 w-1/12">
+        {/* <div className="hidden lg:block md:mx-2 w-1/12">
           <hr className="border-r border-t-0 border-gray-300 h-12 mx-6" />
-        </div>
-        <div className="w-10/12">
+        </div> */}
+        <div className="flex flex-col justify-start w-full">
           <h3 className="text-base font-semibold mb-2 line-clamp-2">
             {question.title}
           </h3>
           <h4 className="text-md mb-2 line-clamp-2">{question.content}</h4>
           <p className="text-gray-600 mb-2">
             Asked by{" "}
-            <span className="text-yellow-700">{question.writer.name}</span> on{" "}
-            {new Date(question.createdAt.seconds * 1000).toDateString()}
+            <Link
+              href={`/profile/${question.writer.id}`}
+              className="text-yellow-700 hover:underline hover:text-red-400 transition-all duration-300"
+            >
+              {question.writer.name}
+            </Link>{" "}
+            on {new Date(question.createdAt.seconds * 1000).toDateString()}
           </p>
         </div>
       </motion.div>

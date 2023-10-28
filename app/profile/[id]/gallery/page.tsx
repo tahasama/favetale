@@ -32,10 +32,10 @@ async function getData(userx: any) {
 const Gallery = async ({ tab, userx }: any) => {
   const meetupsData = await getData(userx);
   return (
-    <div className="m-6 flex h-full gap-10 justify-center">
+    <div className="m-6 flex flex-col md:flex-row h-full gap-10 justify-center">
       {meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
         .length !== 0 && (
-        <div className="flex flex-col w-2/5 ">
+        <div className="flex flex-col md:w-2/5 ">
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -67,7 +67,7 @@ const Gallery = async ({ tab, userx }: any) => {
         (meetups: any) =>
           meetups.likes.includes(userx) || meetups.hearts.includes(userx)
       ).length !== 0 && (
-        <div className="flex flex-col w-2/5">
+        <div className="flex flex-col md:w-2/5">
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >

@@ -28,11 +28,11 @@ const Blogs = async ({ userx }: any) => {
   const meetupsData: any = await getData(userx);
 
   return (
-    <div className="m-6 flex flex-wrap h-full gap-10 justify-center">
+    <div className="m-6 flex flex-wrap flex-col md:flex-row h-full gap-10 justify-center">
       {meetupsData?.filter(
         (meetups: any) => meetups.writer.id === userx && meetups.draft === false
       ).length !== 0 && (
-        <div className="flex flex-col w-3/12 ">
+        <div className="flex flex-col md:w-3/12 ">
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -68,7 +68,7 @@ const Blogs = async ({ userx }: any) => {
       {meetupsData?.filter(
         (meetups: any) => meetups.writer.id === userx && meetups.draft === true
       ).length !== 0 && (
-        <div className="flex flex-col w-3/12">
+        <div className="flex flex-col md:w-3/12">
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -103,7 +103,7 @@ const Blogs = async ({ userx }: any) => {
       )}
       {meetupsData?.filter((meetups: any) => meetups.likes.includes(userx))
         .length !== 0 && (
-        <div className="flex flex-col w-3/12">
+        <div className="flex flex-col md:w-3/12">
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >

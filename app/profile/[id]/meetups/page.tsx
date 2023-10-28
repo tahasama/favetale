@@ -34,7 +34,7 @@ const Meetups = async ({ tab, userx }: any) => {
     <div className="m-6 flex h-full gap-10 justify-center">
       {meetupsData?.filter((meetups: any) => meetups.writer.id === userx)
         .length !== 0 && (
-        <div className="flex flex-col w-3/5 ">
+        <div className="flex flex-col md:w-3/5 ">
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -51,7 +51,7 @@ const Meetups = async ({ tab, userx }: any) => {
             }{" "}
             Meetups
           </Link>
-          <div className="mt-0 flex justify-start gap-4 mx-2 sm:mx-0 w-fit max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+          <div className="mt-0 flex flex-col md:flex-row justify-start gap-4 mx-2 sm:mx-0 w-fit max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
               ?.slice(0, 2)
               .filter((meetups: any) => meetups.writer.id === userx)
@@ -65,7 +65,7 @@ const Meetups = async ({ tab, userx }: any) => {
       {meetupsData?.filter((meetups: any) =>
         meetups.participants.includes(userx)
       ).length !== 0 && (
-        <div className="flex flex-col w-3/5">
+        <div className="flex flex-col md:w-3/5">
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
@@ -83,7 +83,7 @@ const Meetups = async ({ tab, userx }: any) => {
             }{" "}
             Participations
           </Link>
-          <div className="mt-0 flex gap-4 mx-2 sm:mx-0 w-fit max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+          <div className="mt-0 flex flex-col md:flex-row gap-4 mx-2 sm:mx-0 w-fit max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
               ?.slice(0, 2)
               .filter((meetups: any) => meetups.participants.includes(userx))
