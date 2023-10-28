@@ -61,6 +61,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
         title: discussionTitle,
         discussionContent: discussionContent,
         createdAt: serverTimestamp(),
+        participants: [],
       };
 
       if (discussion?.id) {
@@ -144,7 +145,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Tags
+            Choose your Tags
           </label>
           <div className="flex flex-wrap gap-2">
             {categoriesToTags &&

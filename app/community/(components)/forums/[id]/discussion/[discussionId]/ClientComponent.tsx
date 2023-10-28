@@ -81,6 +81,9 @@ const ClientComponent = ({ discussionData }: any) => {
         likes: [],
         dislikes: [],
       });
+      await updateDoc(doc(db, "discussions", discussionId), {
+        participants: arrayUnion(userx.id),
+      });
     }
     fetchComments();
     setNewComment("");
@@ -178,7 +181,7 @@ const ClientComponent = ({ discussionData }: any) => {
   };
 
   return (
-    <>
+    <div className="h-fit">
       <DiscussionModal
         isOpen={uploadpetModalOpen}
         onClose={() => setUploadpetModalOpen(false)}
@@ -186,7 +189,7 @@ const ClientComponent = ({ discussionData }: any) => {
       />
       {discussionData && discussionData.writer.id === userx.id && (
         <div className="relative">
-          <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4 absolute -top-10">
+          <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4 absolute -top-16">
             <button
               onClick={() => setUploadpetModalOpen(true)}
               className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
@@ -263,7 +266,7 @@ const ClientComponent = ({ discussionData }: any) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

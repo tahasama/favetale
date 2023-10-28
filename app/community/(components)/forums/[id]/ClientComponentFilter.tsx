@@ -4,9 +4,13 @@ import React, { useMemo, useState } from "react";
 import DiscussionCard from "./DiscussionCard";
 
 const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
+  console.log(
+    "🚀 ~ file: ClientComponentFilter.tsx:7 ~ ClientComponentFilter ~ id:",
+    id
+  );
   const [selectedTag, setSelectedTag] = useState<any>(null);
 
-  const xxx: any[] = discussionsDataFiltered.map((c: any) => c.tags).flat();
+  const xxx: any[] = discussionsDataFiltered?.map((c: any) => c.tags).flat();
   const uniqueTags: any[] = [...new Set(xxx)];
 
   const filteredDiscussions = selectedTag
@@ -44,8 +48,8 @@ const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
           All
         </button>
       </div>
-      {filteredDiscussions.map((discussion: any) => (
-        <DiscussionCard discussion={discussion} id={id} />
+      {filteredDiscussions?.map((discussion: any) => (
+        <DiscussionCard discussion={discussion} idx={id} />
       ))}
     </>
   );

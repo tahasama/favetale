@@ -26,7 +26,7 @@ const ForumCard = ({ forum, index, discussions }: any) => {
           <p className="text-gray-400 text-sm">{forum.lastPost}</p>
           <div className="flex items-center mt-2">
             <div className="bg-indigo-500 text-white px-2 py-1 rounded-md text-xs mr-2">
-              {discussions.length}&nbsp;posts
+              {discussions?.length}&nbsp;posts
             </div>
             <div className="bg-gray-100 text-gray-500 px-2 py-1 rounded-md text-xs">
               Join the discussions

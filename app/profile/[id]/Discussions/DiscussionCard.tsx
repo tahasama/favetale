@@ -4,11 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 const DiscussionCard = ({ discussion }: any) => {
-  console.log(
-    "🚀 ~ file: DiscussionCard.tsx:7 ~ DiscussionCard ~ discussion:",
-    discussion
-  );
-
   const categoryMap: any = {
     1: "Health",
     2: "Training",
@@ -18,10 +13,10 @@ const DiscussionCard = ({ discussion }: any) => {
   };
 
   return (
-    <div className="grid place-items-center mt-10">
+    <div className="grid place-items-center mt-0 w-full mx-2">
       <div
         key={discussion.id}
-        className="w-full my-3 border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out md:w-6/12 hover:translate-x-[1px] hover:translate-y-[1px]"
+        className="w-full my-3 border p-4 rounded-lg cursor-pointer shadow-md transition bg-white duration-300 ease-in-out hover:translate-x-[1px] hover:translate-y-[1px]"
       >
         <Link
           href={`/community/forums/${Object.keys(categoryMap).find(
@@ -43,7 +38,7 @@ const DiscussionCard = ({ discussion }: any) => {
 
             <Link href={`/profile/${discussion.writer.id}`}>
               by : &nbsp;
-              <span className="capitalize text-sky-500 underline underline-offset-2">
+              <span className="capitalize text-sky-500 underline underline-offset-2 hover:text-sky-700">
                 {discussion.writer.name}
               </span>
             </Link>
