@@ -20,33 +20,24 @@ const PurchaseClient = ({ purchase }: any) => {
     );
   };
   return (
-    <Link
-      className="bg-white shadow-lg rounded-lg hover:scale-[1.01] cursor-pointer transition-all duration-200"
-      href={`/profile/purchase/${purchase.id}`}
-    >
-      <div className="px-10 py-3 bg-tealDark flex justify-between items-center  text-white rounded-t-lg">
-        <Image src={logo} width={500} alt="logo" className="w-2/12" />
-        {/* <h1 className="text-xl font-semibold">Order Confirmed</h1> */}
-      </div>
-
-      <div className="border-t border-gray-200 px-6 py-4">
-        <h2 className="text-base font-semibold mb-2">
-          Date: {purchase.date.toDate().toLocaleString()}
-        </h2>
-        <h2 className="text-base font-semibold mb-2">
-          Number of items: {purchase.cart.length}
-        </h2>
-      </div>
-      <div className="w-full grid place-items-center mb-5">
-        <button className="rounded-md bg-indigo-400 p-3 text-slate-50">
-          Click for details!
-        </button>
-      </div>
-      <p className="font-semibold text-lg mt-2 flex justify-between rounded-b-md p-3 bg-indigo-300">
-        <span>Total:</span>
-        <span>{calculateTotal(purchase).toFixed(2)}DH</span>
-      </p>
-    </Link>
+    <tr key={purchase.id} className="text-center">
+      <td className="py-3 px-6 border">{purchase.email}</td>
+      <td className="py-3 px-6 border">
+        {purchase.date.toDate().toLocaleString()}
+      </td>
+      <td className="py-3 px-6 border">{purchase.cart.length}</td>
+      <td className="py-3 px-6 border">
+        {calculateTotal(purchase).toFixed(2)} DH
+      </td>
+      <td className="py-3 px-6 border hover:animate-buttonHover text-slate-500 hover:text-blue-600 cursor-pointer transition-all duration-500">
+        <Link
+          className="bg-white p-2 shadow-lg rounded-lg "
+          href={`/profile/purchase/${purchase.id}`}
+        >
+          <button className=" ">Click for details</button>
+        </Link>
+      </td>
+    </tr>
   );
 };
 

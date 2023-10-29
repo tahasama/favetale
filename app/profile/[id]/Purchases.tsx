@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import logo from "../../logo.png";
 import PurchaseClient from "./PurchaseClient";
+// import { table } from "console";
 
 const getData = async (userx: any) => {
   const purchaseData: any[] = [];
@@ -27,10 +28,33 @@ const Purchases = async ({ userx }: any) => {
   const purchaseData: any = await getData(userx);
 
   return (
-    <div className="mt-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-10 xl:gap-20 mx-4 md:mx-5 lg:mx-7 xl:mx-auto max-w-6xl">
-      {purchaseData?.map((purchase: any) => (
-        <PurchaseClient purchase={purchase} />
-      ))}
+    <div className="mt-10 mx-4 md:mx-5 lg:mx-7 xl:mx-auto max-w-6xl">
+      <table className="w-full border border-collapse">
+        <thead>
+          <tr>
+            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+              Email
+            </th>
+            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+              Date
+            </th>
+            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+              Number of Items
+            </th>
+            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+              Total
+            </th>
+            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+              Details
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {purchaseData?.map((purchase: any) => (
+            <PurchaseClient purchase={purchase} />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
