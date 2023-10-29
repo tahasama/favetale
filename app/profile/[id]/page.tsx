@@ -47,19 +47,19 @@ const UserProfile = ({ params: { id } }: any) => {
     { name: "Questions", icon: <FiHelpCircle /> },
   ];
   return (
-    <div className="bg-teal-50 min-h-screen h-fit pt-20 pb-10">
+    <div className="bg-teal-50 min-h-screen grid place-items-center h-fit pt-20 pb-10">
       <ClientComponent />
-      <div className="bg-white md:mx-6 px-1 mx-1 py-4 md:p-6 mt-6 shadow-md rounded-lg flex flex-wrap justify-center gap-3.5 md:gap-6">
+      <div className="bg-white md:mx-6 mb-6 px-1 lg:w-11/12 mx-1 py-4 md:p-6 mt-6 shadow-md rounded-lg flex flex-wrap justify-center gap-3.5 md:gap-6">
         {tabs.map((ta: any, index: any) => (
           <div
             onClick={() => setTab(ta.name)}
-            className="relative grid place-items-center w-16 h-16 md:w-32 md:h-32 bg-tealLight ring-1 ring-teal-00 rounded-lg cursor-pointer hover:scale-[1.02] shadow-md hover:shadow-lg transition-all duration-200"
+            className="relative grid place-items-center w-16 h-16 md:w-20 md:h-20 lg:w-32 lg:h-32 bg-tealLight ring-1 ring-teal-00 rounded-lg cursor-pointer hover:scale-[1.02] shadow-md hover:shadow-lg transition-all duration-200"
           >
-            <div className="scale-[1.7] md:scale-[2.4] mt-2 md:mt-0 text-blue-900">
+            <div className="scale-[1.7] md:scale-[2] lg:scale-[2.4] mt-2 md:mt-0 text-blue-900">
               {ta.icon}
             </div>
             <div
-              className={`absolute top-1 text-xs md:text-base ${
+              className={`absolute top-1 text-xs md:text-sm lg:text-base ${
                 (font.className,
                 ta.name === tab && "text-blue-600 transition-all duration-300")
               } `}
