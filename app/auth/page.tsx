@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "@firebase/auth"; // Import the necessary Firebase authentication function
 import { auth, db } from "@/firebase";
 import { useRouter } from "next/navigation";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   getRedirectResult,
   signInWithEmailAndPassword,
@@ -11,11 +11,13 @@ import {
 } from "firebase/auth";
 
 import { GoogleAuthProvider } from "firebase/auth";
+import { useCart } from "../provider/CartProvider";
 
 const SignUp = () => {
   const router = useRouter();
 
   const provider = new GoogleAuthProvider();
+  const { setUserx } = useCart();
 
   // State for user input
   const [username, setUsername] = useState("");
@@ -36,8 +38,12 @@ const SignUp = () => {
       // Store additional user information in Firestore
       const userRef = doc(db, "users", user.uid); // Assuming you have a 'users' collection
       const userData = {
-        username: username,
+        name: username,
         email: email,
+        creationTime: user.metadata.creationTime,
+        lastSignInTime: user.metadata.lastSignInTime,
+        diabled: false,
+        image: "",
       };
       await setDoc(userRef, userData);
       router.push(`/profile/${user.uid}`);
@@ -63,8 +69,7 @@ const SignUp = () => {
       );
       const user = userCredential.user;
       console.log("🚀 ~ file: page.tsx:22 ~ handleSignUp ~ user:", user);
-
-      router.push(`/profile/${user.uid}`);
+      setUserx(user).then(() => router.push(`/profile/${user.uid}`));
 
       return user;
     } catch (error: any) {
@@ -87,32 +92,38 @@ const SignUp = () => {
           const user = result.user;
 
           if (user && user.uid) {
-            // User is valid with a UID, create the userRef
             const userRef = doc(db, "users", user.uid);
 
-            // ... (your code for Firestore interactions)
-            // For example, you can set user data in Firestore:
-            await setDoc(userRef, {
-              name: user.displayName,
-              email: user.email,
-            });
+            // Check if the user document already exists in Firestore
+            const userDoc = await getDoc(userRef);
 
-            // Set the user data in the component state
-            setError(""); // Clear any previous errors
-            router.push(`/profile/${user.uid}`);
-            // Redirect to the profile page
+            if (userDoc.exists()) {
+              // User document already exists; redirect to profile page
+              router.push(`/profile/${user.uid}`);
+            } else {
+              // User document doesn't exist; create it in Firestore
+              await setDoc(userRef, {
+                name: user.displayName,
+                email: user.email,
+                creationTime: user.metadata.creationTime,
+                lastSignInTime: user.metadata.lastSignInTime,
+                diabled: false,
+                image: "",
+              })
+                .then(async () => await getDoc(userRef))
+                .finally(() => setUserx(user));
+
+              // Redirect to the profile page
+              router.push(`/profile/${user.uid}`);
+            }
           } else {
-            // Handle the case where user or user.uid is missing
             setError("User information is missing or invalid");
           }
         }
       } catch (error: any) {
-        // Handle errors here
-        setError(error.message); // Store the error message
+        setError(error.message);
       }
     };
-
-    // Call the function to handle the Google Sign-In redirect
     handleSignInRedirect();
   }, []); // Only runs once when the component mounts
 

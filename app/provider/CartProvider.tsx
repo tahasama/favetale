@@ -46,10 +46,12 @@ export const CartProvider = ({ children }: any) => {
           const userz: any = {
             ...userData.data(),
             id: userData.id,
-            creationTime: user.metadata.creationTime,
-            lastSignInTime: user.metadata.lastSignInTime,
           };
-          setUserx(userz);
+          {
+            !userz.suspended
+              ? setUserx(userz)
+              : console.log("This Account has been suspended");
+          }
         } else {
           // dispatch(saveUser(null));
         }
@@ -57,7 +59,7 @@ export const CartProvider = ({ children }: any) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [userx.uid]);
 
   return (
     <CartContext.Provider

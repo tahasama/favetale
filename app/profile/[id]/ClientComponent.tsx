@@ -15,6 +15,10 @@ import Link from "next/link";
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 const ClientComponent = () => {
   const { userx, uploadpetModalOpen, setUploadpetModalOpen } = useCart();
+  console.log(
+    "🚀 ~ file: ClientComponent.tsx:18 ~ ClientComponent ~ userx:",
+    userx
+  );
 
   return (
     <div className="grid place-items-center">
