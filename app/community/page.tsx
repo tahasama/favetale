@@ -70,9 +70,9 @@ const CommunityPage = () => {
 const TabButton = ({ tabName, isActive, onClick, icon }: any) => {
   return (
     <button
-      className={`flex mt-8 items-center justify-center w-full py-3 border-l-2 group  bg-gray-100 text-gray-600 rounded-t-lg ${
+      className={`flex mt-8 items-center justify-center w-full py-3 border-l-2 group  bg-indigo-50 text-gray-600 rounded-t-lg ${
         isActive
-          ? "bg-indigo-50 border-l-2 border-l-gray-300 flex-col transition-all ease-linear duration-1000"
+          ? "bg-indigo-50 border-l-2 border-l-gray-300 flex-col transition-all ease-in-out duration-1000"
           : "border-slate-200"
       } transition-all duration-1000 hover:bg-purple-100`}
       onClick={onClick}
