@@ -10,11 +10,6 @@ const DashboardOverview = () => {
     activeUsers: [80, 120, 180, 250, 350, 450],
   };
 
-  const contentSubmissionData = {
-    labels: ["Images", "Blogs", "Stories", "Meetups", "Forum Posts"],
-    counts: [100, 50, 75, 30, 120],
-  };
-
   const contentTypesData = {
     labels: ["Images", "Blogs", "Stories", "Meetups", "Forum Posts"],
     counts: [30, 20, 15, 10, 25], // Placeholder data
@@ -45,7 +40,7 @@ const DashboardOverview = () => {
             {
               label: "Content Submissions",
               data: contentSubmissionTrendsData.counts,
-              backgroundColor: "rgba(75, 192, 192, 0.6)",
+              backgroundColor: "rgb(125 111 235)",
             },
           ],
         },
@@ -68,13 +63,13 @@ const DashboardOverview = () => {
           {
             label: "Sales",
             data: storeSalesData.sales,
-            borderColor: "rgba(75, 192, 192, 1)",
+            borderColor: "rgba(75, 042, 192, 1)",
             borderWidth: 2,
           },
           {
             label: "Revenue",
             data: storeSalesData.revenue,
-            borderColor: "rgba(255, 99, 132, 1)",
+            borderColor: "rgba(255, 149, 132, 1)",
             borderWidth: 2,
           },
         ],
@@ -96,8 +91,14 @@ const DashboardOverview = () => {
               "rgba(54, 162, 235, 0.6)",
               "rgba(153, 102, 255, 0.6)",
             ],
+            circumference: 180,
+            rotation: -90,
           },
         ],
+      },
+      options: {
+        radius: "100%",
+        cutout: "25%",
       },
     });
 
@@ -124,43 +125,49 @@ const DashboardOverview = () => {
     });
   }, []);
   return (
-    <div id="dashboard" className="bg-gray-100 min-h-screen w-full p-6">
-      <div className="flex flex-col w-full gap-6">
-        <div className="flex w-full gap-7 justify-around">
-          {/* Total Users */}
-          <div className="bg-teal-300 p-4 rounded-lg shadow-lg flex-grow">
-            <h3 className="text-lg font-semibold text-white">Total Users</h3>
-            <p className="text-2xl font-bold text-white">1,234</p>
+    <div id="dashboard" className="bg-tealLight min-h-screen w-full">
+      <div className="flex flex-col w-full gap-">
+        <div className="flex flex-row flex-wrap w-full items-center gap-3 md:gap-4 mb-4 text-center justify-around scale-95">
+          <div className="bg-teal-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+            <h3 className="text-base md:text-lg font-semibold text-white">
+              Total Users
+            </h3>
+            <p className="text-lg md:text-2xl font-bold text-white">1,234</p>
           </div>
 
-          {/* Active Users */}
-          <div className="bg-sky-300 p-4 rounded-lg shadow-lg flex-grow">
-            <h3 className="text-lg font-semibold text-white">Active Users</h3>
-            <p className="text-2xl font-bold text-white">789</p>
+          <div className="bg-sky-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+            <h3 className="text-base md:text-lg font-semibold text-white">
+              Active Users
+            </h3>
+            <p className="text-lg md:text-2xl font-bold text-white">789</p>
           </div>
 
-          {/* Content Submissions */}
-          <div className="bg-indigo-300 p-4 rounded-lg shadow-lg flex-grow">
-            <h3 className="text-lg font-semibold text-white">
+          <div className="bg-indigo-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+            <h3 className="text-base md:text-lg font-semibold text-white">
               Content Submissions
             </h3>
-            <p className="text-2xl font-bold text-white">2,345</p>
+            <p className="text-lg md:text-2xl font-bold text-white">2,345</p>
           </div>
-          <div className="bg-purple-300 p-4 rounded-lg shadow-lg flex-grow">
-            <h3 className="text-lg font-semibold text-white">Total Sold</h3>
-            <p className="text-2xl font-bold text-white">18,345 Dh</p>
+          <div className="bg-purple-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+            <h3 className="text-base md:text-lg font-semibold text-white">
+              Total Sold
+            </h3>
+            <p className="text-lg md:text-2xl font-bold text-white">
+              18,345 Dh
+            </p>
           </div>
         </div>
-        <div className="flex w-full justify-around gap-4">
-          {/* User Growth Chart */}
-          <div className="bg-purple-200 p-4 rounded-lg shadow-lg flex-grow w-1/3">
-            <h3 className="text-lg font-semibold text-white">User Growth</h3>
+
+        <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
+          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
+              User Growth
+            </h3>
             <canvas id="userGrowthChart" width="400" height="200"></canvas>
           </div>
 
-          {/* Content Submission Trends Chart */}
-          <div className="bg-teal-200 p-4 rounded-lg shadow-lg flex-grow w-1/3">
-            <h3 className="text-lg font-semibold text-white">
+          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
               Content Submission Trends
             </h3>
             <canvas
@@ -170,22 +177,19 @@ const DashboardOverview = () => {
             ></canvas>
           </div>
         </div>
-        <div className="flex w-full justify-around gap-4">
+        <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
           {/* Content Type Distribution Chart */}
-          <div className="bg-sky-200 p-4 rounded-lg shadow-lg flex-grow w-1/3">
-            <h3 className="text-lg font-semibold text-white">
+          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
               Content Type Distribution
             </h3>
-            <canvas
-              id="contentTypesChart"
-              width="300"
-              height="150"
-              className="scale-[.8]"
-            ></canvas>
+            <div className="h-52 lg:h-80 grid place-items-center w-full">
+              <canvas id="contentTypesChart" width="300" height="150"></canvas>
+            </div>
           </div>
           {/* Store Sales and Revenue Chart */}
-          <div className="bg-indigo-200 p-4 rounded-lg shadow-lg flex-grow w-1/3">
-            <h3 className="text-lg font-semibold text-white">
+          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
               Store Sales and Revenue
             </h3>
             <canvas id="storeSalesChart" width="400" height="200"></canvas>
