@@ -86,13 +86,13 @@ const TabButton = ({ tabName, isActive, onClick, icon }: any) => {
       <span
         className={`${
           isActive
-            ? "absolute bottom-[2rem] md:bottom-[2.7rem]  scale-[140%] md:scale-[190%] bg-indigo-50 group-hover:bg-purple-100  rounded-full p-2 transition-all ease-linear"
+            ? "absolute bottom-[2rem] md:bottom-[2.7rem] z-40 scale-[140%] md:scale-[190%] bg-indigo-50 group-hover:bg-purple-100  rounded-full p-2 transition-all ease-linear"
             : "block"
         } `}
       >
         {icon}
       </span>
-      <span className={`ml-2 text-xs md:text-base ${isActive && "mt-3"}`}>
+      <span className={`ml-2 text-xs md:text-base z-50 ${isActive && "mt-3"}`}>
         {tabName}
       </span>
     </button>
