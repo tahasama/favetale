@@ -57,7 +57,7 @@ const Dashboard = () => {
       {/* Navigation Menu */}
 
       {/* Main Content Area */}
-      <main className="bg-white p-0 rounded-lg shadow-lg">
+      <main className="bg-white p-0 rounded-lg shadow-lg  overflow-scroll">
         {/* Content related to the selected feature will be displayed here */}
         <h2
           id="dashboard"
