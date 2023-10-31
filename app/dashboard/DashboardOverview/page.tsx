@@ -49,14 +49,19 @@ const DashboardOverview = () => {
             },
           ],
         },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
       }
     );
-  }, []);
 
-  useEffect(() => {
     // Create and render store sales and revenue chart
     const storeSalesChart = new Chart("storeSalesChart", {
-      type: "radar",
+      type: "line",
       data: {
         labels: storeSalesData.labels,
         datasets: [
@@ -75,9 +80,7 @@ const DashboardOverview = () => {
         ],
       },
     });
-  }, []);
 
-  useEffect(() => {
     // Create and render content type distribution chart
     const contentTypesChart = new Chart("contentTypesChart", {
       type: "pie",
@@ -97,9 +100,7 @@ const DashboardOverview = () => {
         ],
       },
     });
-  }, []);
 
-  useEffect(() => {
     // Create and render user growth chart
     const userGrowthChart = new Chart("userGrowthChart", {
       type: "line",
@@ -117,21 +118,6 @@ const DashboardOverview = () => {
             data: userGrowthData.activeUsers,
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 2,
-          },
-        ],
-      },
-    });
-
-    // Create and render content submission chart
-    const contentSubmissionChart = new Chart("contentSubmissionChart", {
-      type: "bar",
-      data: {
-        labels: contentSubmissionData.labels,
-        datasets: [
-          {
-            label: "Content Submissions",
-            data: contentSubmissionData.counts,
-            backgroundColor: "rgba(75, 192, 192, 0.6)",
           },
         ],
       },
