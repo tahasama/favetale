@@ -15,7 +15,7 @@ const UserManagement = () => {
   }
 
   return (
-    <div className="bg-tealLight min-h-screen p-4">
+    <div className="bg-tealLight p-4">
       <h2 className="text-2xl text-center mb-6">User Management</h2>
       <table className="w-full border border-teal-500">
         <thead className="bg-teal-500 text-white">
