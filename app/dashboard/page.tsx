@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import UserManagement from "./UserManagement/page";
 import DashboardOverview from "./DashboardOverview/page";
 import { HiMenu } from "react-icons/hi";
+import ContentModeration from "./ContentModeration/page";
+import StoreManagement from "./StoreManagement/page";
 
 const Dashboard = () => {
   const [selectedMenuItem, setSelectedMenuItem] =
@@ -17,8 +19,8 @@ const Dashboard = () => {
   const components: any = {
     "Dashboard Overview": <DashboardOverview />,
     "User Management": <UserManagement />,
-    // 'Content Moderation': <ContentModerationComponent />,
-    // 'Store Management': <StoreManagementComponent />,
+    "Content Moderation": <ContentModeration />,
+    "Store Management": <StoreManagement />,
     // 'Event Management': <EventManagementComponent />,
   };
   return (
@@ -57,7 +59,7 @@ const Dashboard = () => {
       {/* Navigation Menu */}
 
       {/* Main Content Area */}
-      <main className="bg-white p-0 rounded-lg shadow-lg  overflow-scroll">
+      <main className="bg-white p-0 rounded-lg shadow-lg  ">
         {/* Content related to the selected feature will be displayed here */}
         <h2
           id="dashboard"
