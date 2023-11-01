@@ -166,7 +166,7 @@ function StoreManagement() {
                     alt="product"
                     height={500}
                     width={500}
-                    className="max-h-20 max-w-20 md:max-h-36 object-cover rounded-md my-1 hover:scale-[4] z-40 hover:z-50 hover:absolute origin-left top-5  transition-all duration-300"
+                    className="max-h-20 max-w-20 md:max-h-36 object-cover rounded-md my-1 active:scale-[3] hover:md:scale-[4] z-10 hover:z-50 active:z-50 hover:md:absolute origin-left top-5  transition-all duration-300"
                   />
                 </td>
                 <td
@@ -178,7 +178,7 @@ function StoreManagement() {
                 >
                   <p className="text-center">{product.name}</p>
                 </td>
-                <td className="truncate max-w-[4rem] md:max-w-[12rem] text-start hover:max-w-[12rem]">
+                <td className="truncate max-w-[4rem] md:max-w-[12rem] text-start">
                   {product.description}
                 </td>
                 <td>
@@ -188,7 +188,7 @@ function StoreManagement() {
                 </td>
                 <td>${product.price}</td>
                 <td>{product.quantity}</td>
-                <td className="flex flex-col md:flex-row justify-around h-40 md:h-24 items-center">
+                <td className="flex flex-col md:flex-row justify-around  h-24 items-center">
                   <button onClick={handleAddProduct}>Add</button>
                   <button onClick={handleEditProduct} disabled={!product}>
                     Edit

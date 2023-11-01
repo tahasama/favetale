@@ -93,7 +93,7 @@ const ProductModal = ({
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
         <div className="flex flex-col md:flex-row gap-8 lg:p-8 shadow-md lg:min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
-          <div className=" flex flex-col items-center justify-center w-1/2">
+          <div className=" flex flex-col items-center justify-center md:w-1/2">
             <Image
               src={product?.images[selectedImage]}
               alt={product?.name}
@@ -101,11 +101,11 @@ const ProductModal = ({
               height={1000}
               className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
             />
-            <div className="flex mt-4">
+            <div className="flex gap-2 mt-4">
               {product?.images.map((image: any, index: any) => (
                 <img
                   key={index}
-                  src={image.src}
+                  src={image}
                   alt={product?.name}
                   className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
                     index === selectedImage ? "border-blue-500 scale-110" : ""
@@ -124,31 +124,6 @@ const ProductModal = ({
             <p className="text-lg ">-{product?.discount}%</p>
             <div className=" text-start flex justify-center items-center gap-5">
               <p className="text-gray-700">Rating: {product?.rating} / 5</p>
-              <select
-                value={rating}
-                onChange={handleRatingChange}
-                className="border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
-              >
-                <option value={0}>Select Rating </option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-              </select>
-            </div>
-
-            <div className="mt-3">
-              <button
-                onClick={addToCart}
-                className={`bg-blue-500 px-7 py-3 mb-3 lg:mb-0 rounded-md text-white  hover:bg-blue-600 ${
-                  isAddedToCart &&
-                  "bg-slate-400 hover:bg-slate-400 cursor-pointer"
-                }`}
-                disabled={isAddedToCart}
-              >
-                {isAddedToCart ? "Added to Cart" : "Add to Cart"}
-              </button>
             </div>
           </div>
         </div>
