@@ -7,6 +7,7 @@ import scratch from "../../images/store/scratch.jpg";
 import Image from "next/image";
 import ProductModal from "./ProductModal";
 import { useCart } from "@/app/provider/CartProvider";
+import { FaInfo, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 
 function StoreManagement() {
   const discountProducts = [
@@ -104,6 +105,10 @@ function StoreManagement() {
   ];
   const [products, setProducts] = useState(discountProducts);
   const [product, setproduct] = useState<any>(null);
+  const [pressed, setPressed] = useState<any>({
+    isPressed: false,
+    pressedIndex: null,
+  });
   const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
 
   useEffect(() => {
@@ -134,12 +139,11 @@ function StoreManagement() {
   };
 
   return (
-    <div>
-      <h2>Store Management</h2>
+    <div className="bg-tealLight">
+      <h2 className="text-center my-6">Store Management</h2>
 
       {/* Product List */}
       <div className="">
-        <h3>Products</h3>
         <table className="w-full max-h-[400px] overflow-y-auto">
           <thead>
             <tr>
@@ -161,13 +165,23 @@ function StoreManagement() {
                   index % 2 !== 0 ? "bg-white" : "bg-teal-50"
                 }`}
               >
-                <td className="w-36 md:w-36 relative">
+                <td className="w-36 relative">
                   <Image
                     src={product.images[0]}
                     alt="product"
                     height={500}
                     width={500}
-                    className="max-h-20 max-w-20 md:max-h-36 object-cover rounded-md my-1 active:scale-[3] hover:md:scale-[4] z-10 hover:z-50 active:z-50 hover:md:absolute origin-left top-5  transition-all duration-300"
+                    onClick={() =>
+                      setPressed({
+                        isPressed: !pressed.isPressed,
+                        pressedIndex: index,
+                      })
+                    }
+                    className={`max-h-20 max-w-20 md:max-h-28 md:max-w-28 object-cover rounded-md my-1 ${
+                      pressed.pressedIndex === index && pressed.isPressed
+                        ? "scale-[3] z-50 absolute left-0 top-0"
+                        : "scale-[1] z-10"
+                    } hover:md:scale-[4] z-10 hover:z-50  hover:md:absolute origin-top-left top-1  transition-all duration-300`}
                   />
                 </td>
                 <td
@@ -189,13 +203,20 @@ function StoreManagement() {
                 </td>
                 <td>${product.price}</td>
                 <td>{product.quantity}</td>
-                <td className="flex flex-col md:flex-row justify-around  h-24 items-center">
-                  <button onClick={handleAddProduct}>Add</button>
-                  <button onClick={handleEditProduct} disabled={!product}>
-                    Edit
+                <td className="flex flex-col md:flex-row justify-center gap-4 h-24 items-center">
+                  <button
+                    onClick={handleEditProduct}
+                    disabled={!product}
+                    className="text-xl text-sky-500"
+                  >
+                    <FaEdit />
                   </button>
-                  <button onClick={handleDeleteProduct} disabled={!product}>
-                    Delete
+                  <button
+                    onClick={handleDeleteProduct}
+                    disabled={!product}
+                    className="text-lg text-red-400"
+                  >
+                    <FaTrash />
                   </button>
                 </td>
               </tr>

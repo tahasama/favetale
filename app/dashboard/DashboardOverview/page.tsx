@@ -126,6 +126,12 @@ const DashboardOverview = () => {
   }, []);
   return (
     <div id="dashboard" className="bg-tealLight min-h-screen w-full">
+      <h2
+        id="dashboard"
+        className="text-2xl font-semibold my-4 indent-4 md:indent-5 lg:indent-8 xl:indent-10"
+      >
+        Dashboard Overview
+      </h2>
       <div className="flex flex-col w-full gap-">
         <div className="flex flex-row flex-wrap w-full items-center gap-3 md:gap-4 mb-4 text-center justify-around scale-95">
           <div className="bg-teal-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">

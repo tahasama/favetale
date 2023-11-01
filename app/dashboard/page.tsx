@@ -5,6 +5,7 @@ import DashboardOverview from "./DashboardOverview/page";
 import { HiMenu } from "react-icons/hi";
 import ContentModeration from "./ContentModeration/page";
 import StoreManagement from "./StoreManagement/page";
+import EventManagement from "./Event Management/page";
 
 const Dashboard = () => {
   const [selectedMenuItem, setSelectedMenuItem] =
@@ -21,7 +22,7 @@ const Dashboard = () => {
     "User Management": <UserManagement />,
     "Content Moderation": <ContentModeration />,
     "Store Management": <StoreManagement />,
-    // 'Event Management': <EventManagementComponent />,
+    "Event Management": <EventManagement />,
   };
   return (
     <div className="bg-tealLight relative top-20 h-[calc(100vh-5rem)]">
@@ -61,12 +62,7 @@ const Dashboard = () => {
       {/* Main Content Area */}
       <main className="bg-white p-0 rounded-lg shadow-lg  ">
         {/* Content related to the selected feature will be displayed here */}
-        <h2
-          id="dashboard"
-          className="text-2xl font-semibold mb-4 indent-4 md:indent-5 lg:indent-8 xl:indent-10"
-        >
-          Dashboard Overview
-        </h2>
+
         {selectedMenuItem && components[selectedMenuItem]}
       </main>
 
