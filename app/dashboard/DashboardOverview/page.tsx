@@ -12,7 +12,7 @@ const DashboardOverview = () => {
 
   const contentTypesData = {
     labels: ["Images", "Blogs", "Stories", "Meetups", "Forum Posts"],
-    counts: [30, 20, 15, 10, 25], // Placeholder data
+    counts: [30, 20, 15, 10, 25],
   };
 
   // Add this code to your DashboardOverview component
