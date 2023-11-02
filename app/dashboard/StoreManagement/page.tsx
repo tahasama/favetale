@@ -18,6 +18,7 @@ function StoreManagement() {
       price: 24.99,
       discount: 30,
       rating: [1, 12, 14, 16, 125, 128],
+      cumulativeStock: 100,
       description:
         "A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.A perfect scratching post for your furry friend.",
       reviews: [
@@ -40,7 +41,7 @@ function StoreManagement() {
           text: "Nice design and sturdy build.",
         },
       ],
-      quantity: 1,
+      stock: 1,
     },
     {
       id: 8,
@@ -49,6 +50,7 @@ function StoreManagement() {
       price: 39.99,
       discount: 25,
       rating: [12, 22, 24, 26, 135, 138],
+      cumulativeStock: 100,
       description: "Spacious and comfortable cage for your small pet.",
       reviews: [
         {
@@ -70,7 +72,7 @@ function StoreManagement() {
           text: "Lol, it's easy to clean.",
         },
       ],
-      quantity: 1,
+      stock: 10,
     },
     {
       id: 9,
@@ -79,6 +81,7 @@ function StoreManagement() {
       price: 7.99,
       discount: 15,
       rating: [15, 25, 25, 25, 155, 158],
+      cumulativeStock: 100,
       description: "Attract squirrels with this high-quality feeder.",
       reviews: [
         {
@@ -100,10 +103,11 @@ function StoreManagement() {
           text: "Yeah, it's a good value for the price.",
         },
       ],
-      quantity: 1,
+      stock: 25,
     },
   ];
   const [products, setProducts] = useState(discountProducts);
+
   const [product, setproduct] = useState<any>(null);
   const [pressed, setPressed] = useState<any>({
     isPressed: false,
@@ -153,6 +157,8 @@ function StoreManagement() {
               <th>Rate</th>
               <th>Price</th>
               <th>Stock</th>
+              <th>sales</th>
+              <th>revenue</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -202,7 +208,15 @@ function StoreManagement() {
                   ).toFixed(2)}
                 </td>
                 <td>${product.price}</td>
-                <td>{product.quantity}</td>
+                <td>{product.stock}</td>
+                <td> {product.cumulativeStock - product.stock} Unit</td>
+                <td>
+                  ${" "}
+                  {(
+                    (product.cumulativeStock - product.stock) *
+                    product.price
+                  ).toFixed(2)}
+                </td>
                 <td className="flex flex-col md:flex-row justify-center gap-4 h-24 items-center">
                   <button
                     onClick={handleEditProduct}
