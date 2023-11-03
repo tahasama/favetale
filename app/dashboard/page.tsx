@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import UserManagement from "./UserManagement/page";
 import DashboardOverview from "./DashboardOverview/page";
 import { HiMenu } from "react-icons/hi";
-import ContentModeration from "./ContentModeration/page";
+import ContentModeration from "./content/page";
 import StoreManagement from "./StoreManagement/page";
 import EventManagement from "./Event Management/page";
 

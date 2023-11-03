@@ -37,6 +37,10 @@ const ImageModal = () => {
     uploadpetModalOpen,
     setUploadpetModalOpen,
   } = useCart();
+  console.log(
+    "🚀 ~ file: ImageModal.tsx:40 ~ ImageModal ~ uploadpetModalOpen:",
+    uploadpetModalOpen
+  );
 
   const [comments, setComments] = useState<any[]>([]);
 
@@ -73,6 +77,10 @@ const ImageModal = () => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
+      console.log(
+        "🚀 ~ file: ImageModal.tsx:80 ~ handleModalClick ~ e.target.classList.contains:",
+        e.target.classList.contains("modal-overlay")
+      );
       setUploadpetModalOpen(false);
     }
   };
@@ -220,7 +228,7 @@ const ImageModal = () => {
 
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-40 backdrop-blur-md backdrop-brightness-50 ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"

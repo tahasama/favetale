@@ -32,14 +32,14 @@ const myGallery = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
 
   return (
-    <div className="flex flex-col w-2/5 ">
+    <div className="flex flex-col mt-24">
       <p
         className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
       >
         My Collection
       </p>
 
-      <div className="mt-0 flex  gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+      <div className="mt-10 pb-4  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0 sm:gap-4 mx-2 sm:mx-auto max-w-6xl">
         {meetupsData
           ?.filter((meetups: any) => meetups.poster.id === id)
           .map((meetup: any, index: any) => (
