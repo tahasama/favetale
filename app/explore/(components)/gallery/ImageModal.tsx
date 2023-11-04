@@ -195,6 +195,21 @@ const ImageModal = () => {
     }
   };
 
+  const updateFlag = async () => {
+    const likeRef = doc(db, "petImages", selectedImage.id); // Assuming 'db' is your Firestore instance
+    const documentSnapshot = await getDoc(likeRef);
+    const petImageData = documentSnapshot.data();
+
+    try {
+      // Get the current document data
+
+      // Update the document on Firestore in the background
+      await updateDoc(likeRef, { flag: true });
+    } catch (error) {
+      console.error("Error updating heart:", error);
+    }
+  };
+
   const { imageModalOpen, setImageModalOpen } = useCart();
 
   const removeImage = async () => {
@@ -275,6 +290,12 @@ const ImageModal = () => {
               👍
             </button>
           </div>
+          <button
+            onClick={updateFlag}
+            className="absolute bottom-3 right-2 text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-lg px-1.5 py-0.5"
+          >
+            🚩
+          </button>
           <Link
             href={`/profile/${selectedImage?.poster?.id}`}
             className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md cursor-pointer"

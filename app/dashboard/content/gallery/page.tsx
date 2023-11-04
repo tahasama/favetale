@@ -2,6 +2,14 @@ import { db } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import ImageClient from "./ImageClient";
 import ViewClient from "./ViewClient";
+import ImageModal from "@/app/explore/(components)/gallery/ImageModal";
+import {
+  AiFillDelete,
+  AiOutlineFlag,
+  AiOutlineHolder,
+  AiTwotoneFlag,
+} from "react-icons/ai";
+import ActionsClient from "./ActionsClient";
 
 async function getData() {
   const petImages: any[] = [];
@@ -22,8 +30,9 @@ const Gallery = async () => {
   console.log("🚀 ~ file: page.tsx:20 ~ Gallery ~ petImages:", petImages);
 
   return (
-    <div className="bg-tealLight">
-      <h2 className="text-center my-6">Content Moderation</h2>
+    <div className="bg-tealLight mt-20">
+      <h2 className="text-center my-12 pt-6">Gallery</h2>
+      <ImageModal />
 
       <table className="w-full max-h-[400px] overflow-y-auto">
         <thead>
@@ -52,30 +61,11 @@ const Gallery = async () => {
               <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
                 <p className="text-center">{image.poster.name}</p>
               </td>
-              <td className="truncate max-w-[4rem] md:max-w-[12rem] text-start">
-                {new Date(image.postedOn).toDateString()}
-              </td>
+              <td className="">{new Date(image.postedOn).toDateString()}</td>
               <td>{image.likes.length}</td>
               <td>{image.comments.length}</td>
               <td>{image.flagged ? "Yes" : "No"}</td>
-              <td>
-                {!image.flagged && (
-                  <>
-                    <button
-                      // onClick={() => handleModerationAction(image)}
-                      className="text-base text-red-400 m-2"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      // onClick={() => handleModerationAction(image)}
-                      className="text-base text-red-400 m-2"
-                    >
-                      Hide
-                    </button>
-                  </>
-                )}
-              </td>
+              <ActionsClient image={image} />
             </tr>
           ))}
         </tbody>
