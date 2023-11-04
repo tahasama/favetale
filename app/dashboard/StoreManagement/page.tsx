@@ -237,16 +237,16 @@ function StoreManagement() {
             ))}
           </tbody>
         </table>
-        <ProductModal
-          isOpen={uploadpetModalOpen}
-          onClose={() => setUploadpetModalOpen(false)}
-          product={product}
-        />
       </div>
 
       {/* Product Details */}
 
       {/* Product Actions */}
+      <ProductModal
+        isOpen={uploadpetModalOpen}
+        onClose={() => setUploadpetModalOpen(false)}
+        product={product}
+      />
     </div>
   );
 }

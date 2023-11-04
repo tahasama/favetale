@@ -275,6 +275,17 @@ const ImageModal = () => {
               👍
             </button>
           </div>
+          <Link
+            href={`/profile/${selectedImage.poster.id}`}
+            className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md underline cursor-pointer"
+          >
+            <Image
+              src={selectedImage.poster.image || ""}
+              alt="image"
+              className={`${selectedImage.poster.image ? "visible" : "hidden"}`}
+            />
+            {selectedImage.poster.name}
+          </Link>
 
           {selectedImage && selectedImage?.poster?.id === userx.id && (
             <div className="absolute top-3 flex gap-3 md:gap-5 left-2 md:left-4 backdrop-blur-sm backdrop-brightness-75 px-3 py-2 rounded-lg">

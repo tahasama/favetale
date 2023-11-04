@@ -25,7 +25,7 @@ const Dashboard = () => {
     "Event Management": <EventManagement />,
   };
   return (
-    <div className="bg-tealLight relative top-20 h-[calc(100vh-5rem)] z-10">
+    <div className="bg-tealLight relative top-20 h-[calc(100vh-5rem)] z-0">
       {/* Header */}
       <header className="bg-teal-500 p-3 text-white relative">
         <nav className="ml-3 flex items-center gap-4">
