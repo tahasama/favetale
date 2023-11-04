@@ -34,14 +34,14 @@ function ContentModeration() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] lg:h-[calc(100vh-10rem)] min-h-[15rem] flex-col lg:flex-row  w-full">
-      <div className="sticky flex flex-col justify-center order-2 lg:order-1">
+    <div className="flex h-[calc(100vh-8rem)] md:h-[calc(100vh-10rem)] min-h-[15rem] flex-col md:flex-row w-full">
+      <div className="sticky flex flex-col justify-center order-2 md:order-1">
         <ul
-          className={` flex md:flex-col justify-center   m-1 lg:py-2 rounded-md gap-4  sm:top-0  backdrop-brightness-90`}
+          className={` flex md:flex-col justify-center   m-1 md:py-2 rounded-md gap-4  sm:top-0  backdrop-brightness-90`}
         >
           {Object.keys(content).map((menuItem) => (
             <li
-              className={`hover:underline hover:animate-bounceQ1  list-none lg:text-xl m-2 w-auto rounded-md font-semibold bg-teal-600 p-3 cursor-pointer`}
+              className={`hover:underline hover:animate-bounceQ1  list-none md:text-xl m-2 w-auto rounded-md font-semibold bg-teal-600 p-3 cursor-pointer`}
               key={menuItem}
             >
               <p onClick={() => handleMenuItemClick(menuItem)}>
@@ -51,7 +51,7 @@ function ContentModeration() {
           ))}
         </ul>
       </div>
-      <main className="flex-grow min-h-[16rem] overflow-y-auto order-1 lg:order-2">
+      <main className="flex-grow min-h-[16rem] overflow-y-auto order-1 md:order-2">
         {/* Content related to the selected feature will be displayed here */}
         <Suspense>
           {" "}

@@ -15,6 +15,7 @@ const Dashboard = () => {
 
   const handleMenuItemClick = (menuItem: any) => {
     setSelectedMenuItem(menuItem);
+    setOpen(!open);
   };
 
   const components: any = {

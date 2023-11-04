@@ -32,22 +32,23 @@ const Gallery = async () => {
   return (
     <div className="bg-tealLight px-2">
       <h2 className="text-center py-6">Gallery</h2>
+
       <ImageModal />
 
       <table className="w-full max-h-[400px] overflow-y-auto">
         <thead>
-          <tr>
+          <tr className="text-xs md:text-base">
             <th className="p-2">Image</th>
             <th>View</th>
             <th>User</th>
-            <th>Posted On</th>
+            <th>Posted</th>
             <th>Likes</th>
-            <th>Comments</th>
+            <th className="truncate max-w-[3.4rem] md:max-w-none ">Comments</th>
             <th>Flagged</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody className="mt-10">
+        <tbody className="mt-10 text-xs md:text-base">
           {petImages?.map((image, index) => (
             <tr
               key={index}

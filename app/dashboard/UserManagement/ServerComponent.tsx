@@ -58,8 +58,8 @@ const ServerComponent = async () => {
   return (
     <tbody>
       {usersData.map((user: any) => (
-        <tr key={user.id} className="border-b border-teal-500">
-          <td className="p-2">{user.id}</td>
+        <tr key={user.id} className="border-b border-teal-500 ">
+          <td className="p-2 hidden md:block">{user.id}</td>
           <td className="p-2">{user.name}</td>
           <td className="p-2">{user.lastName}</td>
           <td className="p-2">{user.description}</td>

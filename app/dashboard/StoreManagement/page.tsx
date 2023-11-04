@@ -147,19 +147,19 @@ function StoreManagement() {
       <h2 className="text-center my-6">Store Management</h2>
 
       {/* Product List */}
-      <div className="">
-        <table className="w-full max-h-[400px] overflow-y-auto">
+      <div className="text-xs md:text-sm lg:text-base overflow-x-auto">
+        <table className="w-full max-h-[400px] ">
           <thead>
             <tr>
               <th className="p-2">Product</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Rate</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>sales</th>
-              <th>revenue</th>
-              <th>Actions</th>
+              <th className="p-1">Name</th>
+              <th className="p-1 hidden md:block">Description</th>
+              <th className="p-1">Rate</th>
+              <th className="p-1">Price</th>
+              <th className="p-1">Stock</th>
+              <th className="p-1">sales</th>
+              <th className="p-1">revenue</th>
+              <th className="p-1">Actions</th>
             </tr>
           </thead>
           <tbody className="mt-10">
@@ -199,8 +199,10 @@ function StoreManagement() {
                 >
                   <p className="text-center">{product.name}</p>
                 </td>
-                <td className="truncate max-w-[4rem] md:max-w-[12rem] text-start">
-                  {product.description}
+                <td className="max-w-4xl h-full hidden md:block">
+                  <p className="line-clamp-3 w-full relative -top-5">
+                    {product.description}
+                  </p>
                 </td>
                 <td>
                   {(

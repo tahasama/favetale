@@ -17,10 +17,10 @@ const UserManagement = () => {
   return (
     <div className="bg-tealLight p-4 overflow-auto">
       <h2 className="text-2xl text-center mb-6">User Management</h2>
-      <table className="w-full border border-teal-500">
+      <table className="w-full border border-teal-500 text-xs md:text-sm lg:text-base">
         <thead className="bg-teal-500 text-white">
           <tr>
-            <th className="p-2">User ID</th>
+            <th className="p-2 hidden md:block">User ID</th>
             <th className="p-2">Name</th>
             <th className="p-2">Last Name</th>
             <th className="p-2">Description</th>
