@@ -276,15 +276,35 @@ const ImageModal = () => {
             </button>
           </div>
           <Link
-            href={`/profile/${selectedImage.poster.id}`}
-            className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md underline cursor-pointer"
+            href={`/profile/${selectedImage?.poster?.id}`}
+            className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md cursor-pointer"
           >
             <Image
-              src={selectedImage.poster.image || ""}
+              src={selectedImage?.poster?.image || ""}
               alt="image"
-              className={`${selectedImage.poster.image ? "visible" : "hidden"}`}
+              className={`${
+                selectedImage?.poster?.image ? "visible" : "hidden"
+              }`}
             />
-            {selectedImage.poster.name}
+
+            <p className="text-slate-300 ">
+              Posted by :{" "}
+              <Link
+                href={`/profile/${selectedImage?.poster?.id}`}
+                className="capitalize text-sky-500 underline underline-offset-2"
+              >
+                {" "}
+                {selectedImage?.poster?.name}{" "}
+              </Link>
+              {selectedImage.postedOn && (
+                <ReactTimeAgo
+                  date={selectedImage.postedOn}
+                  className="text-indigo-200 text-sm"
+                  locale="en-US"
+                />
+              )}
+            </p>
+            {/* {new Date(selectedImage?.poster?.postedOn)} */}
           </Link>
 
           {selectedImage && selectedImage?.poster?.id === userx.id && (
@@ -303,16 +323,6 @@ const ImageModal = () => {
                 <span className="text-slate-300 text-base md:text-xl"></span>
                 <AiFillDelete color={"#d4dae2"} size={24} />
               </button>
-              <p className="text-slate-300">
-                Posted by :{" "}
-                <Link
-                  href={`/profile/${selectedImage.poster.id}`}
-                  className="capitalize text-sky-500 underline underline-offset-2"
-                >
-                  {" "}
-                  {selectedImage.poster.name}
-                </Link>
-              </p>
             </div>
           )}
         </div>
