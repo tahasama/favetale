@@ -30,7 +30,7 @@ const ImageClient = ({ image, index }: any) => {
            ? "scale-[3] z-50 absolute left-0 top-0"
            : "scale-[1] z-10"
        }
-     hover:md:scale-[4] z-10 hover:z-50  hover:md:absolute origin-top-left top-1  transition-all duration-700 ease-out`}
+    z-10 hover:z-50   origin-top-left top-1  transition-all duration-700 ease-out`}
       />
     </td>
   );

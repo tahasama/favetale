@@ -25,7 +25,7 @@ const Dashboard = () => {
     "Event Management": <EventManagement />,
   };
   return (
-    <div className="bg-tealLight relative top-20 h-[calc(100vh-5rem)] z-0">
+    <div className="bg-tealLight relative top-20 h-[calc(100vh-5rem)]  z-0">
       {/* Header */}
       <header className="bg-teal-500 p-3 text-white relative">
         <nav className="ml-3 flex items-center gap-4">
@@ -47,7 +47,7 @@ const Dashboard = () => {
           >
             {Object.keys(components).map((menuItem) => (
               <li
-                className={`hover:underline list-none lg:text-xl   w-auto rounded-md font-semibold bg-teal-600 p-2 cursor-pointer`}
+                className={`hover:underline list-none text-xs lg:text-xl   w-auto rounded-md font-semibold bg-teal-600 p-2 cursor-pointer`}
                 key={menuItem}
               >
                 <p onClick={() => handleMenuItemClick(menuItem)}>{menuItem}</p>
@@ -65,11 +65,6 @@ const Dashboard = () => {
 
         {selectedMenuItem && components[selectedMenuItem]}
       </main>
-
-      {/* Footer */}
-      <footer className=" text-sm p-2 text-center">
-        &copy; Your App Name 2023
-      </footer>
     </div>
   );
 };

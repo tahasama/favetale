@@ -30,8 +30,8 @@ const Gallery = async () => {
   console.log("🚀 ~ file: page.tsx:20 ~ Gallery ~ petImages:", petImages);
 
   return (
-    <div className="bg-tealLight mt-20">
-      <h2 className="text-center my-12 pt-6">Gallery</h2>
+    <div className="bg-tealLight px-2">
+      <h2 className="text-center py-6">Gallery</h2>
       <ImageModal />
 
       <table className="w-full max-h-[400px] overflow-y-auto">
