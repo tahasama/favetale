@@ -1,7 +1,7 @@
 import { db } from "@/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import ImageClient from "./ImageClient";
-import ViewClient from "./ViewClient";
+import ImageClient from "../ImageClient";
+import ViewClient from "../ViewClient";
 import ImageModal from "@/app/explore/(components)/gallery/ImageModal";
 import {
   AiFillDelete,
@@ -9,7 +9,7 @@ import {
   AiOutlineHolder,
   AiTwotoneFlag,
 } from "react-icons/ai";
-import ActionsClient from "./ActionsClient";
+import ActionsClient from "../ActionsClient";
 
 async function getData() {
   const petImages: any[] = [];

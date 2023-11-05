@@ -1,9 +1,9 @@
 import { db } from "@/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import ViewClient from "./ViewClient";
-import ImageClient from "./ImageClient";
-import ActionsClient from "./ActionsClient";
+import ViewClient from "../ViewClient";
+import ImageClient from "../ImageClient";
+import ActionsClient from "../ActionsClient";
 import { isAbsolute } from "path";
 import Link from "next/link";
 
@@ -82,7 +82,6 @@ const Meetups = async () => {
               <td>{meetup.endDate}</td>
               <td>{`${meetup.timeFrom} - ${meetup.timeTo}`}</td>
               <td>{meetup.description}</td>
-              <td>{meetup.flagged ? "Yes" : "No"}</td>
               <ActionsClient image={meetup} />
             </tr>
           ))}
