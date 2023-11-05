@@ -72,7 +72,6 @@ const Discussions = async () => {
             <th>Posted</th>
             <th>Participants</th>
             <th className="truncate max-w-[3.2rem] md:max-w-none ">Comments</th>
-            <th>Flag</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -111,7 +110,6 @@ const Discussions = async () => {
                     .length
                 }
               </td>
-              <td>{image.flagged ? "Yes" : "No"}</td>
               <ActionsClient image={image} />
             </tr>
           ))}

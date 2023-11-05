@@ -44,7 +44,6 @@ const Gallery = async () => {
             <th>Posted</th>
             <th>Likes</th>
             <th className="truncate max-w-[3.2rem] md:max-w-none ">Comments</th>
-            <th>Flag</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -65,7 +64,6 @@ const Gallery = async () => {
               <td className="">{new Date(image.postedOn).toDateString()}</td>
               <td>{image.likes.length}</td>
               <td>{image.comments.length}</td>
-              <td>{image.flagged ? "Yes" : "No"}</td>
               <ActionsClient image={image} />
             </tr>
           ))}
