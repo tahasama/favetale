@@ -30,7 +30,7 @@ const Gallery = async () => {
   console.log("🚀 ~ file: page.tsx:20 ~ Gallery ~ petImages:", petImages);
 
   return (
-    <div className="bg-tealLight px-2">
+    <div className="bg-tealLight px-0">
       <h2 className="text-center py-6">Gallery</h2>
 
       <ImageModal />
@@ -39,12 +39,12 @@ const Gallery = async () => {
         <thead>
           <tr className="text-xs md:text-base">
             <th className="p-2">Image</th>
-            <th>View</th>
+            <th className="invisible md:visible">View</th>
             <th>User</th>
             <th>Posted</th>
             <th>Likes</th>
-            <th className="truncate max-w-[3.4rem] md:max-w-none ">Comments</th>
-            <th>Flagged</th>
+            <th className="truncate max-w-[3.2rem] md:max-w-none ">Comments</th>
+            <th>Flag</th>
             <th>Actions</th>
           </tr>
         </thead>

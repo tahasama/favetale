@@ -23,7 +23,7 @@ const StoryCard = ({ story, index }: any) => {
     >
       <Link href={`/explore/stories/${story.id}`} className="block">
         <div
-          className={`bg-white rounded-lg shadow-lg overflow-hidden sm:h-60`}
+          className={`bg-white rounded-lg shadow-lg overflow-hidden sm:h-60  -z-50`}
         >
           <div className="flex flex-col sm:flex-row justify-between h-full">
             <div className="flex flex-col justify-between px-4 ">

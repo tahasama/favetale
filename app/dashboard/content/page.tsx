@@ -12,7 +12,8 @@ import {
 import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
 import Stories from "./stories/page";
-import { FaBlog, FaBookOpen, FaImages } from "react-icons/fa";
+import { FaBlog, FaBook, FaBookOpen, FaImages } from "react-icons/fa";
+import { FiClipboard } from "react-icons/fi";
 
 function ContentModeration() {
   const [selectedMenuItem, setSelectedMenuItem] = useState<any>("");
@@ -23,8 +24,8 @@ function ContentModeration() {
 
   const content: any = {
     Gallery: { component: <Gallery />, icon: <FaImages /> },
-    Blogs: { component: <Blogs />, icon: <FaBlog /> },
-    Stories: { component: <Stories />, icon: <FaBookOpen /> },
+    Blogs: { component: <Blogs />, icon: <FaBook /> },
+    Stories: { component: <Stories />, icon: <FiClipboard /> },
     // "Forums":</>,
     // "Meetups":</>,
     // "Questions":</>
