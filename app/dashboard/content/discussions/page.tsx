@@ -8,24 +8,27 @@ import { isAbsolute } from "path";
 import Link from "next/link";
 
 async function getData() {
-  const blogsData: any[] = [];
-  const blogRef = query(collection(db, "storys"), where("draft", "==", false));
+  const discussionsData: any[] = [];
+  const discussionRef = query(collection(db, "discussions"));
 
-  const snapshot = await getDocs(blogRef);
+  const snapshot = await getDocs(discussionRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
     return;
   }
   snapshot.forEach((doc: any) => {
-    blogsData.push({ id: doc.id, ...doc.data() });
+    discussionsData.push({ id: doc.id, ...doc.data() });
   });
-  return blogsData;
+  return discussionsData;
 }
 
-const fetchComments = async (blogId: any) => {
+const fetchComments = async (discussionId: any) => {
   try {
     // Check if selectedImage.id is defined
-    const q = query(collection(db, "comments"), where("imageId", "==", blogId));
+    const q = query(
+      collection(db, "comments"),
+      where("imageId", "==", discussionId)
+    );
     const querySnapshot = await getDocs(q);
 
     const fetchedComments: any[] = [];
@@ -38,42 +41,59 @@ const fetchComments = async (blogId: any) => {
     console.error("Error fetching comments:", error);
   }
 };
-const Stories = async () => {
-  const blogsData: any = await getData();
+
+const Discussions = async () => {
+  const discussionsData: any = await getData();
 
   const comms: any = [];
-  for (const blog of blogsData) {
-    const ccc: any = await fetchComments(blog.id);
+  for (const discussion of discussionsData) {
+    const ccc: any = await fetchComments(discussion.id);
     comms.push(ccc);
   }
+
+  const categoryMap: any = {
+    1: "Health",
+    2: "Training",
+    3: "Behavior",
+    4: "Adoption",
+    5: "Products",
+  };
+
   return (
     <div className="bg-tealLight px-0">
-      <h2 className="text-center py-6">Stories</h2>
+      <h2 className="text-center py-6"> Discussions</h2>
 
       <table className="w-full max-h-[400px] overflow-y-auto">
         <thead>
           <tr className="text-xs md:text-base">
-            <th className="p-2">Image</th>
+            {/* <th className="p-2">Image</th> */}
             <th className="p-2">Title</th>
             <th>User</th>
             <th>Posted</th>
-            <th>Likes</th>
+            <th>Participants</th>
             <th className="truncate max-w-[3.2rem] md:max-w-none ">Comments</th>
             <th>Flag</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
-          {blogsData?.map((image: any, index: any) => (
+          {discussionsData?.map((image: any, index: any) => (
             <tr
               key={index}
               className={`text-center border-2 border-slate-300 ${
                 index % 2 !== 0 ? "bg-white" : "bg-teal-50"
               }`}
             >
-              <ImageClient image={image} index={index} />
+              {/* <ImageClient image={image} index={index} /> */}
               <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
-                <Link href={`explore/blogs/${image.id}`}> {image.title}</Link>
+                <Link
+                  href={`community/forums/${Object.keys(image.category).filter(
+                    (key) => categoryMap[key] === image.category
+                  )}/discussion/${image.id}`}
+                >
+                  {" "}
+                  {image.title}
+                </Link>
               </td>
               <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
                 <Link
@@ -84,7 +104,7 @@ const Stories = async () => {
                 </Link>
               </td>
               <td className="">{image.createdAt.toDate().toDateString()}</td>
-              <td>{image.likes.length}</td>
+              <td>{image.participants.length}</td>
               <td>
                 {
                   comms.flat().filter((comm: any) => comm.imageId === image.id)
@@ -101,4 +121,4 @@ const Stories = async () => {
   );
 };
 
-export default Stories;
+export default Discussions;

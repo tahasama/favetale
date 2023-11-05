@@ -13,7 +13,15 @@ import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
 import Stories from "./stories/page";
 import { FaBlog, FaBook, FaBookOpen, FaImages } from "react-icons/fa";
-import { FiClipboard } from "react-icons/fi";
+import {
+  FiClipboard,
+  FiHelpCircle,
+  FiMessageSquare,
+  FiUsers,
+} from "react-icons/fi";
+import Meetups from "./meetups/page";
+import Questions from "./questions/page";
+import Discussions from "./discussions/page";
 
 function ContentModeration() {
   const [selectedMenuItem, setSelectedMenuItem] = useState<any>("");
@@ -26,9 +34,9 @@ function ContentModeration() {
     Gallery: { component: <Gallery />, icon: <FaImages /> },
     Blogs: { component: <Blogs />, icon: <FaBook /> },
     Stories: { component: <Stories />, icon: <FiClipboard /> },
-    // "Forums":</>,
-    // "Meetups":</>,
-    // "Questions":</>
+    Forums: { component: <Discussions />, icon: <FiMessageSquare /> },
+    Meetups: { component: <Meetups />, icon: <FiUsers /> },
+    Questions: { component: <Questions />, icon: <FiHelpCircle /> },
   };
   const handleMenuItemClick = (menuItem: any) => {
     setSelectedMenuItem(menuItem);
@@ -38,11 +46,11 @@ function ContentModeration() {
     <div className="flex h-[calc(100vh-8rem)] md:h-[calc(100vh-10rem)] min-h-[15rem] flex-col md:flex-row w-full">
       <div className="sticky flex flex-col justify-center order-2 md:order-1">
         <ul
-          className={` flex md:flex-col justify-center   m-1 md:py-2 rounded-md gap-4  sm:top-0  backdrop-brightness-90`}
+          className={` flex md:flex-col justify-center   m-1 md:py-2 rounded-md md:gap-4  sm:top-0  backdrop-brightness-90`}
         >
           {Object.keys(content).map((menuItem) => (
             <li
-              className={`hover:underline hover:animate-bounceQ1  list-none md:text-xl m-2 w-auto rounded-md font-semibold bg-teal-600 p-3 cursor-pointer`}
+              className={`hover:underline hover:animate-bounceQ1  list-none md:text-xl m-1 md:m-2 w-auto rounded-md font-semibold bg-teal-600 p-3 cursor-pointer`}
               key={menuItem}
             >
               <p onClick={() => handleMenuItemClick(menuItem)}>
