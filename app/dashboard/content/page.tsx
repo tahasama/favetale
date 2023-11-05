@@ -24,11 +24,16 @@ import Questions from "./questions/page";
 import Discussions from "./discussions/page";
 
 function ContentModeration() {
-  const [selectedMenuItem, setSelectedMenuItem] = useState<any>("");
+  const storedTab =
+    (typeof window !== "undefined" &&
+      localStorage.getItem("contentActiveTab")) ||
+    "Gallery";
+  const [selectedMenuItem, setSelectedMenuItem] = useState<any>(storedTab);
 
   useEffect(() => {
-    setSelectedMenuItem("Gallery");
-  }, []);
+    typeof window !== "undefined" &&
+      localStorage.setItem("contentActiveTab", selectedMenuItem);
+  }, [selectedMenuItem]);
 
   const content: any = {
     Gallery: { component: <Gallery />, icon: <FaImages /> },
@@ -43,7 +48,7 @@ function ContentModeration() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] md:h-[calc(100vh-10rem)] min-h-[15rem] flex-col md:flex-row w-full">
+    <div className="flex h-[calc(100vh-8rem)] md:h-[calc(100vh-10rem)] min-h-[15rem] flex-col bg-tealLight md:flex-row w-full">
       <div className="sticky flex flex-col justify-center order-2 md:order-1">
         <ul
           className={` flex md:flex-col justify-center   m-1 md:py-2 rounded-md md:gap-4  sm:top-0  backdrop-brightness-90`}

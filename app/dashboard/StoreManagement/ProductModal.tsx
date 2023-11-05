@@ -90,7 +90,7 @@ const ProductModal = ({
       }`}
       onClick={handleModalClick}
     >
-      <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
+      <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar z-50 scrollbar-thumb-slate-300 scrollbar-track-gray-100">
         <div className="flex flex-col md:flex-row gap-8 lg:p-8 shadow-md lg:min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
           <div className=" flex flex-col items-center justify-center md:w-1/2">

@@ -183,11 +183,7 @@ function StoreManagement() {
                         pressedIndex: index,
                       })
                     }
-                    className={`max-h-20 max-w-20 md:max-h-28 md:max-w-28 object-cover rounded-md my-1 ${
-                      pressed.pressedIndex === index && pressed.isPressed
-                        ? "scale-[3] z-50 absolute left-0 top-0"
-                        : "scale-[1] z-10"
-                    } hover:md:scale-[4] z-10 hover:z-50  hover:md:absolute origin-top-left top-1  transition-all duration-300`}
+                    className={`max-h-20 max-w-20 md:max-h-28 md:max-w-28 object-cover rounded-md my-1`}
                   />
                 </td>
                 <td
@@ -249,6 +245,7 @@ function StoreManagement() {
         onClose={() => setUploadpetModalOpen(false)}
         product={product}
       />
+      {/* <div className="inset-0 absolute bg-pink-400">hhh</div> */}
     </div>
   );
 }

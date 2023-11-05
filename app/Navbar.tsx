@@ -140,7 +140,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-tealLight h-20 flex justify-between pl-1 sm:px-3 items-center gap-0  fixed top-0 w-full`}
+      className={`bg-tealLight h-20 flex justify-between pl-1 sm:px-3 items-center gap-0 z-50 fixed top-0 w-full`}
     >
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
@@ -249,7 +249,7 @@ const Navbar = () => {
             </span>
           </div>
           <Link href="/dashboard">
-            <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
+            <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
               Dahboard
             </span>
           </Link>
@@ -296,7 +296,7 @@ const Navbar = () => {
               </svg>
             </span>
             <div
-              className={`absolute right-1  mt-2 w-44 bg-white rounded-lg shadow-lg transition-opacity ${
+              className={`absolute right-1 z-50 mt-2 w-44 bg-white rounded-lg shadow-lg transition-opacity ${
                 isDropdownOpen ? "opacity-100" : "opacity-0 hidden"
               }`}
             >
