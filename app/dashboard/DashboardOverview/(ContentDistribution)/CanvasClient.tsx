@@ -2,10 +2,6 @@ import Chart from "chart.js/auto";
 import React, { useEffect } from "react";
 
 const CanvasClient = ({ contentTypesData }: any) => {
-  console.log(
-    "🚀 ~ file: CanvasClient.tsx:5 ~ CanvasClient ~ contentTypesData:",
-    contentTypesData.counts
-  );
   useEffect(() => {
     const contentTypesChart = new Chart("contentTypesChart", {
       type: "pie",

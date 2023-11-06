@@ -7,10 +7,7 @@ async function getData() {
   const blogRef = query(collection(db, "purchases"));
 
   const blogSnapshot = await getDocs(blogRef);
-  if (blogSnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   blogSnapshot.forEach((doc: any) => {
     blogsData.push({ id: doc.id, ...doc.data() });
   });

@@ -6,44 +6,9 @@ import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";
 import Loading from "@/app/explore/(components)/blogs/loading";
 import StoreSalesChart from "./(StoreSalesChart)/StoreSalesChart";
+import UserGrowth from "./(userGrowth)/UserGrowth";
 
 const DashboardOverview = () => {
-  // const userGrowthData = {
-  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  //   totalUsers: [100, 150, 220, 300, 400, 500],
-  //   activeUsers: [80, 120, 180, 250, 350, 450],
-  // };
-
-  // Add this code to your DashboardOverview component
-
-  // Add this code to your DashboardOverview component
-
-  // useEffect(() => {
-  //   // Create and render content submission trends chart
-  //   // Create and render store sales and revenue chart
-
-  //   // Create and render user growth chart
-  //   // const userGrowthChart = new Chart("userGrowthChart", {
-  //   //   type: "line",
-  //   //   data: {
-  //   //     labels: userGrowthData.labels,
-  //   //     datasets: [
-  //   //       {
-  //   //         label: "Total Users",
-  //   //         data: userGrowthData.totalUsers,
-  //   //         borderColor: "rgba(75, 192, 192, 1)",
-  //   //         borderWidth: 2,
-  //   //       },
-  //   //       {
-  //   //         label: "Active Users",
-  //   //         data: userGrowthData.activeUsers,
-  //   //         borderColor: "rgba(255, 99, 132, 1)",
-  //   //         borderWidth: 2,
-  //   //       },
-  //   //     ],
-  //   //   },
-  //   // });
-  // }, []);
   return (
     <div id="dashboard" className="bg-tealLight min-h-screen w-full">
       <h2
@@ -84,17 +49,13 @@ const DashboardOverview = () => {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
-          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-            <h3 className="text-lg font-semibold text-slate-500">
-              User Growth
-            </h3>
-            {/* <canvas id="userGrowthChart" width="400" height="200"></canvas> */}
-          </div>
+          <Suspense fallback={<Loading />}>
+            <UserGrowth />
+          </Suspense>
+          <Suspense fallback={<Loading />}>
+            <ContentSubmissionTrends />
+          </Suspense>
         </div>
-
-        <Suspense fallback={<Loading />}>
-          <ContentSubmissionTrends />
-        </Suspense>
 
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
           {/* Content Type Distribution Chart */}

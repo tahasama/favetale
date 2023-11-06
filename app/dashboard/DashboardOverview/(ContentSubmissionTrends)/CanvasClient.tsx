@@ -2,10 +2,6 @@ import Chart from "chart.js/auto";
 import React, { useEffect } from "react";
 
 const CanvasClient = ({ contentSubmissionTrendsData }: any) => {
-  console.log(
-    "🚀 ~ file: CanvasClient.tsx:5 ~ CanvasClient ~ contentSubmissionTrendsData:",
-    contentSubmissionTrendsData
-  );
   useEffect(() => {
     const contentSubmissionTrendsChart = new Chart(
       "contentSubmissionTrendsChart",
