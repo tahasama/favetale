@@ -2,8 +2,9 @@
 
 import React, { Suspense, useEffect } from "react";
 import Chart from "chart.js/auto";
-import ContentDistribution from "./ContentDistribution";
+import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";
+import Loading from "@/app/explore/(components)/blogs/loading";
 
 const DashboardOverview = () => {
   // const userGrowthData = {
@@ -114,16 +115,16 @@ const DashboardOverview = () => {
           </div>
         </div>
 
-        <Suspense>
+        <Suspense fallback={<Loading />}>
           <ContentSubmissionTrends />
         </Suspense>
 
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
           {/* Content Type Distribution Chart */}
 
-          {/* <Suspense>
+          <Suspense fallback={<Loading />}>
             <ContentDistribution />
-          </Suspense> */}
+          </Suspense>
           {/* Store Sales and Revenue Chart */}
           <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
             <h3 className="text-lg font-semibold text-slate-500">
