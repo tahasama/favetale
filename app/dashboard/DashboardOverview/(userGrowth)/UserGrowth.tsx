@@ -56,6 +56,15 @@ async function getData() {
   MeetupSnapshot.forEach((doc: any) => {
     MeetupsData.push({ id: doc.id, ...doc.data() });
   });
+
+  const CommentsData: any[] = [];
+  const CommentsRef = query(collection(db, "comments"));
+
+  const CommentsSnapshot = await getDocs(CommentsRef);
+
+  CommentsSnapshot.forEach((doc: any) => {
+    CommentsData.push({ id: doc.id, ...doc.data() });
+  });
   return [
     ...storiesData,
     ...blogsData,
@@ -63,6 +72,7 @@ async function getData() {
     ...MeetupsData,
     ...questionsData,
     ...discussionsData,
+    ...CommentsData,
   ];
 }
 
@@ -100,10 +110,16 @@ const UserGrowth = async () => {
   const userMonths: any = {};
 
   blogsData.forEach((blog) => {
-    const userID = blog.writer ? blog.writer.id : blog.poster.id;
+    const userID = blog.writer
+      ? blog.writer.id
+      : blog.poster
+      ? blog.poster.id
+      : blog.commenter.id;
     const postDate = blog.createdAt
       ? new Date(blog.createdAt.toDate())
-      : new Date(blog.postedOn);
+      : blog.postedOn
+      ? new Date(blog.postedOn)
+      : new Date(blog.timestamp.toDate());
     const month = postDate.getMonth() + 1;
 
     if (!userMonths[month]) {
