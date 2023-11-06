@@ -40,7 +40,7 @@ const ContentSubmissions = async () => {
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {blogsData.length}
+      {blogsData && blogsData.length}
     </p>
   );
 };

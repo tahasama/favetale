@@ -21,7 +21,7 @@ const TotalUsers = async () => {
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {usersData.length}
+      {usersData && usersData.length}
     </p>
   );
 };

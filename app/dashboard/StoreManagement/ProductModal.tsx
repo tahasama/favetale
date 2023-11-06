@@ -102,17 +102,18 @@ const ProductModal = ({
               className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
             />
             <div className="flex gap-2 mt-4">
-              {product?.images.map((image: any, index: any) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={product?.name}
-                  className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
-                    index === selectedImage ? "border-blue-500 scale-110" : ""
-                  }`}
-                  onClick={() => handleImageChange(index)}
-                />
-              ))}
+              {product &&
+                product?.images.map((image: any, index: any) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={product?.name}
+                    className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
+                      index === selectedImage ? "border-blue-500 scale-110" : ""
+                    }`}
+                    onClick={() => handleImageChange(index)}
+                  />
+                ))}
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col justify-between lg:h-[60vh] items-start px-3 lg:p-0">
@@ -161,14 +162,15 @@ const ProductModal = ({
             Customer Reviews
           </h3>
           <div className="space-y-4">
-            {product?.reviews.map((review: any) => (
-              <div key={review.id} className="text-left">
-                <p>{review.text}</p>
-                <p className="text-gray-400">
-                  Reviewer: {review.name} | Date: {review.date}
-                </p>
-              </div>
-            ))}
+            {product &&
+              product?.reviews.map((review: any) => (
+                <div key={review.id} className="text-left">
+                  <p>{review.text}</p>
+                  <p className="text-gray-400">
+                    Reviewer: {review.name} | Date: {review.date}
+                  </p>
+                </div>
+              ))}
           </div>
         </div>
 

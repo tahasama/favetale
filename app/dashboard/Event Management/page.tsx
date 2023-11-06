@@ -60,16 +60,17 @@ function EventManagementComponent() {
       <div className="border p-4 mb-4">
         <h3 className="text-xl font-semibold mb-2">Events</h3>
         <ul>
-          {events.map((event: any, index: any) => (
-            <li
-              key={index}
-              onClick={() => setSelectedEvent(event)}
-              className="bg-gray-100 p-2 rounded mb-2 cursor-pointer"
-            >
-              <p className="text-lg">{event.name}</p>
-              <p className="text-sm">Date: {event.date}</p>
-            </li>
-          ))}
+          {events &&
+            events.map((event: any, index: any) => (
+              <li
+                key={index}
+                onClick={() => setSelectedEvent(event)}
+                className="bg-gray-100 p-2 rounded mb-2 cursor-pointer"
+              >
+                <p className="text-lg">{event.name}</p>
+                <p className="text-sm">Date: {event.date}</p>
+              </li>
+            ))}
         </ul>
       </div>
 
