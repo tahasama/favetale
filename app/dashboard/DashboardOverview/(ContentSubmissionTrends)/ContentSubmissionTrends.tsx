@@ -11,10 +11,7 @@ async function getData() {
   const blogRef = query(collection(db, "blogs"), where("draft", "==", false));
 
   const blogSnapshot = await getDocs(blogRef);
-  if (blogSnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   blogSnapshot.forEach((doc: any) => {
     blogsData.push({ id: doc.id, ...doc.data() });
   });
@@ -23,10 +20,7 @@ async function getData() {
   const storyRef = query(collection(db, "storys"), where("draft", "==", false));
 
   const storySnapshot = await getDocs(blogRef);
-  if (storySnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   storySnapshot.forEach((doc: any) => {
     storiesData.push({ id: doc.id, ...doc.data() });
   });
@@ -34,10 +28,7 @@ async function getData() {
   const imageRef = collection(db, "petImages");
 
   const imageSnapshot = await getDocs(imageRef);
-  if (imageSnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   imageSnapshot.forEach((doc: any) => {
     petImages.push({ id: doc.id, ...doc.data() });
   });
@@ -46,10 +37,7 @@ async function getData() {
   const discussionRef = query(collection(db, "discussions"));
 
   const discussionSnapshot = await getDocs(discussionRef);
-  if (discussionSnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   discussionSnapshot.forEach((doc: any) => {
     discussionsData.push({ id: doc.id, ...doc.data() });
   });
@@ -58,10 +46,7 @@ async function getData() {
   const questionsRef = query(collection(db, "questions"));
 
   const questionSnapshot = await getDocs(blogRef);
-  if (questionSnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   questionSnapshot.forEach((doc: any) => {
     questionsData.push({ id: doc.id, ...doc.data() });
   });
@@ -70,10 +55,7 @@ async function getData() {
   const MeetupsRef = query(collection(db, "gatherings"));
 
   const MeetupSnapshot = await getDocs(blogRef);
-  if (MeetupSnapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
+
   MeetupSnapshot.forEach((doc: any) => {
     MeetupsData.push({ id: doc.id, ...doc.data() });
   });
@@ -90,7 +72,7 @@ async function getData() {
 const ContentSubmissionTrends = async () => {
   const blogsData: any = await getData();
   let month: any = "";
-  const monthlyCounts = blogsData.reduce((counts: any, blog: any) => {
+  const monthlyCounts: any = blogsData?.reduce((counts: any, blog: any) => {
     const createdAt = blog.createdAt
       ? new Date(blog.createdAt.toDate())
       : new Date(blog.postedOn);
@@ -116,7 +98,9 @@ const ContentSubmissionTrends = async () => {
 
   const contentSubmissionTrendsData = {
     labels: Object.values(labels),
-    counts: Object.keys(labels).map((label) => monthlyCounts[label] || 0),
+    counts: Object.keys(labels).map(
+      (label) => (monthlyCounts && monthlyCounts[label]) || 0
+    ),
   };
 
   return (

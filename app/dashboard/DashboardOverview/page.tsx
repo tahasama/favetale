@@ -5,6 +5,7 @@ import Chart from "chart.js/auto";
 import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";
 import Loading from "@/app/explore/(components)/blogs/loading";
+import StoreSalesChart from "./(StoreSalesChart)/StoreSalesChart";
 
 const DashboardOverview = () => {
   // const userGrowthData = {
@@ -14,37 +15,13 @@ const DashboardOverview = () => {
   // };
 
   // Add this code to your DashboardOverview component
-  // const storeSalesData = {
-  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  //   sales: [5000, 6000, 4500, 7000, 8000, 7500], // Placeholder data
-  //   revenue: [3000, 4000, 3500, 5500, 6000, 5500], // Placeholder data
-  // };
 
   // Add this code to your DashboardOverview component
 
   // useEffect(() => {
   //   // Create and render content submission trends chart
   //   // Create and render store sales and revenue chart
-  //   // const storeSalesChart = new Chart("storeSalesChart", {
-  //   //   type: "line",
-  //   //   data: {
-  //   //     labels: storeSalesData.labels,
-  //   //     datasets: [
-  //   //       {
-  //   //         label: "Sales",
-  //   //         data: storeSalesData.sales,
-  //   //         borderColor: "rgba(75, 042, 192, 1)",
-  //   //         borderWidth: 2,
-  //   //       },
-  //   //       {
-  //   //         label: "Revenue",
-  //   //         data: storeSalesData.revenue,
-  //   //         borderColor: "rgba(255, 149, 132, 1)",
-  //   //         borderWidth: 2,
-  //   //       },
-  //   //     ],
-  //   //   },
-  //   // });
+
   //   // Create and render user growth chart
   //   // const userGrowthChart = new Chart("userGrowthChart", {
   //   //   type: "line",
@@ -126,12 +103,10 @@ const DashboardOverview = () => {
             <ContentDistribution />
           </Suspense>
           {/* Store Sales and Revenue Chart */}
-          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-            <h3 className="text-lg font-semibold text-slate-500">
-              Store Sales and Revenue
-            </h3>
-            {/* <canvas id="storeSalesChart" width="400" height="200"></canvas> */}
-          </div>
+
+          <Suspense fallback={<Loading />}>
+            <StoreSalesChart />
+          </Suspense>
         </div>
       </div>
     </div>

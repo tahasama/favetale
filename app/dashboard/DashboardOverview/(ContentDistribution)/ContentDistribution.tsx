@@ -11,10 +11,6 @@ async function fetchFirestoreData(collectionName: any) {
   const collectionRef = collection(db, collectionName);
 
   const snapshot = await getDocs(collectionRef);
-  if (snapshot.empty) {
-    console.log(`No matching documents in ${collectionName}.`);
-    return [];
-  }
 
   snapshot.forEach((doc) => {
     data.push({ id: doc.id, ...doc.data() });
