@@ -1,10 +1,6 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-
-import Link from "next/link";
-
-import CanvasClient from "./CanvasClient";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/firebase";
 
 async function fetchFirestoreData(collectionName: any) {
   const data: any = [];
@@ -39,24 +35,14 @@ async function getData() {
   ];
 }
 
-const ContentDistribution = async () => {
+const ContentSubmissions = async () => {
   const blogsData: any = await getData();
 
-  const contentTypesData = {
-    labels: Object.keys(blogsData[0]),
-    counts: Object.values(blogsData[0]).map((data: any) => data.length),
-  };
-
   return (
-    <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-      <h3 className="text-lg font-semibold text-slate-500">
-        Content Type Distribution
-      </h3>
-      <div className="h-52 lg:h-96 grid place-items-center w-full">
-        <CanvasClient contentTypesData={contentTypesData} />
-      </div>
-    </div>
+    <p className="text-lg md:text-2xl font-bold text-white">
+      {blogsData.length}
+    </p>
   );
 };
 
-export default ContentDistribution;
+export default ContentSubmissions;

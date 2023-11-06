@@ -38,12 +38,12 @@ const Dashboard = () => {
       {/* Header */}
       <header className="bg-teal-500 p-3 text-white relative">
         <nav className="ml-3 flex items-center gap-4">
-          <h1 className="text-sm lg:text-2xl font-semibold">
+          <h1 className="text-sm lg:text-xl xl:text-2xl font-semibold">
             Manager Dashboard
           </h1>
           <p
             onClick={() => setOpen(!open)}
-            className={`cursor-pointer sm:hidden  absolute top-1.5 right-1.5 text-3xl ${
+            className={`cursor-pointer md:hidden  absolute top-1.5 right-1.5 text-3xl ${
               open ? "text-indigo-200" : "text-white"
             }`}
           >
@@ -51,12 +51,12 @@ const Dashboard = () => {
           </p>
           <ul
             className={`flex items-center transform gap-1 md:gap-4 ${
-              open ? "scale-y-100" : "scale-y-0 sm:scale-y-100 "
-            } transition-transform origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 sm:bg-transparent z-40 sm:relative sm:top-0 flex-col sm:flex-row`}
+              open ? "scale-y-100" : "scale-y-0 md:scale-y-100 "
+            } transition-transform origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 md:bg-transparent z-40 md:relative md:top-0 flex-col md:flex-row`}
           >
             {Object.keys(components).map((menuItem) => (
               <li
-                className={`hover:animate-buttonHover list-none text-xs lg:text-xl border-b-2 md:border-none backdrop-brightness-95 w-full md:w-auto rounded-md md:backdrop-brightness-75 py-3 md:p-1.5 cursor-pointer`}
+                className={`hover:animate-buttonHover list-none text-xs lg:text-base xl:text-xl border-b-2 md:border-none backdrop-brightness-95 w-full md:w-auto rounded-md md:backdrop-brightness-75 py-3 md:p-1.5 cursor-pointer`}
                 key={menuItem}
               >
                 <p onClick={() => handleMenuItemClick(menuItem)}>{menuItem}</p>

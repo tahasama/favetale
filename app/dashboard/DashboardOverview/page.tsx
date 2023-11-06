@@ -7,6 +7,9 @@ import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissi
 import Loading from "@/app/explore/(components)/blogs/loading";
 import StoreSalesChart from "./(StoreSalesChart)/StoreSalesChart";
 import UserGrowth from "./(userGrowth)/UserGrowth";
+import TotalUsers from "./TotalUsers";
+import ContentSubmissions from "./ContentSubmissions";
+import TotalSold from "./TotalSold";
 
 const DashboardOverview = () => {
   return (
@@ -22,30 +25,34 @@ const DashboardOverview = () => {
           <div className="bg-teal-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Total Users
+              <Suspense fallback={<Loading />}>
+                <TotalUsers />
+              </Suspense>
             </h3>
-            <p className="text-lg md:text-2xl font-bold text-white">1,234</p>
           </div>
 
-          <div className="bg-sky-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          {/* <div className="bg-sky-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Active Users
             </h3>
             <p className="text-lg md:text-2xl font-bold text-white">789</p>
-          </div>
+          </div> */}
 
           <div className="bg-indigo-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Content Submissions
             </h3>
-            <p className="text-lg md:text-2xl font-bold text-white">2,345</p>
+            <Suspense fallback={<Loading />}>
+              <ContentSubmissions />
+            </Suspense>
           </div>
           <div className="bg-purple-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Total Sold
             </h3>
-            <p className="text-lg md:text-2xl font-bold text-white">
-              18,345 Dh
-            </p>
+            <Suspense fallback={<Loading />}>
+              <TotalSold />
+            </Suspense>
           </div>
         </div>
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
