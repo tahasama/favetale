@@ -24,14 +24,12 @@ async function getData() {
   const MeetupsData = await fetchFirestoreData("gatherings");
 
   return [
-    {
-      storiesData: storiesData,
-      blogsData: blogsData,
-      petImages: petImages,
-      MeetupsData: MeetupsData,
-      questionsData: questionsData,
-      discussionsData: discussionsData,
-    },
+    ...storiesData,
+    ...blogsData,
+    ...petImages,
+    ...MeetupsData,
+    ...questionsData,
+    ...discussionsData,
   ];
 }
 
@@ -40,7 +38,7 @@ const ContentSubmissions = async () => {
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {blogsData && blogsData.length}
+      {(blogsData && blogsData.length) || 0}
     </p>
   );
 };
