@@ -52,7 +52,7 @@ const Dashboard = () => {
           <ul
             className={`flex items-center transform gap-1 md:gap-4 ${
               open ? "scale-y-100" : "scale-y-0 sm:scale-y-100 "
-            } transition-transform origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 sm:bg-transparent z-50 sm:relative sm:top-0 flex-col sm:flex-row`}
+            } transition-transform origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 sm:bg-transparent z-40 sm:relative sm:top-0 flex-col sm:flex-row`}
           >
             {Object.keys(components).map((menuItem) => (
               <li
