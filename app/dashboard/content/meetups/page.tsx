@@ -14,7 +14,7 @@ async function getData() {
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return MeetupsData;
   }
   snapshot.forEach((doc: any) => {
     MeetupsData.push({ id: doc.id, ...doc.data() });
@@ -65,26 +65,27 @@ const Meetups = async () => {
           </tr>
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
-          {MeetupsData?.map((meetup: any, index: any) => (
-            <tr
-              key={index}
-              className={`text-center border-2 border-slate-300 ${
-                index % 2 !== 0 ? "bg-white" : "bg-teal-50"
-              }`}
-            >
-              <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
-                <Link href={`explore/Meetups/${meetup.id}`}>
-                  {meetup.title}
-                </Link>
-              </td>
-              <td>{`${meetup.location.city}, ${meetup.location.country}`}</td>
-              <td>{meetup.startDate}</td>
-              <td>{meetup.endDate}</td>
-              <td>{`${meetup.timeFrom} - ${meetup.timeTo}`}</td>
-              <td>{meetup.description}</td>
-              <ActionsClient image={meetup} />
-            </tr>
-          ))}
+          {MeetupsData &&
+            MeetupsData?.map((meetup: any, index: any) => (
+              <tr
+                key={index}
+                className={`text-center border-2 border-slate-300 ${
+                  index % 2 !== 0 ? "bg-white" : "bg-teal-50"
+                }`}
+              >
+                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
+                  <Link href={`explore/Meetups/${meetup.id}`}>
+                    {meetup.title}
+                  </Link>
+                </td>
+                <td>{`${meetup.location.city}, ${meetup.location.country}`}</td>
+                <td>{meetup.startDate}</td>
+                <td>{meetup.endDate}</td>
+                <td>{`${meetup.timeFrom} - ${meetup.timeTo}`}</td>
+                <td>{meetup.description}</td>
+                <ActionsClient image={meetup} />
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

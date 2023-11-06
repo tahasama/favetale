@@ -18,7 +18,7 @@ async function getData() {
   const snapshot = await getDocs(imageRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return petImages;
   }
   snapshot.forEach((doc: any) => {
     petImages.push({ id: doc.id, ...doc.data() });
@@ -48,25 +48,26 @@ const Gallery = async () => {
           </tr>
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
-          {petImages?.map((image, index) => (
-            <tr
-              key={index}
-              className={`text-center border-2 border-slate-300 ${
-                index % 2 !== 0 ? "bg-white" : "bg-teal-50"
-              }`}
-            >
-              <ImageClient image={image} index={index} />
-              <ViewClient image={image} />
+          {petImages &&
+            petImages?.map((image, index) => (
+              <tr
+                key={index}
+                className={`text-center border-2 border-slate-300 ${
+                  index % 2 !== 0 ? "bg-white" : "bg-teal-50"
+                }`}
+              >
+                <ImageClient image={image} index={index} />
+                <ViewClient image={image} />
 
-              <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
-                <p className="text-center">{image.poster.name}</p>
-              </td>
-              <td className="">{new Date(image.postedOn).toDateString()}</td>
-              <td>{image.likes.length}</td>
-              <td>{image.comments.length}</td>
-              <ActionsClient image={image} />
-            </tr>
-          ))}
+                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
+                  <p className="text-center">{image.poster.name}</p>
+                </td>
+                <td className="">{new Date(image.postedOn).toDateString()}</td>
+                <td>{image.likes.length}</td>
+                <td>{image.comments.length}</td>
+                <ActionsClient image={image} />
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

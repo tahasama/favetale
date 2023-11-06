@@ -15,7 +15,7 @@ async function getData() {
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return blogsData;
   }
   snapshot.forEach((doc: any) => {
     blogsData.push({ id: doc.id, ...doc.data() });
@@ -73,41 +73,43 @@ const Questions = async () => {
           </tr>
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
-          {blogsData?.map((question: any, index: any) => (
-            <tr
-              key={index}
-              className={`text-center border-2 border-slate-300 ${
-                index % 2 !== 0 ? "bg-white" : "bg-teal-50"
-              }`}
-            >
-              <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
-                <Link
-                  href={`community/questions/${question.id}`}
-                  className="max-w-3xl line-clamp-2"
-                >
-                  {question.title}
-                </Link>
-              </td>
-              <td>{question.tags.length}</td>
-              <td>
-                {new Date(
-                  question.createdAt.seconds * 1000
-                ).toLocaleDateString()}
-              </td>
+          {blogsData &&
+            blogsData?.map((question: any, index: any) => (
+              <tr
+                key={index}
+                className={`text-center border-2 border-slate-300 ${
+                  index % 2 !== 0 ? "bg-white" : "bg-teal-50"
+                }`}
+              >
+                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
+                  <Link
+                    href={`community/questions/${question.id}`}
+                    className="max-w-3xl line-clamp-2"
+                  >
+                    {question.title}
+                  </Link>
+                </td>
+                <td>{question.tags.length}</td>
+                <td>
+                  {new Date(
+                    question.createdAt.seconds * 1000
+                  ).toLocaleDateString()}
+                </td>
 
-              <td>{question.upvotes.length}</td>
-              <td>{question.downvotes.length}</td>
-              <td>
-                {" "}
-                {
-                  comms
-                    .flat()
-                    .filter((comm: any) => comm.imageId === question.id).length
-                }
-              </td>
-              <ActionsClient image={question} />
-            </tr>
-          ))}
+                <td>{question.upvotes.length}</td>
+                <td>{question.downvotes.length}</td>
+                <td>
+                  {" "}
+                  {
+                    comms
+                      .flat()
+                      .filter((comm: any) => comm.imageId === question.id)
+                      .length
+                  }
+                </td>
+                <ActionsClient image={question} />
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
