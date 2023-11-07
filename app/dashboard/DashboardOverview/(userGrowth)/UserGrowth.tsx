@@ -119,7 +119,7 @@ const UserGrowth = async () => {
       ? new Date(blog.createdAt.toDate())
       : blog.postedOn
       ? new Date(blog.postedOn)
-      : new Date(blog.timestamp.toDate());
+      : new Date(blog.timestamp);
     const month = postDate.getMonth() + 1;
 
     if (!userMonths[month]) {

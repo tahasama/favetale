@@ -290,12 +290,7 @@ const ImageModal = () => {
               👍
             </button>
           </div>
-          <button
-            onClick={updateFlag}
-            className="absolute bottom-3 right-2 text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-lg px-1.5 py-0.5"
-          >
-            🚩
-          </button>
+
           <Link
             href={`/profile/${selectedImage?.poster?.id}`}
             className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md cursor-pointer"
@@ -328,24 +323,27 @@ const ImageModal = () => {
             {/* {new Date(selectedImage?.poster?.postedOn)} */}
           </Link>
 
-          {selectedImage && selectedImage?.poster?.id === userx.id && (
-            <div className="absolute top-3 flex gap-3 md:gap-5 left-2 md:left-4 backdrop-blur-sm backdrop-brightness-75 px-3 py-2 rounded-lg">
-              <button
-                onClick={() => setImageModalOpen(true)}
-                className="text-xl md:text-3xl  hover:scale-105 active:scale-110 transition-all duration-300"
-              >
-                <span className="text-slate-300 text-base md:text-xl"></span>
-                <AiOutlineEdit color={"#d4dae2"} size={24} />
-              </button>
-              <button
-                onClick={removeImage}
-                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-              >
-                <span className="text-slate-300 text-base md:text-xl"></span>
-                <AiFillDelete color={"#d4dae2"} size={24} />
-              </button>
-            </div>
-          )}
+          <div className="absolute bottom-3 right-2 text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-lg px-1.5 py-0.5">
+            <button onClick={updateFlag}>🚩</button>
+            {selectedImage && selectedImage?.poster?.id === userx.id && (
+              <>
+                <button
+                  onClick={() => setImageModalOpen(true)}
+                  className="text-xl md:text-3xl  hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-slate-300 text-base md:text-xl"></span>
+                  <AiOutlineEdit color={"#d4dae2"} size={24} />
+                </button>
+                <button
+                  onClick={removeImage}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-slate-300 text-base md:text-xl"></span>
+                  <AiFillDelete color={"#d4dae2"} size={24} />
+                </button>
+              </>
+            )}
+          </div>
         </div>
         <div className="w-full bg-white px-4 py-2 relative top-0 lg:-top-0 ">
           <h3 className="text-sm md:text-xl font-semibold mb-2 text-start">
