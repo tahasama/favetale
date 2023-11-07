@@ -10,24 +10,16 @@ import {
   AiTwotoneFlag,
 } from "react-icons/ai";
 import ActionsClient from "../ActionsClient";
+import { fetchComments, getGalleryData } from "@/app/api/GerData";
 
-async function getData() {
-  const petImages: any[] = [];
-  const imageRef = collection(db, "petImages");
-
-  const snapshot = await getDocs(imageRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return petImages;
-  }
-  snapshot.forEach((doc: any) => {
-    petImages.push({ id: doc.id, ...doc.data() });
-  });
-  return petImages;
-}
 const Gallery = async () => {
-  const petImages = await getData();
-  console.log("🚀 ~ file: page.tsx:20 ~ Gallery ~ petImages:", petImages);
+  const petImages: any = await getGalleryData();
+
+  const comms: any = [];
+  for (const blog of petImages) {
+    const ccc: any = await fetchComments(blog.id);
+    comms.push(ccc);
+  }
 
   return (
     <div className="bg-tealLight px-0">
@@ -49,7 +41,7 @@ const Gallery = async () => {
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
           {petImages &&
-            petImages?.map((image, index) => (
+            petImages?.map((image: any, index: any) => (
               <tr
                 key={index}
                 className={`text-center border-2 border-slate-300 ${

@@ -1,7 +1,4 @@
-"use client";
-
 import React, { Suspense, useEffect } from "react";
-import Chart from "chart.js/auto";
 import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";
 import Loading from "@/app/explore/(components)/blogs/loading";

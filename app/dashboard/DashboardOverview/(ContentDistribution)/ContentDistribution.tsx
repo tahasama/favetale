@@ -6,41 +6,34 @@ import Link from "next/link";
 
 import CanvasClient from "./CanvasClient";
 
-async function fetchFirestoreData(collectionName: any) {
-  const data: any = [];
-  const collectionRef = collection(db, collectionName);
+import {
+  fetchComments,
+  getBlogsData,
+  getDiscussionsData,
+  getGalleryData,
+  getGatheringsData,
+  getQuestionsData,
+  getStoriesData,
+  getUsersData,
+} from "@/app/api/GerData";
 
-  const snapshot = await getDocs(collectionRef);
-
-  snapshot.forEach((doc) => {
-    data.push({ id: doc.id, ...doc.data() });
-  });
-
-  return data;
-}
-
-async function getData() {
-  const blogsData = await fetchFirestoreData("blogs");
-  const storiesData = await fetchFirestoreData("storys");
-  const petImages = await fetchFirestoreData("petImages");
-  const discussionsData = await fetchFirestoreData("discussions");
-  const questionsData = await fetchFirestoreData("questions");
-  const MeetupsData = await fetchFirestoreData("gatherings");
-
-  return [
+const ContentDistribution = async () => {
+  const blogsData: any = await getBlogsData();
+  const storiesData: any = await getStoriesData();
+  const galleryData: any = await getGalleryData();
+  const meetupsData: any = await getGatheringsData();
+  const questionsData: any = await getQuestionsData();
+  const discussionsData: any = await getDiscussionsData();
+  const fullData = [
     {
       storiesData: storiesData,
       blogsData: blogsData,
-      petImages: petImages,
-      MeetupsData: MeetupsData,
+      petImages: galleryData,
+      MeetupsData: meetupsData,
       questionsData: questionsData,
       discussionsData: discussionsData,
     },
   ];
-}
-
-const ContentDistribution = async () => {
-  const blogsData: any = await getData();
 
   const contentTypesData = {
     labels: Object.keys(blogsData[0]),

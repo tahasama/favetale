@@ -7,40 +7,10 @@ import ActionsClient from "../ActionsClient";
 import { isAbsolute } from "path";
 import Link from "next/link";
 import { IoMdArrowDown, IoMdArrowUp } from "react-icons/io";
+import { fetchComments, getQuestionsData } from "@/app/api/GerData";
 
-async function getData() {
-  const blogsData: any[] = [];
-  const blogRef = query(collection(db, "questions"));
-
-  const snapshot = await getDocs(blogRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return blogsData;
-  }
-  snapshot.forEach((doc: any) => {
-    blogsData.push({ id: doc.id, ...doc.data() });
-  });
-  return blogsData;
-}
-
-const fetchComments = async (blogId: any) => {
-  try {
-    // Check if selectedImage.id is defined
-    const q = query(collection(db, "comments"), where("imageId", "==", blogId));
-    const querySnapshot = await getDocs(q);
-
-    const fetchedComments: any[] = [];
-
-    querySnapshot.forEach((doc) => {
-      fetchedComments.push({ id: doc.id, ...doc.data() });
-    });
-    return fetchedComments;
-  } catch (error) {
-    console.error("Error fetching comments:", error);
-  }
-};
 const Questions = async () => {
-  const blogsData: any = await getData();
+  const blogsData: any = await getQuestionsData();
 
   const comms: any = [];
   for (const blog of blogsData) {

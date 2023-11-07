@@ -1,21 +1,10 @@
 import { db } from "@/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import CanvasClient from "./CanvasClient";
-
-async function getData() {
-  const blogsData: any[] = [];
-  const blogRef = query(collection(db, "purchases"));
-
-  const blogSnapshot = await getDocs(blogRef);
-
-  blogSnapshot.forEach((doc: any) => {
-    blogsData.push({ id: doc.id, ...doc.data() });
-  });
-  return blogsData;
-}
+import { getPurchasesData } from "@/app/api/GerData";
 
 const StoreSalesChart = async () => {
-  const blogsData: any = await getData();
+  const purchasesData: any = await getPurchasesData();
 
   const labels = [
     "Jan",
@@ -32,7 +21,7 @@ const StoreSalesChart = async () => {
     "Dec",
   ];
 
-  const data = blogsData.reduce(
+  const data = purchasesData.reduce(
     (result: any, sale: any) => {
       const saleDate = sale.date.toDate();
       const month = saleDate.getMonth();

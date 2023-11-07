@@ -6,41 +6,10 @@ import ImageClient from "../ImageClient";
 import ActionsClient from "../ActionsClient";
 import { isAbsolute } from "path";
 import Link from "next/link";
-
-async function getData() {
-  const MeetupsData: any[] = [];
-  const blogRef = query(collection(db, "gatherings"));
-
-  const snapshot = await getDocs(blogRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return MeetupsData;
-  }
-  snapshot.forEach((doc: any) => {
-    MeetupsData.push({ id: doc.id, ...doc.data() });
-  });
-  return MeetupsData;
-}
-
-const fetchComments = async (blogId: any) => {
-  try {
-    // Check if selectedImage.id is defined
-    const q = query(collection(db, "comments"), where("imageId", "==", blogId));
-    const querySnapshot = await getDocs(q);
-
-    const fetchedComments: any[] = [];
-
-    querySnapshot.forEach((doc) => {
-      fetchedComments.push({ id: doc.id, ...doc.data() });
-    });
-    return fetchedComments;
-  } catch (error) {
-    console.error("Error fetching comments:", error);
-  }
-};
+import { fetchComments, getGatheringsData } from "@/app/api/GerData";
 
 const Meetups = async () => {
-  const MeetupsData: any = await getData();
+  const MeetupsData: any = await getGatheringsData();
 
   const comms: any = [];
   for (const blog of MeetupsData) {

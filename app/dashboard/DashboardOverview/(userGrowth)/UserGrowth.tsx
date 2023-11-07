@@ -2,79 +2,15 @@ import { db } from "@/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
 import CanvasClient from "./CanvasClient";
-
-async function getData() {
-  const blogsData: any[] = [];
-  const blogRef = query(collection(db, "blogs"));
-
-  const blogSnapshot = await getDocs(blogRef);
-
-  blogSnapshot.forEach((doc: any) => {
-    blogsData.push({ id: doc.id, ...doc.data() });
-  });
-
-  const storiesData: any[] = [];
-  const storyRef = query(collection(db, "storys"));
-
-  const storySnapshot = await getDocs(storyRef);
-
-  storySnapshot.forEach((doc: any) => {
-    storiesData.push({ id: doc.id, ...doc.data() });
-  });
-  const petImages: any[] = [];
-  const imageRef = collection(db, "petImages");
-
-  const imageSnapshot = await getDocs(imageRef);
-
-  imageSnapshot.forEach((doc: any) => {
-    petImages.push({ id: doc.id, ...doc.data() });
-  });
-
-  const discussionsData: any[] = [];
-  const discussionRef = query(collection(db, "discussions"));
-
-  const discussionSnapshot = await getDocs(discussionRef);
-
-  discussionSnapshot.forEach((doc: any) => {
-    discussionsData.push({ id: doc.id, ...doc.data() });
-  });
-
-  const questionsData: any[] = [];
-  const questionsRef = query(collection(db, "questions"));
-
-  const questionSnapshot = await getDocs(questionsRef);
-
-  questionSnapshot.forEach((doc: any) => {
-    questionsData.push({ id: doc.id, ...doc.data() });
-  });
-
-  const MeetupsData: any[] = [];
-  const MeetupsRef = query(collection(db, "gatherings"));
-
-  const MeetupSnapshot = await getDocs(MeetupsRef);
-
-  MeetupSnapshot.forEach((doc: any) => {
-    MeetupsData.push({ id: doc.id, ...doc.data() });
-  });
-
-  const CommentsData: any[] = [];
-  const CommentsRef = query(collection(db, "comments"));
-
-  const CommentsSnapshot = await getDocs(CommentsRef);
-
-  CommentsSnapshot.forEach((doc: any) => {
-    CommentsData.push({ id: doc.id, ...doc.data() });
-  });
-  return [
-    ...storiesData,
-    ...blogsData,
-    ...petImages,
-    ...MeetupsData,
-    ...questionsData,
-    ...discussionsData,
-    ...CommentsData,
-  ];
-}
+import {
+  fetchComments,
+  getBlogsData,
+  getDiscussionsData,
+  getGalleryData,
+  getGatheringsData,
+  getQuestionsData,
+  getStoriesData,
+} from "@/app/api/GerData";
 
 async function getUserData() {
   const questionsData: any[] = [];
@@ -89,8 +25,24 @@ async function getUserData() {
 }
 
 const UserGrowth = async () => {
-  const blogsData = await getData();
-  const usersData = await getUserData();
+  const blogsData: any = await getBlogsData();
+  const storiesData: any = await getStoriesData();
+  const galleryData: any = await getGalleryData();
+  const meetupsData: any = await getGatheringsData();
+  const questionsData: any = await getQuestionsData();
+  const discussionsData: any = await getDiscussionsData();
+  const commentsData: any = await fetchComments("");
+  const usersData: any = await getUserData();
+
+  const fullData = [
+    ...storiesData,
+    ...blogsData,
+    ...galleryData,
+    ...meetupsData,
+    ...questionsData,
+    ...discussionsData,
+    ...commentsData,
+  ];
 
   const labels = [
     "Jan",
@@ -109,7 +61,7 @@ const UserGrowth = async () => {
 
   const userMonths: any = {};
 
-  blogsData.forEach((blog) => {
+  fullData.forEach((blog) => {
     const userID = blog.writer
       ? blog.writer.id
       : blog.poster
@@ -133,7 +85,7 @@ const UserGrowth = async () => {
 
   const userMonthz: any = {};
 
-  usersData.forEach((user) => {
+  usersData.forEach((user: any) => {
     const creationDate = new Date(user.creationTime);
     const month = creationDate.getMonth() + 1; // Adding 1 because getMonth() returns 0-based months
 
@@ -150,9 +102,9 @@ const UserGrowth = async () => {
     return userMonths[index + 1] ? userMonths[index + 1].length : 0;
   });
 
-  const totalUser = labels.map((label, index) => {
-    return userMonthz[index + 1] ? userMonthz[index + 1].length : 0;
-  });
+  // const totalUser = labels.map((label, index) => {
+  //   return userMonthz[index + 1] ? userMonthz[index + 1].length : 0;
+  // });
 
   const cumulativeTotalUsers = labels.map((_, index) => {
     const currentMonth = index + 1;

@@ -1,44 +1,40 @@
 import React from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase";
-
-async function fetchFirestoreData(collectionName: any) {
-  const data: any = [];
-  const collectionRef = collection(db, collectionName);
-
-  const snapshot = await getDocs(collectionRef);
-
-  snapshot.forEach((doc) => {
-    data.push({ id: doc.id, ...doc.data() });
-  });
-
-  return data;
-}
-
-async function getData() {
-  const blogsData = await fetchFirestoreData("blogs");
-  const storiesData = await fetchFirestoreData("storys");
-  const petImages = await fetchFirestoreData("petImages");
-  const discussionsData = await fetchFirestoreData("discussions");
-  const questionsData = await fetchFirestoreData("questions");
-  const MeetupsData = await fetchFirestoreData("gatherings");
-
-  return [
-    ...storiesData,
-    ...blogsData,
-    ...petImages,
-    ...MeetupsData,
-    ...questionsData,
-    ...discussionsData,
-  ];
-}
+import {
+  fetchComments,
+  getBlogsData,
+  getDiscussionsData,
+  getGalleryData,
+  getGatheringsData,
+  getQuestionsData,
+  getStoriesData,
+  getUsersData,
+} from "@/app/api/GerData";
 
 const ContentSubmissions = async () => {
-  const blogsData: any = await getData();
+  const blogsData: any = await getBlogsData();
+  const storiesData: any = await getStoriesData();
+  const galleryData: any = await getGalleryData();
+  const meetupsData: any = await getGatheringsData();
+  const questionsData: any = await getQuestionsData();
+  const discussionsData: any = await getDiscussionsData();
+  const commentsData: any = await fetchComments("");
+  // const usersData: any = await getUsersData();
+
+  const fullData = [
+    ...storiesData,
+    ...blogsData,
+    ...galleryData,
+    ...meetupsData,
+    ...questionsData,
+    ...discussionsData,
+    ...commentsData,
+  ];
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {(blogsData && blogsData.length) || 0}
+      {(fullData && fullData.length) || 0}
     </p>
   );
 };

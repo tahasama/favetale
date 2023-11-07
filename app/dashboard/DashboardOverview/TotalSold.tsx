@@ -1,21 +1,11 @@
+import { getPurchasesData } from "@/app/api/GerData";
 import { db } from "@/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-async function getData() {
-  const blogsData: any[] = [];
-  const blogRef = query(collection(db, "purchases"));
-
-  const blogSnapshot = await getDocs(blogRef);
-
-  blogSnapshot.forEach((doc: any) => {
-    blogsData.push({ id: doc.id, ...doc.data() });
-  });
-  return blogsData;
-}
 const TotalSold = async () => {
-  const usersData: any = await getData();
+  const purchasesData: any = await getPurchasesData();
 
-  const totalSold = usersData.map((data: any) =>
+  const totalSold = purchasesData.map((data: any) =>
     data.cart.reduce(
       (total: any, product: any) =>
         total +
@@ -27,7 +17,7 @@ const TotalSold = async () => {
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {(usersData && usersData.length) || 0}
+      {(purchasesData && totalSold) || 0}
     </p>
   );
 };

@@ -2,23 +2,10 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import ForumCard from "./ForumCard";
-
-async function getData() {
-  const discussionsData: any[] = [];
-  const discussionRef = collection(db, "discussions");
-  const snapshot = await getDocs(discussionRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
-  snapshot.forEach((doc: any) => {
-    discussionsData.push({ id: doc.id, ...doc.data() });
-  });
-  return discussionsData;
-}
+import { getDiscussionsData } from "@/app/api/GerData";
 
 const ServerComponent = async () => {
-  const discussionsData = await getData();
+  const discussionsData = await getDiscussionsData();
 
   const forumData = [
     {

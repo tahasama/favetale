@@ -6,44 +6,10 @@ import ImageClient from "../ImageClient";
 import ActionsClient from "../ActionsClient";
 import { isAbsolute } from "path";
 import Link from "next/link";
-
-async function getData() {
-  const discussionsData: any[] = [];
-  const discussionRef = query(collection(db, "discussions"));
-
-  const snapshot = await getDocs(discussionRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return discussionsData;
-  }
-  snapshot.forEach((doc: any) => {
-    discussionsData.push({ id: doc.id, ...doc.data() });
-  });
-  return discussionsData;
-}
-
-const fetchComments = async (discussionId: any) => {
-  try {
-    // Check if selectedImage.id is defined
-    const q = query(
-      collection(db, "comments"),
-      where("imageId", "==", discussionId)
-    );
-    const querySnapshot = await getDocs(q);
-
-    const fetchedComments: any[] = [];
-
-    querySnapshot.forEach((doc) => {
-      fetchedComments.push({ id: doc.id, ...doc.data() });
-    });
-    return fetchedComments;
-  } catch (error) {
-    console.error("Error fetching comments:", error);
-  }
-};
+import { fetchComments, getDiscussionsData } from "@/app/api/GerData";
 
 const Discussions = async () => {
-  const discussionsData: any = await getData();
+  const discussionsData: any = await getDiscussionsData();
 
   const comms: any = [];
   for (const discussion of discussionsData) {

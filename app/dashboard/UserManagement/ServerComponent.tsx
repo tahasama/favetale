@@ -1,25 +1,11 @@
+import { getUsersData } from "@/app/api/GerData";
 import { auth, db } from "@/firebase";
 import { getAuth, updateCurrentUser, updateProfile } from "firebase/auth";
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import React from "react";
 
-async function getData() {
-  const questionsData: any[] = [];
-  const blogRef = collection(db, "users");
-
-  const snapshot = await getDocs(blogRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return questionsData;
-  }
-  snapshot.forEach((doc: any) => {
-    questionsData.push({ id: doc.id, ...doc.data() });
-  });
-  return questionsData;
-}
-
 const ServerComponent = async () => {
-  const usersData: any = await getData();
+  const usersData: any = await getUsersData();
 
   const suspendUser = async (uid: any) => {
     const userRef = doc(db, "users", uid);

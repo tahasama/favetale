@@ -2,24 +2,10 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
 import QuestionCard from "./QuestionCard";
-
-async function getData() {
-  const questionsData: any[] = [];
-  const blogRef = collection(db, "questions");
-
-  const snapshot = await getDocs(blogRef);
-  if (snapshot.empty) {
-    console.log("No matching documents.");
-    return;
-  }
-  snapshot.forEach((doc: any) => {
-    questionsData.push({ id: doc.id, ...doc.data() });
-  });
-  return questionsData;
-}
+import { getQuestionsData } from "@/app/api/GerData";
 
 const ServerComponent = async () => {
-  const questionsData = await getData();
+  const questionsData = await getQuestionsData();
 
   return (
     <div className="mx-auto flex justify-center items-start min-h-screen bg-gradient-to-b from-tealLight to-yellow-100">
