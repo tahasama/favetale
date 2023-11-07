@@ -7,6 +7,7 @@ import UserGrowth from "./(userGrowth)/UserGrowth";
 import TotalUsers from "./TotalUsers";
 import ContentSubmissions from "./ContentSubmissions";
 import TotalSold from "./TotalSold";
+import UserInreraction from "./UserInreraction";
 
 const DashboardOverview = () => {
   return (
@@ -27,14 +28,12 @@ const DashboardOverview = () => {
               </Suspense>
             </h3>
           </div>
-
           {/* <div className="bg-sky-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Active Users
             </h3>
             <p className="text-lg md:text-2xl font-bold text-white">789</p>
           </div> */}
-
           <div className="bg-indigo-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Content Submissions
@@ -42,10 +41,18 @@ const DashboardOverview = () => {
             <Suspense fallback={<Loading />}>
               <ContentSubmissions />
             </Suspense>
+          </div>{" "}
+          <div className="bg-sky-500 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+            <h3 className="text-base md:text-lg font-semibold text-white">
+              Comments / Review / Answers
+            </h3>
+            <Suspense fallback={<Loading />}>
+              <UserInreraction />
+            </Suspense>
           </div>
           <div className="bg-purple-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
-              Total Sold
+              Total Sold{" "}
             </h3>
             <Suspense fallback={<Loading />}>
               <TotalSold />

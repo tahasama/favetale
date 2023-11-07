@@ -43,6 +43,10 @@ const UserGrowth = async () => {
     ...discussionsData,
     ...commentsData,
   ];
+  console.log(
+    "🚀 ~ file: userGrowth.tsx:46 ~ UserGrowth ~ fullData:",
+    fullData
+  );
 
   const labels = [
     "Jan",
