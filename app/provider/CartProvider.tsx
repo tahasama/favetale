@@ -11,6 +11,7 @@ export const CartProvider = ({ children }: any) => {
   const [cartItems, setCartItems] = useState<any>([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [profile, setProfile] = useState(false);
   const [userx, setUserx] = useState({
     uid: "",
     name: "",
@@ -88,6 +89,8 @@ export const CartProvider = ({ children }: any) => {
         setPetModalOpen,
         filterImage,
         setFilterImage,
+        profile,
+        setProfile,
       }}
     >
       {children}

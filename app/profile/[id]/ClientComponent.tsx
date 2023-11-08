@@ -14,21 +14,17 @@ import Link from "next/link";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 const ClientComponent = () => {
-  const { userx, uploadpetModalOpen, setUploadpetModalOpen } = useCart();
-  console.log(
-    "🚀 ~ file: ClientComponent.tsx:18 ~ ClientComponent ~ userx:",
-    userx
-  );
+  const { userx, profile, setProfile } = useCart();
 
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center w-full">
       {" "}
       <div className="lg:w-9/12 bg-white mx-6 p-6 mt-8 shadow-md rounded-lg grid grid-cols-1 sm:grid-cols-2 gap-3">
         <motion.div
           initial={{ opacity: 0, x: 500 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="grid place-content-around place-items-start order-2 md:order-1"
+          className="flex flex-col justify-around  order-2 md:order-1"
         >
           <h2 className="text-2xl font-semibold mb-2">
             {userx.name} {userx.lastName}
@@ -82,17 +78,14 @@ const ClientComponent = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 place-content-center place-items-start mt-2 hover:animate-bounceZ">
             <button
-              onClick={() => setUploadpetModalOpen(true)}
+              onClick={() => setProfile(true)}
               className="bg-indigo-500 text-white px-5 py-2.5 rounded-md"
             >
               Edit Profile
             </button>
           </div>
 
-          <UserModal
-            isOpen={uploadpetModalOpen}
-            onClose={() => setUploadpetModalOpen(false)}
-          />
+          <UserModal isOpen={profile} onClose={() => setProfile(false)} />
         </motion.div>
 
         <motion.div
