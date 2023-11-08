@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Suspense, useEffect } from "react";
 import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";

@@ -10,19 +10,8 @@ import {
   getGatheringsData,
   getQuestionsData,
   getStoriesData,
+  getUsersData,
 } from "@/app/api/GerData";
-
-async function getUserData() {
-  const questionsData: any[] = [];
-  const blogRef = collection(db, "users");
-
-  const snapshot = await getDocs(blogRef);
-
-  snapshot.forEach((doc: any) => {
-    questionsData.push({ id: doc.id, ...doc.data() });
-  });
-  return questionsData;
-}
 
 const UserGrowth = async () => {
   const blogsData: any = await getBlogsData();
@@ -32,7 +21,7 @@ const UserGrowth = async () => {
   const questionsData: any = await getQuestionsData();
   const discussionsData: any = await getDiscussionsData();
   const commentsData: any = await fetchComments("");
-  const usersData: any = await getUserData();
+  const usersData: any = await getUsersData();
 
   const fullData = [
     ...storiesData,

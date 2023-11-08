@@ -37,7 +37,7 @@ const ContentDistribution = async () => {
 
   const contentTypesData = {
     labels: Object.keys(fullData[0]),
-    counts: Object.values(fullData[0]).map((data: any) => data.length),
+    counts: Object.values(fullData[0]).map((data: any) => data?.length),
   };
 
   return (

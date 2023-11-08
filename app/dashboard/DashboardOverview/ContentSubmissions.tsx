@@ -34,7 +34,7 @@ const ContentSubmissions = async () => {
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {(fullData && fullData.length) || 0}
+      {fullData ? fullData.length : 0}
     </p>
   );
 };

@@ -7,7 +7,7 @@ export async function getDiscussionsData() {
   const snapshot = await getDocs(discussionRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     discussionsData.push({ id: doc.id, ...doc.data() });
@@ -22,7 +22,7 @@ export async function getGatheringsData() {
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     blogsData.push({ id: doc.id, ...doc.data() });
@@ -37,7 +37,7 @@ export async function getQuestionsData() {
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     questionsData.push({ id: doc.id, ...doc.data() });
@@ -52,7 +52,7 @@ export async function getBlogsData() {
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     blogsData.push({ id: doc.id, ...doc.data() });
@@ -67,7 +67,7 @@ export async function getGalleryData() {
   const snapshot = await getDocs(imageRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     petImages.push({ id: doc.id, ...doc.data() });
@@ -82,7 +82,7 @@ export async function getStoriesData() {
   const snapshot = await getDocs(storyRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     storiesData.push({ id: doc.id, ...doc.data() });
@@ -102,6 +102,10 @@ export const fetchComments = async (blogId: any) => {
 
     const querySnapshot = await getDocs(q);
     const fetchedComments: any[] = [];
+    if (querySnapshot.empty) {
+      console.log("No matching documents.");
+      return [];
+    }
 
     querySnapshot.forEach((doc) => {
       fetchedComments.push({ id: doc.id, ...doc.data() });
@@ -120,7 +124,7 @@ export async function getUsersData() {
   const snapshot = await getDocs(blogRef);
   if (snapshot.empty) {
     console.log("No matching documents.");
-    return questionsData;
+    return [];
   }
   snapshot.forEach((doc: any) => {
     questionsData.push({ id: doc.id, ...doc.data() });
@@ -133,6 +137,10 @@ export async function getPurchasesData() {
   const purchaseRef = query(collection(db, "purchases"));
 
   const purchaseSnapshot = await getDocs(purchaseRef);
+  if (purchaseSnapshot.empty) {
+    console.log("No matching documents.");
+    return [];
+  }
 
   purchaseSnapshot.forEach((doc: any) => {
     purchasesData.push({ id: doc.id, ...doc.data() });
