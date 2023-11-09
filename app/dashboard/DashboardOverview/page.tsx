@@ -11,6 +11,8 @@ import TotalSold from "./TotalSold";
 import UserInreraction from "./UserInreraction";
 import Loading from "./Loading";
 
+export const revalidate = 3600; // revalidate at most every hour
+
 const DashboardOverview = () => {
   return (
     <div id="dashboard" className="bg-tealLight min-h-screen w-full">
