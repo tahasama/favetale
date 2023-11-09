@@ -68,12 +68,7 @@ const ContentSubmissionTrends = async () => {
   };
 
   return (
-    <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-      <h3 className="text-lg font-semibold text-slate-500">
-        Content Submission Trends
-      </h3>
-      <CanvasClient contentSubmissionTrendsData={contentSubmissionTrendsData} />
-    </div>
+    <CanvasClient contentSubmissionTrendsData={contentSubmissionTrendsData} />
   );
 };
 

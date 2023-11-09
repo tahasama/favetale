@@ -40,16 +40,7 @@ const ContentDistribution = async () => {
     counts: Object.values(fullData[0]).map((data: any) => data?.length),
   };
 
-  return (
-    <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-      <h3 className="text-lg font-semibold text-slate-500">
-        Content Type Distribution
-      </h3>
-      <div className="h-52 lg:h-96 grid place-items-center w-full">
-        <CanvasClient contentTypesData={contentTypesData} />
-      </div>
-    </div>
-  );
+  return <CanvasClient contentTypesData={contentTypesData} />;
 };
 
 export default ContentDistribution;

@@ -120,12 +120,7 @@ const UserGrowth = async () => {
     totalUsers: cumulativeTotalUsers,
   };
 
-  return (
-    <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-      <h3 className="text-lg font-semibold text-slate-500">User Growth</h3>
-      <CanvasClient userGrowthData={userGrowthData} />{" "}
-    </div>
-  );
+  return <CanvasClient userGrowthData={userGrowthData} />;
 };
 
 export default UserGrowth;

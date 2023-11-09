@@ -2,6 +2,7 @@ import { getUsersData } from "@/app/api/GerData";
 import { auth, db } from "@/firebase";
 import { getAuth, updateCurrentUser, updateProfile } from "firebase/auth";
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import Link from "next/link";
 import React from "react";
 
 const ServerComponent = async () => {
@@ -39,7 +40,9 @@ const ServerComponent = async () => {
         usersData.map((user: any) => (
           <tr key={user.id} className="border-b border-teal-500 ">
             <td className="p-2 hidden md:block">{user.id}</td>
-            <td className="p-2">{user.name}</td>
+            <td className="p-2 text-sky-700 hover:underline underline-offset-2 cursor-pointer">
+              <Link href={`/profile/${user.id}`}>{user.name}</Link>
+            </td>
             <td className="p-2">{user.lastName}</td>
             <td className="p-2">{user.description}</td>
             <td className="p-2">

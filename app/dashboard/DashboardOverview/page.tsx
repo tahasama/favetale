@@ -3,13 +3,13 @@
 import React, { Suspense, useEffect } from "react";
 import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";
-import Loading from "@/app/explore/(components)/blogs/loading";
 import StoreSalesChart from "./(StoreSalesChart)/StoreSalesChart";
 import UserGrowth from "./(userGrowth)/UserGrowth";
 import TotalUsers from "./TotalUsers";
 import ContentSubmissions from "./ContentSubmissions";
 import TotalSold from "./TotalSold";
 import UserInreraction from "./UserInreraction";
+import Loading from "./Loading";
 
 const DashboardOverview = () => {
   return (
@@ -22,7 +22,7 @@ const DashboardOverview = () => {
       </h2>
       <div className="flex flex-col w-full gap-">
         <div className="flex flex-row flex-wrap w-full items-center gap-3 md:gap-4 mb-4 text-center justify-around scale-95">
-          <div className="bg-teal-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-emerald-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Total Users
               <Suspense fallback={<Loading />}>
@@ -36,7 +36,7 @@ const DashboardOverview = () => {
             </h3>
             <p className="text-lg md:text-2xl font-bold text-white">789</p>
           </div> */}
-          <div className="bg-indigo-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-indigo-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Content Submissions
             </h3>
@@ -52,7 +52,7 @@ const DashboardOverview = () => {
               <UserInreraction />
             </Suspense>
           </div>
-          <div className="bg-purple-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-purple-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Total Sold{" "}
             </h3>
@@ -62,25 +62,45 @@ const DashboardOverview = () => {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
-          <Suspense fallback={<Loading />}>
-            <UserGrowth />
-          </Suspense>
-          <Suspense fallback={<Loading />}>
-            <ContentSubmissionTrends />
-          </Suspense>
+          <div className="bg-indigo-50 rounded-lg shadow-lg lg:min-h-[60vh] lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
+              User Growth
+            </h3>
+            <Suspense fallback={<Loading />}>
+              <UserGrowth />
+            </Suspense>
+          </div>
+          <div className="bg-indigo-50 rounded-lg shadow-lg lg:min-h-[60vh] lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
+              Content Submission Trends
+            </h3>
+            <Suspense fallback={<Loading />}>
+              <ContentSubmissionTrends />
+            </Suspense>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
           {/* Content Type Distribution Chart */}
-
-          <Suspense fallback={<Loading />}>
-            <ContentDistribution />
-          </Suspense>
-          {/* Store Sales and Revenue Chart */}
-
-          <Suspense fallback={<Loading />}>
-            <StoreSalesChart />
-          </Suspense>
+          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
+              Content Type Distribution
+            </h3>
+            <div className="h-52 lg:h-96 grid place-items-center w-full">
+              <Suspense fallback={<Loading />}>
+                <ContentDistribution />
+              </Suspense>
+              {/* Store Sales and Revenue Chart */}
+            </div>
+          </div>
+          <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
+            <h3 className="text-lg font-semibold text-slate-500">
+              Store Sales and Revenue
+            </h3>
+            <Suspense fallback={<Loading />}>
+              <StoreSalesChart />
+            </Suspense>
+          </div>
         </div>
       </div>
     </div>

@@ -58,14 +58,7 @@ const StoreSalesChart = async () => {
     revenue,
   };
 
-  return (
-    <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
-      <h3 className="text-lg font-semibold text-slate-500">
-        Store Sales and Revenue
-      </h3>
-      <CanvasClient storeSalesData={storeSalesData} />
-    </div>
-  );
+  return <CanvasClient storeSalesData={storeSalesData} />;
 };
 
 export default StoreSalesChart;
