@@ -39,7 +39,7 @@ const Gallery = async ({ tab, userx }: any) => {
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Collection
+            Collection
           </p>
           <Link
             href={`/profile/${userx}/gallery/myGallery`}
@@ -50,7 +50,6 @@ const Gallery = async ({ tab, userx }: any) => {
               meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
                 .length
             }{" "}
-            images
           </Link>
           <div className="mt-0 flex  gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
@@ -71,7 +70,7 @@ const Gallery = async ({ tab, userx }: any) => {
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Reactions
+            Reactions
           </p>
           <Link
             href={`/profile/${userx}/gallery/myCollection`}
@@ -85,7 +84,6 @@ const Gallery = async ({ tab, userx }: any) => {
                   meetups.hearts.includes(userx)
               ).length
             }{" "}
-            images
           </Link>
           <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData

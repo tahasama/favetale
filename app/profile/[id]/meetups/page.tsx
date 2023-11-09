@@ -38,7 +38,7 @@ const Meetups = async ({ tab, userx }: any) => {
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Meetups
+            Meetups
           </p>
           <Link
             href={`/profile/${userx}/blogs/myBlogs`}
@@ -49,7 +49,6 @@ const Meetups = async ({ tab, userx }: any) => {
               meetupsData?.filter((meetups: any) => meetups.writer.id === userx)
                 .length
             }{" "}
-            Meetups
           </Link>
           <div className="mt-0 flex flex-col md:flex-row justify-start gap-4 mx-2 sm:mx-0 w-fit max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
@@ -69,7 +68,7 @@ const Meetups = async ({ tab, userx }: any) => {
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Participations
+            Participations
           </p>
           <Link
             href={`/profile/${userx}/blogs/myCollection`}
@@ -81,7 +80,6 @@ const Meetups = async ({ tab, userx }: any) => {
                 meetups.participants.includes(userx)
               ).length
             }{" "}
-            Participations
           </Link>
           <div className="mt-0 flex flex-col md:flex-row gap-4 mx-2 sm:mx-0 w-fit max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData

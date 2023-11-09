@@ -38,7 +38,7 @@ const Questions = async ({ tab, userx }: any) => {
         <p
           className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
         >
-          my questions
+          Questions
         </p>
         <Link
           href={`/profile/${userx}/questions/myQuestions`}
@@ -49,7 +49,6 @@ const Questions = async ({ tab, userx }: any) => {
             meetupsData?.filter((meetups: any) => meetups.writer.id === userx)
               .length
           }{" "}
-          questions
         </Link>
         <div className="mt-0 flex flex-col gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
           {meetupsData
@@ -66,7 +65,7 @@ const Questions = async ({ tab, userx }: any) => {
         <p
           className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
         >
-          my answers
+          Answers
         </p>
         <Link
           href={`/profile/${userx}/questions/myAnswers`}
@@ -78,7 +77,6 @@ const Questions = async ({ tab, userx }: any) => {
               meetups.answerers.includes(userx)
             ).length
           }{" "}
-          answers
         </Link>
         <div className="mt-0 flex flex-col gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
           {meetupsData
@@ -95,7 +93,7 @@ const Questions = async ({ tab, userx }: any) => {
         <p
           className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
         >
-          my upvotes
+          Upvotes
         </p>
         <Link
           href={`/profile/${userx}/questions/myCollection`}
@@ -107,7 +105,6 @@ const Questions = async ({ tab, userx }: any) => {
               meetups.upvotes.includes(userx)
             ).length
           }{" "}
-          reactions
         </Link>
         <div className="mt-0 flex flex-col gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
           {meetupsData

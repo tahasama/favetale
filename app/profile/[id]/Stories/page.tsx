@@ -36,7 +36,7 @@ const Stories = async ({ userx }: any) => {
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Stories
+            Stories
           </p>
           <Link
             href={`/profile/${userx}/Stories/myStories`}
@@ -49,7 +49,6 @@ const Stories = async ({ userx }: any) => {
                   meetups.writer.id === userx && meetups.draft === false
               ).length
             }{" "}
-            Stories
           </Link>
           <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
@@ -72,7 +71,7 @@ const Stories = async ({ userx }: any) => {
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My draft
+            Draft
           </p>
           <Link
             href={`/profile/${userx}/Stories/myDraft`}
@@ -85,12 +84,10 @@ const Stories = async ({ userx }: any) => {
                   meetups.writer.id === userx && meetups.draft === true
               ).length
             }{" "}
-            draft
           </Link>
           <div className="mt-0 flex flex-col gap-4 mx-2 sm:mx-0 max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
-
-              .filter(
+              ?.filter(
                 (meetups: any) =>
                   meetups.writer.id === userx && meetups.draft === true
               )
@@ -107,7 +104,7 @@ const Stories = async ({ userx }: any) => {
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Reactions
+            Reactions
           </p>
           <Link
             href={`/profile/${userx}/Stories/myCollection`}
@@ -119,12 +116,10 @@ const Stories = async ({ userx }: any) => {
                 meetups.likes.includes(userx)
               ).length
             }{" "}
-            reactions
           </Link>
           <div className="mt-0 flex flex-col gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
-
-              .filter((meetups: any) => meetups.likes.includes(userx))
+              ?.filter((meetups: any) => meetups.likes.includes(userx))
               ?.slice(0, 1)
               .map((meetup: any, index: any) => (
                 <StoryCard story={meetup} index={index} />

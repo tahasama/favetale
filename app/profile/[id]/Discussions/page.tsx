@@ -38,7 +38,7 @@ const Discussions = async ({ tab, userx }: any) => {
           <p
             className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Discussions
+            Discussions
           </p>
           <Link
             href={`/profile/${userx}/Discussions/myDiscussions`}
@@ -49,7 +49,6 @@ const Discussions = async ({ tab, userx }: any) => {
               meetupsData?.filter((meet: any) => meet.writer.id === userx)
                 .length
             }{" "}
-            Discussions
           </Link>
           <div className="mt-0 flex gap-4  w-full  border-2 border-indigo-300 rounded-md">
             {meetupsData
@@ -69,7 +68,7 @@ const Discussions = async ({ tab, userx }: any) => {
           <p
             className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
           >
-            My Participations
+            Participations
           </p>
           <Link
             href={`/profile/${userx}/Discussions/myParticipations`}
@@ -81,7 +80,6 @@ const Discussions = async ({ tab, userx }: any) => {
                 meet.participants.includes(userx)
               ).length
             }{" "}
-            Participations
           </Link>
           <div className="mt-0 flex gap-4 mx-2 border-2 border-indigo-300 rounded-md">
             {meetupsData
