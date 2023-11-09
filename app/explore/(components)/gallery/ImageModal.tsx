@@ -37,12 +37,12 @@ const ImageModal = () => {
     uploadpetModalOpen,
     setUploadpetModalOpen,
   } = useCart();
-  console.log(
-    "🚀 ~ file: ImageModal.tsx:40 ~ ImageModal ~ uploadpetModalOpen:",
-    uploadpetModalOpen
-  );
 
   const [comments, setComments] = useState<any[]>([]);
+  console.log(
+    "🚀 ~ file: ImageModal.tsx:47 ~ fetchComments ~ selectedImage:",
+    selectedImage?.poster?.id
+  );
 
   // Function to fetch comments
   const fetchComments = async () => {
@@ -77,10 +77,6 @@ const ImageModal = () => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      console.log(
-        "🚀 ~ file: ImageModal.tsx:80 ~ handleModalClick ~ e.target.classList.contains:",
-        e.target.classList.contains("modal-overlay")
-      );
       setUploadpetModalOpen(false);
     }
   };

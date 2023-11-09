@@ -15,7 +15,12 @@ const UploadImageModal = () => {
     selectedImage,
     setUploadModalOpen,
     setUploadpetModalOpen,
+    setSelectedImage,
   } = useCart();
+  console.log(
+    "🚀 ~ file: UploadImageModal.tsx:20 ~ UploadImageModal ~ selectedImage:",
+    selectedImage
+  );
 
   const router = useRouter();
 
@@ -86,7 +91,7 @@ const UploadImageModal = () => {
           // If updating an image, update the Firestore document
           const imageRef = doc(db, "petImages", selectedImage.id);
           await updateDoc(imageRef, updateData).then(() => {
-            setImageModalOpen(false);
+            setImageModalOpen(false).then(() => setSelectedImage(""));
           });
         } else {
           const imageData = {
@@ -100,9 +105,11 @@ const UploadImageModal = () => {
           };
 
           // If creating a new image, add a new Firestore document
-          await addDoc(collection(db, "petImages"), imageData).then(() => {
-            setImageModalOpen(false);
-          });
+          await addDoc(collection(db, "petImages"), imageData)
+            .then(() => {
+              setImageModalOpen(false);
+            })
+            .then(() => setSelectedImage(""));
         }
       } catch (error) {
         console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
@@ -114,6 +121,7 @@ const UploadImageModal = () => {
     setUploadpetModalOpen(false);
     setLoading(false);
     setError("");
+    setSelectedImage("");
     router.push(`/profile/${userx.id}`);
   };
 
