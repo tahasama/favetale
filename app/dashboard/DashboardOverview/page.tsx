@@ -11,7 +11,7 @@ import TotalSold from "./TotalSold";
 import UserInreraction from "./UserInreraction";
 import Loading from "./Loading";
 
-export const revalidate = 3600; // revalidate at most every hour
+export const revalidate = 3600;
 
 const DashboardOverview = () => {
   return (
