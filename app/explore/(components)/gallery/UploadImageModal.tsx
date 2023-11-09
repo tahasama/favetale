@@ -17,10 +17,6 @@ const UploadImageModal = () => {
     setUploadpetModalOpen,
     setSelectedImage,
   } = useCart();
-  console.log(
-    "🚀 ~ file: UploadImageModal.tsx:20 ~ UploadImageModal ~ selectedImage:",
-    selectedImage
-  );
 
   const router = useRouter();
 
