@@ -30,6 +30,23 @@ export async function getGatheringsData() {
   return blogsData;
 }
 
+export async function getEventsData() {
+  const blogsData: any[] = [];
+
+  const blogRef = collection(db, "event");
+
+  const snapshot = await getDocs(blogRef);
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return [];
+  }
+  snapshot.forEach((doc: any) => {
+    blogsData.push({ id: doc.id, ...doc.data() });
+  });
+
+  return blogsData;
+}
+
 export async function getQuestionsData() {
   const questionsData: any[] = [];
   const blogRef = collection(db, "questions");

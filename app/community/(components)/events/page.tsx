@@ -23,6 +23,8 @@ import img9 from "../../../images/9.jpg";
 import img10 from "../../../images/10.jpg";
 import img11 from "../../../images/11.jpg";
 import img12 from "../../../images/12.jpg";
+import ClientComponent from "./ClientComponent";
+import ServerComponent from "./ServerComponent";
 
 const Events = () => {
   const eventsData = [
@@ -180,167 +182,14 @@ const Events = () => {
     },
   ];
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const handleDateChange = (date: any) => {
-    setSelectedDate(date);
-  };
-
-  const [currentMonthIndex, setCurrentMonthIndex] = useState(
-    new Date().getMonth()
-  );
-  const [currentYearIndex, setcurrentYearIndex] = useState(
-    new Date().getFullYear()
-  );
-
-  const handleActiveStartDateChange = ({ activeStartDate }: any) => {
-    setCurrentMonthIndex(activeStartDate.getMonth());
-    setcurrentYearIndex(activeStartDate.getFullYear());
-  };
-
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const handleScrollToSection = (e: any, sectionId: any) => {
-    e.preventDefault(); // Prevent the default link behavior
-
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth", // Use smooth scrolling animation
-        block: "start", // Scroll to the top of the section
-      });
-    }
-  };
-
   return (
     <div className="bg-gradient-to-b from-tealLight to-teal-100">
-      <div className="mb-6">
-        <div className="bg-green-600 p-6 sm:p-12 rounded-br-3xl text-left leading-loose tracking-wide">
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3 md:mb-5">
-            Explore Pet Events
-          </h2>
-          <p className="text-slate-100 text-base md:text-lg mb-6 md:mb-8">
-            Discover exciting pet-related events happening in your area and
-            beyond. Don't miss out on the fun and opportunities to learn and
-            connect!
-          </p>
-          <Link
-            href="#pet-events" // Points to the anchor element with id "pet-questions"
-            onClick={(e) => handleScrollToSection(e, "pet-events")}
-          >
-            <button className="hover:animate-buttonHover bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-green-700 transition-colors duration-500">
-              View Upcoming Events
-            </button>
-          </Link>
-        </div>
-      </div>
-
+      <ClientComponent />
       <div
         className="flex md:flex-row-reverse items-center justify-around p-1 lg:p-6 "
         id="pet-events"
       >
-        <div className="flex flex-col md:flex-row-reverse items-center gap-4 lg:gap-0 justify-around md:h-[76vh] w-full bg-teal-50 lg:p-6 rounded-xl shadow-md  overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
-          <Calendar
-            onChange={handleDateChange}
-            onActiveStartDateChange={handleActiveStartDateChange}
-            value={selectedDate}
-            className=" bg-white p-2 md:p-6 scale-110 md:scale-100 lg:scale-110 xl:scale-125 h-96 sticky top-20 rounded-lg border shadow-lg"
-            calendarType="US"
-            tileClassName={({ date }) => {
-              const eventsOnDate = eventsData.some((event) => {
-                const adjustedStartDate = new Date(event.startDate);
-                adjustedStartDate.setDate(event.startDate.getDate() - 1);
-                return adjustedStartDate <= date && date <= event.endDate;
-              });
-
-              return eventsOnDate ? "text-purple-500" : "";
-            }}
-            tileContent={({ date }) => {
-              const eventsOnDate = eventsData.some((event) => {
-                const adjustedStartDate = new Date(event.startDate);
-                adjustedStartDate.setDate(event.startDate.getDate() - 1);
-                return adjustedStartDate <= date && date <= event.endDate;
-              });
-
-              return eventsOnDate ? (
-                <span className="bg-purple-500 rounded-full h-2 w-2 block mx-auto mt-1"></span>
-              ) : null;
-            }}
-          />
-          <div className="md:w-7/12 lg:w-6/12 mt-36 lg:pl-6 overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
-            <ul className=" gap-4 flex flex-col px-0 pb-2">
-              <h3 className="text-xl font-semibold mb-3">
-                {monthNames[currentMonthIndex]}&nbsp;
-                {currentYearIndex} Events :
-              </h3>
-              {eventsData
-                .filter(
-                  (event: any) =>
-                    event.startDate.getMonth() === currentMonthIndex &&
-                    event.startDate.getFullYear() === currentYearIndex
-                )
-                .map((event, index) => {
-                  const adjustedStartDate = new Date(event.startDate);
-                  adjustedStartDate.setDate(adjustedStartDate.getDate() - 1);
-
-                  const isEventOnDate =
-                    selectedDate >= adjustedStartDate &&
-                    selectedDate <= event.endDate;
-
-                  return (
-                    <Link href={`community/events/${event.id}`}>
-                      <motion.li
-                        initial={{ opacity: 0, transform: "scale(.9)" }} // Initial state (hidden and slightly moved down)
-                        animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
-                        transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
-                        className={`${
-                          isEventOnDate ? "bg-sky-100" : "bg-white"
-                        } flex items-start p-3 rounded-lg shadow-md h-fit w-full cursor-pointer transition-all duration-300 border-x-2`}
-                        key={index}
-                      >
-                        <Image
-                          className="rounded-full h-12 w-12 bg-yellow-100 mr-3"
-                          src={event.initiatorImage}
-                          alt="initiator"
-                          width={1000}
-                          height={1000}
-                        />
-                        <div>
-                          <p className="font-semibold">{event.initiator}</p>
-                          <p className="font-light text-md tex py-1 text-gray-800">
-                            {event.title}
-                          </p>
-                          <p className="font-extralight text-sm py-1 text-gray-600">
-                            {event.description}
-                          </p>
-                          <div className="flex leading-10 tracking-wider mb-1">
-                            <p className="text-gray-600 ">📅 {event.hour} |</p>
-                            <p className="text-gray-600">📍 {event.location}</p>
-                          </div>
-                          <div className="bg-gray-50 shadow-md cursor-pointer text-gray-500 w-fit px-4 py-3 rounded-md text-sm hover:animate-buttonHover">
-                            Join the event
-                          </div>
-                        </div>
-                      </motion.li>
-                    </Link>
-                  );
-                })}
-            </ul>
-          </div>
-        </div>
+        <ServerComponent />
       </div>
     </div>
   );
