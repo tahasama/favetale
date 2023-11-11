@@ -32,7 +32,7 @@ const Gallery = async () => {
         <thead className="bg-gray-100">
           <tr className="text-xs md:text-base">
             <th className="p-2 border border-gray-300">Image</th>
-            <th className="invisible md:visible border border-gray-300">
+            <th className="invisible hidden md:block p-2 md:visible border ">
               View
             </th>
             <th className="p-2 border border-gray-300">User</th>

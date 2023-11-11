@@ -11,12 +11,12 @@ const ViewClient = ({ image }: any) => {
 
   return (
     <td
-      className="max-w-[5rem] text-sky-600 underline invisible md:visible cursor-pointer"
+      className="w-full text-sky-600 underline invisible md:visible cursor-pointer hidden md:flex justify-center items-center h-28"
       onClick={() => {
         setSelectedImage(image), setUploadpetModalOpen(true);
       }}
     >
-      <p className="text-center">View</p>
+      <p className="text-center ">View</p>
     </td>
   );
 };
