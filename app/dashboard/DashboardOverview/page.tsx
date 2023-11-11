@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import ContentDistribution from "./(ContentDistribution)/ContentDistribution";
 import ContentSubmissionTrends from "./(ContentSubmissionTrends)/ContentSubmissionTrends";
 import StoreSalesChart from "./(StoreSalesChart)/StoreSalesChart";
