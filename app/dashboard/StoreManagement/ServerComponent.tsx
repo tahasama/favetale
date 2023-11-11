@@ -1,19 +1,14 @@
-"use client";
-import React, { useState, useEffect, Suspense } from "react";
-
+import React from "react";
+import { FaInfo, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import Image from "next/image";
 import cage from "../../images/store/cage.jpg";
 import feeder from "../../images/store/feeder.jpg";
 import scratch from "../../images/store/scratch.jpg";
-import Image from "next/image";
-import ProductModal from "./ProductModal";
-import { useCart } from "@/app/provider/CartProvider";
-import { FaInfo, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import ServerComponent from "./ServerComponent";
-import Loading from "../EventManagement/loading";
-import AddProduct from "./AddProduct";
+import EditDeleteProduct from "./EditDeleteProduct";
+import DisplayProduct from "./DisplayProduct";
 
-function StoreManagement() {
-  const discountProducts = [
+const ServerComponent = () => {
+  const products = [
     {
       id: 7,
       name: "Cat Scratching Post",
@@ -109,64 +104,60 @@ function StoreManagement() {
       stock: 25,
     },
   ];
-  const [products, setProducts] = useState(discountProducts);
-
-  const [product, setproduct] = useState<any>(null);
-  const [pressed, setPressed] = useState<any>({
-    isPressed: false,
-    pressedIndex: null,
-  });
-  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
-
-  useEffect(() => {
-    // Fetch the list of products from your backend when the component mounts
-    // Example: fetchProducts().then((data) => setProducts(data));
-  }, []);
-
-  const handleProductClick = (product: any) => {
-    // Set the selected product when a product is clicked
-    setproduct(product);
-  };
-
-  const handleDeselectProduct = () => {
-    // Deselect the currently selected product
-    setproduct(null);
-  };
-
-  const handleAddProduct = () => {
-    // Implement functionality to add a new product (e.g., open a modal)
-  };
-
   return (
-    <div className="bg-tealLight relative">
-      <h2 className="text-center pt-6 mb-9">Store Management</h2>
-      <AddProduct />
-      {/* Product List */}
-      <div className="text-xs md:text-sm lg:text-base overflow-x-auto mx-1">
-        <table className="w-full max-h-[400px] border-collapse border border-gray-300">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-2 border border-gray-300">Product</th>
-              <th className="p-1 border border-gray-300">Name</th>
-              <th className="p-1 hidden md:block mt-0.5">Description</th>
-              <th className="p-1 border border-gray-300">Rate</th>
-              <th className="p-1 border border-gray-300">Price</th>
-              <th className="p-1 border border-gray-300">Stock</th>
-              <th className="p-1 border border-gray-300">Sales</th>
-              <th className="p-1 border border-gray-300">Revenue</th>
-              <th className="p-1 border border-gray-300">Actions</th>
-            </tr>
-          </thead>
-          <Suspense fallback={<Loading />}>
-            <ServerComponent />
-          </Suspense>
-        </table>
-      </div>
-      ;{/* Product Details */}
-      {/* Product Actions */}
-      {/* <div className="inset-0 absolute bg-pink-400">hhh</div> */}
-    </div>
-  );
-}
+    <tbody className="mt-10">
+      {products.map((product: any, index: any) => (
+        <tr
+          key={product.id}
+          //   onClick={() => handleProductClick(product)}
+          className={`text-center border-2 border-slate-300  ${
+            index % 2 !== 0 ? "bg-white" : "bg-teal-50"
+          }`}
+        >
+          <td className="w-36 relative border border-gray-300">
+            <Image
+              src={product.images[0]}
+              alt="product"
+              height={500}
+              width={500}
+              //   onClick={() =>
+              //     setPressed({
+              //       isPressed: !pressed.isPressed,
+              //       pressedIndex: index,
+              //     })
+              //   }
+              className={`max-h-20 max-w-20 md:max-h-28 md:max-w-28 object-cover rounded-md my-1`}
+            />
+          </td>
+          <DisplayProduct product={product} />
 
-export default StoreManagement;
+          <td className="max-w-4xl h-full hidden md:block">
+            <p className="line-clamp-3 w-full relative -top-5">
+              {product.description}
+            </p>
+          </td>
+          <td className="border border-gray-300">
+            {(product.rating.reduce((x: any, y: any) => x + y, 0) / 5).toFixed(
+              2
+            )}
+          </td>
+          <td className="border border-gray-300 px-0.5">${product.price}</td>
+          <td className="border border-gray-300 px-0.5">{product.stock}</td>
+          <td className="border border-gray-300 px-0.5">
+            {product.cumulativeStock - product.stock} Unit
+          </td>
+          <td className="border border-gray-300 px-0.5">
+            ${" "}
+            {(
+              (product.cumulativeStock - product.stock) *
+              product.price
+            ).toFixed(2)}
+          </td>
+          <EditDeleteProduct product={product} />
+        </tr>
+      ))}
+    </tbody>
+  );
+};
+
+export default ServerComponent;
