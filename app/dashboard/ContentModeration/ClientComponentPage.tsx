@@ -1,3 +1,4 @@
+import { Roboto, Aboreto } from "next/font/google";
 import Link from "next/link";
 import React from "react";
 import { FaBlog, FaBook, FaBookOpen, FaImages } from "react-icons/fa";

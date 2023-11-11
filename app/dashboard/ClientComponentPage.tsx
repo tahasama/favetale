@@ -4,6 +4,12 @@ import React, { useEffect, useState } from "react";
 import { HiMenu } from "react-icons/hi";
 
 import Link from "next/link";
+import { Aboreto, Roboto, Abhaya_Libre, Montaga } from "next/font/google";
+
+// const aboreto = Abhaya_Libre({ weight: "400", subsets: ["latin"] });
+const montaga = Montaga({ weight: "400", subsets: ["latin"] });
+const abhaya = Abhaya_Libre({ weight: "700", subsets: ["latin"] });
+const roboto = Roboto({ weight: "700", subsets: ["latin"] });
 
 const ClientComponentPage = () => {
   const components: any = {
@@ -34,7 +40,9 @@ const ClientComponentPage = () => {
   return (
     <header className="bg-teal-500 p-3 text-white relative mt-0 ">
       <nav className="ml-3 flex items-center gap-4">
-        <h1 className="text-sm lg:text-xl xl:text-2xl font-semibold">
+        <h1
+          className={` ${roboto.className} text-lg text-white lg:text-xl xl:text-3xl `}
+        >
           Manager Dashboard
         </h1>
         <p
@@ -48,7 +56,9 @@ const ClientComponentPage = () => {
         <ul
           className={`flex items-center transform gap-1 md:gap-4 ${
             open ? "scale-y-100" : "scale-y-0 md:scale-y-100 "
-          } transition-transform origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 md:bg-transparent z-40 md:relative md:top-0 flex-col md:flex-row`}
+          } transition-transform ${
+            montaga.className
+          } origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 md:bg-transparent z-40 md:relative md:top-0 flex-col md:flex-row`}
         >
           {Object.keys(components).map((menuItem) => (
             <Link
