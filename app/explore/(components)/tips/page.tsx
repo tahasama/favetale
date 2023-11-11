@@ -12,6 +12,7 @@ import care from "../../../images/coverImages/care.jpg";
 import para from "../../../images/coverImages/para3.jpg";
 import time from "../../../images/coverImages/time.jpg";
 import {
+  AnimatePresence,
   MotionValue,
   motion,
   useAnimation,
@@ -131,7 +132,7 @@ const Tips = () => {
   const u = [1, 2, 3, 4, 5, 6];
 
   return (
-    <div className="h-[81.8vh] xl:h-[85.5vh]  flex items-center justify-center flex-col mt-20 ">
+    <div className="h-[81.8vh] xl:h-[85.5vh]  flex items-center justify-center flex-col mt-0 ">
       {/* <h2 className="text-3xl font-semibold mb-6">Advice & Tips</h2> */}
       <Swiper
         direction={"vertical"}

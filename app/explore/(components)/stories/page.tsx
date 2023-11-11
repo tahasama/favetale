@@ -51,7 +51,7 @@ const Stories = () => {
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   return (
-    <div className="z-10  my-20  w-full">
+    <div className="z-10  mb-20  w-full">
       <ClientComponent />
       <Suspense fallback={<Loading />}>
         <ServerComponent />

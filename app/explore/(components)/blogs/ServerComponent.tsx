@@ -6,6 +6,10 @@ import { getBlogsData } from "@/app/api/GerData";
 
 const ServerComponent = async () => {
   const blogsData = await getBlogsData();
+  console.log(
+    "🚀 ~ file: ServerComponent.tsx:9 ~ ServerComponent ~ blogsData:",
+    blogsData
+  );
 
   return (
     <div className="columns-1 md:columns-2 lg:columns-3 gap-5 mx-10 pb-4">

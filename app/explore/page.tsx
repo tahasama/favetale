@@ -11,64 +11,9 @@ import { FiImage, FiBook, FiClipboard } from "react-icons/fi";
 import { FaLightbulb } from "react-icons/fa";
 
 const ExplorePage = () => {
-  const storedTab =
-    (typeof window !== "undefined" && localStorage.getItem("activeTab")) ||
-    "Stories";
-  // const storedTab = "Gallery";
-
-  const [activeTab, setActiveTab] = useState<string>(storedTab); // Initial active tab
-
-  const handleTabClick = (tabName: string) => {
-    // router.push(`/explore?section=${tabName}`);
-    // const lowerTabName = tabName.toLocaleLowerCase();
-    // router.push(`/explore/${lowerTabName}`);
-
-    setActiveTab(tabName);
-  };
-
-  useEffect(() => {
-    // Save the activeTab to localStorage whenever it changes.
-    typeof window !== "undefined" &&
-      localStorage.setItem("activeTab", activeTab);
-  }, [activeTab]);
-
-  // const tabs = ["Gallery", "Blogs", "Stories", "Tips"];
-
-  const tabs = [
-    { name: "Gallery", icon: <FiImage /> },
-    { name: "Blogs", icon: <FiBook /> },
-    { name: "Stories", icon: <FiClipboard /> },
-    { name: "Tips", icon: <FaLightbulb /> },
-  ];
-
   return (
     <div className="mt-0">
-      <div className="sticky top-20 flex z-30 justify-center w-full bg-tealLight">
-        {tabs.map((tab) => (
-          <TabButton
-            key={tab.name}
-            tabName={tab.name}
-            isActive={activeTab === tab.name}
-            onClick={() => handleTabClick(tab.name)}
-            icon={tab.icon}
-          />
-        ))}
-      </div>
-      <AnimatePresence mode="popLayout">
-        {/* Content for the active tab */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: -1000 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 1000 }}
-          transition={{ duration: 0.5 }}
-        >
-          {activeTab === "Gallery" && <Gallery />}
-          {activeTab === "Tips" && <Tips />}
-          {activeTab === "Blogs" && <Blogs />}
-          {activeTab === "Stories" && <Stories />}
-        </motion.div>
-      </AnimatePresence>
+      <Gallery />
     </div>
   );
 };

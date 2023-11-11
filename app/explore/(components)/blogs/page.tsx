@@ -6,7 +6,7 @@ import Loading from "./loading";
 
 const Blogs = () => {
   return (
-    <div className="mt-20 w-full">
+    <div className="mt-0 w-full">
       <ClientComponent />
       <Suspense fallback={<Loading />}>
         <ServerComponent />
