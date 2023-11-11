@@ -8,7 +8,7 @@ import StoreSection from "./(HomePages)/StoreSection";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="mt-20">
       <HeroSection />
       <GallerySection />
       <StoreSection />
