@@ -1,11 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import UserManagement from "./UserManagement/page";
-import DashboardOverview from "./DashboardOverview/page";
+
 import { HiMenu } from "react-icons/hi";
-import ContentModeration from "./content/page";
-import StoreManagement from "./StoreManagement/page";
-import EventManagement from "./Event Management/page";
+
 import Link from "next/link";
 
 const ClientComponentPage = () => {

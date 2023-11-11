@@ -1,19 +1,8 @@
-"use client";
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import ServerComponent from "./ServerComponent";
 import Loading from "@/app/community/(components)/forums/loading";
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([]);
-
-  function suspendUser(id: any): void {
-    throw new Error("Function not implemented.");
-  }
-
-  function resetPassword(id: any): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <div className="bg-tealLight p-4 overflow-auto">
       <h2 className="text-2xl text-center mb-6">User Management:</h2>
@@ -24,7 +13,6 @@ const UserManagement = () => {
             <th className="p-2">Name</th>
             <th className="p-2">Last Name</th>
             <th className="p-2">Description</th>
-            <th className="p-2">Image</th>
             <th className="p-2">Join on</th>
             <th className="p-2">Last visit</th>
             <th className="p-2">Actions</th>

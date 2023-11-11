@@ -4,76 +4,44 @@ import { getAuth, updateCurrentUser, updateProfile } from "firebase/auth";
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
+import SuspendedClient from "./SuspendedClient";
 
 const ServerComponent = async () => {
   const usersData: any = await getUsersData();
 
-  const suspendUser = async (uid: any) => {
-    const userRef = doc(db, "users", uid);
-
-    try {
-      await updateDoc(userRef, {
-        suspended: true,
-      });
-      console.log(`User with UID ${uid} is suspended.`);
-    } catch (error) {
-      console.error(`Error suspending user with UID ${uid}:`, error);
-    }
-  };
-
-  const unSuspendUser = async (uid: any) => {
-    const userRef = doc(db, "users", uid);
-
-    try {
-      await updateDoc(userRef, {
-        suspended: false,
-      });
-      console.log(`User with UID ${uid} is suspended.`);
-    } catch (error) {
-      console.error(`Error suspending user with UID ${uid}:`, error);
-    }
-  };
-
   return (
-    <tbody>
+    <tbody className="">
       {usersData &&
         usersData.map((user: any) => (
-          <tr key={user.id} className="border-b border-teal-500 ">
-            <td className="p-2 hidden md:block">{user.id}</td>
+          <tr
+            key={user.id}
+            className="border-b border-teal-5 text-center md:contents"
+          >
+            <td className="p-2 md:p-2 md:flex md:items-center md:justify-center hidden h-14">
+              {user.id}
+            </td>
             <td className="p-2 text-sky-700 hover:underline underline-offset-2 cursor-pointer">
-              <Link href={`/profile/${user.id}`}>{user.name}</Link>
+              <div className="flex justify-center items-center gap-2">
+                {" "}
+                {user.image ? (
+                  <img
+                    src={user.image}
+                    alt={user.name}
+                    className="h-10 w-10 rounded-full ml-5 object-cover"
+                  />
+                ) : (
+                  <div className="h-10 w-10 bg-indigo-500 rounded-full"></div>
+                )}
+                <Link href={`/profile/${user.id}`}>{user.name}</Link>
+              </div>
             </td>
             <td className="p-2">{user.lastName}</td>
             <td className="p-2">{user.description}</td>
-            <td className="p-2">
-              {user.image ? (
-                <img
-                  src={user.image}
-                  alt={user.name}
-                  className="h-10 w-10 rounded-full"
-                />
-              ) : (
-                <div className="h-10 w-10 bg-indigo-500 rounded-full"></div>
-              )}
-            </td>
+
             <td className="p-2">{user.creationTime.slice(0, 16)}</td>
             <td className="p-2">{user.lastSignInTime.slice(0, 16)}</td>
             <td className="p-2">
-              {!user.suspended ? (
-                <button
-                  className="bg-sky-500 hover:bg-sky-600 text-white py-1 px-3 rounded"
-                  onClick={() => suspendUser(user.id)}
-                >
-                  Suspend
-                </button>
-              ) : (
-                <button
-                  className="bg-teal-500 hover:bg-teal-600 text-white py-1 px-3 rounded"
-                  onClick={() => unSuspendUser(user.id)}
-                >
-                  Unsuspend
-                </button>
-              )}
+              <SuspendedClient user={user} />
             </td>
           </tr>
         ))}
