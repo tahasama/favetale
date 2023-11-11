@@ -24,17 +24,30 @@ const ClientComponentPage = () => {
       >
         {Object.keys(content).map((menuItem) => (
           <li
-            className={`hover:underline hover:animate-bounceQ1  list-none md:text-xl m-1 md:m-2  rounded-md font-semibold bg-teal-600 p-3 cursor-pointer`}
+            className={`hover:underline hover:animate-bounceQ z-50 list-none md:text-xl m-1 md:m-2  rounded-md font-semibold bg-teal-600 p-3 cursor-pointer`}
             key={menuItem}
           >
-            <Link
-              href={`/dashboard/ContentModeration/${content[menuItem].component}`}
-            >
-              {content[menuItem].icon}
-            </Link>
+            <Tooltip text={content[menuItem].component}>
+              <Link
+                href={`/dashboard/ContentModeration/${content[menuItem].component}`}
+              >
+                {content[menuItem].icon}
+              </Link>
+            </Tooltip>
           </li>
         ))}
       </ul>
+    </div>
+  );
+};
+
+const Tooltip = ({ text, children }: any) => {
+  return (
+    <div className="relative w-fit group z-50">
+      {children}
+      <div className="absolute  -left-4 top-[34px] z-50 bg-gray-700 text-white text-sm py-1 px-2 rounded-md shadow-lg transition-all ease-in-out duration-500 opacity-0 group-hover:opacity-100">
+        {text}
+      </div>
     </div>
   );
 };
