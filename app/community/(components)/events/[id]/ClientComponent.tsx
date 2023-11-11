@@ -6,7 +6,7 @@ import { db } from "@/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import JoinButton from "./JoinButton";
-import MeetupsModal from "@/app/dashboard/Event Management/MeetupsModal";
+import MeetupsModal from "@/app/dashboard/EventManagement/MeetupsModal";
 
 const ClientComponent = ({ event, id }: any) => {
   const ref = useRef<any>(null);

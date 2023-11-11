@@ -13,7 +13,7 @@ export const revalidate = 3600;
 
 const DashboardOverview = () => {
   return (
-    <div id="dashboard" className="bg-tealLight min-h-screen w-full">
+    <div id="dashboard" className="min-h-screen w-full">
       <h2
         id="dashboard"
         className="text-2xl font-semibold my-4 indent-4 md:indent-5 lg:indent-8 xl:indent-10"

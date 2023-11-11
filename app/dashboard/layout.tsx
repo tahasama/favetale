@@ -6,9 +6,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-20">
+    <section className="pt-20 ">
       <ClientComponentPage />
-      {children}
+      <div className="">{children}</div>
     </section>
   );
 }

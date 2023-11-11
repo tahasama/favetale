@@ -10,6 +10,7 @@ import { fetchComments, getGatheringsData } from "@/app/api/GerData";
 
 const Meetups = async () => {
   const MeetupsData: any = await getGatheringsData();
+  console.log("🚀 ~ file: page.tsx:13 ~ Meetups ~ MeetupsData:", MeetupsData);
 
   const comms: any = [];
   for (const blog of MeetupsData) {
@@ -21,16 +22,16 @@ const Meetups = async () => {
     <div className="bg-tealLight px-0">
       <h2 className="text-center py-6">Meetups</h2>
 
-      <table className="w-full max-h-[400px] overflow-y-auto">
-        <thead>
+      <table className="w-full max-h-[400px] overflow-y-auto border-collapse border border-gray-300 text-xs md:text-sm lg:text-base">
+        <thead className="bg-gray-100">
           <tr className="text-xs md:text-base">
-            <th className="p-2">Title</th>
-            <th>Location</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Time</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th className="p-2 border border-gray-300">Title</th>
+            <th className="p-2 border border-gray-300">Location</th>
+            <th className="p-2 border border-gray-300">Start Date</th>
+            <th className="p-2 border border-gray-300">End Date</th>
+            <th className="p-2 border border-gray-300">Time</th>
+            <th className="p-2 border border-gray-300">Description</th>
+            <th className="p-2 border border-gray-300">Actions</th>
           </tr>
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
@@ -42,17 +43,17 @@ const Meetups = async () => {
                   index % 2 !== 0 ? "bg-white" : "bg-teal-50"
                 }`}
               >
-                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
+                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer border border-gray-300">
                   <Link href={`explore/Meetups/${meetup.id}`}>
                     {meetup.title}
                   </Link>
                 </td>
-                <td>{`${meetup.location.city}, ${meetup.location.country}`}</td>
-                <td>{meetup.startDate}</td>
-                <td>{meetup.endDate}</td>
-                <td>{`${meetup.timeFrom} - ${meetup.timeTo}`}</td>
-                <td>{meetup.description}</td>
-                <ActionsClient image={meetup} />
+                <td className="border border-gray-300">{`${meetup.location.city}, ${meetup.location.country}`}</td>
+                <td className="border border-gray-300">{meetup.startDate}</td>
+                <td className="border border-gray-300">{meetup.endDate}</td>
+                <td className="border border-gray-300">{`${meetup.timeFrom} - ${meetup.timeTo}`}</td>
+                <td className="border border-gray-300">{meetup.description}</td>
+                <ActionsClient image={meetup} collectionName={"gatherings"} />
               </tr>
             ))}
         </tbody>

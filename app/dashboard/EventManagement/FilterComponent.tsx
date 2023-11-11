@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import MeetupCard from "./MeetupCard";
+import MeetupCard from "./MeetupTable";
+import MeetupTable from "./MeetupTable";
 
 const FilterComponent = ({ meetupsData }: any) => {
   const [country, setCountry] = useState("");
@@ -32,7 +33,28 @@ const FilterComponent = ({ meetupsData }: any) => {
           meetupLocation.zipCode
             .toLowerCase()
             .includes(zipCode.toLowerCase())) &&
-        (!date || meetup.startDate.includes(date));
+        (!date ||
+          new Date(meetup.startDate.seconds * 1000)
+            .toLocaleDateString()
+            .split("/")
+            .reverse()
+            .join("-") === date);
+      console.log(
+        "🚀 ~ file: FilterComponent.tsx:37 ~ filteredMeetups ~  meetup.startDate === date:",
+        meetup.startDate === date
+      );
+      console.log(
+        "🚀 ~ file: FilterComponent.tsx:37 ~ filteredMeetups ~ date:",
+        date
+      );
+      console.log(
+        "🚀 ~ file: FilterComponent.tsx:37 ~ filteredMeetups ~ meetup.startDate:",
+        new Date(meetup.startDate.seconds * 1000)
+          .toLocaleDateString()
+          .split("/")
+          .reverse()
+          .join("-")
+      );
 
       return criteriaMatch;
     });
@@ -109,7 +131,7 @@ const FilterComponent = ({ meetupsData }: any) => {
 
         <div>
           <label htmlFor="date" className="text-gray-600 font-semibold block">
-            Date:
+            Start Date:
           </label>
           <input
             type="date"
@@ -130,11 +152,7 @@ const FilterComponent = ({ meetupsData }: any) => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-        {searchResults?.map((meetup: any, index: any) => (
-          <MeetupCard meetup={meetup} />
-        ))}
-      </div>
+      <MeetupTable searchResults={searchResults} />
     </div>
   );
 };

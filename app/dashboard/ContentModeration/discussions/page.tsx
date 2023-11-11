@@ -29,16 +29,18 @@ const Discussions = async () => {
     <div className="bg-tealLight px-0">
       <h2 className="text-center py-6"> Discussions</h2>
 
-      <table className="w-full max-h-[400px] overflow-y-auto">
-        <thead>
+      <table className="w-full max-h-[400px] overflow-y-auto border-collapse border border-gray-300 text-xs md:text-sm lg:text-base">
+        <thead className="bg-gray-100">
           <tr className="text-xs md:text-base">
-            {/* <th className="p-2">Image</th> */}
-            <th className="p-2">Title</th>
-            <th>User</th>
-            <th>Posted</th>
-            <th>Participants</th>
-            <th className="truncate max-w-[3.2rem] md:max-w-none ">Comments</th>
-            <th>Actions</th>
+            {/* <th className="p-2 border border-gray-300">Image</th> */}
+            <th className="p-2 border border-gray-300">Title</th>
+            <th className="p-2 border border-gray-300">User</th>
+            <th className="p-2 border border-gray-300">Posted</th>
+            <th className="p-2 border border-gray-300">Participants</th>
+            <th className="p-2 border border-gray-300 truncate max-w-[3.2rem] md:max-w-none">
+              Comments
+            </th>
+            <th className="p-2 border border-gray-300">Actions</th>
           </tr>
         </thead>
         <tbody className="mt-10 text-xs md:text-base">
@@ -51,7 +53,7 @@ const Discussions = async () => {
                 }`}
               >
                 {/* <ImageClient image={image} index={index} /> */}
-                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
+                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer border border-gray-300">
                   <Link
                     href={`community/forums/${Object.keys(
                       image.category
@@ -63,7 +65,7 @@ const Discussions = async () => {
                     {image.title}
                   </Link>
                 </td>
-                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer">
+                <td className="max-w-[5rem] text-sky-600 underline cursor-pointer border border-gray-300">
                   <Link
                     href={`profile/${image.writer.id}`}
                     className="text-center"
@@ -71,16 +73,20 @@ const Discussions = async () => {
                     {image.writer.name}
                   </Link>
                 </td>
-                <td className="">{image.createdAt.toDate().toDateString()}</td>
-                <td>{image.participants.length}</td>
-                <td>
+                <td className="border border-gray-300">
+                  {image.createdAt.toDate().toDateString()}
+                </td>
+                <td className="border border-gray-300">
+                  {image.participants.length}
+                </td>
+                <td className="border border-gray-300">
                   {
                     comms
                       .flat()
                       .filter((comm: any) => comm.imageId === image.id).length
                   }
                 </td>
-                <ActionsClient image={image} />
+                <ActionsClient image={image} collectionName={"discussions"} />
               </tr>
             ))}
         </tbody>

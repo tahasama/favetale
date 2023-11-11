@@ -32,7 +32,7 @@ const ClientComponentPage = () => {
   };
 
   return (
-    <header className="bg-teal-500 p-3 text-white relative">
+    <header className="bg-teal-500 p-3 text-white relative mt-0 ">
       <nav className="ml-3 flex items-center gap-4">
         <h1 className="text-sm lg:text-xl xl:text-2xl font-semibold">
           Manager Dashboard

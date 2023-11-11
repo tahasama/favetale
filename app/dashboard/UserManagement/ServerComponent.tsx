@@ -15,14 +15,13 @@ const ServerComponent = async () => {
         usersData.map((user: any) => (
           <tr
             key={user.id}
-            className="border-b border-teal-5 text-center md:contents"
+            className="border-b bg-gray-300 text-center md:contents"
           >
-            <td className="p-2 md:p-2 md:flex md:items-center md:justify-center hidden h-14">
+            <td className="p-2 md:p-2 md:flex md:items-center md:justify-center hidden h-14 border-r">
               {user.id}
             </td>
-            <td className="p-2 text-sky-700 hover:underline underline-offset-2 cursor-pointer">
+            <td className="p-2 border-r text-sky-700 hover:underline underline-offset-2 cursor-pointer">
               <div className="flex justify-center items-center gap-2">
-                {" "}
                 {user.image ? (
                   <img
                     src={user.image}
@@ -35,11 +34,10 @@ const ServerComponent = async () => {
                 <Link href={`/profile/${user.id}`}>{user.name}</Link>
               </div>
             </td>
-            <td className="p-2">{user.lastName}</td>
-            <td className="p-2">{user.description}</td>
-
-            <td className="p-2">{user.creationTime.slice(0, 16)}</td>
-            <td className="p-2">{user.lastSignInTime.slice(0, 16)}</td>
+            <td className="p-2 border-r">{user.lastName}</td>
+            <td className="p-2 border-r">{user.description}</td>
+            <td className="p-2 border-r">{user.creationTime.slice(0, 16)}</td>
+            <td className="p-2 border-r">{user.lastSignInTime.slice(0, 16)}</td>
             <td className="p-2">
               <SuspendedClient user={user} />
             </td>

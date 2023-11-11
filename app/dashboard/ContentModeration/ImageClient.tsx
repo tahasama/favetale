@@ -14,7 +14,10 @@ const ImageClient = ({ image, index }: any) => {
   const [product, setproduct] = useState<any>(null);
 
   return (
-    <td className=" relative lg:max-w-[40px] w-[90px] lg:w-auto ">
+    <td
+      className=" relative lg:max-w-[40px] w-[90px] lg:w-auto 
+    border border-gray-300  px-1"
+    >
       <div className="flex justify-center">
         <img
           onClick={() =>
