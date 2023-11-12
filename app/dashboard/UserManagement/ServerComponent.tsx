@@ -12,16 +12,18 @@ const ServerComponent = async () => {
   return (
     <tbody className="">
       {usersData &&
-        usersData.map((user: any) => (
+        usersData.map((user: any, index: any) => (
           <tr
             key={user.id}
-            className="border-b bg-gray-300 text-center md:contents"
+            className={`border-b  text-center ${
+              index % 2 !== 0 && "bg-teal-50"
+            }`}
           >
             <td className="p-2 md:p-2 md:flex md:items-center md:justify-center hidden h-14 border-r">
               {user.id}
             </td>
             <td className="p-2 border-r text-sky-700 hover:underline underline-offset-2 cursor-pointer">
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex justify-start ml-2 items-center gap-2">
                 {user.image ? (
                   <img
                     src={user.image}
