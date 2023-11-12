@@ -1,3 +1,4 @@
+"use client";
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";

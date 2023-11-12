@@ -1,3 +1,5 @@
+"use client";
+
 import { useCart } from "@/app/provider/CartProvider";
 import React from "react";
 import ProductModal from "./ProductModal";

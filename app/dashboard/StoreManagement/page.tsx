@@ -1,5 +1,4 @@
-"use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { Suspense } from "react";
 
 import cage from "../../images/store/cage.jpg";
 import feeder from "../../images/store/feeder.jpg";
