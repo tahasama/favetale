@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -5,6 +6,20 @@ const SearchModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   const inputRef = useRef<any>(null);
+  console.log(
+    "🚀 ~ file: SearchModal.tsx:9 ~ SearchModal ~ inputRef:",
+    inputRef?.current?.value
+  );
+
+  useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener("keydown", handleKeyPress);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener("keydown", handleButtonClick);
+    };
+  }, []);
 
   useEffect(() => {
     isOpen && inputRef.current.focus();
@@ -14,6 +29,21 @@ const SearchModal = ({ isOpen, onClose }: any) => {
     if (e.target.classList.contains("modal-overlay")) {
       onClose();
     }
+  };
+
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      handleButtonClick();
+    }
+  };
+
+  const handleButtonClick = () => {
+    console.log("Input value:", inputRef.current.value);
+    inputRef?.current?.value !== "" &&
+      router.push("/search?q=" + inputRef?.current?.value);
+    inputRef.current.value = "";
+    onClose();
+    // Do something with the value, such as using it in a search or submitting a form
   };
 
   return (
@@ -33,8 +63,8 @@ const SearchModal = ({ isOpen, onClose }: any) => {
             placeholder="Search"
             className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-tealDark w-full"
           />
-          <span
-            onClick={() => router.push("/search")}
+          <p
+            onClick={handleButtonClick}
             className="cursor-pointer absolute top-1/2 right-4   -translate-y-1/2  scale-[.27]"
           >
             <svg
@@ -56,7 +86,7 @@ const SearchModal = ({ isOpen, onClose }: any) => {
                 d="M81 40.9c0-.1-.1-.1-.1-.2-.3-.4-.5-.8-.8-1.2-.1-.1-.2-.2-.3-.4-.3-.5-.7-.9-1-1.4l-.1-.1c-.4-.5-.8-.9-1.2-1.4-5.8-6.4-14.2-10.5-23.5-10.5-17.4 0-31.6 14.1-31.6 31.6S36.5 88.9 54 88.9c16.5 0 30.1-12.7 31.5-28.9v-.1c0-.3.1-.6.1-.8.3-6.3-1.2-12.7-4.6-18.2zm-26.9 46c-16.3 0-29.6-13.3-29.6-29.6s13.3-29.6 29.6-29.6c9.2 0 17.5 4.2 22.9 10.9l.1.1c.7.9 1.4 1.9 2.1 2.9 3.5 5.6 5 12.1 4.4 18.4-1.4 15.1-14.1 26.9-29.5 26.9z"
               ></path>
             </svg>
-          </span>
+          </p>
         </div>
         <button
           className=" text-gray-400 hover:text-gray-600 hover:rotate-90 p-1 relative  -right-3 transition-all duration-500 rounded-full"

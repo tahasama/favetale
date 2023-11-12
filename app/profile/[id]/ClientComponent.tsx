@@ -5,16 +5,44 @@ import "swiper/css/navigation";
 
 import { useCart } from "@/app/provider/CartProvider";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import user from "../../images/user/userf.jpg";
 import { Saira_Semi_Condensed } from "next/font/google";
 import UserModal from "./UserModal";
 import { FaFacebook, FaInstagram, FaLink, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
-const ClientComponent = () => {
-  const { userx, profile, setProfile } = useCart();
+const ClientComponent = ({ idx }: any) => {
+  console.log(
+    "🚀 ~ file: ClientComponent.tsx:19 ~ ClientComponent ~ idx:",
+    idx
+  );
+  const { profile, setProfile } = useCart();
+  const [userx, setUserx] = useState<any>(null);
+
+  useEffect(() => {
+    const getBlog = async () => {
+      const docRef = doc(db, "users", String(idx));
+      console.log("🚀 ~ file: ClientComponent.tsx:29 ~ getBlog ~ idx:", idx);
+      const docSnap = await getDoc(docRef);
+      console.log(
+        "🚀 ~ file: ClientComponent.tsx:31 ~ getBlog ~ docSnap:",
+        docSnap.data()
+      );
+
+      if (docSnap.exists()) {
+        // console.log("Document data:");
+        setUserx({ ...docSnap.data(), idx: docSnap.id });
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    };
+    getBlog();
+  }, [idx]);
 
   return (
     <div className="grid place-items-center w-full">
@@ -27,49 +55,49 @@ const ClientComponent = () => {
           className="flex flex-col justify-around  order-2 md:order-1"
         >
           <h2 className="text-2xl font-semibold mb-2">
-            {userx.name} {userx.lastName}
+            {userx?.name} {userx?.lastName}
           </h2>
           <p className="text-md font-light mb-2">
-            Join on: {userx.creationTime.slice(0, 16)}
+            Join on: {userx?.creationTime.slice(0, 16)}
           </p>
           <p className="text-md font-light mb-2">
-            Last visit on: {userx.lastSignInTime.slice(0, 16)}
+            Last visit on: {userx?.lastSignInTime.slice(0, 16)}
           </p>
 
-          {userx.description && (
-            <p className="text-gray-600 mb-4">{userx.description}</p>
+          {userx?.description && (
+            <p className="text-gray-600 mb-4">{userx?.description}</p>
           )}
           <div className="grid grid-cols-4 gap-2 w-full">
-            {userx.socialMedia?.instagram && (
+            {userx?.socialMedia?.instagram && (
               <Link
-                href={userx.socialMedia?.website}
+                href={userx?.socialMedia?.website}
                 className="flex items-center scale-125"
               >
                 <FaInstagram className="text-gray-600" />
               </Link>
             )}
 
-            {userx.socialMedia?.twitter && (
+            {userx?.socialMedia?.twitter && (
               <Link
-                href={userx.socialMedia?.website}
+                href={userx?.socialMedia?.website}
                 className="flex items-center scale-125"
               >
                 <FaTwitter className="text-gray-600" />
               </Link>
             )}
 
-            {userx.socialMedia?.facebook && (
+            {userx?.socialMedia?.facebook && (
               <Link
-                href={userx.socialMedia?.website}
+                href={userx?.socialMedia?.website}
                 className="flex items-center scale-125"
               >
                 <FaFacebook className="text-gray-600" />
               </Link>
             )}
 
-            {userx.socialMedia?.website && (
+            {userx?.socialMedia?.website && (
               <Link
-                href={userx.socialMedia?.website}
+                href={userx?.socialMedia?.website}
                 className="flex items-center scale-125"
               >
                 <FaLink className="text-gray-600" />
@@ -96,7 +124,7 @@ const ClientComponent = () => {
         >
           <div className="grid place-items-center place-content-end">
             <img
-              src={userx.image ? userx.image : user.src}
+              src={userx?.image ? userx?.image : user.src}
               alt="Profile Picture"
               className="rounded-3xl max-h-80 w-full h-auto object-cover"
             />

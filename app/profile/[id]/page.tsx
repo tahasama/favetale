@@ -34,6 +34,7 @@ import Stories from "./Stories/page";
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
 const UserProfile = ({ params: { id } }: any) => {
+  console.log("🚀 ~ file: page.tsx:37 ~ UserProfile ~ id:", id);
   const [tab, setTab] = useState("Gallery");
 
   const tabs = [
@@ -48,7 +49,7 @@ const UserProfile = ({ params: { id } }: any) => {
   ];
   return (
     <div className="bg-teal-50 min-h-screen grid place-items-center h-fit pt-20 pb-10">
-      <ClientComponent />
+      <ClientComponent idx={id} />
       <div className="bg-white md:mx-6 mb-6 px-1 lg:w-11/12 mx-1 py-4 md:p-6 mt-6 shadow-md rounded-lg flex flex-wrap justify-center gap-3.5 md:gap-6">
         {tabs.map((ta: any, index: any) => (
           <div

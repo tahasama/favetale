@@ -2,7 +2,7 @@
 import { Cormorant, Work_Sans, Alegreya } from "next/font/google";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import SearchModal from "./SearchModal";
+import SearchModal from "./search/SearchModal";
 import Image from "next/image";
 import logoPets from "./images/logoPets.png";
 import { useCart } from "./provider/CartProvider";

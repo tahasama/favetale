@@ -25,6 +25,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           image: "",
           images: [],
           participants: [],
+          official: false,
         }
       : {
           ...event,

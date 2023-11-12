@@ -22,7 +22,10 @@ const MeetupTable = ({ searchResults }: any) => {
       </thead>
       <tbody>
         {searchResults?.map((meetup: any, index: any) => (
-          <tr key={index} className="border-b">
+          <tr
+            key={index}
+            className={`border-b ${meetup?.official && "bg-sky-300"} `}
+          >
             <td className="p-3 border-r text-center">
               <Link href={`/community/events/${meetup.id}`}>
                 {meetup?.title}
