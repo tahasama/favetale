@@ -16,8 +16,7 @@ const ServerComponent = ({ event }: any) => {
           <div className="flex items-center mb-2">
             <span className="font-semibold mr-2">Date:</span>
             <span>
-              {new Date(event.startDate.seconds * 1000).toDateString()} to{" "}
-              {new Date(event.endDate.seconds * 1000).toDateString()}
+              {event?.startDate} to {event?.endDate}
             </span>
           </div>
           <div className="flex items-center mb-2">

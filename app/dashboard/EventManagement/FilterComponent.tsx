@@ -10,10 +10,6 @@ const FilterComponent = ({ meetupsData }: any) => {
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>(meetupsData);
-  console.log(
-    "🚀 ~ file: FilterComponent.tsx:13 ~ FilterComponent ~ searchResults:",
-    searchResults
-  );
 
   useEffect(() => {
     setSearchResults(meetupsData);
@@ -33,28 +29,7 @@ const FilterComponent = ({ meetupsData }: any) => {
           meetupLocation.zipCode
             .toLowerCase()
             .includes(zipCode.toLowerCase())) &&
-        (!date ||
-          new Date(meetup.startDate.seconds * 1000)
-            .toLocaleDateString()
-            .split("/")
-            .reverse()
-            .join("-") === date);
-      console.log(
-        "🚀 ~ file: FilterComponent.tsx:37 ~ filteredMeetups ~  meetup.startDate === date:",
-        meetup.startDate === date
-      );
-      console.log(
-        "🚀 ~ file: FilterComponent.tsx:37 ~ filteredMeetups ~ date:",
-        date
-      );
-      console.log(
-        "🚀 ~ file: FilterComponent.tsx:37 ~ filteredMeetups ~ meetup.startDate:",
-        new Date(meetup.startDate.seconds * 1000)
-          .toLocaleDateString()
-          .split("/")
-          .reverse()
-          .join("-")
-      );
+        (!date || meetup.startDate.includes(date));
 
       return criteriaMatch;
     });

@@ -75,7 +75,10 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
         newGathering.writer = userx;
 
         const storage = getStorage();
-        const storageRef = ref(storage, `events/${userx.id}/${Date.now()}.jpg`);
+        const storageRef = ref(
+          storage,
+          `meetups/${userx.id}/${Date.now()}.jpg`
+        );
         await uploadBytes(storageRef, imageFile);
         const res = await getDownloadURL(storageRef);
 
@@ -114,7 +117,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           const storage = getStorage();
           const storageRef = ref(
             storage,
-            `events/${userx.id}/${Date.now()}.jpg`
+            `meetups/${userx.id}/${Date.now()}.jpg`
           );
           await uploadBytes(storageRef, imageFile);
           const res = await getDownloadURL(storageRef);
@@ -122,7 +125,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
           newGathering.image = res;
         }
 
-        const gatheringRef = doc(db, "event", event.id);
+        const gatheringRef = doc(db, "gatherings", event.id);
         await updateDoc(gatheringRef, newGathering);
 
         setNewGathering({
@@ -154,12 +157,12 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
       }`}
       onClick={handleModalClick}
     >
-      <div className="h-fit p-6 w-full lg:w-6/12 rounded-lg relative bg-white border-2 border-slate-300 shadow-xl">
+      <div className="h-fit max-h-[100vh] p-6 w-full lg:w-6/12 rounded-lg relative bg-white border-2 border-slate-300 shadow-xl">
         <h2 className="text-lg lg:text-xl font-semibold mb-4 mt-6 lg:mb-7  lg:mt-0">
-          Create a New Event
+          Create a New Gathering
         </h2>
         <form>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="title"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -170,14 +173,14 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               type="text"
               id="title"
               placeholder="Add a title"
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
               value={newGathering.title}
               onChange={(e) =>
                 setNewGathering({ ...newGathering, title: e.target.value })
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="country"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -188,7 +191,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               type="text"
               id="country"
               placeholder="Enter Country"
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
               value={newGathering.location.country}
               onChange={(e) =>
                 setNewGathering({
@@ -201,7 +204,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="city"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -212,7 +215,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               type="text"
               id="city"
               placeholder="Enter City"
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
               value={newGathering.location.city}
               onChange={(e) =>
                 setNewGathering({
@@ -222,7 +225,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="zipCode"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -233,7 +236,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               type="text"
               id="zipCode"
               placeholder="Enter Adress ex: park the pets 60000..."
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
               value={newGathering.location.zipCode}
               onChange={(e) =>
                 setNewGathering({
@@ -246,7 +249,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="date"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -256,17 +259,17 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
             <input
               type="date"
               id="startDate"
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
-              value={"lllll"}
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
+              value={newGathering.startDate}
               onChange={(e) =>
                 setNewGathering({
                   ...newGathering,
-                  startDate: new Date(e.target.value),
+                  startDate: e.target.value,
                 })
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="date"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -276,17 +279,17 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
             <input
               type="date"
               id="endDate"
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
-              value={"kkkk"}
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
+              value={newGathering.endDate}
               onChange={(e) =>
                 setNewGathering({
                   ...newGathering,
-                  endDate: new Date(e.target.value),
+                  endDate: e.target.value,
                 })
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="time"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -299,7 +302,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
                 <input
                   type="time"
                   id="timeFrom"
-                  className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+                  className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
                   value={newGathering.timeFrom}
                   onChange={(e) => {
                     setNewGathering({
@@ -314,7 +317,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
                 <input
                   type="time"
                   id="timeTo"
-                  className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+                  className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
                   value={newGathering.timeTo}
                   onChange={(e) =>
                     setNewGathering({ ...newGathering, timeTo: e.target.value })
@@ -323,7 +326,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               </div>
             </div>
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="description"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -334,7 +337,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               id="description"
               placeholder="Enter Description"
               rows={3}
-              className="border rounded py-1.5 px-2 lg:py-2  lg:px-3 w-full"
+              className="border rounded py-1.5 px-2 lg:py-0.5  lg:px-3 w-full"
               value={newGathering.description}
               onChange={(e) =>
                 setNewGathering({
@@ -344,7 +347,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               }
             />
           </div>
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <label
               htmlFor="image"
               className="w-2/12 text-gray-600 font-semibold flex justify-start items-center"
@@ -367,7 +370,7 @@ const MeetupsModal = ({ isOpen, onClose, event }: any) => {
               className="bg-violet-600 hover:bg-violet-700 mt-2 text-white text-lg font-semibold py-2 px-4 rounded w-7/12"
             >
               {!loading ? (
-                "Create an event"
+                "Create a meetup"
               ) : (
                 <span className="flex justify-center">
                   Loading

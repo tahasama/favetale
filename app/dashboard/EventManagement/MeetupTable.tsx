@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import ActionsClient from "../ContentModeration/ActionsClient";
 const MeetupTable = ({ searchResults }: any) => {
+  console.log(
+    "🚀 ~ file: MeetupTable.tsx:5 ~ MeetupTable ~ searchResults:",
+    searchResults
+  );
   return (
     <table className="table-fixed w-full border-collapse border border-gray-300">
       <thead>
@@ -25,12 +29,8 @@ const MeetupTable = ({ searchResults }: any) => {
               </Link>
             </td>
             <td className="p-3 border-r text-center">{meetup?.description}</td>
-            <td className="p-3 border-r text-center">
-              {new Date(meetup?.startDate.seconds * 1000).toDateString()}
-            </td>
-            <td className="p-3 border-r text-center">
-              {new Date(meetup?.endDate.seconds * 1000).toDateString()}
-            </td>
+            <td className="p-3 border-r text-center">{meetup?.startDate}</td>
+            <td className="p-3 border-r text-center">{meetup?.endDate}</td>
             <td className="p-3 border-r text-center">
               {meetup?.timeFrom} - {meetup?.timeTo}
             </td>
