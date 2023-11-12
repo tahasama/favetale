@@ -11,6 +11,7 @@ import { FaInfo, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import ServerComponent from "./ServerComponent";
 import Loading from "../EventManagement/loading";
 import AddProduct from "./AddProduct";
+import AddProductModal from "./AddProductModal";
 
 function StoreManagement() {
   const discountProducts = [
@@ -109,33 +110,6 @@ function StoreManagement() {
       stock: 25,
     },
   ];
-  const [products, setProducts] = useState(discountProducts);
-
-  const [product, setproduct] = useState<any>(null);
-  const [pressed, setPressed] = useState<any>({
-    isPressed: false,
-    pressedIndex: null,
-  });
-  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
-
-  useEffect(() => {
-    // Fetch the list of products from your backend when the component mounts
-    // Example: fetchProducts().then((data) => setProducts(data));
-  }, []);
-
-  const handleProductClick = (product: any) => {
-    // Set the selected product when a product is clicked
-    setproduct(product);
-  };
-
-  const handleDeselectProduct = () => {
-    // Deselect the currently selected product
-    setproduct(null);
-  };
-
-  const handleAddProduct = () => {
-    // Implement functionality to add a new product (e.g., open a modal)
-  };
 
   return (
     <div className="bg-tealLight relative">
@@ -151,6 +125,7 @@ function StoreManagement() {
               <th className="p-1 hidden md:block mt-0.5">Description</th>
               <th className="p-1 border border-gray-300">Rate</th>
               <th className="p-1 border border-gray-300">Price</th>
+              <th className="p-1 border border-gray-300">Discount</th>
               <th className="p-1 border border-gray-300">Stock</th>
               <th className="p-1 border border-gray-300">Sales</th>
               <th className="p-1 border border-gray-300">Revenue</th>

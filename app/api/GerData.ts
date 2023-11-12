@@ -15,6 +15,20 @@ export async function getDiscussionsData() {
   return discussionsData;
 }
 
+export async function getProductsData() {
+  const discussionsData: any[] = [];
+  const discussionRef = collection(db, "products");
+  const snapshot = await getDocs(discussionRef);
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+    return [];
+  }
+  snapshot.forEach((doc: any) => {
+    discussionsData.push({ id: doc.id, ...doc.data() });
+  });
+  return discussionsData;
+}
+
 export async function getGatheringsData() {
   const blogsData: any[] = [];
   const blogRef = collection(db, "gatherings");
