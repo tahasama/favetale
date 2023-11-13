@@ -46,7 +46,7 @@ const DashboardOverview = () => {
           </div>{" "}
           <div className="bg-sky-500 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
-              Comments / Review / Answers
+              Users interactions
             </h3>
             <Suspense fallback={<Loading />}>
               <UserInreraction />
