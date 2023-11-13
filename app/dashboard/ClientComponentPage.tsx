@@ -13,11 +13,11 @@ const roboto = Roboto({ weight: "700", subsets: ["latin"] });
 
 const ClientComponentPage = () => {
   const components: any = {
-    "Dashboard Overview": "DashboardOverview",
-    "User Management": "UserManagement",
-    "Content Moderation": "ContentModeration",
-    "Store Management": "StoreManagement",
-    "Event Management": "EventManagement",
+    Overview: "DashboardOverview",
+    Users: "UserManagement",
+    Content: "ContentModeration",
+    Store: "StoreManagement",
+    Events: "EventManagement",
   };
   const storedTab =
     (typeof window !== "undefined" &&
@@ -63,10 +63,12 @@ const ClientComponentPage = () => {
           {Object.keys(components).map((menuItem) => (
             <Link
               href={`/dashboard/${components[menuItem]}`}
-              className={`hover:animate-buttonHover list-none text-xs lg:text-base xl:text-xl border-b-2 md:border-none backdrop-brightness-95 w-full md:w-auto rounded-md md:backdrop-brightness-75 py-3 md:p-1.5 cursor-pointer`}
+              className={`hover:animate-buttonHover list-none text-xs lg:text-base xl:text-xl border-b-2 md:border-none backdrop-brightness-95 md:w-auto rounded-md md:backdrop-brightness-75 py-3 md:p-1.5 cursor-pointer`}
               key={menuItem}
             >
-              <p>{menuItem}</p>
+              <p className="md:min-w-[5rem] lg:min-w-[8rem] text-center">
+                {menuItem}
+              </p>
             </Link>
           ))}
         </ul>
