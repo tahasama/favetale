@@ -1,4 +1,3 @@
-"use client";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -7,7 +6,7 @@ import { Suspense, useEffect } from "react";
 
 import { useCart } from "@/app/provider/CartProvider";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React from "react";
 import user from "../../images/user/userf.jpg";
 import { Saira_Semi_Condensed } from "next/font/google";
 import { BsShop } from "react-icons/bs";
@@ -24,62 +23,28 @@ import Meetups from "./meetups/page";
 import Images from "./gallery/page";
 import Gallery from "./gallery/page";
 import Blogs from "./blogs/page";
-import Discussions from "./Discussions/page";
 import Loading from "@/app/community/(components)/forums/loading";
 import ClientComponent from "./ClientComponent";
-import Purchases from "./Purchases";
+import Purchases from "./purchases/page";
 import Questions from "./questions/page";
-import Stories from "./Stories/page";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
-const UserProfile = ({ params: { id } }: any) => {
-  console.log("🚀 ~ file: page.tsx:37 ~ UserProfile ~ id:", id);
-  const [tab, setTab] = useState("Gallery");
+const UserProfile = async ({
+  id,
 
-  const tabs = [
-    { name: "Gallery", icon: <FiImage /> },
-    { name: "Blogs", icon: <FiBook /> },
-    { name: "Stories", icon: <FiClipboard /> },
-    { name: "Purchases", icon: <BsShop /> },
-    { name: "Forums", icon: <FiMessageSquare /> },
-    { name: "Meetups", icon: <FiUsers /> },
-    { name: "Events", icon: <FiCalendar /> },
-    { name: "Questions", icon: <FiHelpCircle /> },
-  ];
+  children,
+}: {
+  children: React.ReactNode;
+  id: any;
+}) => {
+  console.log("🚀 ~ file: page.tsx:37 ~ UserProfile ~ id:", id);
+
   return (
-    <div className="bg-teal-50 min-h-screen grid place-items-center h-fit pt-20 pb-10">
-      <ClientComponent idx={id} />
-      <div className="bg-white md:mx-6 mb-6 px-1 lg:w-11/12 mx-1 py-4 md:p-6 mt-6 shadow-md rounded-lg flex flex-wrap justify-center gap-3.5 md:gap-6">
-        {tabs.map((ta: any, index: any) => (
-          <div
-            onClick={() => setTab(ta.name)}
-            className="relative grid place-items-center w-16 h-16 md:w-20 md:h-20 lg:w-32 lg:h-32 bg-tealLight ring-1 ring-teal-00 rounded-lg cursor-pointer hover:scale-[1.02] shadow-md hover:shadow-lg transition-all duration-200"
-          >
-            <div className="scale-[1.7] md:scale-[2] lg:scale-[2.4] mt-2 md:mt-0 text-blue-900">
-              {ta.icon}
-            </div>
-            <div
-              className={`absolute top-1 text-xs md:text-sm lg:text-base ${
-                (font.className,
-                ta.name === tab && "text-blue-600 transition-all duration-300")
-              } `}
-            >
-              {ta.name}
-            </div>
-          </div>
-        ))}
-      </div>
-      <Suspense fallback={<Loading />}>
-        {tab === "Gallery" && <Gallery userx={id} />}
-        {tab === "Blogs" && <Blogs userx={id} />}
-        {tab === "Stories" && <Stories userx={id} />}
-        {tab === "Forums" && <Discussions userx={id} />}
-        {tab === "Questions" && <Questions userx={id} />}
-        {tab === "Meetups" && <Meetups userx={id} />}
-        {/* {tab === "Meetups" && <Events userx={userx} />} */}
-        {tab === "Purchases" && <Purchases userx={id} />}
-      </Suspense>
+    <div className="bg-teal-50 min-h-screen  place-items-center hidden h-fit pt-20 pb-10">
+      Nothing to show here
     </div>
   );
 };

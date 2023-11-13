@@ -7,11 +7,12 @@ import StoryCard from "@/app/explore/(components)/stories/StoryCard";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
-async function getData(userx: any) {
+async function getData(id: any) {
+  console.log("🚀 ~ file: page.tsx:11 ~ getData ~ id:", id);
   const StoriesData: any[] = [];
   const StoryRef = query(
     collection(db, "storys"),
-    or(where("writer.id", "==", userx), where("likes", "array-contains", userx))
+    or(where("writer.id", "==", id), where("likes", "array-contains", id))
   );
 
   const snapshot = await getDocs(StoryRef);
@@ -24,13 +25,13 @@ async function getData(userx: any) {
   });
   return StoriesData;
 }
-const Stories = async ({ userx }: any) => {
-  const meetupsData: any = await getData(userx);
+const Stories = async ({ params: { id } }: any) => {
+  const meetupsData: any = await getData(id);
 
   return (
     <div className="m-6 flex flex-wrap flex-col md:flex-row h-full gap-10 justify-center">
       {meetupsData?.filter(
-        (meetups: any) => meetups.writer.id === userx && meetups.draft === false
+        (meetups: any) => meetups.writer.id === id && meetups.draft === false
       ).length !== 0 && (
         <div className="flex flex-col md:w-5/12 ">
           <p
@@ -39,14 +40,14 @@ const Stories = async ({ userx }: any) => {
             Stories
           </p>
           <Link
-            href={`/profile/${userx}/Stories/myStories`}
+            href={`/profile/${id}/Stories/myStories`}
             className={`text-slate-600 my-2 ${font.className}`}
           >
             View all{" "}
             {
               meetupsData?.filter(
                 (meetups: any) =>
-                  meetups.writer.id === userx && meetups.draft === false
+                  meetups.writer.id === id && meetups.draft === false
               ).length
             }{" "}
           </Link>
@@ -54,7 +55,7 @@ const Stories = async ({ userx }: any) => {
             {meetupsData
               ?.filter(
                 (meetups: any) =>
-                  meetups.writer.id === userx && meetups.draft === false
+                  meetups.writer.id === id && meetups.draft === false
               )
               .slice(0, 1)
               .map((meetup: any, index: any) => (
@@ -65,7 +66,7 @@ const Stories = async ({ userx }: any) => {
       )}
       {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       {meetupsData?.filter(
-        (meetups: any) => meetups.writer.id === userx && meetups.draft === true
+        (meetups: any) => meetups.writer.id === id && meetups.draft === true
       ).length !== 0 && (
         <div className="flex flex-col md:w-5/12">
           <p
@@ -74,14 +75,14 @@ const Stories = async ({ userx }: any) => {
             Draft
           </p>
           <Link
-            href={`/profile/${userx}/Stories/myDraft`}
+            href={`/profile/${id}/Stories/myDraft`}
             className={`text-slate-600 my-2 ${font.className}`}
           >
             View all{" "}
             {
               meetupsData?.filter(
                 (meetups: any) =>
-                  meetups.writer.id === userx && meetups.draft === true
+                  meetups.writer.id === id && meetups.draft === true
               ).length
             }{" "}
           </Link>
@@ -89,7 +90,7 @@ const Stories = async ({ userx }: any) => {
             {meetupsData
               ?.filter(
                 (meetups: any) =>
-                  meetups.writer.id === userx && meetups.draft === true
+                  meetups.writer.id === id && meetups.draft === true
               )
               ?.slice(0, 1)
               .map((meetup: any, index: any) => (
@@ -98,7 +99,7 @@ const Stories = async ({ userx }: any) => {
           </div>
         </div>
       )}
-      {meetupsData?.filter((meetups: any) => meetups.likes.includes(userx))
+      {meetupsData?.filter((meetups: any) => meetups.likes.includes(id))
         .length !== 0 && (
         <div className="flex flex-col md:w-5/12">
           <p
@@ -107,19 +108,18 @@ const Stories = async ({ userx }: any) => {
             Reactions
           </p>
           <Link
-            href={`/profile/${userx}/Stories/myCollection`}
+            href={`/profile/${id}/Stories/myCollection`}
             className={`text-slate-600 my-2 ${font.className}`}
           >
             View all{" "}
             {
-              meetupsData?.filter((meetups: any) =>
-                meetups.likes.includes(userx)
-              ).length
+              meetupsData?.filter((meetups: any) => meetups.likes.includes(id))
+                .length
             }{" "}
           </Link>
           <div className="mt-0 flex flex-col gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
             {meetupsData
-              ?.filter((meetups: any) => meetups.likes.includes(userx))
+              ?.filter((meetups: any) => meetups.likes.includes(id))
               ?.slice(0, 1)
               .map((meetup: any, index: any) => (
                 <StoryCard story={meetup} index={index} />

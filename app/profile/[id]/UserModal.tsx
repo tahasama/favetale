@@ -77,7 +77,7 @@ const UserModal = ({ isOpen, onClose }: any) => {
 
   return (
     <div
-      className={`linka fixed inset-0 flex flex-col items-center modal-overlay justify-center w-full mb-4 h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
+      className={`linka fixed inset-0 flex flex-col items-center modal-overlay justify-center w-full mb-2 h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         isOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
@@ -85,42 +85,46 @@ const UserModal = ({ isOpen, onClose }: any) => {
       onClick={handleModalClick}
     >
       <div
-        className={`inset-0 relative flex flex-col justify-start lg:overflow-auto my-1 h-full w-full md:w-6/12 lg:w-4/12 mb-4 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
+        className={`inset-0 relative flex flex-col justify-start lg:overflow-auto my-1 h-full w-full md:w-6/12 lg:w-4/12 mb-2 bg-white scrollbar scrollbar-thumb-slate-00 scrollbar-track-gray-0`}
       >
-        <div className="md:p-6 py-4 px-1.5 rounded-lg h-full ">
+        <div className=" py-4 px-4 rounded-lg h-full ">
           <div>
-            <h2 className="mb-4">Update Profile</h2>
-            <div className="flex items-center mb-4 gap-3">
-              <label htmlFor="name">First Name:</label>
+            <h2 className="mb-2">Update Profile</h2>
+            <div className="flex items-center mb-2 gap-3">
+              <label htmlFor="name" className="min-w-[80px]">
+                First Name:
+              </label>
               <input
                 type="text"
                 placeholder="First Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="py-2 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="py-1 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
             <div className="flex items-center mb-4 gap-3">
-              <label htmlFor="lastName">Last Name:</label>
+              <label htmlFor="lastName" className="min-w-[80px]">
+                Last Name:
+              </label>
               <input
                 type="text"
                 placeholder="Last Name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="py-2 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="py-1 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
             </div>
-            <div className="mb-2.5">
+            <div className="mb-2">
               <label htmlFor="description" className="block text-gray-700 mb-2">
                 Description:
               </label>
               <textarea
                 id="description"
                 placeholder="Talk about yourself a little ..."
-                rows={5}
+                rows={3}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
+                className="w-full bg-indigo-100 border rounded-lg py-1 px-3 focus:outline-none focus:ring focus:border-blue-400"
               />
             </div>
             <div className="mb-4">
@@ -132,10 +136,10 @@ const UserModal = ({ isOpen, onClose }: any) => {
                 id="image"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
+                className="w-full bg-indigo-100 border rounded-lg py-1 px-3 focus:outline-none focus:ring focus:border-blue-400"
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-2">
               <label className="block text-gray-700 mb-2">Social Media:</label>
               <div className="flex flex-col items-start mb-2 gap-3">
                 <div className="flex items-center">
@@ -155,7 +159,7 @@ const UserModal = ({ isOpen, onClose }: any) => {
                           instagram: e.target.value,
                         })
                       }
-                      className="py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      className="py-1 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
                   </div>
                 </div>
@@ -176,7 +180,7 @@ const UserModal = ({ isOpen, onClose }: any) => {
                           twitter: e.target.value,
                         })
                       }
-                      className="py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      className="py-1 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
                   </div>
                 </div>
@@ -197,7 +201,7 @@ const UserModal = ({ isOpen, onClose }: any) => {
                           facebook: e.target.value,
                         })
                       }
-                      className="py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      className="py-1 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
                   </div>
                 </div>
@@ -218,17 +222,17 @@ const UserModal = ({ isOpen, onClose }: any) => {
                           website: e.target.value,
                         })
                       }
-                      className="py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      className="py-1 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mb-40 flex justify-center space-x-5 lg:space-x-4">
+            <div className="my-3 flex justify-center space-x-5 lg:space-x-4">
               <button
                 type="submit"
-                className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-6 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-1 px-6 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                 onClick={updateUser}
               >
                 {!loading2 ? (

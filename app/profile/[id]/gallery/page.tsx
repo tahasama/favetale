@@ -8,14 +8,14 @@ import Link from "next/link";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
-async function getData(userx: any) {
+async function getData(id: any) {
   const blogsData: any[] = [];
   const blogRef = query(
     collection(db, "petImages"),
     or(
-      where("poster.id", "==", userx),
-      where("likes", "array-contains", userx),
-      where("hearts", "array-contains", userx)
+      where("poster.id", "==", id),
+      where("likes", "array-contains", id),
+      where("hearts", "array-contains", id)
     )
   );
 
@@ -29,42 +29,43 @@ async function getData(userx: any) {
   });
   return blogsData;
 }
-const Gallery = async ({ tab, userx }: any) => {
-  const meetupsData = await getData(userx);
+const Gallery = async ({ params: { id } }: any) => {
+  const meetupsData = await getData(id);
   return (
     <div className="m-6 flex flex-col md:flex-row h-full gap-10 justify-center">
-      {meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
-        .length !== 0 && (
-        <div className="flex flex-col md:w-2/5 ">
-          <p
-            className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
-          >
-            Collection
-          </p>
-          <Link
-            href={`/profile/${userx}/gallery/myGallery`}
-            className={`text-slate-600 my-2 ${font.className}`}
-          >
-            View all{" "}
-            {
-              meetupsData?.filter((meetups: any) => meetups.poster.id === userx)
-                .length
-            }{" "}
-          </Link>
-          <div className="mt-0 flex  gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
-            {meetupsData
-              ?.filter((meetups: any) => meetups.poster.id === userx)
-              .slice(0, 2)
-              .map((meetup: any, index: any) => (
-                <PetImages image={meetup} index={index} />
-              ))}
+      {meetupsData &&
+        meetupsData?.filter((meetups: any) => meetups.poster.id === id)
+          .length !== 0 && (
+          <div className="flex flex-col md:w-2/5 ">
+            <p
+              className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
+            >
+              Collection
+            </p>
+            <Link
+              href={`/profile/${id}/gallery/myGallery`}
+              className={`text-slate-600 my-2 ${font.className}`}
+            >
+              View all{" "}
+              {
+                meetupsData?.filter((meetups: any) => meetups.poster.id === id)
+                  .length
+              }{" "}
+            </Link>
+            <div className="mt-0 flex  gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+              {meetupsData
+                ?.filter((meetups: any) => meetups.poster.id === id)
+                .slice(0, 2)
+                .map((meetup: any, index: any) => (
+                  <PetImages image={meetup} index={index} />
+                ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       {meetupsData?.filter(
         (meetups: any) =>
-          meetups.likes.includes(userx) || meetups.hearts.includes(userx)
+          meetups.likes.includes(id) || meetups.hearts.includes(id)
       ).length !== 0 && (
         <div className="flex flex-col md:w-2/5">
           <p
@@ -73,15 +74,14 @@ const Gallery = async ({ tab, userx }: any) => {
             Reactions
           </p>
           <Link
-            href={`/profile/${userx}/gallery/myCollection`}
+            href={`/profile/${id}/gallery/myCollection`}
             className={`text-slate-600 my-2 ${font.className}`}
           >
             View all{" "}
             {
               meetupsData?.filter(
                 (meetups: any) =>
-                  meetups.likes.includes(userx) ||
-                  meetups.hearts.includes(userx)
+                  meetups.likes.includes(id) || meetups.hearts.includes(id)
               ).length
             }{" "}
           </Link>
@@ -89,8 +89,7 @@ const Gallery = async ({ tab, userx }: any) => {
             {meetupsData
               ?.filter(
                 (meetups: any) =>
-                  meetups.likes.includes(userx) ||
-                  meetups.hearts.includes(userx)
+                  meetups.likes.includes(id) || meetups.hearts.includes(id)
               )
               .slice(0, 3)
               .map((meetup: any, index: any) => (

@@ -8,13 +8,13 @@ import DiscussionCard from "./DiscussionCard";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
-async function getData(userx: any) {
+async function getData(id: any) {
   const blogsData: any[] = [];
   const blogRef = query(
     collection(db, "discussions"),
     or(
-      where("writer.id", "==", userx),
-      where("participants", "array-contains", userx)
+      where("writer.id", "==", id),
+      where("participants", "array-contains", id)
     )
   );
   const snapshot = await getDocs(blogRef);
@@ -27,70 +27,69 @@ async function getData(userx: any) {
   });
   return blogsData;
 }
-const Discussions = async ({ tab, userx }: any) => {
-  const meetupsData = await getData(userx);
+const Discussions = async ({ params: { id } }: any) => {
+  const meetupsData = await getData(id);
 
   return (
     <div className="m-6 flex flex-col md:flex-row h-full gap-10 justify-center">
-      {meetupsData?.filter((meet: any) => meet.writer.id === userx).length !==
-        0 && (
-        <div className="flex flex-col md:w-1/2">
-          <p
-            className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
-          >
-            Discussions
-          </p>
-          <Link
-            href={`/profile/${userx}/Discussions/myDiscussions`}
-            className={`text-slate-600 my-2 ${font.className}`}
-          >
-            View all{" "}
-            {
-              meetupsData?.filter((meet: any) => meet.writer.id === userx)
-                .length
-            }{" "}
-          </Link>
-          <div className="mt-0 flex gap-4  w-full  border-2 border-indigo-300 rounded-md">
-            {meetupsData
-              ?.filter((meet: any) => meet.writer.id === userx)
-              .slice(0, 2)
-              .map((discussion: any) => (
-                <DiscussionCard discussion={discussion} />
-              ))}
+      {meetupsData &&
+        meetupsData?.filter((meet: any) => meet.writer.id === id).length !==
+          0 && (
+          <div className="flex flex-col md:w-1/2">
+            <p
+              className={`text-base lg:text-xl ${font.className} underline underline-offset-2`}
+            >
+              Discussions
+            </p>
+            <Link
+              href={`/profile/${id}/Discussions/myDiscussions`}
+              className={`text-slate-600 my-2 ${font.className}`}
+            >
+              View all{" "}
+              {meetupsData?.filter((meet: any) => meet.writer.id === id).length}{" "}
+            </Link>
+            <div className="mt-0 flex gap-4  w-full  border-2 border-indigo-300 rounded-md">
+              {meetupsData
+                ?.filter((meet: any) => meet.writer.id === id)
+                .slice(0, 2)
+                .map((discussion: any) => (
+                  <DiscussionCard discussion={discussion} />
+                ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
 
-      {meetupsData?.filter((meet: any) => meet.participants.includes(userx))
-        .length !== 0 && (
-        <div className="flex flex-col md:w-1/2">
-          <p
-            className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
-          >
-            Participations
-          </p>
-          <Link
-            href={`/profile/${userx}/Discussions/myParticipations`}
-            className={`text-slate-600 my-2 ${font.className}`}
-          >
-            View all{" "}
-            {
-              meetupsData?.filter((meet: any) =>
-                meet.participants.includes(userx)
-              ).length
-            }{" "}
-          </Link>
-          <div className="mt-0 flex gap-4 mx-2 border-2 border-indigo-300 rounded-md">
-            {meetupsData
-              ?.filter((meet: any) => meet.participants.includes(userx))
-              .slice(0, 2)
-              .map((discussion: any) => (
-                <DiscussionCard discussion={discussion} />
-              ))}
+      {meetupsData &&
+        meetupsData?.filter((meet: any) => meet.participants.includes(id))
+          .length !== 0 && (
+          <div className="flex flex-col md:w-1/2">
+            <p
+              className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
+            >
+              Participations
+            </p>
+            <Link
+              href={`/profile/${id}/Discussions/myParticipations`}
+              className={`text-slate-600 my-2 ${font.className}`}
+            >
+              View all{" "}
+              {
+                meetupsData?.filter((meet: any) =>
+                  meet.participants.includes(id)
+                ).length
+              }{" "}
+            </Link>
+            <div className="mt-0 flex gap-4 mx-2 border-2 border-indigo-300 rounded-md">
+              {meetupsData
+                ?.filter((meet: any) => meet.participants.includes(id))
+                .slice(0, 2)
+                .map((discussion: any) => (
+                  <DiscussionCard discussion={discussion} />
+                ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };
