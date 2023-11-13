@@ -54,19 +54,19 @@ const ClientComponentPage = () => {
           <HiMenu />
         </p>
         <ul
-          className={`flex items-center transform gap-1 md:gap-4 ${
+          className={`flex items-center transform gap-0 md:gap-4 ${
             open ? "scale-y-100" : "scale-y-0 md:scale-y-100 "
           } transition-transform ${
             montaga.className
-          } origin-top-right absolute right-0 top-11 p-1 rounded-b-lg bg-teal-500 md:bg-transparent z-40 md:relative md:top-0 flex-col md:flex-row`}
+          } origin-top-right  absolute right-0 border-b-2 border-s-2 border-tealLight md:border-none top-[52px] md:p-1 rounded-b-lg bg-teal-500 md:bg-transparent  z-40 md:relative md:top-0 flex-col md:flex-row`}
         >
           {Object.keys(components).map((menuItem) => (
             <Link
               href={`/dashboard/${components[menuItem]}`}
-              className={`hover:animate-buttonHover list-none text-xs lg:text-base xl:text-xl border-b-2 md:border-none backdrop-brightness-95 md:w-auto rounded-md md:backdrop-brightness-75 py-3 md:p-1.5 cursor-pointer`}
+              className={`hover:animate-buttonHover w-full list-none text-xs lg:text-base xl:text-xl  md:w-auto md:rounded-md md:backdrop-brightness-75 py-1.5 md:py-3 md:p-1.5 cursor-pointer`}
               key={menuItem}
             >
-              <p className="md:min-w-[5rem] lg:min-w-[8rem] text-center">
+              <p className="min-w-[5rem] lg:min-w-[8rem] text-center">
                 {menuItem}
               </p>
             </Link>
