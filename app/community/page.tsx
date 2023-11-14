@@ -1,4 +1,3 @@
-"use client";
 import Forums from "./(components)/forums/page";
 import Meetups from "./(components)/meetups/page";
 import Events from "./(components)/events/page";

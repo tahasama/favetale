@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   FiMessageSquare,
@@ -8,7 +9,8 @@ import {
   FiHelpCircle,
 } from "react-icons/fi";
 const CommunityClient = () => {
-  const [activeTab, setActiveTab] = useState<string>("forums");
+  const pathName = usePathname();
+  const [activeTab, setActiveTab] = useState<string>(pathName.split("/")[2]);
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);

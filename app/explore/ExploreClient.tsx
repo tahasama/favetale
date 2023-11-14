@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaLightbulb } from "react-icons/fa";
 import {
@@ -12,7 +13,8 @@ import {
   FiImage,
 } from "react-icons/fi";
 const ExploreClient = () => {
-  const [activeTab, setActiveTab] = useState<string>("forums");
+  const pathName = usePathname();
+  const [activeTab, setActiveTab] = useState<string>(pathName.split("/")[2]);
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);

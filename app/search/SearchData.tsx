@@ -4,30 +4,31 @@ import Link from "next/link";
 import React from "react";
 
 const searchFirestore = async (searchQuery: any) => {
-  console.log(
-    "🚀 ~ file: SearchData.tsx:5 ~ searchFirestore ~ searchQuery:",
-    searchQuery
-  );
+  const collections = [
+    "blogs",
+    "storys",
+    "questions",
+    "gatherings",
+    "event",
+    "products",
+    "discussions",
+  ];
 
-  // Array of collection names
-  const collections = ["blogs", "storys"];
-
-  // Array to store results
   const allResults: any = [];
 
-  // Perform a separate query for each collection
   await Promise.all(
     collections.map(async (collectionName) => {
-      const q = query(
-        collection(db, collectionName),
-        where("title", "==", searchQuery)
-      );
+      const q = query(collection(db, collectionName));
       const querySnapshot = await getDocs(q);
-      const results = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-        collection: collectionName,
-      }));
+      const results = querySnapshot.docs
+        .filter((doc) =>
+          doc.data()?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          collection: collectionName,
+        }));
       allResults.push(...results);
     })
   );
@@ -38,14 +39,34 @@ const searchFirestore = async (searchQuery: any) => {
 const SearchData = async ({ q }: any) => {
   const searchData: any = await searchFirestore(q);
 
+  const collections: any = {
+    blogs: { name: "blogs" },
+    storys: { name: "stories" },
+    gatherings: { name: "meetups" },
+    products: { name: "products" },
+    discussions: { name: "discussion" },
+    event: { name: "events" },
+  };
+
   const generateLink = (collectionName: any) => {
     const isExplore = ["blogs", "storys"].includes(collectionName);
-    const isCommunity = ["discussions", "meetups"].includes(collectionName);
+    const isCommunity = [
+      "discussions",
+      "gatherings",
+      "event",
+      "questions",
+    ].includes(collectionName);
+
+    const realName = collections[collectionName]?.name || collectionName;
 
     if (isExplore) {
-      return `/explore/${collectionName}`;
+      return `/explore/${realName}`;
     } else if (isCommunity) {
-      return `/community/${collectionName}`;
+      if (collectionName === "discussions") {
+        return `/community/forums/check/${realName}`;
+      } else {
+        return `/community/${realName}`;
+      }
     }
 
     return `/default/${collectionName}`;
@@ -72,8 +93,10 @@ const SearchData = async ({ q }: any) => {
                   {data.title}
                 </Link>
               </td>
-              <td className="py-2 px-4 border-b text-center text-red-700">
-                {data.collection}
+              <td className="py-2 px-4 border-b text-center text-red-700 capitalize">
+                {data.collection !== "discussions"
+                  ? collections[data.collection]?.name
+                  : "forums"}
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <Link
