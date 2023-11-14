@@ -21,7 +21,7 @@ const StoryCard = ({ story, index }: any) => {
       }} // Animation state (visible and at normal position)
       transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
     >
-      <Link href={`/explore/stories/${story.id}`} className="block">
+      <Link href={`/explore/stories/${story.id}`} className="block mb-4">
         <div
           className={`bg-white rounded-lg shadow-lg overflow-hidden sm:h-60  -z-50`}
         >
@@ -41,7 +41,7 @@ const StoryCard = ({ story, index }: any) => {
                     new Date(story.createdAt.seconds * 1000).toDateString()}
                 </p>
 
-                <p className="text-tealDark font-semibold">
+                <p className="text-sky-700 font-semibold">
                   {story.writer.name}
                 </p>
               </div>

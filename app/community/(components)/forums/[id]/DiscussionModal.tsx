@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
+import Link from "next/link";
 
 const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
   const router = useRouter();
@@ -126,94 +127,102 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
         </button>
         <h2 className="text-xl font-semibold mb-4">Start a Discussion</h2>
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Category
-          </label>
-          <select
-            className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          >
-            {Object.keys(categoriesToTags).map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Choose your Tags
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {categoriesToTags &&
-              categoriesToTags[selectedCategory] &&
-              categoriesToTags[selectedCategory].map((tag: any) => (
-                <button
-                  key={tag}
-                  className={`${
-                    selectedTags.includes(tag)
-                      ? "bg-indigo-500 text-white"
-                      : "bg-gray-200 text-gray-700"
-                  } px-2 py-1 rounded-md text-xs cursor-pointer`}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
+        {userx.id ? (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Category
+              </label>
+              <select
+                className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+              >
+                {Object.keys(categoriesToTags).map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Choose your Tags
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {categoriesToTags &&
+                  categoriesToTags[selectedCategory] &&
+                  categoriesToTags[selectedCategory].map((tag: any) => (
+                    <button
+                      key={tag}
+                      className={`${
+                        selectedTags.includes(tag)
+                          ? "bg-indigo-500 text-white"
+                          : "bg-gray-200 text-gray-700"
+                      } px-2 py-1 rounded-md text-xs cursor-pointer`}
+                      onClick={() => toggleTag(tag)}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+              </div>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Title
+              </label>
+              <input
+                type="text"
+                value={discussionTitle}
+                onChange={(e) => setDiscussionTitle(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description
+              </label>
+              <textarea
+                value={discussionContent}
+                onChange={(e) => setDiscussionContent(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+              ></textarea>
+            </div>
+            <div className="w-full flex justify-center mt-1">
+              <button
+                onClick={handleSubmit}
+                className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none text-lg"
+              >
+                {!loading ? (
+                  "Create Discussion"
+                ) : (
+                  <span className="flex justify-center px-1">
+                    Loading
+                    <div className="flex justify-center ml-0.5 mt-2.5">
+                      <div className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                      <div
+                        className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                        style={{ animationDelay: "0.1s" }}
+                      ></div>
+                      <div
+                        className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
+                        style={{ animationDelay: "0.2s" }}
+                      ></div>
+                    </div>
+                  </span>
+                )}
+              </button>
+            </div>
+          </>
+        ) : (
+          <div>
+            {" "}
+            You need to be connected to perform this action{" "}
+            <Link href={"/auth"} className="text-sky-600 underline">
+              Here
+            </Link>{" "}
           </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Title
-          </label>
-          <input
-            type="text"
-            value={discussionTitle}
-            onChange={(e) => setDiscussionTitle(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Description
-          </label>
-          <textarea
-            value={discussionContent}
-            onChange={(e) => setDiscussionContent(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-          ></textarea>
-        </div>
-
-        <div className="w-full flex justify-center mt-1">
-          <button
-            onClick={handleSubmit}
-            className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none text-lg"
-          >
-            {!loading ? (
-              "Create Discussion"
-            ) : (
-              <span className="flex justify-center px-1">
-                Loading
-                <div className="flex justify-center ml-0.5 mt-2.5">
-                  <div className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
-                  <div
-                    className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
-                    style={{ animationDelay: "0.1s" }}
-                  ></div>
-                  <div
-                    className="w-1 h-1 bg-white group-hover:bg-white rounded-full animate-bounceQ1 mx-0.5"
-                    style={{ animationDelay: "0.2s" }}
-                  ></div>
-                </div>
-              </span>
-            )}
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );

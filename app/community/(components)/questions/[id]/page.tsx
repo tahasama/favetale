@@ -393,34 +393,37 @@ function Question({ params: { id } }: any) {
       {/* Answer Area */}
 
       <div className="mt-8 mb-6">
-        <div className="flex items-start space-x-4">
-          {userx.image ? (
-            <Link href="/profile" target="_blank" rel="noopener noreferrer">
-              <img
-                src={userx.image}
-                alt="Your Name"
-                className="w-10 h-10 rounded-full"
-              />
-            </Link>
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
-          )}
-          <div className="flex flex-col space-y-4 w-full">
-            <textarea
-              rows={2}
-              placeholder="Participate in the discussion..."
-              className="border rounded-lg w-full py-2 px-4"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            ></textarea>
-            <button
-              onClick={addAnswer}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
-            >
-              Submit Answer
-            </button>
+        {userx.id && (
+          <div className="flex items-start space-x-4">
+            {userx.image ? (
+              <Link href="/profile" target="_blank" rel="noopener noreferrer">
+                <img
+                  src={userx.image}
+                  alt="Your Name"
+                  className="w-10 h-10 rounded-full"
+                />
+              </Link>
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
+            )}
+
+            <div className="flex flex-col space-y-4 w-full">
+              <textarea
+                rows={2}
+                placeholder="Participate in the discussion..."
+                className="border rounded-lg w-full py-2 px-4"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              ></textarea>
+              <button
+                onClick={addAnswer}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
+              >
+                Submit Answer
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <h2 className="text-xl mt-10 font-semibold">Answers:</h2>

@@ -1,13 +1,16 @@
 "use client";
 import { useCart } from "@/app/provider/CartProvider";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const UploadpetModalOpenButton = () => {
-  const { setImageModalOpen } = useCart();
+  const { setImageModalOpen, userx } = useCart();
+  const router = useRouter();
 
   return (
     <button
       onClick={() => {
+        // userx.id ? setImageModalOpen(true) : router.push("/auth");
         setImageModalOpen(true);
       }}
       className="bg-amber-700 hover:text-amber-700 text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-tealLight  transition-colors duration-500"

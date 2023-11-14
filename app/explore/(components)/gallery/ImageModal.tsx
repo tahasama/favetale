@@ -266,7 +266,7 @@ const ImageModal = () => {
               <path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
             </svg>
           </button>
-          <div className="absolute bottom-3  flex left-2   py-0.5">
+          <div className="absolute bottom-3 flex left-2 py-0.5">
             <button
               onClick={updateHearts}
               className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-l-lg px-1.5 py-0.5"
@@ -278,7 +278,7 @@ const ImageModal = () => {
             </button>
             <button
               onClick={updateLikes}
-              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-r-lg px-1.5 py-0.5"
+              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-r-lg px-1.5 py-0.5 -ml-[.7px]"
             >
               <span className="text-slate-300 text-base md:text-xl">
                 {selectedImage.likes ? selectedImage.likes.length : 0}
@@ -345,24 +345,26 @@ const ImageModal = () => {
           <h3 className="text-sm md:text-xl font-semibold mb-2 text-start">
             Comments ⬇️
           </h3>
-          <div className="flex">
-            <textarea
-              rows={2}
-              placeholder="Add a comment..."
-              className="border lg:rounded rounded-2xl px-2 py-1 mr-2 flex-grow"
-              value={newComment}
-              onChange={(e) => {
-                setNewComment(e.target.value);
-                adjustTextareaRows(e.target);
-              }}
-            />
-            <button
-              className="bg-blue-500 text-white px-4 py-1 lg:rounded rounded-xl active:animate-buttonActive"
-              onClick={handleAddComment}
-            >
-              Add Comment
-            </button>
-          </div>
+          {userx.id && (
+            <div className="flex">
+              <textarea
+                rows={2}
+                placeholder="Add a comment..."
+                className="border lg:rounded rounded-2xl px-2 py-1 mr-2 flex-grow"
+                value={newComment}
+                onChange={(e) => {
+                  setNewComment(e.target.value);
+                  adjustTextareaRows(e.target);
+                }}
+              />
+              <button
+                className="bg-blue-500 text-white px-4 py-1 lg:rounded rounded-xl active:animate-buttonActive"
+                onClick={handleAddComment}
+              >
+                Add Comment
+              </button>
+            </div>
+          )}
           <div className=" mt-6 mx-2">
             {comments &&
               comments.map((comment, index: number) => (

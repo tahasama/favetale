@@ -77,36 +77,38 @@ const ClientBottomComponent = ({ event, id }: any) => {
         <h2 className="text-xl font-semibold mb-2" ref={commentsSectionRef}>
           Comments 💬
         </h2>
-        <div className="mt-8 mb-6">
-          <div className="flex items-start space-x-4">
-            {userx.image ? (
-              <Link href="/profile" target="_blank" rel="noopener noreferrer">
-                <img
-                  src={userx.image}
-                  alt="Your Name"
-                  className="w-10 h-10 rounded-full"
-                />
-              </Link>
-            ) : (
-              <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
-            )}
-            <div className="flex flex-col space-y-4 w-full">
-              <textarea
-                rows={2}
-                placeholder="Participate in the discussion..."
-                className="border rounded-lg w-full py-2 px-4"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-              ></textarea>
-              <button
-                onClick={handleAddComment}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
-              >
-                Comment
-              </button>
+        {userx.id && (
+          <div className="mt-8 mb-6">
+            <div className="flex items-start space-x-4">
+              {userx.image ? (
+                <Link href="/profile" target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={userx.image}
+                    alt="Your Name"
+                    className="w-10 h-10 rounded-full"
+                  />
+                </Link>
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
+              )}
+              <div className="flex flex-col space-y-4 w-full">
+                <textarea
+                  rows={2}
+                  placeholder="Participate in the discussion..."
+                  className="border rounded-lg w-full py-2 px-4"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                ></textarea>
+                <button
+                  onClick={handleAddComment}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
+                >
+                  Comment
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <div className="space-y-4 mx-2" ref={commentsSectionRef}>
           {comments.map((reply: any) => (
             <div
@@ -147,7 +149,7 @@ const ClientBottomComponent = ({ event, id }: any) => {
           <h2 className="text-xl font-semibold ">
             Memorable moments 📷 ({event.images.length} images)
           </h2>
-          <UploadpetModalOpenButton />
+          {event.writer.id === userx.id && <UploadpetModalOpenButton />}
         </div>
 
         <UploadImageMeetupModal id={id} />

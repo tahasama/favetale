@@ -208,42 +208,52 @@ const ClientComponent = ({ discussionData }: any) => {
         </div>
       )}
       <div className="mt-8 mb-6">
-        <div className="flex items-start space-x-3">
-          {userx.image ? (
-            <Link href="/profile" target="_blank" rel="noopener noreferrer">
-              <img
-                src={userx.image}
-                alt="Your Name"
-                className="w-10 h-10 rounded-full"
-              />
-            </Link>
-          ) : (
-            <div className="w-9 h-9 rounded-full bg-sky-300 px-3"></div>
-          )}
-          <div className="flex flex-col space-y-4 w-full">
-            <textarea
-              rows={2}
-              placeholder="Participate in the discussion..."
-              className="border rounded-lg w-full py-2 px-4"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            ></textarea>
-            <button
-              onClick={handleAddComment}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
-            >
-              Comment
-            </button>
+        {userx.id && (
+          <div className="flex items-start space-x-3">
+            {userx.image ? (
+              <Link href="/profile" target="_blank" rel="noopener noreferrer">
+                <img
+                  src={userx.image}
+                  alt="Your Name"
+                  className="w-10 h-10 rounded-full"
+                />
+              </Link>
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-sky-300 px-3"></div>
+            )}
+            <div className="flex flex-col space-y-4 w-full">
+              <textarea
+                rows={2}
+                placeholder="Participate in the discussion..."
+                className="border rounded-lg w-full py-2 px-4"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              ></textarea>
+              <button
+                onClick={handleAddComment}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
+              >
+                Comment
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      <div className="border-b-2 mb-3"></div>
+      {userx.id && <div className="border-b-2 mb-3"></div>}
       <div className="space-y-4" ref={commentsSectionRef}>
         {comments.map((reply) => (
           <div key={reply.id} className="border-b-2 p-3 rounded-r-lg">
             <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
             <div className="flex gap-4">
-              <p className="text-gray-600 mb-2">@ {reply.commenter.name}</p>
+              <div className="text-sky-600 ">
+                @{" "}
+                <Link
+                  className="mb-2 hover:underline"
+                  href={`profile/${reply.commenter.id}`}
+                >
+                  {reply.commenter.name}
+                </Link>
+              </div>
               <p className="text-gray-400 text-sm mb-2">
                 <ReactTimeAgo date={reply.timestamp} locale="en-US" />
               </p>

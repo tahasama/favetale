@@ -57,8 +57,8 @@ const JoinButton = ({ newEvent }: any) => {
       {isJoining
         ? "Processing..."
         : !event.participants.includes(userx.id)
-        ? "Join Meetup"
-        : "Leave Meetup"}
+        ? "Join event"
+        : "Leave event"}
     </button>
   );
 };

@@ -708,36 +708,38 @@ const Blog = () => {
         </div>
       </div>
       {/* Add Comment */}
-      <div className="mt-12">
-        <div className="flex items-start space-x-4">
-          {userx.image ? (
-            <Link href="/profile" target="_blank" rel="noopener noreferrer">
-              <img
-                src={userx.image}
-                alt="Your Name"
-                className="w-10 h-10 rounded-full"
-              />
-            </Link>
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
-          )}
-          <div className="flex flex-col  space-y-4 w-full">
-            <textarea
-              className="flex-grow border rounded-lg px-4 py-2  focus:outline-none focus:ring focus:border-blue-300"
-              rows={3}
-              placeholder="Add a comment..."
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            ></textarea>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded w-fit"
-              onClick={handleAddComment}
-            >
-              Add Comment
-            </button>
+      {userx.id && (
+        <div className="mt-12">
+          <div className="flex items-start space-x-4">
+            {userx.image ? (
+              <Link href="/profile" target="_blank" rel="noopener noreferrer">
+                <img
+                  src={userx.image}
+                  alt="Your Name"
+                  className="w-10 h-10 rounded-full"
+                />
+              </Link>
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
+            )}
+            <div className="flex flex-col  space-y-4 w-full">
+              <textarea
+                className="flex-grow border rounded-lg px-4 py-2  focus:outline-none focus:ring focus:border-blue-300"
+                rows={3}
+                placeholder="Add a comment..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              ></textarea>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded w-fit"
+                onClick={handleAddComment}
+              >
+                Add Comment
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Comments */}
       <div className="mt-6" ref={commentsSectionRef}>

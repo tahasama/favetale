@@ -7,6 +7,7 @@ import { useCart } from "@/app/provider/CartProvider";
 import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 const UploadImageModal = () => {
   const {
@@ -136,76 +137,86 @@ const UploadImageModal = () => {
             Upload an Image
           </h1>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="mb-4">
-              <label htmlFor="image" className="block text-gray-700 mb-2">
-                Select an image:
-              </label>
-              <input
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleImageChange}
-                required={!selectedImage}
-                className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
-              />
-            </div>
+          {userx.id ? (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="mb-4">
+                <label htmlFor="image" className="block text-gray-700 mb-2">
+                  Select an image:
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  required={!selectedImage}
+                  className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
+                />
+              </div>
 
-            <div className="mb-4">
-              <label htmlFor="category" className="block text-gray-700 mb-2">
-                Select a category:{" "}
-                <span className="font-light text-red-400">{error}</span>
-              </label>
-              <select
-                id="category"
-                onChange={(e) => {
-                  setCategory(e.target.value), setError("");
-                }}
-                value={!category ? selectedImage?.category : category}
-                required={!selectedImage}
-                className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
-              >
-                <option selected disabled>
-                  Choose one
-                </option>
-                <option value="cats">🐱 Cats</option>
-                <option value="dogs">🐶 Dogs</option>
-                <option value="birds">🦜 Birds</option>
-                <option value="fish">🐟 Fish</option>
-                <option value="small animals">🐹 Small Animals</option>
-              </select>
-            </div>
-            <div className="grid place-items-center">
-              <button
-                disabled={!selectedImage && error !== "" && true}
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-3.5 px-5 rounded-full w-fit hover:animate-bounceQ"
-              >
-                {!loading ? (
-                  !selectedImage ? (
-                    "Upload Image"
+              <div className="mb-4">
+                <label htmlFor="category" className="block text-gray-700 mb-2">
+                  Select a category:{" "}
+                  <span className="font-light text-red-400">{error}</span>
+                </label>
+                <select
+                  id="category"
+                  onChange={(e) => {
+                    setCategory(e.target.value), setError("");
+                  }}
+                  value={!category ? selectedImage?.category : category}
+                  required={!selectedImage}
+                  className="w-full border  rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400 cursor-pointer"
+                >
+                  <option selected disabled>
+                    Choose one
+                  </option>
+                  <option value="cats">🐱 Cats</option>
+                  <option value="dogs">🐶 Dogs</option>
+                  <option value="birds">🦜 Birds</option>
+                  <option value="fish">🐟 Fish</option>
+                  <option value="small animals">🐹 Small Animals</option>
+                </select>
+              </div>
+              <div className="grid place-items-center">
+                <button
+                  disabled={!selectedImage && error !== "" && true}
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-3.5 px-5 rounded-full w-fit hover:animate-bounceQ"
+                >
+                  {!loading ? (
+                    !selectedImage ? (
+                      "Upload Image"
+                    ) : (
+                      "Update Image"
+                    )
                   ) : (
-                    "Update Image"
-                  )
-                ) : (
-                  <span className="flex">
-                    Loading
-                    <div className="flex justify-center ml-0.5 mt-1.5">
-                      <div className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
-                      <div
-                        className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                    </div>
-                  </span>
-                )}
-              </button>
+                    <span className="flex">
+                      Loading
+                      <div className="flex justify-center ml-0.5 mt-1.5">
+                        <div className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"></div>
+                        <div
+                          className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-1 h-1 bg-white rounded-full animate-bounceQ1 mx-0.5"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                    </span>
+                  )}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div>
+              {" "}
+              You need to be connected to perform this action{" "}
+              <Link href={"/auth"} className="text-sky-600 underline">
+                Here
+              </Link>{" "}
             </div>
-          </form>
+          )}
         </div>
         <button
           className="absolute bg-sky-600 scale-125 hover:rotate-90 p-1 top-4 right-4  ring-2 ring-gray-300 transition-all duration-500 rounded-full"

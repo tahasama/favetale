@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
-  const { cart, setCart, quantities, userx } = useCart();
+  const { cart, setCart, quantities, userx, setUserx } = useCart();
 
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
@@ -27,20 +27,6 @@ const Navbar = () => {
       setCart(JSON.parse(savedCartItems));
     }
   }, []);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-    isDropdownOpen2 && setIsDropdownOpen2(!isDropdownOpen2);
-  };
-
-  const toggleDropdown2 = () => {
-    setIsDropdownOpen2(!isDropdownOpen2);
-    isDropdownOpen && setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // const toggleSearchModal = () => {
-  //   setIsSearchModalOpen(!isSearchModalOpen);
-  // };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dropdownRef = useRef<any>(null);
@@ -53,57 +39,6 @@ const Navbar = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  // Close the dropdown when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event: any) => {
-  //     if (
-  //       dropdownRef2.current &&
-  //       !dropdownRef2.current.contains(event.target)
-  //     ) {
-  //       setIsDropdownOpen2(false);
-  //     }
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [dropdownRef, dropdownRef2]);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: any) => {
-  //     if (
-  //       dropdownRef2.current &&
-  //       !dropdownRef2.current.contains(event.target) &&
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(event.target)
-  //     ) {
-  //       setIsDropdownOpen2(false);
-  //       setIsDropdownOpen(false);
-  //     } else if (
-  //       dropdownRef2.current &&
-  //       !dropdownRef2.current.contains(event.target)
-  //     ) {
-  //       setIsDropdownOpen2(false);
-  //     } else if (
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(event.target)
-  //     ) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [dropdownRef, dropdownRef2]);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -301,35 +236,56 @@ const Navbar = () => {
               }`}
             >
               {isDropdownOpen && (
-                <div className=" absolute right-0 mt-2  bg-slate-50 rounded-lg shadow-lg">
+                <div className=" absolute right-0 mt-2  bg-slate-100 rounded-lg shadow-lg">
                   {/* Dropdown menu for logged-in users */}
-                  <Link
-                    href={`/profile/${userx.id} `}
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  >
-                    <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">
-                      My Profile
-                    </span>
-                  </Link>
-
-                  <Link
-                    href="/auth"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  >
-                    <button className="block w-full px-4 py-2 text-left hover:bg-teal-50 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
-                      Login
-                    </button>
-                  </Link>
-                  <Link
-                    href="/auth"
-                    onClick={() => {
-                      setIsDropdownOpen(!isDropdownOpen), signOut(auth);
-                    }}
-                  >
-                    <button className="block w-full px-4 py-2 text-left hover:bg-teal-50 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
-                      Logout
-                    </button>
-                  </Link>
+                  {userx.id ? (
+                    <>
+                      <Link
+                        href={`/profile/${userx.id} `}
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <span className="block px-4 py-2 hover:bg-teal-100 hover:text-slate-600 hover:scale-x-110 transition-all rounded-lg duration-150">
+                          My Profile
+                        </span>
+                      </Link>
+                      <Link
+                        href="/auth"
+                        onClick={() => {
+                          signOut(auth).then(() =>
+                            setUserx({
+                              id: "",
+                              name: "",
+                              email: "",
+                            })
+                          ),
+                            setIsDropdownOpen(!isDropdownOpen);
+                        }}
+                      >
+                        <button className="block w-full px-4 py-2 text-left hover:bg-teal-100 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
+                          Logout
+                        </button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/auth"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <button className="block w-full px-4 py-2 text-left hover:bg-teal-100 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
+                          Sign up
+                        </button>
+                      </Link>
+                      <Link
+                        href="/auth"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      >
+                        <button className="block w-full px-4 py-2 text-left hover:bg-teal-100 hover:text-red-400 hover:scale-x-110 transition-all rounded-lg duration-150">
+                          Login
+                        </button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               )}
             </div>

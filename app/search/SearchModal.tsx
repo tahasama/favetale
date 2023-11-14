@@ -6,10 +6,6 @@ const SearchModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
 
   const inputRef = useRef<any>(null);
-  console.log(
-    "🚀 ~ file: SearchModal.tsx:9 ~ SearchModal ~ inputRef:",
-    inputRef?.current?.value
-  );
 
   useEffect(() => {
     // Add event listener when the component mounts
@@ -38,7 +34,6 @@ const SearchModal = ({ isOpen, onClose }: any) => {
   };
 
   const handleButtonClick = () => {
-    console.log("Input value:", inputRef.current.value);
     inputRef?.current?.value !== "" &&
       router.push("/search?q=" + inputRef?.current?.value);
     inputRef.current.value = "";

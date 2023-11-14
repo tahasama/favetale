@@ -80,7 +80,9 @@ const ClientComponent = ({ event, id }: any) => {
         style={{ y: textTranslateY }}
         className="font-semibold tracking-wider -mt-36 px-1.5 rounded-lg leading-loose text-center md:text-start text-base lg:text-2xl xl:text-2xl z-10 absolute"
       >
-        {userx.id !== event.writer?.id && <JoinButton newEvent={event} />}
+        {userx.id && userx.id !== event.writer?.id && (
+          <JoinButton newEvent={event} />
+        )}
       </motion.p>
 
       <motion.p

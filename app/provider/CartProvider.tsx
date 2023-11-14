@@ -13,11 +13,9 @@ export const CartProvider = ({ children }: any) => {
   const [total, setTotal] = useState(0);
   const [profile, setProfile] = useState(false);
   const [userx, setUserx] = useState({
-    uid: "",
+    id: "",
     name: "",
     email: "",
-    creationTime: "",
-    lastSignInTime: "",
   });
   const [uploadpetModalOpen, setUploadpetModalOpen] = useState(false);
   const [imageModalOpen, setImageModalOpen] = useState(false);
@@ -60,7 +58,7 @@ export const CartProvider = ({ children }: any) => {
     });
 
     return () => unsubscribe();
-  }, [userx.uid]);
+  }, [userx.id]);
 
   return (
     <CartContext.Provider
