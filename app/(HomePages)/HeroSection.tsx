@@ -11,13 +11,13 @@ const ost = Old_Standard_TT({ subsets: ["latin"], weight: "700" });
 
 const HeroSection = () => {
   return (
-    <section className="hero-section bg-tealLight min-h-[calc(100vh-80px)] flex flex-col items-center justify-center">
+    <section className="hero-section bg-tealLight h-[calc(100vh-80px)] flex flex-col items-center justify-center">
       <h1
-        className={`mx-2  sm:mx-0 text-3xl md:text-4xl lg:text-5xl -mt-28 text-center md:text-start mb-12 sm:mt-8 sm:-mb-4 lg:mt-2 lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
+        className={`mx-2  sm:mx-0 text-3xl md:text-4xl lg:text-5xl lg:-mt-28 text-center md:text-start mb-12 sm:mt-8 xl:mt-14 sm:-mb-4   lg:mb-6  font-semibold text-teal-700  ${ost.className}`}
       >
         Embark on Your Pet's Journey
       </h1>
-      <div className="container text-center flex flex-col md:flex-row md:text-sm lg:text-lg">
+      <div className="container text-center flex flex-col md:flex-row md:text-sm lg:text-lg lg:-mt-10 xl:-mt-12">
         {/* Layout for larger screens (tablets and laptops) */}
         <div className="md:flex hidden flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-1">
           <div className="animate-fadeIn flex flex-col items-center group cursor-pointer delay-1000">
@@ -27,7 +27,7 @@ const HeroSection = () => {
               Find shared moments and memories of beloved companions.
             </p>
             <Link href={"/explore?section=Gallery"}>
-              <button className="hover:animate-buttonHover mt-4 md:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-1 md:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
                 Discover
               </button>
             </Link>
@@ -39,7 +39,7 @@ const HeroSection = () => {
               Share your heartwarming pet tales with the world.
             </p>
             <Link href={"/explore?section=Stories"}>
-              <button className="hover:animate-buttonHover mt-4 md:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-3 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-1 md:opacity-0 animate-fadeInOut group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-3 rounded-md transition-all duration-1000 cursor-pointer">
                 Inspire
               </button>
             </Link>
@@ -62,7 +62,7 @@ const HeroSection = () => {
               Get food, toys, gadget and all sort of things for your pet.
             </p>
             <Link href={"/store"}>
-              <button className="hover:animate-buttonHover mt-4 animate-fadeInOut md:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-6 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-1 animate-fadeInOut md:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 py-2 px-6 rounded-md transition-all duration-1000 cursor-pointer">
                 Shop
               </button>
             </Link>
@@ -75,7 +75,7 @@ const HeroSection = () => {
             </p>
 
             <Link href={"/community"}>
-              <button className="hover:animate-buttonHover mt-4 animate-fadeInOut md:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
+              <button className="hover:animate-buttonHover mt-1 animate-fadeInOut md:opacity-0 group-hover:opacity-100 bg-gradient-to-r from-indigo-500 to-indigo-300 p-2 rounded-md transition-all duration-1000 cursor-pointer">
                 Connect
               </button>
             </Link>
