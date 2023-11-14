@@ -32,14 +32,7 @@ import { db } from "@/firebase";
 
 const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
-const UserProfile = async ({
-  id,
-
-  children,
-}: {
-  children: React.ReactNode;
-  id: any;
-}) => {
+const UserProfile = async (id: any) => {
   console.log("🚀 ~ file: page.tsx:37 ~ UserProfile ~ id:", id);
 
   return (
