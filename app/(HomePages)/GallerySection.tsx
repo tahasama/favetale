@@ -26,26 +26,20 @@ import { useCart } from "../provider/CartProvider";
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
 const GallerySection = () => {
-  const pets = [pet20, pet2, pet3, pet11, pet12];
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [image, setImage] = useState();
+  const pets = [
+    { name: "fish", img: pet20 },
+    { name: "cats", img: pet2 },
+    { name: "dogs", img: pet3 },
+    { name: "birds", img: pet12 },
+    { name: "small pets", img: pet11 },
+  ];
 
-  const { selectedImage, setSelectedImage, setPetModalOpen } = useCart();
-
-  const handleImageClick = (image: any) => {
-    setSelectedImage(image);
-    setPetModalOpen(true);
-  };
-
-  const openModal = (pet: any) => {
-    setIsModalOpen(true);
-    setImage(pet);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
+  const {
+    setSelectedImage,
+    setUploadpetModalOpen,
+    filterImage,
+    setFilterImage,
+  } = useCart();
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
@@ -134,16 +128,17 @@ const GallerySection = () => {
         >
           {pets.map((pet: any, index: any) => (
             <SwiperSlide
-              className="bg-tealDark !w-80 rounded-lg mt-2"
+              className="bg-tealDark !w-80 mx-1 rounded-lg mt-2"
               key={index}
             >
-              <Image
-                src={pet}
-                alt="pet"
-                className=" cursor-pointer  rounded-lg shadow-xl bg-tealDark"
-                onClick={() => handleImageClick(pet)}
-              />
-              LLLL
+              <Link href={"/explore/gallery"}>
+                <Image
+                  src={pet.img}
+                  alt="pet"
+                  className=" cursor-pointer  rounded-lg shadow-xl bg-tealDark"
+                />
+                {pet.name}
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

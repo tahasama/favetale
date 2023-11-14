@@ -59,93 +59,97 @@ const CommunitySection = () => {
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="flex flex-col lg:flex-row gap-7 lg:gap-3 lg:-ml-60 xl:-ml-40 ">
-          <div className="flex items-start justify-center lg:justify-end">
+        <div className="flex flex-col md:flex-row gap-7 lg:gap-3 lg:-ml-60 xl:-ml-40 ">
+          <div className="flex lg:w-1/2 items-start justify-center lg:justify-end">
             {communityContributions.map((contribution: any, i: any) => (
-              <div
-                key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-5/12 lg:w-6/12 flex overflow-hidden self-end  flex-col 
+              <Link href={"/community/forums"}>
+                <div
+                  key={i}
+                  className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-10/12 lg:w-6/12 flex overflow-hidden self-end  flex-col 
               }`}
-              >
-                <div>
-                  <Image
-                    src={contribution.image}
-                    alt="Featured Story 2"
-                    className="w-full h-full aspect-auto object-cover cursor-pointer"
-                  />
-                </div>
+                >
+                  <div>
+                    <Image
+                      src={contribution.image}
+                      alt="Featured Story 2"
+                      className="w-full h-full aspect-auto object-cover cursor-pointer"
+                    />
+                  </div>
 
-                <div className="p-4 flex  justify-end flex-col h-auto">
-                  <span>
-                    <h3
-                      className={`text-md lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
-                    >
-                      {contribution.title}
-                    </h3>
-                    <p className="text-gray-400 text-xs mb-2">
-                      📅 {contribution.date} | 📌
-                      {contribution.location}
-                    </p>
-                  </span>
-                  <p className="text-gray-600 lg:line-clamp-3 sm:line-clamp-2">
-                    {contribution.description}
-                  </p>
-                  <p className="text-gray-500 text-xs self-end">
-                    ~ {contribution.writer}
-                  </p>
-                  <Link href={"/community/forums"}>
-                    <button className="hover:animate-buttonHover w-fit mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-7 py-3 rounded-md shadow-md">
-                      Read More
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col items-start  justify-start w-full w gap-8">
-            {/* User Contributions */}
-            {communityContributions2.map((contribution: any, i: any) => (
-              <div
-                key={i}
-                className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-9/12 lg:w-11/12 xl:w-9/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center lg:self-start  
-              }`}
-              >
-                <div>
-                  <Image
-                    src={contribution.image}
-                    alt="Featured Story 2"
-                    className="max-w-full md:max-w-[11.8rem] object-cover cursor-pointer"
-                  />
-                </div>
-
-                <div className="p-4 lg:p-2 flex  justify-end flex-col h-auto">
-                  <h3
-                    className={`text-base xl:text-xl lg:text-lg font-semibold lg:mb-1 mb-3 ${vollkorn.className}`}
-                  >
-                    {contribution.title}
-                  </h3>
-
-                  <p className="text-gray-600 text-left indent-3 xl:line-clamp-3 line-clamp-2">
-                    {contribution.description}
-                  </p>
-                  <span className="flex flex-col md:flex-row justify-evenly items-center mt-2">
-                    <div className="flex">
-                      <p className="text-gray-400 text-xs">
+                  <div className="p-4 flex  justify-end flex-col h-auto">
+                    <span>
+                      <h3
+                        className={`text-md lg:text-xl font-semibold mb-3 ${vollkorn.className}`}
+                      >
+                        {contribution.title}
+                      </h3>
+                      <p className="text-gray-400  text-xs mb-2">
                         📅 {contribution.date} | 📌
                         {contribution.location}
                       </p>
-                      <p className="text-gray-500 text-xs self-center">
-                        ~ {contribution.writer}
-                      </p>
-                    </div>
+                    </span>
+                    <p className="text-gray-600 lg:line-clamp-3 sm:line-clamp-2">
+                      {contribution.description}
+                    </p>
+                    <p className="text-gray-500 text-xs self-end">
+                      ~ {contribution.writer}
+                    </p>
                     <Link href={"/community/forums"}>
-                      <button className="hover:animate-buttonHover md:hidden w-fit pt-5 text-indigo-400">
+                      <button className="hover:animate-buttonHover w-fit mt-4 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-7 py-3 rounded-md shadow-md">
                         Read More
                       </button>
                     </Link>
-                  </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col lg:w-1/2 items-start  justify-start gap-8">
+            {/* User Contributions */}
+            {communityContributions2.map((contribution: any, i: any) => (
+              <Link href={"/community/forums"}>
+                <div
+                  key={i}
+                  className={`bg-tealLight cursor-pointer rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-11/12 lg:w-11/12 xl:w-9/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center lg:self-start  
+              }`}
+                >
+                  <div>
+                    <Image
+                      src={contribution.image}
+                      alt="Featured Story 2"
+                      className="max-w-full md:max-w-[11.8rem] object-cover cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="p-4 lg:p-2 flex  justify-end flex-col h-auto">
+                    <h3
+                      className={`text-base xl:text-xl lg:text-lg font-semibold lg:mb-1 mb-3 ${vollkorn.className}`}
+                    >
+                      {contribution.title}
+                    </h3>
+
+                    <p className="text-gray-600 text-left indent-3 xl:line-clamp-3 line-clamp-2">
+                      {contribution.description}
+                    </p>
+                    <span className="flex flex-col md:flex-row justify-evenly items-center mt-2">
+                      <div className="flex">
+                        <p className="text-gray-400 md:hidden lg:block text-xs">
+                          📅 {contribution.date} | 📌
+                          {contribution.location}
+                        </p>
+                        <p className="text-gray-500 text-xs self-center md:hidden lg:block">
+                          ~ {contribution.writer}
+                        </p>
+                      </div>
+                      <Link href={"/community/forums"}>
+                        <button className="hover:animate-buttonHover md:hidden w-fit pt-5 text-indigo-400">
+                          Read More
+                        </button>
+                      </Link>
+                    </span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

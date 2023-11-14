@@ -140,7 +140,7 @@ const StorySection = () => {
           <h2 className={`text-3xl font-semibold mb-4 ${vollkorn.className}`}>
             Discover Our Pet Store
           </h2>
-          <div className="bg-teal-500 h-1 w-40 ml-2 mb-16"></div>
+          <div className="bg-teal-500 h-1 w-40 ml-2 mb-6"></div>
         </div>
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 mt-4  md:order-1 order-2">
