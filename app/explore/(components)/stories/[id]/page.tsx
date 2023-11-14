@@ -369,7 +369,7 @@ function Story() {
     }
   };
   return (
-    <div className="max-w-3xl mx-auto p-4 mt-24 bg-white">
+    <div className="max-w-3xl mx-auto p-4 mt-6 bg-white">
       {/* Story Title */}
       <div className="h-fit">
         <StoryModal
@@ -431,7 +431,7 @@ function Story() {
             </div>
           </div>
 
-          {selectedImage && selectedImage?.writer.id === userx.id && (
+          {selectedImage && selectedImage?.writer?.id === userx.id && (
             <div className=" w-fit flex gap-3 md:gap-5 right-2 md:right-4">
               <button
                 onClick={() => setUploadpetModalOpen(true)}

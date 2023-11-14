@@ -10,7 +10,9 @@ import {
 } from "react-icons/fi";
 const CommunityClient = () => {
   const pathName = usePathname();
-  const [activeTab, setActiveTab] = useState<string>(pathName.split("/")[2]);
+  const [activeTab, setActiveTab] = useState<string>(
+    pathName.split("/")[2] || "forums"
+  );
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);

@@ -438,7 +438,7 @@ Remember that the quality of time you spend with your pet matters more than the 
   return (
     <div>
       <div
-        className="mt-20 relative grid  place-items-center overflow-hidden  w-full h-[65vh]"
+        className="mt-0 relative grid  place-items-center overflow-hidden  w-full h-[71vh]"
         ref={ref}
       >
         <motion.p

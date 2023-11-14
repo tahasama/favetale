@@ -9,7 +9,7 @@ const ClientComponentButtuns = ({ id }: any) => {
     <>
       <button
         onClick={() => setUploadpetModalOpen(true)}
-        className="mb-4 bg-indigo-500 text-white xl:py-2 xl:px-4 text-base xl:text-lg sm:py-2 sm:px-2 rounded-md hover:bg-indigo-600 focus:outline-none"
+        className="mb-4 bg-indigo-500 text-white py-2 px-2 xl:px-4 text-base xl:text-lg sm:py-2 sm:px-2 rounded-md hover:bg-indigo-600 focus:outline-none"
       >
         Start a discussion
       </button>

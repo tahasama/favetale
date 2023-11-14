@@ -14,7 +14,9 @@ import {
 } from "react-icons/fi";
 const ExploreClient = () => {
   const pathName = usePathname();
-  const [activeTab, setActiveTab] = useState<string>(pathName.split("/")[2]);
+  const [activeTab, setActiveTab] = useState<string>(
+    pathName.split("/")[2] || "gallery"
+  );
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);

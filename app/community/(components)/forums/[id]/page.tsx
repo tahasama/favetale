@@ -131,7 +131,7 @@ const Forum = async ({ params: { id } }: any) => {
 
   return (
     <div className=" bg-tealLight flex justify-center w-full h-full">
-      <div className="mx-5  mt-20 lg:mt-40 bg-tealLight lg:w-7/12 ">
+      <div className="mx-5 mt-6 lg:mt-16 bg-tealLight lg:w-7/12 ">
         <span className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
           <h2 className="text-2xl font-semibold mb-4">{forumData.title}</h2>
 

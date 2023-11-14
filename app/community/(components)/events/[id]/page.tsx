@@ -172,7 +172,7 @@ async function Event({ params: { id } }: any) {
   console.log("🚀 ~ file: page.tsx:172 ~ Event ~ event:", event);
 
   return (
-    <div className="relative  h-full text-black py-12 ">
+    <div className="relative  h-full text-black pb-12 ">
       <ClientComponent event={event} id={id} />
 
       <Suspense fallback={<Loading />}>

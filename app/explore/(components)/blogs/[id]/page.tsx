@@ -608,7 +608,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4 mt-24 bg-white">
+    <div className="max-w-3xl mx-auto p-4 mt-6 bg-white">
       {/* Blog Title */}
       <div className="h-fit relative">
         <BlogModal

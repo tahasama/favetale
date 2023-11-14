@@ -335,7 +335,7 @@ function Question({ params: { id } }: any) {
     }
   };
   return (
-    <div className=" mx-auto relative md:w-8/12 p-4 mt-24">
+    <div className=" mx-auto relative md:w-8/12 p-4 mt-6">
       <>
         <h1 className="text-3xl font-semibold mb-4">{selectedImage.title}</h1>
         <p className="text-gray-600 mb-2">
