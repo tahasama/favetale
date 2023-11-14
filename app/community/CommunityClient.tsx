@@ -26,7 +26,7 @@ const CommunityClient = () => {
   ];
 
   return (
-    <div className="mt-20">
+    <div className="mt-[76px]">
       <div className="sticky top-20 flex z-30 justify-center w-full bg-tealLight">
         {tabs.map((tab) => (
           <TabButton

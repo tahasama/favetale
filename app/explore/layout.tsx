@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-20">
+    <section className="">
       <ExploreClient />
       {/* <main className="flex-grow min-h-[16rem] overflow-y-auto order-1 md:order-2"> */}
       <main>
