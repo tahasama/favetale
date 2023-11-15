@@ -109,7 +109,7 @@ const ServerComponent = async () => {
   const productsData = await getProductsData();
   console.log(
     "🚀 ~ file: ServerComponent.tsx:110 ~ ServerComponent ~ productsData:",
-    productsData
+    productsData[0].images[0]
   );
 
   return (

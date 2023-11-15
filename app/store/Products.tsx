@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
 import { useCart } from "../provider/CartProvider";
@@ -16,79 +15,10 @@ import bed from "../images/store/bed.jpg";
 
 import Image from "next/image";
 import ProductModal from "./ProductModal";
+import ProductCard from "./ProductCard";
+import { getProductsData } from "../api/GerData";
 
-const ProductCard = ({
-  product,
-  isTrending,
-  discounted,
-  openModal,
-  isModalOpen,
-  closeModal,
-}: any) => {
-  const { cartItems, setCartItems, cart, setCart } = useCart();
-
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-
-  useEffect(() => {
-    // Check if the product is already in the cart and update the button state
-    setIsAddedToCart(cart.some((item: any) => item.id === product.id));
-  }, [cart, product.id]);
-
-  useEffect(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    if (savedCartItems) {
-      setCart(JSON.parse(savedCartItems));
-    }
-  }, [cartItems]);
-
-  return (
-    <div
-      onClick={() => openModal(product)}
-      className="bg-white relative p-3 md:p-4 mx-0 md:mx-3 w-80 lg:w-80 xl:w-96 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
-    >
-      {/* Product Image */}
-      <div className="w-auto  flex justify-center bg-gray-100">
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          className="h-[15rem] w-fit rounded-md"
-          height={500}
-          width={500}
-        />
-      </div>
-
-      {/* Product Name */}
-      <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
-
-      {/* Product Price */}
-      <p
-        className={` ${
-          isTrending
-            ? "text-sky-500"
-            : discounted
-            ? "text-red-700"
-            : "text-gray-600"
-        } text-xl my-1`}
-      >
-        {product.price} Dhs
-      </p>
-
-      {/* Discount (if applicable) */}
-      {discounted && product.discount && (
-        <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
-          {product.discount}% OFF
-        </p>
-      )}
-
-      {/* Add to Cart Button */}
-      <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
-        {isAddedToCart ? "Added to Cart" : "Add to Cart"}
-      </button>
-    </div>
-  );
-};
-
-const Products = () => {
+const Products = async () => {
   const discountProducts = [
     {
       id: 7,
@@ -182,18 +112,7 @@ const Products = () => {
       quantity: 1,
     },
   ];
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productModal, setProductModal] = useState();
-
-  const openModal = (product: any) => {
-    setIsModalOpen(true);
-    setProductModal(product);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const productsData = await getProductsData();
 
   return (
     <section className="py-10 ">
@@ -209,23 +128,21 @@ const Products = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-10 lg:gap-6 text-start">
           {/* Trending Products with Discounts */}
-          {discountProducts.map((product, index) => (
-            <div>
-              <ProductCard
-                key={index}
-                product={product}
-                isTrending={false}
-                discounted={true}
-                openModal={openModal}
-              />
-            </div>
-          ))}
+          {productsData
+            .filter((product: any) => product.discount !== 0)
+            .slice(0, 3)
+            .map((product, index) => (
+              <div>
+                <ProductCard
+                  key={index}
+                  product={product}
+                  isTrending={false}
+                  discounted={true}
+                />
+              </div>
+            ))}
         </div>
-        <ProductModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          product={productModal}
-        />
+        <ProductModal />
         <div className="mt-8 flex items-center justify-center">
           <Link
             href="/store/Allproduct"

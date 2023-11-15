@@ -1,30 +1,36 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useCart } from "../provider/CartProvider";
 
-const ProductModal = ({
-  isOpen,
-  onClose,
-  product,
-  isTrending,
-  discounted,
-}: any) => {
-  console.log("🚀 ~ file: ProductModal.tsx:13 ~ product:", product);
+const productModal = () => {
   const router = useRouter();
   const [isAddedToCart, setIsAddedToCart] = useState(false);
-  const { cartItems, setCartItems, cart, setCart } = useCart();
-  const [selectedImage, setSelectedImage] = useState(0);
+  const {
+    cartItems,
+    setCartItems,
+    cart,
+    setCart,
+    uploadpetModalOpen,
+    setProduct,
+    product,
+    setUploadpetModalOpen,
+    userx,
+  } = useCart();
+
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [reviews, setReviews] = useState<any>([]);
+  const [index, setIndex] = useState<any>(0);
 
   const handleImageChange = (index: any) => {
-    setSelectedImage(index);
+    setIndex(index);
   };
 
   const handleRatingChange = (event: any) => {
     setRating(parseInt(event.target.value));
+    //  update array of ratings and check that user rate once
   };
 
   const handleReviewSubmit = () => {
@@ -38,6 +44,7 @@ const ProductModal = ({
     setReviews([...reviews, newReview]);
     setRating(0);
     setReviewText("");
+    // like comments to data base
   };
 
   const inputRef = useRef<any>(null);
@@ -51,7 +58,7 @@ const ProductModal = ({
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose();
+      setUploadpetModalOpen(false);
     }
   };
 
@@ -83,19 +90,19 @@ const ProductModal = ({
 
   return (
     <div
-      className={`fixed inset-0 flex items-center flex-col lg:py-3 justify-center modal-overlay z-50 backdrop-blur-sm backdrop-brightness-50 ${
-        isOpen
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md bg-red-500 backdrop-brightness-50 ${
+        uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
       }`}
       onClick={handleModalClick}
     >
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
-        <div className="flex flex-col md:flex-row gap-8 lg:p-8 shadow-md lg:min-h-[80vh] bg-sky-50">
+        <div className="flex flex-col md:flex-row gap-8 lg:p- shadow-md lg:min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
           <div className=" flex flex-col items-center justify-center w-1/2">
             <Image
-              src={product?.images[selectedImage]}
+              src={product?.images[index]}
               alt={product?.name}
               width={1000}
               height={1000}
@@ -105,10 +112,10 @@ const ProductModal = ({
               {product?.images.map((image: any, index: any) => (
                 <img
                   key={index}
-                  src={image.src}
+                  src={image}
                   alt={product?.name}
                   className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
-                    index === selectedImage ? "border-blue-500 scale-110" : ""
+                    index === product ? "border-blue-500 scale-110" : ""
                   }`}
                   onClick={() => handleImageChange(index)}
                 />
@@ -153,33 +160,35 @@ const ProductModal = ({
           </div>
         </div>
         <div className="bg-white p-3  lg:p-8 relative">
-          <div className="flex mt-4 lg:mt-0">
-            <div className="w-fit flex flex-col lg:flex-row justify-end lg:absolute right-4 top-4">
-              <h4
-                className="text-lg hidden lg:block font-semibold mb-2 text-center ring-2 lg:w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-sky-50 hover:bg-blue-100 transition-colors"
-                onClick={() => setAddReview(!addReview)}
-              >
-                Add Your Review?
-              </h4>
-            </div>
-            {addReview && (
-              <div className="relative lg:left-4 -top-5 w-full lg:w-4/6 border-violet-400 ">
-                <textarea
-                  ref={ref}
-                  rows={3}
-                  value={reviewText}
-                  onChange={(e) => setReviewText(e.target.value)}
-                  className="w-full p-2 border rounded-md mb-2 focus:outline-none focus:ring border-blue-500 focus:border-blue-500"
-                />
-                <button
-                  onClick={handleReviewSubmit}
-                  className="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 text-white transition-colors"
+          {userx.id && (
+            <div className="flex mt-4 lg:mt-0">
+              <div className="w-fit flex flex-col lg:flex-row justify-end lg:absolute right-4 top-4">
+                <h4
+                  className="text-lg hidden lg:block font-semibold mb-2 text-center ring-2 lg:w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-sky-50 hover:bg-blue-100 transition-colors"
+                  onClick={() => setAddReview(!addReview)}
                 >
-                  Submit Review
-                </button>
+                  Add Your Review?
+                </h4>
               </div>
-            )}
-          </div>
+              {addReview && (
+                <div className="relative lg:left-4 -top-5 w-full lg:w-4/6 border-violet-400 ">
+                  <textarea
+                    ref={ref}
+                    rows={3}
+                    value={reviewText}
+                    onChange={(e) => setReviewText(e.target.value)}
+                    className="w-full p-2 border rounded-md mb-2 focus:outline-none focus:ring border-blue-500 focus:border-blue-500"
+                  />
+                  <button
+                    onClick={handleReviewSubmit}
+                    className="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 text-white transition-colors"
+                  >
+                    Submit Review
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Right side of the modal with reviews */}
           <h3 className="text-lg font-semibold mb-2 text-left">
@@ -199,7 +208,7 @@ const ProductModal = ({
 
         <button
           className="absolute text-gray-400 hover:text-gray-600 hover:rotate-90 bg-gray-100/50 hover:bg-gray-100 active:bg-gray-100 p-1 top-2 right-2 transition-all duration-500 rounded-full"
-          onClick={onClose}
+          onClick={() => setUploadpetModalOpen(false)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -215,4 +224,4 @@ const ProductModal = ({
   );
 };
 
-export default ProductModal;
+export default productModal;

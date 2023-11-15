@@ -10,7 +10,6 @@ const ProductModal = ({
   isTrending,
   discounted,
 }: any) => {
-  console.log("🚀 ~ file: ProductModal.tsx:13 ~ product:", product);
   const router = useRouter();
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const { cartItems, setCartItems, cart, setCart } = useCart();

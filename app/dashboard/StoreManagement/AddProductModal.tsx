@@ -2,30 +2,15 @@
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import React, { ChangeEvent, useState } from "react";
-
-// interface Product {
-//     id?:string;
-//   name: string;
-//   images: string[];
-//   price: number;
-//   discount: number;
-//   rating: number[];
-//   cumulativeStock: number;
-//   description: string;
-//   stock: number;
-//   timestamp: number;
-//   reviews: string[];
-// }
-
-// interface AddProductModalProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   productD: Product | null;
-// }
 
 const AddProductModal = ({ isOpen, onClose }: any) => {
   const { selectedImage, setSelectedImage } = useCart();
+  const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [imagesArrayData, setImagesArrayData] = useState<string[]>([]);
+
   const [product, setProduct] = useState<any>({
     name: "",
     images: [],
@@ -38,10 +23,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
     timestamp: Date.now(), // replace with your timestamp logic
     reviews: [],
   });
-  console.log(
-    "🚀 ~ file: AddProductModal.tsx:43 ~ AddProductModal ~ product:",
-    product
-  );
 
   const handleModalClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).classList.contains("modal-overlay")) {
@@ -56,37 +37,69 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
     }));
   };
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    setLoading2(true);
     const files = e.target.files;
-    console.log(
-      "🚀 ~ file: AddProductModal.tsx:59 ~ handleImageChange ~ files:",
-      files?.length
-    );
 
-    // Ensure only up to three images are added
     if (files && files.length > 3) {
       alert("You can only upload up to 3 images.");
       return;
     }
 
-    // handle image change logic
     const imagesArray: string[] = [];
-    if (files) {
+    const imagesArrayDatas: string[] = [];
+
+    if (files && files.length < 3) {
+      console.log(
+        "🚀 ~ file: AddProductModal.tsx:51 ~ handleImageChange ~ files:",
+        files
+      );
       for (let i = 0; i < files.length; i++) {
         const imageUrl = URL.createObjectURL(files[i]);
+        console.log(
+          "🚀 ~ file: AddProductModal.tsx:57 ~ handleImageChange ~ imageUrl:",
+          imageUrl
+        );
         imagesArray.push(imageUrl);
+        console.log(1);
+        const storage = getStorage();
+        console.log(2);
+
+        const storageRef = ref(
+          storage,
+          `products/${Date.now()}_${files[i].name}`
+        );
+        console.log(3);
+
+        // Upload image to Firebase Storage
+        await uploadBytes(storageRef, files[0]);
+        console.log(4);
+
+        // Get the download URL and store it in the state
+        const imageUrls = await getDownloadURL(storageRef);
+        console.log(
+          "🚀 ~ file: AddProductModal.tsx:80 ~ handleImageChange ~ imageUrls:",
+          imageUrls
+        );
+        console.log(5);
+
+        imagesArrayDatas.push(imageUrls);
+        console.log(6);
       }
+
+      setProduct((prevProduct: any) => ({
+        ...prevProduct,
+        images: imagesArrayDatas, // Update images with the download URLs
+      }));
     }
 
-    setProduct((prevProduct: any) => ({
-      ...prevProduct,
-      images: imagesArray,
-    }));
+    setImagesArrayData(imagesArrayDatas);
+    setLoading2(false);
   };
 
   const handleAddOrUpdateProduct = async (e: any) => {
-    // setLoading(true);
     e.preventDefault();
+    setLoading(true);
 
     try {
       const productsCollection = collection(db, "products");
@@ -94,21 +107,21 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
       if (selectedImage) {
         // Update existing product
         const updatedProductData = {
-          name: product.name || selectedImage.name,
-          images: product.images || selectedImage.images,
-          price: product.price || selectedImage.price,
-          discount: product.discount || selectedImage.discount,
-          rating: product.rating || selectedImage.rating,
+          name: product.name || selectedImage?.name,
+          images: product.images || selectedImage?.images,
+          price: product.price || selectedImage?.price,
+          discount: product.discount || selectedImage?.discount,
+          rating: product.rating || selectedImage?.rating,
           cumulativeStock:
             product.cumulativeStock + product.stock ||
-            selectedImage.cumulativeStock,
-          description: product.description || selectedImage.description,
-          stock: product.stock || selectedImage.stock,
+            selectedImage?.cumulativeStock,
+          description: product.description || selectedImage?.description,
+          stock: product.stock || selectedImage?.stock,
           createdAt: Date.now(),
-          reviews: product.reviews || selectedImage.reviews,
+          reviews: product.reviews || selectedImage?.reviews,
         };
 
-        const productRef = doc(db, "products", selectedImage.id);
+        const productRef = doc(db, "products", selectedImage?.id);
         await updateDoc(productRef, updatedProductData)
           .then(() => onClose())
           .finally(() => setSelectedImage(null));
@@ -117,7 +130,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
         // Add new product
         const newProductData = {
           name: product.name,
-          images: product.images,
+          images: imagesArrayData,
           price: product.price,
           discount: product.discount,
           rating: product.rating,
@@ -127,29 +140,18 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
           updateted: Date.now(),
           reviews: product.reviews,
         };
+        console.log(
+          "🚀 ~ file: AddProductModal.tsx:143 ~ handleAddOrUpdateProduct ~ newProductData:",
+          newProductData.images
+        );
 
-        const newProduct = await addDoc(productsCollection, newProductData);
-        // Add any additional logic if needed after adding a new product
+        const newProduct = await addDoc(productsCollection, newProductData)
+          .then(() => setLoading(false))
+          .then(() => onClose())
+          .finally(() => setSelectedImage(null));
       }
 
-      // Reset state or close modal
-      // ...
-
-      //   setLoading(false);
-      setProduct({
-        name: "",
-        images: [],
-        price: 0,
-        discount: 0,
-        rating: [],
-        cumulativeStock: 0,
-        description: "",
-        stock: 0,
-        timestamp: Date.now(),
-        reviews: [],
-      });
-
-      onClose();
+      setLoading(false);
     } catch (error) {
       console.error("Error adding or updating product: ", error);
     }
@@ -180,7 +182,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               <input
                 type="text"
                 placeholder="Product Name..."
-                value={product.name || selectedImage.name}
+                value={product.name || selectedImage?.name}
                 onChange={(e) => handleProductChange("name", e.target.value)}
                 className="py-2 px-3 lg:w-80 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               />
@@ -192,7 +194,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               <input
                 type="number"
                 placeholder="Price"
-                value={product.price || selectedImage.price}
+                value={product.price || selectedImage?.price}
                 onChange={(e) =>
                   handleProductChange("price", parseFloat(e.target.value))
                 }
@@ -206,7 +208,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               <input
                 type="number"
                 placeholder="Discount"
-                value={product.discount || selectedImage.discount}
+                value={product.discount || selectedImage?.discount}
                 onChange={(e) =>
                   handleProductChange("discount", parseFloat(e.target.value))
                 }
@@ -220,7 +222,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               <textarea
                 rows={3}
                 placeholder="Product Description..."
-                value={product.description || selectedImage.description}
+                value={product.description || selectedImage?.description}
                 onChange={(e) => {
                   handleProductChange("description", e.target.value);
                   adjustTextareaRows(e.target);
@@ -235,7 +237,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               <input
                 type="number"
                 placeholder="Stock"
-                value={product.stock || selectedImage.stock}
+                value={product.stock || selectedImage?.stock}
                 onChange={(e) =>
                   handleProductChange("stock", parseInt(e.target.value))
                 }
@@ -278,7 +280,8 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
                 className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-10 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
                 onClick={handleAddOrUpdateProduct}
               >
-                Send
+                <p>Send</p>{" "}
+                {loading && <span className="animate-bounce">loading</span>}
               </button>
             </div>
           </div>

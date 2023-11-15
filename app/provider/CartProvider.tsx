@@ -10,6 +10,7 @@ export const CartProvider = ({ children }: any) => {
   const [quantities, setQuantities] = useState<any>({});
   const [cartItems, setCartItems] = useState<any>([]);
   const [cart, setCart] = useState([]);
+  const [product, setProduct] = useState(null);
   const [total, setTotal] = useState(0);
   const [profile, setProfile] = useState(false);
   const [userx, setUserx] = useState({
@@ -89,6 +90,8 @@ export const CartProvider = ({ children }: any) => {
         setFilterImage,
         profile,
         setProfile,
+        product,
+        setProduct,
       }}
     >
       {children}

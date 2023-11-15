@@ -229,11 +229,11 @@ const StorySection = () => {
             </>
           ))}
         </div> */}
-        <ProductModal
+        {/* <ProductModal
           isOpen={isModalOpen}
           onClose={closeModal}
           product={productModal}
-        />
+        /> */}
       </div>
     </section>
   );

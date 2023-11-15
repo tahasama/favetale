@@ -6,10 +6,6 @@ import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const EditDeleteProduct = ({ product }: any) => {
-  console.log(
-    "🚀 ~ file: EditProduct.tsx:7 ~ EditDeleteProduct ~ product:",
-    product
-  );
   const [deleted, setDeleted] = useState(false);
 
   const {
@@ -20,13 +16,14 @@ const EditDeleteProduct = ({ product }: any) => {
     setSelectedImage,
     selectedImage,
   } = useCart();
+
   const handleEditProduct = () => {
     setImageModalOpen(true);
     setSelectedImage(product);
   };
 
   const handleDeleteProduct = async () => {
-    const likeRef = doc(db, "products", selectedImage.id); // Assuming 'db' is your Firestore instance
+    const likeRef = doc(db, "products", selectedImage.id || product.id); // Assuming 'db' is your Firestore instance
     await deleteDoc(likeRef)
       .then(() => setDeleted(true))
       .finally(() => setSelectedImage(null));
