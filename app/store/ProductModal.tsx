@@ -90,7 +90,7 @@ const productModal = () => {
 
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md bg-red-500 backdrop-brightness-50 ${
+      className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
         uploadpetModalOpen
           ? "opacity-100 pointer-events-auto transition-all duration-300"
           : "opacity-0 pointer-events-none transition-all duration-300"
