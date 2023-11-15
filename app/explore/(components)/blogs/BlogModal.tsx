@@ -24,19 +24,7 @@ import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 import Link from "next/link";
-// import JoditEditor from "jodit-react";
 
-// const JoditEditor = React.lazy(() => import("jodit-react"));
-
-// const MemoizedJoditEditor = React.memo(
-//   ({ content, setContent, config }: any) => {
-//     const editor = useRef(null);
-
-//     return (
-//
-//     );
-//   }
-// );
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const BlogModal = ({ isOpen, onClose, blog }: any) => {
   console.log("🚀 ~ file: BlogModal.tsx:41 ~ BlogModal ~ isOpen:", isOpen);

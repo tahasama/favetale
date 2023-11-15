@@ -4,6 +4,7 @@ import React from "react";
 import BlogCard from "@/app/explore/(components)/blogs/BlogCard";
 import Link from "next/link";
 import { Playball, Roboto_Mono } from "next/font/google";
+import WriteBlogButton from "@/app/dashboard/ContentModeration/blogs/WriteBlogButton";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
@@ -28,8 +29,14 @@ const Blogs = async ({ params: { id } }: any) => {
   const meetupsData: any = await getData(id);
   console.log("🚀 ~ file: page.tsx:29 ~ Blogs ~ meetupsData:", meetupsData);
 
+  const buttonStyle =
+    "bg-indigo-500 px-3 mx-2 py-3 h-fit rounded hover:bg-indigo-700 text-slate-200";
+
   return (
-    <div className="m-6 flex flex-wrap flex-col md:flex-row h-full gap-10 justify-center">
+    <div className="m-6 flex flex-wrap flex-col md:flex-row h-full gap-10 justify-center relative">
+      <div className="absolute right-0 top-0 lg:right-12 pb-2">
+        <WriteBlogButton />
+      </div>
       {meetupsData &&
         meetupsData?.filter(
           (meetups: any) => meetups.writer.id === id && meetups.draft === false

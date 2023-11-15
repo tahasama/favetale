@@ -31,8 +31,17 @@ const Meetups = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
   console.log("🚀 ~ file: page.tsx:32 ~ Meetups ~ meetupsData:", meetupsData);
 
+  const buttonStyle =
+    "bg-indigo-500 px-3 mx-2 py-3 h-fit rounded hover:bg-indigo-700 text-slate-200";
+
   return (
-    <div className="m-6 flex h-full gap-10 justify-center">
+    <div className="m-6 flex h-full gap-10 justify-center relative">
+      <div className="absolute right-0 top-3 lg:right-12 !pb-4">
+        <Link href={"/community/events"} className={buttonStyle}>
+          Browse events dd
+        </Link>
+      </div>
+
       {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       {meetupsData &&
         meetupsData?.filter((meetups: any) => meetups.participants.includes(id))

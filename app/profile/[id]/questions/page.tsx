@@ -5,6 +5,7 @@ import React from "react";
 
 import { Playball, Roboto_Mono } from "next/font/google";
 import Link from "next/link";
+import WriteQuestionButton from "@/app/dashboard/ContentModeration/questions/WriteQuestionButton";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
@@ -37,7 +38,10 @@ const Questions = async ({ params: { id } }: any) => {
   );
 
   return (
-    <div className="m-6 flex  flex-col md:flex-row h-full gap-10 justify-center">
+    <div className="m-6 flex  flex-col md:flex-row h-full gap-10 justify-center relative">
+      <div className="absolute right-0 top-0 lg:right-12 pb-2">
+        <WriteQuestionButton />
+      </div>
       {meetupsData &&
         meetupsData?.filter((meetups: any) => meetups.writer.id === id)
           .length !== 0 && (

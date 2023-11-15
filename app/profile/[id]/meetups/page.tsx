@@ -4,6 +4,7 @@ import { collection, getDocs, or, query, where } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
 import { Playball, Roboto_Mono } from "next/font/google";
+import WriteMeetupButton from "@/app/dashboard/ContentModeration/meetups/WriteMeetupButton";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
@@ -31,7 +32,10 @@ const Meetups = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
 
   return (
-    <div className="m-6 flex h-full gap-10 justify-center">
+    <div className="m-6 flex h-full gap-10 justify-center relative">
+      <div className="absolute right-0 top-0 lg:right-12 pb-2">
+        <WriteMeetupButton />
+      </div>
       {meetupsData &&
         meetupsData?.filter((meetups: any) => meetups.writer.id === id)
           .length !== 0 && (

@@ -21,7 +21,7 @@ const ClientComponentPage = () => {
   return (
     <div className="sticky flex flex-col justify-center order-2 md:order-1 h-full  bg-tealLight">
       <ul
-        className={` flex md:flex-col justify-center   m-1 md:py-2 rounded-md md:gap-4  sm:top-0  backdrop-brightness-90`}
+        className={` flex md:flex-col justify-center   m-1 md:py-2 rounded-md md:gap-3  sm:top-0  backdrop-brightness-90`}
       >
         {Object.keys(content).map((menuItem) => (
           <li

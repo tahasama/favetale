@@ -5,6 +5,7 @@ import BlogCard from "@/app/explore/(components)/blogs/BlogCard";
 import Link from "next/link";
 import { Playball, Roboto_Mono } from "next/font/google";
 import DiscussionCard from "./DiscussionCard";
+import ClientComponentButtuns from "@/app/community/(components)/forums/[id]/ClientComponentButtons";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
@@ -30,8 +31,14 @@ async function getData(id: any) {
 const Discussions = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
 
+  const buttonStyle =
+    "bg-indigo-500 px-3 mx-2 py-3 h-fit rounded hover:bg-indigo-700 text-slate-200";
+
   return (
-    <div className="m-6 flex flex-col md:flex-row h-full gap-10 justify-center">
+    <div className="m-6 flex flex-col md:flex-row h-full gap-10 justify-center relative">
+      <div className="absolute right-0 top-0 lg:right-12 pb-2">
+        <ClientComponentButtuns buttonStyle={buttonStyle} />
+      </div>
       {meetupsData &&
         meetupsData?.filter((meet: any) => meet.writer.id === id).length !==
           0 && (

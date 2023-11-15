@@ -7,6 +7,7 @@ import ActionsClient from "../ActionsClient";
 import { isAbsolute } from "path";
 import Link from "next/link";
 import { fetchComments, getStoriesData } from "@/app/api/GerData";
+import WriteBlogButton from "./WriteBlogButton";
 
 const Stories = async () => {
   const blogsData: any = await getStoriesData();
@@ -18,7 +19,10 @@ const Stories = async () => {
   }
   return (
     <div className="bg-tealLight px-0">
-      <h2 className="text-center py-6">Stories</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-center py-6 w-10/12">Stories</h2>
+        <WriteBlogButton />
+      </div>
 
       <table className="w-full max-h-[400px] overflow-y-auto border-collapse border border-gray-300 text-xs md:text-sm lg:text-base">
         <thead className="bg-gray-100">
@@ -43,6 +47,8 @@ const Stories = async () => {
                   index % 2 !== 0 ? "bg-white" : "bg-teal-50"
                 }`}
               >
+                <ImageClient image={image} index={index} />
+
                 <td className="max-w-[5rem] text-sky-600 underline cursor-pointer border border-gray-300">
                   <Link href={`explore/blogs/${image.id}`}>{image.title}</Link>
                 </td>

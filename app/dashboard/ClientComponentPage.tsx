@@ -38,7 +38,7 @@ const ClientComponentPage = () => {
   };
 
   return (
-    <header className="bg-teal-500 p-3 text-white relative mt-0 ">
+    <header className="bg-teal-500 py-1 text-white relative mt-0 ">
       <nav className="ml-3 flex items-center gap-4">
         <h1
           className={` ${roboto.className} text-lg text-white lg:text-xl xl:text-3xl `}
@@ -63,7 +63,7 @@ const ClientComponentPage = () => {
           {Object.keys(components).map((menuItem) => (
             <Link
               href={`/dashboard/${components[menuItem]}`}
-              className={`hover:animate-buttonHover w-full list-none text-xs lg:text-base xl:text-xl  md:w-auto md:rounded-md md:backdrop-brightness-75 py-1.5 md:py-3 md:p-1.5 cursor-pointer`}
+              className={`hover:animate-buttonHover w-full list-none text-xs lg:text-base xl:text-xl  md:w-auto md:rounded-md md:backdrop-brightness-75 py-1.5 md:py-1.5 md:px-1.5 cursor-pointer`}
               key={menuItem}
             >
               <p className="min-w-[5rem] lg:min-w-[8rem] text-center">

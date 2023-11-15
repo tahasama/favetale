@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import logo from "../../logo.png";
 import PurchaseClient from "./PurchaseClient";
+import Link from "next/link";
 // import { table } from "console";
 
 const getData = async (userx: any) => {
@@ -27,34 +28,45 @@ const getData = async (userx: any) => {
 const Purchases = async ({ userx }: any) => {
   const purchaseData: any = await getData(userx);
 
+  const buttonStyle =
+    "bg-indigo-500 px-3 mx-2 py-3 h-fit rounded hover:bg-indigo-700 text-slate-200";
+
   return (
-    <div className="mt-10 mx-4 md:mx-5 lg:mx-7 xl:mx-auto max-w-6xl">
-      <table className="w-full border border-collapse">
-        <thead>
-          <tr>
-            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
-              Email
-            </th>
-            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
-              Date
-            </th>
-            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
-              Number of Items
-            </th>
-            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
-              Total
-            </th>
-            <th className="py-3 px-6 bg-tealDark text-white font-semibold">
-              Details
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {purchaseData?.map((purchase: any) => (
-            <PurchaseClient purchase={purchase} />
-          ))}
-        </tbody>
-      </table>
+    <div className="mt-10 mx-4 md:mx-5 lg:mx-7 xl:mx-auto max-w-6xl relative">
+      <Link
+        href={"/store/Allproduct"}
+        className="absolute right-0 top-0 lg:right-12 pb-2"
+      >
+        <button className={buttonStyle}>Shop Now</button>
+      </Link>
+      {purchaseData && purchaseData.length !== 0 && (
+        <table className="w-full border border-collapse">
+          <thead>
+            <tr>
+              <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+                Email
+              </th>
+              <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+                Date
+              </th>
+              <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+                Number of Items
+              </th>
+              <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+                Total
+              </th>
+              <th className="py-3 px-6 bg-tealDark text-white font-semibold">
+                Details
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {purchaseData?.map((purchase: any) => (
+              <PurchaseClient purchase={purchase} />
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
