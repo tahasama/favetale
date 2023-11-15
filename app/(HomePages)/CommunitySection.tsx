@@ -59,13 +59,16 @@ const CommunitySection = () => {
           enthusiasts, and celebrate the joy of having pets. Explore the amazing
           contributions from our community members below!
         </p>
-        <div className="flex flex-col md:flex-row gap-7 lg:gap-3 lg:-ml-60 xl:-ml-40 ">
-          <div className="flex lg:w-1/2 items-start justify-center lg:justify-end">
+        <div className="flex flex-col justify-center md:flex-row gap-7 lg:gap-3">
+          <div className="flex md:w-1/2 justify-center items-center">
             {communityContributions.map((contribution: any, i: any) => (
-              <Link href={"/community/forums"}>
+              <Link
+                href={"/community/forums"}
+                className="grid place-items-center lg:place-items-end"
+              >
                 <div
                   key={i}
-                  className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-10/12 lg:w-6/12 flex overflow-hidden self-end  flex-col 
+                  className={`bg-tealLight rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-8/12 lg:w-8/12 flex overflow-hidden self-end  flex-col 
               }`}
                 >
                   <div>
@@ -104,10 +107,13 @@ const CommunitySection = () => {
               </Link>
             ))}
           </div>
-          <div className="flex flex-col lg:w-1/2 items-start  justify-start gap-8">
+          <div className=" flex-col hidden lg:flex md:w-1/2 md:justify-start items-center gap-8">
             {/* User Contributions */}
             {communityContributions2.map((contribution: any, i: any) => (
-              <Link href={"/community/forums"}>
+              <Link
+                href={"/community/forums"}
+                className="grid place-items-center md:place-items-start"
+              >
                 <div
                   key={i}
                   className={`bg-tealLight cursor-pointer rounded-lg shadow-xl w-9/12 sm:w-7/12 md:w-11/12 lg:w-11/12 xl:w-9/12 flex flex-col md:flex-row md:ml-7 mr-1.5 overflow-hidden justify-between self-center lg:self-start  
