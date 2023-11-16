@@ -208,17 +208,33 @@ function Question({ params: { id } }: any) {
   // Function to add a new answer
   const addAnswer = async () => {
     if (newComment) {
-      const commentRef = await addDoc(collection(db, "comments"), {
-        comment: newComment,
-        commenter: userx,
-        imageId: id,
-        timestamp: Date.now(),
-        likes: [],
-        dislikes: [],
-      });
-      await updateDoc(doc(db, "questions", String(id)), {
-        answerers: arrayUnion(userx.id),
-      });
+      if (updatedComment === null) {
+        console.log(
+          "🚀 ~ file: page.tsx:212 ~ addAnswer ~ updatedComment:",
+          updatedComment
+        );
+        const commentRef = await addDoc(collection(db, "comments"), {
+          comment: newComment,
+          commenter: userx,
+          imageId: id,
+          timestamp: Date.now(),
+          likes: [],
+          dislikes: [],
+        });
+        await updateDoc(doc(db, "questions", String(id)), {
+          answerers: arrayUnion(userx.id),
+        });
+      } else {
+        try {
+          await updateDoc(doc(db, "comments", updatedComment), {
+            comment: newComment,
+          });
+          setNewComment("");
+          setUpdatedComment(null);
+        } catch (error) {
+          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+        }
+      }
     }
     fetchComments();
     setNewComment("");
@@ -334,6 +350,14 @@ function Question({ params: { id } }: any) {
       console.error("Error deleting image and related comments:", error);
     }
   };
+
+  const [updatedComment, setUpdatedComment] = useState<any>(null);
+
+  const updateComment = async (reply: any) => {
+    setNewComment(reply.comment);
+    setUpdatedComment(reply.id);
+  };
+
   return (
     <div className=" mx-auto relative md:w-8/12 p-4 mt-6">
       <>
@@ -417,9 +441,9 @@ function Question({ params: { id } }: any) {
               ></textarea>
               <button
                 onClick={addAnswer}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none"
+                className={`bg-blue-500 text-white px-4 py-2 rounded-md mt-2 w-fit hover:bg-blue-600 focus:outline-none`}
               >
-                Submit Answer
+                {updatedComment === null ? "Submit" : "Update"} &nbsp;Answer
               </button>
             </div>
           </div>
@@ -431,13 +455,39 @@ function Question({ params: { id } }: any) {
       {/* Answers List */}
       <div className="space-y-4" ref={commentsSectionRef}>
         {comments.map((reply) => (
-          <div key={reply.id} className="border-b-2 p-3 rounded-r-lg">
-            <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
-            <div className="flex gap-4">
-              <p className="text-gray-600 mb-2">@ {reply.commenter.name}</p>
-              <p className="text-gray-400 text-sm mb-2">
-                <ReactTimeAgo date={reply.timestamp} locale="en-US" />
-              </p>
+          <div
+            key={reply.id}
+            className="border-b-2 p-3 flex justify-between rounded-r-lg"
+          >
+            <div>
+              {" "}
+              <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
+              <div className="flex gap-4">
+                <p className="text-gray-600 mb-2">@ {reply.commenter.name}</p>
+                <p className="text-gray-400 text-sm mb-2">
+                  <ReactTimeAgo date={reply.timestamp} locale="en-US" />
+                </p>
+              </div>
+            </div>
+            <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+              <button
+                onClick={() => updateComment(reply)}
+                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-base md:text-xl"></span>
+                <AiOutlineEdit color={"#a9aeb4"} size={24} />
+              </button>
+              <button
+                onClick={async () => {
+                  await deleteDoc(doc(db, "comments", reply.id)).then(() =>
+                    fetchComments()
+                  );
+                }}
+                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+              >
+                <span className="text-base md:text-xl"></span>
+                <AiFillDelete color={"#a9aeb4"} size={24} />
+              </button>
             </div>
           </div>
         ))}
