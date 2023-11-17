@@ -9,16 +9,18 @@ import PurchasePage from "./Purshase";
 import {
   addDoc,
   collection,
+  doc,
   getDoc,
   getDocs,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
 const Success = ({ searchParams: { session_id } }: any) => {
-  const { userx } = useCart();
+  const { userx, setQuantities } = useCart();
   const [purchaseData, setPurchaseData] = useState<any[]>([]);
   console.log(
     "🚀 ~ file: page.tsx:22 ~ Success ~ purchaseData:",
@@ -27,6 +29,22 @@ const Success = ({ searchParams: { session_id } }: any) => {
 
   const storedPurchase = async (purchase: any) => {
     await addDoc(collection(db, "purchases"), purchase);
+    let Q: any[] = purchase.cart.reduce((K: any[], product: any) => {
+      K.push({
+        id: product.id,
+        quantity: product.quantity,
+        stock: product.stock,
+      });
+      return K;
+    }, []);
+    console.log("🚀 ~ file: page.tsx:33 ~ Q ~ Q:", Q);
+    Q.map(
+      async (product) =>
+        await updateDoc(doc(db, "products", product.id), {
+          stock: product.stock - product.quantity,
+        })
+    );
+    setQuantities({});
   };
 
   const getData = async () => {

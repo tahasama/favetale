@@ -13,8 +13,17 @@ import dog from "../images/category/dog.png";
 import rabbit from "../images/category/rabbit.png";
 import fish from "../images/category/fish.png";
 import bird from "../images/category/bird.png";
+import { useCart } from "@/app/provider/CartProvider";
 
 const ProductClient = ({ products }: any) => {
+  const {
+    setSelectedImage,
+    setUploadpetModalOpen,
+    uploadpetModalOpen,
+    filterImage,
+    setFilterImage,
+    setProduct,
+  } = useCart();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [filterOptions, setFilterOptions] = useState({
     category: "",
@@ -27,9 +36,7 @@ const ProductClient = ({ products }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = (product: any) => {
-    setIsModalOpen(true);
-
-    setSelectedProduct(product);
+    setProduct(product), setUploadpetModalOpen(true);
   };
 
   const closeModal = () => {
@@ -197,7 +204,7 @@ const ProductClient = ({ products }: any) => {
               </p>
             )}
             {/* Rating (if applicable) */}
-            {product.rating.length && (
+            {product.rating.length !== 0 && (
               <p className="my-1 absolute top-2 flex items-center justify-center left-2 bg-pink-50 w-20">
                 <p className="p-1">
                   {averageRating(product.rating).toFixed(1)} / 5
@@ -214,12 +221,10 @@ const ProductClient = ({ products }: any) => {
         ))}
       </div>
 
-      {selectedProduct && (
-        <ProductModal
-        // product={selectedProduct}
-        // onClose={closeModal}
-        />
-      )}
+      <ProductModal
+      // product={selectedProduct}
+      // onClose={closeModal}
+      />
     </div>
   );
 };

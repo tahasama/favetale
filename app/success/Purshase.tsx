@@ -104,7 +104,7 @@ const Purshase = ({ purchase }: any) => {
               className="flex items-center bg-tealLight space-x-4 mb-4 p-4 border rounded-lg"
             >
               <Image
-                src={item.image}
+                src={item.images[0]}
                 alt={item.name}
                 width={500}
                 height={500}
@@ -113,6 +113,7 @@ const Purshase = ({ purchase }: any) => {
               <div>
                 <p className="font-semibold">{item.name}</p>
                 <p>Price: ${item.price.toFixed(2)}</p>
+                <p>Quantity: {item.quantity}</p>
                 <p className="text-red-600">Discount: ${item.discount}%</p>
               </div>
             </div>

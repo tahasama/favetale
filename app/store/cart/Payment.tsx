@@ -22,7 +22,7 @@ export default function App() {
       },
       unit_amount: item.price * 100, // Convert price to cents
     },
-    quantity: item.quantity,
+    quantity: quantities[item.id],
   }));
 
   async function onCheckout() {

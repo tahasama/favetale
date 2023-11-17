@@ -71,7 +71,7 @@ const productModal = () => {
 
   const addToCart = () => {
     if (!isAddedToCart) {
-      const updatedCartItems = [...cart, product];
+      const updatedCartItems = [...cart, { ...product, quantity: 1 }];
       setCartItems(updatedCartItems);
       setIsAddedToCart(true);
 
