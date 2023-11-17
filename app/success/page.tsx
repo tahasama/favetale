@@ -38,13 +38,13 @@ const Success = ({ searchParams: { session_id } }: any) => {
       return K;
     }, []);
     console.log("🚀 ~ file: page.tsx:33 ~ Q ~ Q:", Q);
-    Q.map(
-      async (product) =>
-        await updateDoc(doc(db, "products", product.id), {
-          stock: product.stock - product.quantity,
-        })
-    );
-    setQuantities({});
+    Q.map(async (product) => {
+      await updateDoc(doc(db, "products", product.id), {
+        stock: product.stock - product.quantity,
+      });
+      localStorage.setItem(`quantity_${product.id}`, String(1));
+    });
+    // setQuantities({});
   };
 
   const getData = async () => {
@@ -88,6 +88,7 @@ const Success = ({ searchParams: { session_id } }: any) => {
     } else {
       console.log("Purchase not found in localStorage.");
     }
+    // setQuantities({});
   };
 
   useEffect(() => {

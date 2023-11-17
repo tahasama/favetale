@@ -57,7 +57,8 @@ const CartPage = () => {
             <div className="flex justify-between mb-2">
               total items:{" "}
               {cart.reduce(
-                (total: any, item: any) => total + quantities[item.id],
+                (total: any, item: any) =>
+                  total + quantities !== null ? quantities[item.id] : 0,
                 0
               )}
             </div>
