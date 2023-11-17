@@ -83,8 +83,18 @@ const ProductCard = ({
       )}
 
       {/* Add to Cart Button */}
-      <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
-        {isAddedToCart ? "Added to Cart" : "Add to Cart"}
+      <button
+        className={`bg-blue-500 px-3 py-2 mb-3 lg:mb-0 rounded-md text-white  hover:bg-blue-600 ${
+          (product?.stock === 0 || isAddedToCart) &&
+          "bg-slate-400 hover:bg-slate-400 cursor-pointer"
+        }`}
+        disabled={product?.stock === 0 || isAddedToCart}
+      >
+        {isAddedToCart
+          ? "Added to Cart"
+          : product?.stock === 0
+          ? "Out of stock"
+          : "Add to Cart"}
       </button>
     </div>
   );

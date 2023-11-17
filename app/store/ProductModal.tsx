@@ -3,6 +3,26 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useCart } from "../provider/CartProvider";
+import Link from "next/link";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { fetchComments } from "../api/GerData";
+import { db } from "@/firebase";
+import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
+TimeAgo.addDefaultLocale(en);
+
+import en from "javascript-time-ago/locale/en.json";
 
 const productModal = () => {
   const router = useRouter();
@@ -92,6 +112,89 @@ const productModal = () => {
     }
   }, [addReview]);
 
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState<any[]>([]);
+
+  const handleAddComment = async () => {
+    if (newComment) {
+      if (updatedComment === null) {
+        const commentRef = await addDoc(collection(db, "comments"), {
+          comment: newComment,
+          commenter: userx,
+          imageId: product.id,
+          timestamp: Date.now(),
+          likes: [],
+          dislikes: [],
+        });
+        let idx: any = product.id;
+
+        try {
+          await updateDoc(doc(db, "products", product.id), {
+            commenters: arrayUnion(userx.id),
+          });
+        } catch (error) {
+          console.log(
+            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
+            error
+          );
+        }
+      } else {
+        try {
+          await updateDoc(doc(db, "comments", updatedComment), {
+            comment: newComment,
+          });
+          setNewComment("");
+          setUpdatedComment(null);
+        } catch (error) {
+          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+        }
+      }
+    }
+    fetchComments();
+    setNewComment("");
+    setUpdatedComment(null);
+  };
+
+  useEffect(() => {
+    product?.id && fetchComments();
+  }, [product?.id]);
+
+  const fetchComments = async () => {
+    try {
+      if (product.id) {
+        // Check if selectedImage.id is defined
+        const q = query(
+          collection(db, "comments"),
+          where("imageId", "==", product.id)
+        );
+        const querySnapshot = await getDocs(q);
+
+        const fetchedComments: any[] = [];
+
+        querySnapshot.forEach((doc) => {
+          fetchedComments.push({ id: doc.id, ...doc.data() });
+        });
+
+        setComments(fetchedComments);
+        console.log(
+          "🚀 ~ file: page.tsx:512 ~ fetchComments ~ fetchedComments:",
+          fetchedComments
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  const [updatedComment, setUpdatedComment] = useState<any>(null);
+
+  const updateComment = async (reply: any) => {
+    setNewComment(reply.comment);
+    setUpdatedComment(reply.id);
+  };
+
+  const commentsSectionRef = useRef<any>(null);
+
   return (
     <div
       className={`fixed inset-0 flex flex-col items-center justify-center modal-overlay h-screen z-50 backdrop-blur-md backdrop-brightness-50 ${
@@ -104,26 +207,28 @@ const productModal = () => {
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
         <div className="flex flex-col md:flex-row gap-8 lg:p- shadow-md lg:min-h-[80vh] bg-sky-50">
           {/* Left side of the modal with images and product details */}
-          <div className=" flex flex-col items-center justify-center w-1/2">
-            <Image
-              src={product?.images[index]}
-              alt={product?.name}
-              width={1000}
-              height={1000}
-              className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
-            />
-            <div className="flex mt-4">
-              {product?.images.map((image: any, index: any) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={product?.name}
-                  className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
-                    index === product ? "border-blue-500 scale-110" : ""
-                  }`}
-                  onClick={() => handleImageChange(index)}
-                />
-              ))}
+          <div className="flex justify-center md:w-1/2">
+            <div className=" flex flex-col items-center justify-center w-full">
+              <Image
+                src={product?.images[index]}
+                alt={product?.name}
+                width={1000}
+                height={1000}
+                className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
+              />
+              <div className="flex mt-4">
+                {product?.images.map((image: any, index: any) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={product?.name}
+                    className={`w-16 h-16 object-cover cursor-pointer border-2 border-white ${
+                      index === product ? "border-blue-500 scale-110" : ""
+                    }`}
+                    onClick={() => handleImageChange(index)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col justify-between lg:h-[60vh] items-start px-3 lg:p-0">
@@ -169,50 +274,115 @@ const productModal = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white p-3  lg:p-8 relative">
+        <div className="bg-white p-3 lg:px-8 relative">
           {userx.id && (
-            <div className="flex mt-4 lg:mt-0">
-              <div className="w-fit flex flex-col lg:flex-row justify-end lg:absolute right-4 top-4">
-                <h4
-                  className="text-lg hidden lg:block font-semibold mb-2 text-center ring-2 lg:w-48 ring-blue-400 rounded-3xl px-2 py-3 cursor-pointer bg-sky-50 hover:bg-blue-100 transition-colors"
-                  onClick={() => setAddReview(!addReview)}
-                >
-                  Add Your Review?
-                </h4>
-              </div>
-              {addReview && (
-                <div className="relative lg:left-4 -top-5 w-full lg:w-4/6 border-violet-400 ">
-                  <textarea
-                    ref={ref}
-                    rows={3}
-                    value={reviewText}
-                    onChange={(e) => setReviewText(e.target.value)}
-                    className="w-full p-2 border rounded-md mb-2 focus:outline-none focus:ring border-blue-500 focus:border-blue-500"
-                  />
-                  <button
-                    onClick={handleReviewSubmit}
-                    className="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 text-white transition-colors"
+            <div className="mt-12">
+              <div className="flex items-start space-x-4">
+                {userx.image ? (
+                  <Link
+                    href="/profile"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Submit Review
+                    <img
+                      src={userx.image}
+                      alt="Your Name"
+                      className="w-10 h-10 rounded-full"
+                    />
+                  </Link>
+                ) : (
+                  <div className="w-12 h-12 rounded-full bg-sky-300 px-3"></div>
+                )}
+                <div className="flex flex-col  space-y-4 w-full">
+                  <textarea
+                    className="flex-grow border rounded-lg px-4 py-2  focus:outline-none focus:ring focus:border-blue-300"
+                    rows={3}
+                    placeholder="Add a comment..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                  ></textarea>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded w-fit"
+                    onClick={handleAddComment}
+                  >
+                    Add Comment
                   </button>
                 </div>
-              )}
+              </div>
             </div>
           )}
 
           {/* Right side of the modal with reviews */}
-          <h3 className="text-lg font-semibold mb-2 text-left">
+          <h3 className="text-lg font-semibold mb-2 mt-4 text-left">
             Customer Reviews
           </h3>
-          <div className="space-y-4">
-            {product?.reviews.map((review: any) => (
-              <div key={review.id} className="text-left">
-                <p>{review.text}</p>
-                <p className="text-gray-400">
-                  Reviewer: {review.name} | Date: {review.date}
-                </p>
-              </div>
-            ))}
+          <div className="mt-6" ref={commentsSectionRef}>
+            {comments &&
+              comments.map((comment, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex justify-between">
+                    <div className="flex items-center space-x-4">
+                      {comment.commenter.image ? (
+                        <Link
+                          href={`/profile/${comment.commenter.name}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src={comment.commenter.image}
+                            alt={comment.commenter.name}
+                            className="w-10 h-10 rounded-full object-cover"
+                            width={500}
+                            height={500}
+                          />
+                        </Link>
+                      ) : (
+                        <div className="w-7 h-7 rounded-full bg-emerald-300 px-3"></div>
+                      )}
+                      <span className="text-gray-600">
+                        <Link
+                          href={`/profile/${comment.commenter.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {comment.commenter.name}
+                        </Link>{" "}
+                        &nbsp;
+                        <ReactTimeAgo
+                          date={comment.timestamp}
+                          className="text-sky-700 text-xs"
+                          locale="en-US"
+                        />
+                      </span>
+                    </div>
+                    {comment.commenter.id === userx.id && (
+                      <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+                        <button
+                          onClick={() => updateComment(comment)}
+                          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                        >
+                          <span className="text-base md:text-xl"></span>
+                          <AiOutlineEdit color={"#a9aeb4"} size={24} />
+                        </button>
+                        <button
+                          onClick={async () => {
+                            await deleteDoc(
+                              doc(db, "comments", comment.id)
+                            ).then(() => fetchComments());
+                          }}
+                          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                        >
+                          <span className="text-base md:text-xl"></span>
+                          <AiFillDelete color={"#a9aeb4"} size={24} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <p className="mt-2 text-gray-800 text-start indent-4">
+                    {comment.comment}
+                  </p>
+                </div>
+              ))}
           </div>
         </div>
 
