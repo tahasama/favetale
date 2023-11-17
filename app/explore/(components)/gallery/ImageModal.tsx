@@ -81,20 +81,53 @@ const ImageModal = () => {
     }
   };
 
+  const [updatedComment, setUpdatedComment] = useState<any>(null);
+
   const handleAddComment = async () => {
     if (newComment) {
-      const commentRef = await addDoc(collection(db, "comments"), {
-        comment: newComment,
-        commenter: userx,
-        imageId: selectedImage.id,
-        timestamp: Date.now(),
-        likes: [],
-        dislikes: [],
-      });
-      // const newCommentId = commentRef.id;
+      if (updatedComment === null) {
+        console.log(
+          "🚀 ~ file: ImageModal.tsx:89 ~ handleAddComment ~ updatedComment:",
+          updatedComment
+        );
+        const commentRef = await addDoc(collection(db, "comments"), {
+          comment: newComment,
+          commenter: userx,
+          imageId: selectedImage.id,
+          timestamp: Date.now(),
+          likes: [],
+          dislikes: [],
+        });
+        try {
+          await updateDoc(doc(db, "petImages", selectedImage.id), {
+            commenters: arrayUnion(userx.id),
+          });
+        } catch (error) {
+          console.log(
+            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
+            error
+          );
+        }
+      } else {
+        try {
+          await updateDoc(doc(db, "comments", updatedComment), {
+            comment: newComment,
+          });
+          setNewComment("");
+          setUpdatedComment(null);
+        } catch (error) {
+          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+        }
+      }
     }
     fetchComments();
     setNewComment("");
+    setUpdatedComment(null);
+  };
+
+  const updateComment = async (reply: any) => {
+    setNewComment(reply.comment);
+    setUpdatedComment(reply.id);
   };
 
   const adjustTextareaRows = (textarea: any) => {
@@ -369,23 +402,47 @@ const ImageModal = () => {
             {comments &&
               comments.map((comment, index: number) => (
                 <div key={comment.id} className="flex flex-col items-start  ">
-                  <div className="flex  mb-1">
-                    <img
-                      src={"commenterImage"} // Replace with the actual source of the commenter's image
-                      alt="Commenter"
-                      className="w-10 h-10 rounded-full mr-3"
-                    />
-                    <div className="w-11/12">
-                      <p className="text-gray-700 font-semibold mb-1">
-                        {comment.commenter.name}
-                      </p>
-                      <p className="text-gray-600">{comment.comment}</p>
-                      <ReactTimeAgo
-                        date={comment.timestamp}
-                        className="text-sky-700 text-xs"
-                        locale="en-US"
+                  <div className="flex justify-between w-full">
+                    <div className="flex  mb-1">
+                      <img
+                        src={"commenterImage"} // Replace with the actual source of the commenter's image
+                        alt="Commenter"
+                        className="w-10 h-10 rounded-full mr-3"
                       />
+                      <div className="w-11/12">
+                        <p className="text-gray-700 font-semibold mb-1">
+                          {comment.commenter.name}
+                        </p>
+                        <p className="text-gray-600">{comment.comment}</p>
+                        <ReactTimeAgo
+                          date={comment.timestamp}
+                          className="text-sky-700 text-xs"
+                          locale="en-US"
+                        />
+                      </div>
                     </div>
+                    {comment.commenter.id === userx.id && (
+                      <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+                        <button
+                          onClick={() => updateComment(comment)}
+                          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                        >
+                          <span className="text-base md:text-xl"></span>
+                          <AiOutlineEdit color={"#a9aeb4"} size={24} />
+                        </button>
+                        <button
+                          onClick={async () => {
+                            await deleteDoc(
+                              doc(db, "comments", comment.id)
+                            ).then(() => fetchComments());
+                          }}
+                          className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                        >
+                          <span className="text-base md:text-xl"></span>
+                          <AiFillDelete color={"#a9aeb4"} size={24} />
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="w-full h-px bg-gray-300 my-2.5"></div>
                 </div>

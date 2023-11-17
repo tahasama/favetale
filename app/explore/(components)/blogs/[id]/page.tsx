@@ -8,6 +8,7 @@ import Link from "next/link";
 import {
   FieldValue,
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -517,18 +518,49 @@ const Blog = () => {
 
   const handleAddComment = async () => {
     if (newComment) {
-      const commentRef = await addDoc(collection(db, "comments"), {
-        comment: newComment,
-        commenter: userx,
-        imageId: id,
-        timestamp: Date.now(),
-        likes: [],
-        dislikes: [],
-      });
-      // const newCommentId = commentRef.id;
+      if (updatedComment === null) {
+        const commentRef = await addDoc(collection(db, "comments"), {
+          comment: newComment,
+          commenter: userx,
+          imageId: id,
+          timestamp: Date.now(),
+          likes: [],
+          dislikes: [],
+        });
+        let idx: any = id;
+
+        try {
+          await updateDoc(doc(db, "blogs", idx), {
+            commenters: arrayUnion(userx.id),
+          });
+        } catch (error) {
+          console.log(
+            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
+            error
+          );
+        }
+      } else {
+        try {
+          await updateDoc(doc(db, "comments", updatedComment), {
+            comment: newComment,
+          });
+          setNewComment("");
+          setUpdatedComment(null);
+        } catch (error) {
+          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+        }
+      }
     }
     fetchComments();
     setNewComment("");
+    setUpdatedComment(null);
+  };
+
+  const [updatedComment, setUpdatedComment] = useState<any>(null);
+
+  const updateComment = async (reply: any) => {
+    setNewComment(reply.comment);
+    setUpdatedComment(reply.id);
   };
 
   const updateLikes = async () => {
@@ -746,39 +778,63 @@ const Blog = () => {
         {comments &&
           comments.map((comment, index) => (
             <div key={index} className="mb-4">
-              <div className="flex items-center space-x-4">
-                {comment.commenter.image ? (
-                  <Link
-                    href={`/profile/${comment.commenter.name}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={comment.commenter.image}
-                      alt={comment.commenter.name}
-                      className="w-10 h-10 rounded-full object-cover"
-                      width={500}
-                      height={500}
+              <div className="flex justify-between">
+                <div className="flex items-center space-x-4">
+                  {comment.commenter.image ? (
+                    <Link
+                      href={`/profile/${comment.commenter.name}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Image
+                        src={comment.commenter.image}
+                        alt={comment.commenter.name}
+                        className="w-10 h-10 rounded-full object-cover"
+                        width={500}
+                        height={500}
+                      />
+                    </Link>
+                  ) : (
+                    <div className="w-7 h-7 rounded-full bg-emerald-300 px-3"></div>
+                  )}
+                  <span className="text-gray-600">
+                    <Link
+                      href={`/profile/${comment.commenter.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {comment.commenter.name}
+                    </Link>{" "}
+                    &nbsp;
+                    <ReactTimeAgo
+                      date={comment.timestamp}
+                      className="text-sky-700 text-xs"
+                      locale="en-US"
                     />
-                  </Link>
-                ) : (
-                  <div className="w-7 h-7 rounded-full bg-emerald-300 px-3"></div>
+                  </span>
+                </div>
+                {comment.commenter.id === userx.id && (
+                  <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+                    <button
+                      onClick={() => updateComment(comment)}
+                      className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                    >
+                      <span className="text-base md:text-xl"></span>
+                      <AiOutlineEdit color={"#a9aeb4"} size={24} />
+                    </button>
+                    <button
+                      onClick={async () => {
+                        await deleteDoc(doc(db, "comments", comment.id)).then(
+                          () => fetchComments()
+                        );
+                      }}
+                      className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                    >
+                      <span className="text-base md:text-xl"></span>
+                      <AiFillDelete color={"#a9aeb4"} size={24} />
+                    </button>
+                  </div>
                 )}
-                <span className="text-gray-600">
-                  <Link
-                    href={`/profile/${comment.commenter.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {comment.commenter.name}
-                  </Link>{" "}
-                  &nbsp;
-                  <ReactTimeAgo
-                    date={comment.timestamp}
-                    className="text-sky-700 text-xs"
-                    locale="en-US"
-                  />
-                </span>
               </div>
               <p className="mt-2 text-gray-800 indent-4">{comment.comment}</p>
             </div>

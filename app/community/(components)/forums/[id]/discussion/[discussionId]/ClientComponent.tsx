@@ -73,20 +73,40 @@ const ClientComponent = ({ discussionData }: any) => {
 
   const handleAddComment = async () => {
     if (newComment) {
-      const commentRef = await addDoc(collection(db, "comments"), {
-        comment: newComment,
-        commenter: userx,
-        imageId: discussionId,
-        timestamp: Date.now(),
-        likes: [],
-        dislikes: [],
-      });
-      await updateDoc(doc(db, "discussions", discussionId), {
-        participants: arrayUnion(userx.id),
-      });
+      if (updatedComment === null) {
+        const commentRef = await addDoc(collection(db, "comments"), {
+          comment: newComment,
+          commenter: userx,
+          imageId: discussionId,
+          timestamp: Date.now(),
+          likes: [],
+          dislikes: [],
+        });
+        await updateDoc(doc(db, "discussions", discussionId), {
+          participants: arrayUnion(userx.id),
+        });
+      } else {
+        try {
+          await updateDoc(doc(db, "comments", updatedComment), {
+            comment: newComment,
+          });
+          setNewComment("");
+          setUpdatedComment(null);
+        } catch (error) {
+          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+        }
+      }
     }
     fetchComments();
     setNewComment("");
+    setUpdatedComment(null);
+  };
+
+  const [updatedComment, setUpdatedComment] = useState<any>(null);
+
+  const updateComment = async (reply: any) => {
+    setNewComment(reply.comment);
+    setUpdatedComment(reply.id);
   };
 
   const handleAgree = async (replyId: any) => {
@@ -242,37 +262,64 @@ const ClientComponent = ({ discussionData }: any) => {
       {userx.id && <div className="border-b-2 mb-3"></div>}
       <div className="space-y-4" ref={commentsSectionRef}>
         {comments.map((reply) => (
-          <div key={reply.id} className="border-b-2 p-3 rounded-r-lg">
-            <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
-            <div className="flex gap-4">
-              <div className="text-sky-600 ">
-                @{" "}
-                <Link
-                  className="mb-2 hover:underline"
-                  href={`profile/${reply.commenter.id}`}
-                >
-                  {reply.commenter.name}
-                </Link>
+          <div
+            key={reply.id}
+            className="border-b-2 flex justify-between p-3 rounded-r-lg"
+          >
+            <div>
+              <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
+              <div className="flex gap-4">
+                <div className="text-sky-600 ">
+                  @{" "}
+                  <Link
+                    className="mb-2 hover:underline"
+                    href={`profile/${reply.commenter.id}`}
+                  >
+                    {reply.commenter.name}
+                  </Link>
+                </div>
+                <p className="text-gray-400 text-sm mb-2">
+                  <ReactTimeAgo date={reply.timestamp} locale="en-US" />
+                </p>
               </div>
-              <p className="text-gray-400 text-sm mb-2">
-                <ReactTimeAgo date={reply.timestamp} locale="en-US" />
-              </p>
-            </div>
 
-            <div className="flex items-center my-2 ">
-              <button
-                onClick={() => handleAgree(reply.id)}
-                className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
-              >
-                👍
-              </button>
-              <button
-                onClick={() => handleDisagree(reply.id)}
-                className="bg-pink-100 text-white px-2 py-1 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
-              >
-                👎
-              </button>
+              <div className="flex items-center my-2 ">
+                <button
+                  onClick={() => handleAgree(reply.id)}
+                  className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                >
+                  👍
+                </button>
+                <button
+                  onClick={() => handleDisagree(reply.id)}
+                  className="bg-pink-100 text-white px-2 py-1 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
+                >
+                  👎
+                </button>
+              </div>
             </div>
+            {reply.commenter.id === userx.id && (
+              <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+                <button
+                  onClick={() => updateComment(reply)}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-base md:text-xl"></span>
+                  <AiOutlineEdit color={"#a9aeb4"} size={24} />
+                </button>
+                <button
+                  onClick={async () => {
+                    await deleteDoc(doc(db, "comments", reply.id)).then(() =>
+                      fetchComments()
+                    );
+                  }}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-base md:text-xl"></span>
+                  <AiFillDelete color={"#a9aeb4"} size={24} />
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -238,7 +238,9 @@ function Question({ params: { id } }: any) {
     }
     fetchComments();
     setNewComment("");
+    setUpdatedComment(null);
   };
+
   const fetchComments = async () => {
     try {
       if (id) {
@@ -469,26 +471,28 @@ function Question({ params: { id } }: any) {
                 </p>
               </div>
             </div>
-            <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
-              <button
-                onClick={() => updateComment(reply)}
-                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-              >
-                <span className="text-base md:text-xl"></span>
-                <AiOutlineEdit color={"#a9aeb4"} size={24} />
-              </button>
-              <button
-                onClick={async () => {
-                  await deleteDoc(doc(db, "comments", reply.id)).then(() =>
-                    fetchComments()
-                  );
-                }}
-                className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
-              >
-                <span className="text-base md:text-xl"></span>
-                <AiFillDelete color={"#a9aeb4"} size={24} />
-              </button>
-            </div>
+            {reply.commenter.id === userx.id && (
+              <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+                <button
+                  onClick={() => updateComment(reply)}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-base md:text-xl"></span>
+                  <AiOutlineEdit color={"#a9aeb4"} size={24} />
+                </button>
+                <button
+                  onClick={async () => {
+                    await deleteDoc(doc(db, "comments", reply.id)).then(() =>
+                      fetchComments()
+                    );
+                  }}
+                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                >
+                  <span className="text-base md:text-xl"></span>
+                  <AiFillDelete color={"#a9aeb4"} size={24} />
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

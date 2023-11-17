@@ -4,7 +4,17 @@ import React, { useEffect, useRef, useState } from "react";
 import ImageModal from "./ImageModal";
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
-import { query, collection, where, getDocs, addDoc } from "firebase/firestore";
+import {
+  query,
+  collection,
+  where,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import Link from "next/link";
 import ReactTimeAgo from "react-time-ago";
 
@@ -13,7 +23,11 @@ import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
 import UploadImageMeetupModal from "./UploadImageMeetupModal";
 import UploadpetModalOpenButton from "./UploadpetModalOpenButton";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  AiFillDelete,
+  AiOutlineEdit,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -58,17 +72,40 @@ const ClientBottomComponent = ({ event, id }: any) => {
 
   const handleAddComment = async () => {
     if (newComment) {
-      const commentRef = await addDoc(collection(db, "comments"), {
-        comment: newComment,
-        commenter: userx,
-        imageId: id,
-        timestamp: Date.now(),
-        likes: [],
-        dislikes: [],
-      });
+      if (updatedComment === null) {
+        const commentRef = await addDoc(collection(db, "comments"), {
+          comment: newComment,
+          commenter: userx,
+          imageId: id,
+          timestamp: Date.now(),
+          likes: [],
+          dislikes: [],
+        });
+        await updateDoc(doc(db, "gatherings", String(id)), {
+          answerers: arrayUnion(userx.id),
+        });
+      } else {
+        try {
+          await updateDoc(doc(db, "comments", updatedComment), {
+            comment: newComment,
+          });
+          setNewComment("");
+          setUpdatedComment(null);
+        } catch (error) {
+          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+        }
+      }
     }
     fetchComments();
     setNewComment("");
+    setUpdatedComment(null);
+  };
+
+  const [updatedComment, setUpdatedComment] = useState<any>(null);
+
+  const updateComment = async (reply: any) => {
+    setNewComment(reply.comment);
+    setUpdatedComment(reply.id);
   };
 
   return (
@@ -113,33 +150,60 @@ const ClientBottomComponent = ({ event, id }: any) => {
           {comments.map((reply: any) => (
             <div
               key={reply.id}
-              className="border-y-2 px-5 pb-3 pt-6 rounded-r-lg"
+              className="border-y-2 flex justify-between px-5 pb-3 pt-6 rounded-r-lg"
             >
-              <div className="flex items-center">
-                {userx.image ? (
-                  <Link
-                    href="/profile"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      src={reply.commenter.image}
-                      alt="Your Name"
-                      className="w-10 h-10 rounded-full"
-                    />
-                  </Link>
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-sky-300 px-3 mr-4"></div>
-                )}
-                <p className="text-slate-700 text-lg mb-2"> {reply.comment}</p>
-              </div>
+              <div>
+                <div className="flex items-center">
+                  {userx.image ? (
+                    <Link
+                      href="/profile"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={reply.commenter.image}
+                        alt="Your Name"
+                        className="w-10 h-10 rounded-full"
+                      />
+                    </Link>
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-sky-300 px-3 mr-4"></div>
+                  )}
+                  <p className="text-slate-700 text-lg mb-2">
+                    {" "}
+                    {reply.comment}
+                  </p>
+                </div>
 
-              <div className="flex gap-4 my-2">
-                <p className="text-gray-600 ml-4">@ {reply.commenter.name}</p>
-                <p className="text-gray-400 text-sm mb-2">
-                  <ReactTimeAgo date={reply.timestamp} locale="en-US" />
-                </p>
+                <div className="flex gap-4 my-2">
+                  <p className="text-gray-600 ml-4">@ {reply.commenter.name}</p>
+                  <p className="text-gray-400 text-sm mb-2">
+                    <ReactTimeAgo date={reply.timestamp} locale="en-US" />
+                  </p>
+                </div>
               </div>
+              {reply.commenter.id === userx.id && (
+                <div className=" w-fit flex gap-3 md:gap-5 z-30 h-fit">
+                  <button
+                    onClick={() => updateComment(reply)}
+                    className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                  >
+                    <span className="text-base md:text-xl"></span>
+                    <AiOutlineEdit color={"#a9aeb4"} size={24} />
+                  </button>
+                  <button
+                    onClick={async () => {
+                      await deleteDoc(doc(db, "comments", reply.id)).then(() =>
+                        fetchComments()
+                      );
+                    }}
+                    className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                  >
+                    <span className="text-base md:text-xl"></span>
+                    <AiFillDelete color={"#a9aeb4"} size={24} />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
