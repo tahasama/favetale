@@ -18,6 +18,10 @@ const productModal = () => {
     setUploadpetModalOpen,
     userx,
   } = useCart();
+  console.log(
+    "🚀 ~ file: ProductModal.tsx:21 ~ productModal ~ product:",
+    product
+  );
 
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
@@ -123,7 +127,9 @@ const productModal = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col justify-between lg:h-[60vh] items-start px-3 lg:p-0">
-            <h2 className="text-2xl font-semibold mb-2 ">{product?.name}</h2>
+            <h2 className="text-2xl font-semibold mb-2 mt-4 ">
+              {product?.name}
+            </h2>
             <h2 className="text-xl text-left font-semibold ">
               {product?.description}
             </h2>
@@ -149,12 +155,16 @@ const productModal = () => {
               <button
                 onClick={addToCart}
                 className={`bg-blue-500 px-7 py-3 mb-3 lg:mb-0 rounded-md text-white  hover:bg-blue-600 ${
-                  isAddedToCart &&
+                  (product?.stock === 0 || isAddedToCart) &&
                   "bg-slate-400 hover:bg-slate-400 cursor-pointer"
                 }`}
-                disabled={isAddedToCart}
+                disabled={product?.stock === 0 || isAddedToCart}
               >
-                {isAddedToCart ? "Added to Cart" : "Add to Cart"}
+                {isAddedToCart
+                  ? "Added to Cart"
+                  : product?.stock === 0
+                  ? "Out of stock"
+                  : "Add to Cart"}
               </button>
             </div>
           </div>
