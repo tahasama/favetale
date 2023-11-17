@@ -40,10 +40,10 @@ const productModal = () => {
   } = useCart();
   console.log(
     "🚀 ~ file: ProductModal.tsx:21 ~ productModal ~ product:",
-    product
+    product?.rating
   );
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState<any[]>(product?.rating);
   const [reviewText, setReviewText] = useState("");
   const [reviews, setReviews] = useState<any>([]);
   const [index, setIndex] = useState<any>(0);
@@ -52,26 +52,27 @@ const productModal = () => {
     setIndex(index);
   };
 
-  const handleRatingChange = (event: any) => {
-    setRating(parseInt(event.target.value));
-    //  update array of ratings and check that user rate once
-  };
-
-  const handleReviewSubmit = () => {
-    const newReview = {
-      id: reviews.length + 1, // Auto-incrementing review ID
-      name: "John Doe", // Replace with actual user's name
-      date: new Date().toLocaleDateString(), // Current date
-      rating,
-      text: reviewText,
+  const handleRatingChange = async (event: any) => {
+    const newRating = {
+      userId: userx.id,
+      points: parseInt(event.target.value),
     };
-    setReviews([...reviews, newReview]);
-    setRating(0);
-    setReviewText("");
-    // like comments to data base
-  };
 
-  const inputRef = useRef<any>(null);
+    setRating([...product.rating, newRating]);
+
+    if (!product.rating.some((item: any) => item.userId === userx.id)) {
+      await updateDoc(doc(db, "products", product.id), {
+        rating: [...product.rating, newRating],
+      });
+    } else {
+      const updatedRating = rating.map((item: any) =>
+        item.userId === userx.id ? { ...item, points: newRating.points } : item
+      );
+      await updateDoc(doc(db, "products", product.id), {
+        rating: updatedRating,
+      });
+    }
+  };
 
   useEffect(() => {
     // Check if the product is already in the cart and update the button state
@@ -241,19 +242,28 @@ const productModal = () => {
             <p className="text-lg ">${product?.price}</p>
             <p className="text-lg ">-{product?.discount}%</p>
             <div className=" text-start flex justify-center items-center gap-5">
-              <p className="text-gray-700">Rating: {product?.rating} / 5</p>
-              <select
-                value={rating}
-                onChange={handleRatingChange}
-                className="border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
-              >
-                <option value={0}>Select Rating </option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-              </select>
+              <p className="text-gray-700">
+                Rating:{" "}
+                {product?.rating?.reduce(
+                  (acc: any, rate: any) => acc + rate.points,
+                  0
+                ) / product?.rating.length}{" "}
+                / 5
+              </p>
+              {product?.rating.map((rate: any) => rate.userId !== userx.id) && (
+                <select
+                  value={rating}
+                  onChange={handleRatingChange}
+                  className="border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
+                >
+                  <option value={0}>Select Rating </option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              )}
             </div>
 
             <div className="mt-3">
