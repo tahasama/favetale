@@ -4,23 +4,35 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 
 const TotalSold = async () => {
   const purchasesData: any = await getPurchasesData();
-
-  const totalSold = purchasesData.reduce(
-    (total: any, data: any) =>
-      total +
-      data.cart.reduce(
-        (subtotal: any, product: any) =>
-          subtotal +
-          product.quantity *
-            (product.price - (product.price * product.discount) / 100),
-        0
-      ),
-    0
+  console.log(
+    "🚀 ~ file: TotalSold.tsx:7 ~ TotalSold ~ purchasesData:",
+    purchasesData
   );
+
+  // Assuming purchasesData is an array of purchases
+  const totalMoneySpent = purchasesData.reduce((total: any, purchase: any) => {
+    const purchaseTotal = purchase.cart.reduce(
+      (subtotal: any, product: any) =>
+        subtotal +
+        product.quantity *
+          (product.price - (product.price * product.discount) / 100),
+      0
+    );
+    console.log(
+      "🚀 ~ file: TotalSold.tsx:21 ~ totalMoneySpent ~ purchaseTotal:",
+      purchaseTotal
+    );
+
+    return total + purchaseTotal;
+  }, 0);
+
+  console.log("Total Money Spent:", totalMoneySpent);
+
+  // const totalSold = 90;
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
-      {(purchasesData && totalSold) || 0} Dh
+      {(purchasesData && totalMoneySpent.toFixed(2)) || 0} Dh
     </p>
   );
 };

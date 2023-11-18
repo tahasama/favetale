@@ -31,10 +31,6 @@ const ContentSubmissions = async () => {
     ...discussionsData,
     ...commentsData,
   ];
-  console.log(
-    "🚀 ~ file: ContentSubmissions.tsx:34 ~ ContentSubmissions ~ fullData:",
-    fullData
-  );
 
   return (
     <p className="text-lg md:text-2xl font-bold text-white">
