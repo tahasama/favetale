@@ -15,7 +15,7 @@ const ServerComponent = ({ event }: any) => {
               {event?.startDate} to {event?.endDate}
             </span>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-2 text-xs">
             <span className="font-semibold mr-2">Time:</span>
             <span>
               {event?.timeFrom} - {event?.timeTo}

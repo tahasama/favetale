@@ -23,7 +23,7 @@ const BlogCard = ({ blog, index }: any) => {
           width={500}
           height={500}
         />
-        <h3 className="text-lg font-semibold mb-2">{blog.title}</h3>
+        <h3 className="text-lg font-semibold my-2">{blog.title}</h3>
         <div className="flex">
           <p className="text-gray-600 underline capitalize mb-2">
             writer : {blog.writer.name}{" "}

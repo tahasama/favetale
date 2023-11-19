@@ -28,36 +28,42 @@ const MeetupCard = ({ meetup }: any) => {
         </div>
         <div className="p-2 md:p-6  bg-gradient-to-b from-sky-100 to-white ">
           <div className="p-0">
-            <h2 className="text-2xl font-bold mb-2">{meetup?.title}</h2>
-            <p className="text-gray-600 text-lg mb-2">{meetup?.description}</p>
+            <h2 className="text-xl font-bold mb-2">{meetup?.title}</h2>
+            <p className="text-gray-600 text-base mb-2">
+              {meetup?.description}
+            </p>
 
             <div className="text-gray-600 text-lg">
               <div className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Date:</span>
-                <span className="text-red-500 mr-2 text-base">
+                <span className="font-semibold mr-2 text-base">Date:</span>
+                <span className="text-red-500 mr-2 text-sm">
                   {meetup?.startDate}{" "}
                 </span>{" "}
                 to
-                <span className="text-red-500 ml-2 text-base">
+                <span className="text-red-500 ml-2 text-sm">
                   {meetup?.endDate}{" "}
                 </span>
               </div>
-              <div className="flex items-center mb-2">
-                <span className="font-semibold mr-2">Time:</span>
-                <span className="text-base">
+              <div className="flex items-center mb-2 ">
+                <span className="font-semibold mr-2 text-base">Time:</span>
+                <span className="text-sm">
                   {meetup?.timeFrom} - {meetup?.timeTo}
                 </span>
               </div>
               <div className="mb-2">
-                <span className="font-semibold">Location:</span>
+                <span className="font-semibold text-base">Location:</span>
 
-                <span className="mr-2">{meetup?.location.zipcode}, </span>
+                <span className="mr-2 text-sm">
+                  {meetup?.location.zipcode},{" "}
+                </span>
 
-                <span className="mr-2 capitalize">
+                <span className="mr-2 capitalize text-sm">
                   {meetup?.location.city},{" "}
                 </span>
 
-                <span className="uppercase">{meetup?.location.country}</span>
+                <span className="uppercase text-sm">
+                  {meetup?.location.country}
+                </span>
               </div>
             </div>
           </div>
