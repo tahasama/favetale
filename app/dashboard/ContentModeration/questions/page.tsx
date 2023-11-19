@@ -23,7 +23,7 @@ const Questions = async () => {
   return (
     <div className="bg-tealLight px-0">
       <div className="flex justify-between items-center">
-        <h2 className="text-center py-6 w-10/12">Questions</h2>
+        <h2 className="text-center py-6 w-10a/12">Questions</h2>
         {/* <ClientComponentButtuns buttonStyle={buttonStyle} /> */}
         <WriteQuestionButton />
       </div>

@@ -109,14 +109,16 @@ const Navbar = () => {
           >
             {isDropdownOpen2 && (
               <div className="absolute left-1 mt-2  bg-slate-50 rounded-lg shadow-lg text-lg block md:hidden">
-                <Link
-                  href="/dashboard"
-                  onClick={() => setIsDropdownOpen2(false)}
-                >
-                  <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
-                    Dahboard
-                  </span>
-                </Link>
+                {userx.status === "manager" && (
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsDropdownOpen2(false)}
+                  >
+                    <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
+                      Dahboard
+                    </span>
+                  </Link>
+                )}
                 <Link href="/explore" onClick={() => setIsDropdownOpen2(false)}>
                   <span className="block px-4 py-2 hover:bg-teal-50 hover:text-slate-600 hover:scale-x-105  transition-all rounded-lg duration-150">
                     Explore
@@ -183,11 +185,13 @@ const Navbar = () => {
               </svg>
             </span>
           </div>
-          <Link href="/dashboard">
-            <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
-              Dahboard
-            </span>
-          </Link>
+          {userx.status === "manager" && (
+            <Link href="/dashboard">
+              <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
+                Dahboard
+              </span>
+            </Link>
+          )}
           <Link href="/explore">
             <span className="hover:text-tealDark transition-colors duration-300 cursor-pointer hidden md:block">
               Explore
