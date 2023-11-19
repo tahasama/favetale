@@ -6,10 +6,6 @@ import { getEventsData, getGatheringsData } from "@/app/api/GerData";
 
 const ServerComponent = async () => {
   const meetupsData = await getEventsData();
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:9 ~ ServerComponent ~ meetupsData:",
-    meetupsData
-  );
   const eventsData = await getGatheringsData();
   const allEevents = [...eventsData, ...meetupsData];
 

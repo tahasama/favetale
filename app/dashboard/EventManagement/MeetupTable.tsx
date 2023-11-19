@@ -2,10 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import ActionsClient from "../ContentModeration/ActionsClient";
 const MeetupTable = ({ searchResults }: any) => {
-  console.log(
-    "🚀 ~ file: MeetupTable.tsx:5 ~ MeetupTable ~ searchResults:",
-    searchResults
-  );
   return (
     <table className="table-fixed w-full border-collapse border border-gray-300">
       <thead>

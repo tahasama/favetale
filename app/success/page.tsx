@@ -20,12 +20,8 @@ import {
 import { db } from "@/firebase";
 
 const Success = ({ searchParams: { session_id } }: any) => {
-  const { userx, setQuantities } = useCart();
+  const { userx } = useCart();
   const [purchaseData, setPurchaseData] = useState<any[]>([]);
-  console.log(
-    "🚀 ~ file: page.tsx:22 ~ Success ~ purchaseData:",
-    purchaseData && purchaseData
-  );
 
   const storedPurchase = async (purchase: any) => {
     await addDoc(collection(db, "purchases"), purchase);
@@ -44,19 +40,15 @@ const Success = ({ searchParams: { session_id } }: any) => {
       });
       localStorage.setItem(`quantity_${product.id}`, String(1));
     });
-    // setQuantities({});
   };
 
   const getData = async () => {
-    console.log("🚀 ~ file: page.tsx:33 ~ getData ~ async:IIIIIIIII");
     const res = await fetch(`/api/checkout?session_id=${session_id}`);
     const ress = await res.json();
     const orderData = JSON.parse(ress.body);
     const cartAfter: any = localStorage.getItem("cartAfter");
     const cart = JSON.parse(cartAfter);
     if (orderData) {
-      console.log("🚀 ~ file: page.tsx:33 ~ getData ~ async:OOOOOOOOO");
-
       const purchase = {
         userId: userx.id,
         ...orderData.customer_details,

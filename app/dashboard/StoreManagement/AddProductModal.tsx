@@ -2,14 +2,27 @@
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 import React, { ChangeEvent, useState } from "react";
 
 const AddProductModal = ({ isOpen, onClose }: any) => {
+  const abortController = new AbortController();
+
   const { selectedImage, setSelectedImage } = useCart();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [imagesArrayData, setImagesArrayData] = useState<string[]>([]);
+  const [imagesArrayDatas, setImagesArrayDatas] = useState<string[]>([]);
+  console.log(
+    "🚀 ~ file: AddProductModal.tsx:20 ~ AddProductModal ~ imagesArrayDatas:",
+    imagesArrayDatas
+  );
 
   const [product, setProduct] = useState<any>({
     name: "",
@@ -37,64 +50,61 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
     }));
   };
 
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setLoading2(true);
-    const files = e.target.files;
+    const files: any = e.target.files;
 
     if (files && files.length > 3) {
       alert("You can only upload up to 3 images.");
+      setLoading2(false);
       return;
     }
 
     const imagesArray: string[] = [];
-    const imagesArrayDatas: string[] = [];
+    const imagesArrays: string[] = [];
+    const storage = getStorage();
 
-    if (files && files.length < 3) {
-      console.log(
-        "🚀 ~ file: AddProductModal.tsx:51 ~ handleImageChange ~ files:",
-        files
-      );
-      for (let i = 0; i < files.length; i++) {
-        const imageUrl = URL.createObjectURL(files[i]);
-        console.log(
-          "🚀 ~ file: AddProductModal.tsx:57 ~ handleImageChange ~ imageUrl:",
-          imageUrl
-        );
-        imagesArray.push(imageUrl);
-        console.log(1);
-        const storage = getStorage();
-        console.log(2);
+    if (files && files.length < 4) {
+      try {
+        const uploadPromises = Array.from(files).map(async (file: any) => {
+          const imageUrl = URL.createObjectURL(file);
+          imagesArray.push(imageUrl);
+          setImagesArrayDatas([...imagesArray]); // Update state before promise
 
-        const storageRef = ref(
-          storage,
-          `products/${Date.now()}_${files[i].name}`
-        );
-        console.log(3);
+          const storageRef = ref(storage, `products/${file.name}`);
+          console.log("Before uploading:", file.name);
+          const uploadTask = uploadBytesResumable(storageRef, file);
+          uploadTask.on(
+            "state_changed",
+            (snapshot: any) => {
+              const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              setUploadProgress(progress);
+            },
+            (error: any) => {
+              console.error("Error during upload:", error);
+            }
+          );
+          console.log("After uploading:", file.name);
+          const imageUrls = await getDownloadURL(storageRef);
+          imagesArrays.push(imageUrls);
+        });
 
-        // Upload image to Firebase Storage
-        await uploadBytes(storageRef, files[0]);
-        console.log(4);
+        await Promise.all(uploadPromises);
 
-        // Get the download URL and store it in the state
-        const imageUrls = await getDownloadURL(storageRef);
-        console.log(
-          "🚀 ~ file: AddProductModal.tsx:80 ~ handleImageChange ~ imageUrls:",
-          imageUrls
-        );
-        console.log(5);
-
-        imagesArrayDatas.push(imageUrls);
-        console.log(6);
+        setProduct((prevProduct: any) => ({
+          ...prevProduct,
+          images: imagesArrays, // Update images with the download URLs
+        }));
+      } catch (error) {
+        console.error("Error uploading images:", error);
       }
-
-      setProduct((prevProduct: any) => ({
-        ...prevProduct,
-        images: imagesArrayDatas, // Update images with the download URLs
-      }));
     }
 
-    setImagesArrayData(imagesArrayDatas);
     setLoading2(false);
+    setUploadProgress(0); // Reset progress after upload completion
   };
 
   const handleAddOrUpdateProduct = async (e: any) => {
@@ -130,7 +140,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
         // Add new product
         const newProductData = {
           name: product.name,
-          images: imagesArrayData,
+          images: product.images,
           price: product.price,
           discount: product.discount,
           rating: product.rating,
@@ -248,7 +258,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               <label htmlFor="image" className="block text-gray-700 mb-2">
                 Select up to 3 images:
               </label>
-
               <input
                 type="file"
                 id="image"
@@ -262,22 +271,47 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
                 <span className="text-red-400">Note:</span> first image selected
                 is the one that would present the product
               </p>
-              <div className="mt-2 space-x-2">
-                {product.images.map((imageUrl: any, index: any) => (
-                  <img
-                    key={index}
-                    src={imageUrl}
-                    alt={`Product Image ${index + 1}`}
-                    className="inline-block h-20 w-20 object-cover border border-gray-300 rounded-md"
-                  />
+              <div className="mt-2 space-x-2 flex flex-row justify-center gap-2">
+                {imagesArrayDatas.map((imageUrl: any, index: any) => (
+                  <div className="">
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt={`Product Image ${index + 1}`}
+                      className="inline-block h-20 w-20 object-cover border border-gray-300 rounded-md"
+                    />
+                  </div>
                 ))}
+              </div>
+              <div>
+                {uploadProgress > 0 && uploadProgress < 100 && (
+                  <div className="w-1/2 mx-auto mt-8">
+                    <label htmlFor="file" className="block text-center mb-2">
+                      Uploading...
+                    </label>
+                    <progress
+                      id="file"
+                      className="w-full h-8 rounded bg-blue-500 overflow-hidden"
+                      value={uploadProgress}
+                      max="100"
+                    ></progress>
+                    <span className="block text-center mt-2 text-sm">
+                      {uploadProgress.toFixed(0)}%
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             {/* Add or modify any other fields as needed */}
             <div className="mb-6  flex justify-center lg:justify-end space-x-5 lg:space-x-4">
               <button
                 type="submit"
-                className="ring-1 ring-green-600 hover:bg-green-700 group hover:text-white transition-colors duration-300 text-green-600 py-2 px-10 rounded-lg focus:outline-none scale-110 hover:animate-bounceZ"
+                disabled={uploadProgress < 100 && true}
+                className={` ${
+                  uploadProgress < 100
+                    ? "text-gray-500 ring-1 ho ring-gray-500 "
+                    : "ring-1 ring-green-600 hover:bg-green-700 hover:text-white text-green-600 hover:animate-bounceZ"
+                } group  transition-colors duration-300  py-2 px-10 rounded-lg focus:outline-none scale-110 cursor-pointer `}
                 onClick={handleAddOrUpdateProduct}
               >
                 <p>Send</p>{" "}

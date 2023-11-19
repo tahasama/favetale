@@ -18,6 +18,13 @@ Goldenrod (#F9C22E) */
   scale: 1.3;
 }
 
+progress::-webkit-progress-bar {
+  background-color: #f5f5f5;
+}
+progress::-webkit-progress-value {
+  background-color: #2486ff;
+}
+
 /* Customize active pagination bullet styles */
 .my-swiper .swiper-pagination-bullet-active {
   background-color: #ff9900; /* Change active bullet color */
@@ -27,11 +34,11 @@ Goldenrod (#F9C22E) */
 }
 
 @media screen and (max-width: 600px) {
-.my-swiper .swiper-button-next,
-.my-swiper .swiper-button-prev {
-  scale: 1;
-}
-.my-swiper .swiper-pagination-bullet-active {
+  .my-swiper .swiper-button-next,
+  .my-swiper .swiper-button-prev {
+    scale: 1;
+  }
+  .my-swiper .swiper-pagination-bullet-active {
     background-color: #ff9900; /* Change active bullet color */
     width: 9px !important; /* Change active bullet width */
     height: 9px !important; /* Change active bullet height */
@@ -39,20 +46,14 @@ Goldenrod (#F9C22E) */
   }
 }
 
-
 /* 
 html {
   scroll-snap-type: y mandatory;
 } */
 
-
-
-
 /* .react-calendar__tile{
   background-color: #ff9900 !important;
 } */
-
-
 
 #app {
   height: 100%;
@@ -80,8 +81,7 @@ body {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background-color: #F5FDFF;
-  
+  background-color: #f5fdff;
 
   /* Center slide text vertically */
   display: flex;
@@ -127,7 +127,6 @@ ol {
   @apply list-decimal list-inside;
 }
 
-
 /* 
 .ql-size-huge{
   @apply text-4xl;
@@ -140,4 +139,3 @@ ol {
 }.ql-align-center{
   text-align: center;
 } */
-
