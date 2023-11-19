@@ -33,6 +33,7 @@ async function getData(id: any) {
 }
 const Gallery = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
+  console.log("🚀 ~ file: page.tsx:36 ~ Gallery ~ meetupsData:", meetupsData);
   const buttonStyle =
     "bg-indigo-500 px-3 mx-2 py-3 h-fit rounded hover:bg-indigo-700 text-slate-200";
 
@@ -73,41 +74,42 @@ const Gallery = async ({ params: { id } }: any) => {
           </div>
         )}
       {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
-      {meetupsData?.filter(
-        (meetups: any) =>
-          meetups.likes.includes(id) || meetups.hearts.includes(id)
-      ).length !== 0 && (
-        <div className="flex flex-col md:w-2/5">
-          <p
-            className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
-          >
-            Reactions
-          </p>
-          <Link
-            href={`/profile/${id}/gallery/myCollection`}
-            className={`text-slate-600 my-2 ${font.className}`}
-          >
-            View all{" "}
-            {
-              meetupsData?.filter(
-                (meetups: any) =>
-                  meetups.likes.includes(id) || meetups.hearts.includes(id)
-              ).length
-            }{" "}
-          </Link>
-          <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
-            {meetupsData
-              ?.filter(
-                (meetups: any) =>
-                  meetups.likes.includes(id) || meetups.hearts.includes(id)
-              )
-              .slice(0, 3)
-              .map((meetup: any, index: any) => (
-                <PetImages image={meetup} index={index} />
-              ))}
+      {meetupsData &&
+        meetupsData?.filter(
+          (meetups: any) =>
+            meetups.likes.includes(id) || meetups.hearts.includes(id)
+        ).length !== 0 && (
+          <div className="flex flex-col md:w-2/5">
+            <p
+              className={`text-base  lg:text-xl ${font.className} underline underline-offset-2`}
+            >
+              Reactions
+            </p>
+            <Link
+              href={`/profile/${id}/gallery/myCollection`}
+              className={`text-slate-600 my-2 ${font.className}`}
+            >
+              View all{" "}
+              {
+                meetupsData?.filter(
+                  (meetups: any) =>
+                    meetups.likes.includes(id) || meetups.hearts.includes(id)
+                ).length
+              }{" "}
+            </Link>
+            <div className="mt-0 flex gap-4 mx-2 sm:mx-auto max-w-6xl border-2 border-indigo-300 m-2 p-2 rounded-md">
+              {meetupsData
+                ?.filter(
+                  (meetups: any) =>
+                    meetups.likes.includes(id) || meetups.hearts.includes(id)
+                )
+                .slice(0, 3)
+                .map((meetup: any, index: any) => (
+                  <PetImages image={meetup} index={index} />
+                ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       <ImageModal />
     </div>
   );
