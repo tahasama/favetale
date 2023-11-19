@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "@firebase/auth"; // Import the necessary Firebase authentication function
 import { auth, db } from "@/firebase";
-import { useRouter } from "next/navigation";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   getRedirectResult,
@@ -12,6 +11,7 @@ import {
 
 import { GoogleAuthProvider } from "firebase/auth";
 import { useCart } from "../provider/CartProvider";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const router = useRouter();
@@ -69,7 +69,8 @@ const SignUp = () => {
       );
       const user = userCredential.user;
       console.log("🚀 ~ file: page.tsx:22 ~ handleSignUp ~ user:", user);
-      setUserx(user).then(router.push(`/profile/${user.uid}`));
+      setUserx(user);
+      router.push(`/profile/${user.uid}`);
 
       return user;
     } catch (error: any) {
