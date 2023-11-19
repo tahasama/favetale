@@ -69,7 +69,7 @@ const SignUp = () => {
       );
       const user = userCredential.user;
       console.log("🚀 ~ file: page.tsx:22 ~ handleSignUp ~ user:", user);
-      setUserx(user).then(() => router.push(`/profile/${user.uid}`));
+      setUserx(user).then(router.push(`/profile/${user.uid}`));
 
       return user;
     } catch (error: any) {
