@@ -22,14 +22,14 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import Link from "next/link";
-import ReactTimeAgo from "react-time-ago";
+import QuestionModal from "./QuestionModal";
+import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 
+import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
-import QuestionModal from "./QuestionModal";
-import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -205,14 +205,9 @@ function Question({ params: { id } }: any) {
 
   const [comments, setComments] = useState<any[]>([]);
 
-  // Function to add a new answer
   const addAnswer = async () => {
     if (newComment) {
       if (updatedComment === null) {
-        console.log(
-          "🚀 ~ file: page.tsx:212 ~ addAnswer ~ updatedComment:",
-          updatedComment
-        );
         const commentRef = await addDoc(collection(db, "comments"), {
           comment: newComment,
           commenter: userx,
@@ -232,7 +227,7 @@ function Question({ params: { id } }: any) {
           setNewComment("");
           setUpdatedComment(null);
         } catch (error) {
-          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+          console.log(error);
         }
       }
     }
@@ -383,14 +378,12 @@ function Question({ params: { id } }: any) {
             className="bg-emerald-100 text-white px-2 py-1 rounded-s text-xl hover:bg-emerald-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
           >
             👍
-            {/* {reply.commentData.likes || 0} */}
           </button>
           <button
             onClick={handleDisagree}
             className="bg-pink-100 text-white px-2 py-1 rounded-e text-xl hover:bg-pink-200 hover:scale-105 focus:outline-none transition-all duration-300 ease-linear"
           >
             👎
-            {/* {discommentData.likes[reply.id] || 0} */}
           </button>
         </div>
       </>
@@ -416,7 +409,6 @@ function Question({ params: { id } }: any) {
         onClose={() => setUploadpetModalOpen(false)}
         id={id}
       />
-      {/* Answer Area */}
 
       <div className="mt-8 mb-6">
         {userx.id && (
@@ -454,7 +446,6 @@ function Question({ params: { id } }: any) {
 
       <h2 className="text-xl mt-10 font-semibold">Answers:</h2>
 
-      {/* Answers List */}
       <div className="space-y-4" ref={commentsSectionRef}>
         {comments.map((reply) => (
           <div

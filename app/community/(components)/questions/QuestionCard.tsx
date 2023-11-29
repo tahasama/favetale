@@ -37,9 +37,7 @@ const BlogCard = ({ question, index }: any) => {
             <p className="ml-2">Answers</p>
           </div>
         </div>
-        {/* <div className="hidden lg:block md:mx-2 w-1/12">
-          <hr className="border-r border-t-0 border-gray-300 h-12 mx-6" />
-        </div> */}
+
         <div className="flex flex-col justify-start w-full">
           <h3 className="text-base font-semibold mb-2 line-clamp-2">
             {question.title}

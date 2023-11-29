@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import QuestionModal from "./[id]/QuestionModal";
 import ServerComponent from "./ServerComponent";
 import ClientComponent from "./ClientComponent";
 import Loading from "./loading";
