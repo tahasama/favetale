@@ -1,15 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Image from "next/image";
+
 const CalendarComponent = ({ eventsData }: any) => {
-  console.log(
-    "🚀 ~ file: CalendarComponent.tsx:9 ~ CalendarComponent ~ eventsData:",
-    eventsData
-  );
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date: any) => {
@@ -44,12 +41,6 @@ const CalendarComponent = ({ eventsData }: any) => {
     "December",
   ];
 
-  const normalizeDate = (date: Date) => {
-    const normalizedDate = new Date(date);
-    normalizedDate.setHours(0, 0, 0, 0);
-    return normalizedDate;
-  };
-
   return (
     <div className="flex flex-col md:flex-row-reverse items-center gap-4 lg:gap-0 justify-around md:h-[76vh] w-full bg-teal-50 lg:p-6 rounded-xl shadow-md  overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
       <Calendar
@@ -58,12 +49,6 @@ const CalendarComponent = ({ eventsData }: any) => {
         value={selectedDate}
         className=" bg-white p-2 md:p-6  h-96 sticky top-0 rounded-lg border shadow-lg"
         calendarType="US"
-        // ... (your existing code)
-
-        // Helper function to normalize dates
-
-        // ... (your existing code)
-
         tileClassName={({ date }) => {
           const eventsOnDate = eventsData.some((event: any) => {
             const adjustedStartDate = new Date(event.startDate);
@@ -75,10 +60,6 @@ const CalendarComponent = ({ eventsData }: any) => {
         tileContent={({ date }) => {
           const eventsOnDate = eventsData.some((event: any) => {
             const adjustedStartDate = new Date(event.startDate);
-            console.log(
-              "🚀 ~ file: CalendarComponent.tsx:79 ~ eventsOnDate ~ adjustedStartDate <= date && date <= new Date(event.endDate):",
-              adjustedStartDate <= date && date <= new Date(event.endDate)
-            );
             return adjustedStartDate <= date && date <= new Date(event.endDate);
           });
 
@@ -86,8 +67,6 @@ const CalendarComponent = ({ eventsData }: any) => {
             <span className="bg-purple-500 rounded-full h-2 w-2 block mx-auto mt-1"></span>
           ) : null;
         }}
-
-        // ... (rest of your existing code)
       />
       <div className="md:w-7/12 lg:w-6/12 mt-2 lg:pl-6 bg-red- h-full overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-200">
         <ul className=" gap-4 flex flex-col px-0 pb-2">
@@ -116,9 +95,9 @@ const CalendarComponent = ({ eventsData }: any) => {
               return (
                 <Link href={`/community/events/${event.id}`}>
                   <motion.li
-                    initial={{ opacity: 0, transform: "scale(.9)" }} // Initial state (hidden and slightly moved down)
-                    animate={{ opacity: 1, transform: "scale(1)" }} // Animation state (visible and at normal position)
-                    transition={{ duration: 0.75, delay: 0.5 }} // Animation duration
+                    initial={{ opacity: 0, transform: "scale(.9)" }}
+                    animate={{ opacity: 1, transform: "scale(1)" }}
+                    transition={{ duration: 0.75, delay: 0.5 }}
                     className={`${
                       isEventOnDate ? "bg-sky-100" : "bg-white"
                     } flex items-start p-4 rounded-lg shadow-md h-fit w-full cursor-pointer transition-all duration-300 border-x-2`}

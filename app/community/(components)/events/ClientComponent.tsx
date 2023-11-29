@@ -4,20 +4,19 @@ import React from "react";
 
 const ClientComponent = () => {
   const handleScrollToSection = (e: any, sectionId: any) => {
-    e.preventDefault(); // Prevent the default link behavior
+    e.preventDefault();
 
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({
-        behavior: "smooth", // Use smooth scrolling animation
-        block: "start", // Scroll to the top of the section
+        behavior: "smooth",
+        block: "start",
       });
     }
   };
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        // key={activeTab}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 20 }}
@@ -34,7 +33,7 @@ const ClientComponent = () => {
               connect!
             </p>
             <Link
-              href="#pet-events" // Points to the anchor element with id "pet-questions"
+              href="#pet-events"
               onClick={(e: any) => handleScrollToSection(e, "pet-events")}
             >
               <button className="hover:animate-buttonHover bg-tealLight hover:text-white sm:px-4 sm:py-3 px-3 py-2 rounded-md hover:bg-green-700 transition-colors duration-500">

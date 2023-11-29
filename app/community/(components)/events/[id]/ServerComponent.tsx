@@ -1,10 +1,6 @@
 import React from "react";
 
 const ServerComponent = ({ event }: any) => {
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:4 ~ ServerComponent ~ event:",
-    event
-  );
   return (
     <div className="p-2 md:p-6 bg-gradient-to-b h-auto from-blue-200 to-white">
       <div className="event-card bg-white rounded-lg shadow-md p-6">

@@ -11,20 +11,14 @@ import JoinButton from "./JoinButton";
 const ClientComponent = ({ event, id }: any) => {
   const ref = useRef<any>(null);
 
-  const {
-    userx,
-
-    uploadpetModalOpen,
-    setMeetupModalOpen,
-    comments,
-  } = useCart();
+  const { userx, uploadpetModalOpen, setMeetupModalOpen, comments } = useCart();
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
   const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
+  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]);
 
   const removeImage = async () => {
     try {
@@ -36,7 +30,7 @@ const ClientComponent = ({ event, id }: any) => {
         deleteCommentPromises.push(deleteCommentPromise);
       });
 
-      const deleteImagePromise = deleteDoc(doc(db, "gatherings", event.id)); // Assuming 'petImages' is the collection name for images
+      const deleteImagePromise = deleteDoc(doc(db, "gatherings", event.id));
 
       await Promise.all(deleteCommentPromises);
 

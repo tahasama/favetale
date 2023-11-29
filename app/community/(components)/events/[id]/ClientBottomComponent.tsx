@@ -1,19 +1,20 @@
 "use client";
-import { useScroll, useTransform } from "framer-motion";
+import { useScroll } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import ImageModal from "./ImageModal";
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
 import { query, collection, where, getDocs, addDoc } from "firebase/firestore";
 import Link from "next/link";
-import ReactTimeAgo from "react-time-ago";
 
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
-import ru from "javascript-time-ago/locale/ru.json";
 import UploadImageMeetupModal from "./UploadImageMeetupModal";
 import UploadpetModalOpenButton from "./UploadpetModalOpenButton";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+
+import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import ru from "javascript-time-ago/locale/ru.json";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -23,11 +24,6 @@ const ClientBottomComponent = ({ event, id }: any) => {
 
   const { userx, petModalOpen, setPetModalOpen, setComments, comments } =
     useCart();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
 
   const commentsSectionRef = useRef<any>(null);
 
@@ -182,11 +178,6 @@ const ClientBottomComponent = ({ event, id }: any) => {
                 className="group-hover:scale-125 transition-transform duration-200"
               />
               <span className="text-slate-700 text-lg"> Click for more...</span>
-
-              {/* loading UI
-            <div className="overflow-hidden w-full h-full relative">
-              <span className=" bg-gradient-to-r from-transparent via-slate-500 animate-move to-transparent absolute w-full h-full -left-40 inset-0 z-50  overflow-hidden"></span>
-            </div> */}
             </div>
           )}
           <ImageModal

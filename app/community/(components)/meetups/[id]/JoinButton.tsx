@@ -33,10 +33,7 @@ const JoinButton = ({ newEvent }: any) => {
     try {
       if (isUserParticipant) {
         await updateDoc(gatheringRef, { participants: event.participants });
-      } else {
-        await updateDoc(gatheringRef, { participants: event.participants });
       }
-
       const res = await getDoc(doc(db, "gatherings", event.id));
       const updatedEvent = { ...res.data(), id: res.id };
       setEvent(updatedEvent);

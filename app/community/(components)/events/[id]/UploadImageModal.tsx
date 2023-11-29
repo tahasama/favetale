@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
@@ -14,8 +12,6 @@ const UploadImageModal = () => {
     selectedImage,
     setUploadpetModalOpen,
   } = useCart();
-
-  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
@@ -100,7 +96,7 @@ const UploadImageModal = () => {
           });
         }
       } catch (error) {
-        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+        console.log(error);
       }
     }
 

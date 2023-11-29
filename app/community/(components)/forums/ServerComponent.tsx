@@ -1,6 +1,4 @@
 import React from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/firebase";
 import ForumCard from "./ForumCard";
 import { getDiscussionsData } from "@/app/api/GerData";
 

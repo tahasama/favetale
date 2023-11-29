@@ -169,7 +169,6 @@ async function Event({ params: { id } }: any) {
 
   const res = await getDoc(doc(db, "event", id));
   const event: any = { ...res.data(), id: res.id };
-  console.log("🚀 ~ file: page.tsx:172 ~ Event ~ event:", event);
 
   return (
     <div className="relative  h-full text-black pb-12 ">

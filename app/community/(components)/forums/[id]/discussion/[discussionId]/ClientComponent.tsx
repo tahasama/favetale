@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-
 import Link from "next/link";
-
 import {
   addDoc,
   arrayRemove,
@@ -18,15 +16,13 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useCart } from "@/app/provider/CartProvider";
-
-import ReactTimeAgo from "react-time-ago";
-
-import TimeAgo from "javascript-time-ago";
-
-import en from "javascript-time-ago/locale/en.json";
-import ru from "javascript-time-ago/locale/ru.json";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import DiscussionModal from "../../DiscussionModal";
+
+import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import ru from "javascript-time-ago/locale/ru.json";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -93,7 +89,7 @@ const ClientComponent = ({ discussionData }: any) => {
           setNewComment("");
           setUpdatedComment(null);
         } catch (error) {
-          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+          console.log(error);
         }
       }
     }

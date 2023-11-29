@@ -8,7 +8,7 @@ import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import JoinButton from "./JoinButton";
 import MeetupsModal from "@/app/dashboard/EventManagement/MeetupsModal";
 
-const ClientComponent = ({ event, id }: any) => {
+const ClientComponent = ({ event }: any) => {
   const ref = useRef<any>(null);
 
   const {
@@ -24,7 +24,7 @@ const ClientComponent = ({ event, id }: any) => {
     offset: ["start start", "end start"],
   });
   const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]); // Adjust the range and values for text
+  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 350]);
 
   const removeImage = async () => {
     try {
@@ -36,7 +36,7 @@ const ClientComponent = ({ event, id }: any) => {
         deleteCommentPromises.push(deleteCommentPromise);
       });
 
-      const deleteImagePromise = deleteDoc(doc(db, "gatherings", event.id)); // Assuming 'petImages' is the collection name for images
+      const deleteImagePromise = deleteDoc(doc(db, "gatherings", event.id));
 
       await Promise.all(deleteCommentPromises);
 

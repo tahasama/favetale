@@ -1,13 +1,8 @@
 "use client";
-import Link from "next/link";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import DiscussionCard from "./DiscussionCard";
 
 const ClientComponentFilter = ({ discussionsDataFiltered, id }: any) => {
-  console.log(
-    "🚀 ~ file: ClientComponentFilter.tsx:7 ~ ClientComponentFilter ~ id:",
-    id
-  );
   const [selectedTag, setSelectedTag] = useState<any>(null);
 
   const xxx: any[] = discussionsDataFiltered?.map((c: any) => c.tags).flat();

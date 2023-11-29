@@ -1,6 +1,6 @@
 import { useCart } from "@/app/provider/CartProvider";
 import { db } from "@/firebase";
-import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import React, { useState } from "react";
 
@@ -58,7 +58,7 @@ const UploadImageMeetupModal = ({ id }: any) => {
           setImageModalOpen(false);
         });
       } catch (error) {
-        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+        console.log(error);
       }
     }
 

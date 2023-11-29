@@ -1,11 +1,9 @@
 import React, { Suspense } from "react";
 import Loading from "./loading";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/firebase";
 import ClientComponentFilter from "./ClientComponentFilter";
 import { getDiscussionsData } from "@/app/api/GerData";
 
-const ServerComponent = async ({ id, selectedTag }: any) => {
+const ServerComponent = async ({ id }: any) => {
   const discussionsData = await getDiscussionsData();
 
   const categoryMap: any = {

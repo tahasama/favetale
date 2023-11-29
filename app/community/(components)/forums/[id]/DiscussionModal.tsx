@@ -93,7 +93,7 @@ const DiscussionModal = ({ isOpen, onClose, discussion }: any) => {
 
       onClose();
     } catch (error) {
-      console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+      console.log(error);
     }
   };
 
