@@ -76,7 +76,7 @@ const UserGrowth = async () => {
 
   usersData.forEach((user: any) => {
     const creationDate = new Date(user.creationTime);
-    const month = creationDate.getMonth() + 1; // Adding 1 because getMonth() returns 0-based months
+    const month = creationDate.getMonth() + 1;
 
     if (!userMonthz[month]) {
       userMonthz[month] = [];
@@ -90,10 +90,6 @@ const UserGrowth = async () => {
   const activeUsers = labels.map((label, index) => {
     return userMonths[index + 1] ? userMonths[index + 1].length : 0;
   });
-
-  // const totalUser = labels.map((label, index) => {
-  //   return userMonthz[index + 1] ? userMonthz[index + 1].length : 0;
-  // });
 
   const cumulativeTotalUsers = labels.map((_, index) => {
     const currentMonth = index + 1;

@@ -1,6 +1,4 @@
 import { getUsersData } from "@/app/api/GerData";
-import { auth, db } from "@/firebase";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 
 const TotalUsers = async () => {
   const usersData: any = await getUsersData();

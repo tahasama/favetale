@@ -13,7 +13,6 @@ import {
   getGatheringsData,
   getQuestionsData,
   getStoriesData,
-  getUsersData,
 } from "@/app/api/GerData";
 
 const ContentSubmissionTrends = async () => {
@@ -24,7 +23,6 @@ const ContentSubmissionTrends = async () => {
   const questionsData: any = await getQuestionsData();
   const discussionsData: any = await getDiscussionsData();
   const commentsData: any = await fetchComments("");
-  // const usersData: any = await getUsersData();
 
   const fullData = [
     ...storiesData,
@@ -35,7 +33,6 @@ const ContentSubmissionTrends = async () => {
     ...discussionsData,
     ...commentsData,
   ];
-  let month: any = "";
   const monthlyCounts: any = fullData?.reduce((counts: any, blog: any) => {
     const createdAt = blog.createdAt
       ? new Date(blog.createdAt.toDate())

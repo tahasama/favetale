@@ -9,8 +9,6 @@ import TotalSold from "./TotalSold";
 import UserInreraction from "./UserInreraction";
 import Loading from "./Loading";
 
-export const revalidate = 3600;
-
 const DashboardOverview = () => {
   return (
     <div id="dashboard" className="min-h-screen w-full">
@@ -30,12 +28,6 @@ const DashboardOverview = () => {
               </Suspense>
             </h3>
           </div>
-          {/* <div className="bg-sky-300 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
-            <h3 className="text-base md:text-lg font-semibold text-white">
-              Active Users
-            </h3>
-            <p className="text-lg md:text-2xl font-bold text-white">789</p>
-          </div> */}
           <div className="bg-indigo-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Content Submissions
@@ -81,7 +73,6 @@ const DashboardOverview = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row w-full justify-around gap-5 p-3 scale-95">
-          {/* Content Type Distribution Chart */}
           <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">
             <h3 className="text-lg font-semibold text-slate-500">
               Content Type Distribution
@@ -90,7 +81,6 @@ const DashboardOverview = () => {
               <Suspense fallback={<Loading />}>
                 <ContentDistribution />
               </Suspense>
-              {/* Store Sales and Revenue Chart */}
             </div>
           </div>
           <div className="bg-indigo-50 rounded-lg shadow-lg  lg:w-6/12 xl:w-6/12 md:scale-95 lg:scale-100 p-2">

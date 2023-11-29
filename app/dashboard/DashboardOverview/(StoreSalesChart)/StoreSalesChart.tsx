@@ -1,5 +1,3 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import CanvasClient from "./CanvasClient";
 import { getPurchasesData } from "@/app/api/GerData";
 

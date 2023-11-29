@@ -1,20 +1,14 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-
-import Link from "next/link";
 
 import CanvasClient from "./CanvasClient";
 
 import {
-  fetchComments,
   getBlogsData,
   getDiscussionsData,
   getGalleryData,
   getGatheringsData,
   getQuestionsData,
   getStoriesData,
-  getUsersData,
 } from "@/app/api/GerData";
 
 const ContentDistribution = async () => {

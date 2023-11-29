@@ -1,6 +1,4 @@
 import React from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/firebase";
 import {
   fetchComments,
   getBlogsData,
@@ -9,7 +7,6 @@ import {
   getGatheringsData,
   getQuestionsData,
   getStoriesData,
-  getUsersData,
 } from "@/app/api/GerData";
 
 const ContentSubmissions = async () => {
@@ -20,7 +17,6 @@ const ContentSubmissions = async () => {
   const questionsData: any = await getQuestionsData();
   const discussionsData: any = await getDiscussionsData();
   const commentsData: any = await fetchComments("");
-  // const usersData: any = await getUsersData();
 
   const fullData = [
     ...storiesData,
