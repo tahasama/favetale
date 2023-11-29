@@ -1,11 +1,8 @@
 import { db } from "@/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import Image from "next/image";
-import logo from "../../logo.png";
 import PurchaseClient from "./PurchaseClient";
 import Link from "next/link";
-// import { table } from "console";
 
 const getData = async (userx: any) => {
   const purchaseData: any[] = [];
@@ -22,7 +19,7 @@ const getData = async (userx: any) => {
     });
     return purchaseData;
   } catch (error) {
-    console.log("🚀 ~ file: page.tsx:42 ~ getData ~ error:", error);
+    console.log(error);
   }
 };
 const Purchases = async ({ userx }: any) => {

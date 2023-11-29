@@ -3,7 +3,7 @@ import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
-import { Playball, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import WriteMeetupButton from "@/app/dashboard/ContentModeration/meetups/WriteMeetupButton";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
@@ -65,7 +65,6 @@ const Meetups = async ({ params: { id } }: any) => {
             </div>
           </div>
         )}
-      {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       {meetupsData &&
         meetupsData?.filter((meetups: any) => meetups.participants.includes(id))
           .length !== 0 && (

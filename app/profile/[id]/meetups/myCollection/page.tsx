@@ -1,7 +1,7 @@
 import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
-import { Playball, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import BlogCard from "@/app/explore/(components)/blogs/BlogCard";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });

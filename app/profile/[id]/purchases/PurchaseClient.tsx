@@ -1,16 +1,8 @@
 "use client";
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import Image from "next/image";
-import logo from "../../logo.png";
-import { useCart } from "@/app/provider/CartProvider";
-import BlogModal from "@/app/explore/(components)/blogs/BlogModal";
 import Link from "next/link";
 
 const PurchaseClient = ({ purchase }: any) => {
-  const { uploadpetModalOpen, setUploadpetModalOpen } = useCart();
-
   const calculateTotal = (purchase: any) => {
     return purchase.cart.reduce(
       (total: any, item: any) =>

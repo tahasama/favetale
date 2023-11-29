@@ -24,7 +24,7 @@ const UserModal = ({ isOpen, onClose }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      onClose();
     }
   };
 
@@ -48,7 +48,6 @@ const UserModal = ({ isOpen, onClose }: any) => {
 
     const updateData: any = {};
 
-    // Handle image upload if a new image is selected
     if (imageFile) {
       const storage = getStorage();
       const storageRef = ref(storage, `users/${userx.id}/${Date.now()}.jpg`);
@@ -62,11 +61,11 @@ const UserModal = ({ isOpen, onClose }: any) => {
     updateData.description = description;
     updateData.socialMedia = socialMedia;
 
-    const userRef = doc(db, "users", userx.id); // Replace with your Firestore database reference
+    const userRef = doc(db, "users", userx.id);
     await updateDoc(userRef, updateData);
 
     setLoading2(false);
-    onClose(); // Close the modal
+    onClose();
     setSelectedImage(updateData);
   };
 

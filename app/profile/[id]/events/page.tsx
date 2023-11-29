@@ -3,7 +3,7 @@ import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
-import { Playball, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
@@ -29,7 +29,6 @@ async function getData(id: any) {
 }
 const Meetups = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
-  console.log("🚀 ~ file: page.tsx:32 ~ Meetups ~ meetupsData:", meetupsData);
 
   const buttonStyle =
     "bg-indigo-500 px-3 mx-2 py-3 h-fit rounded hover:bg-indigo-700 text-slate-200";
@@ -42,7 +41,6 @@ const Meetups = async ({ params: { id } }: any) => {
         </Link>
       </div>
 
-      {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       {meetupsData &&
         meetupsData?.filter((meetups: any) => meetups.participants.includes(id))
           .length !== 0 && (

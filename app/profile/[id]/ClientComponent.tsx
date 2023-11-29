@@ -5,14 +5,12 @@ import "swiper/css/navigation";
 
 import { useCart } from "@/app/provider/CartProvider";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import user from "../../images/user/userf.jpg";
 import { Saira_Semi_Condensed } from "next/font/google";
 import UserModal from "./UserModal";
 import { FaFacebook, FaInstagram, FaLink, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase";
 import {
   FiImage,
   FiBook,
@@ -28,7 +26,6 @@ const font = Saira_Semi_Condensed({ subsets: ["latin"], weight: "400" });
 
 const ClientComponent = ({ idx, userProfile }: any) => {
   const { profile, setProfile } = useCart();
-  // const [userProfile, setuserProfile] = useState<any>(null);
   const [tab, setTab] = useState("Gallery");
   const tabs = [
     { name: "gallery", icon: <FiImage /> },
@@ -40,27 +37,6 @@ const ClientComponent = ({ idx, userProfile }: any) => {
     { name: "events", icon: <FiCalendar /> },
     { name: "questions", icon: <FiHelpCircle /> },
   ];
-
-  // useEffect(() => {
-  //   const getBlog = async () => {
-  //     const docRef = doc(db, "users", String(idx));
-  //     console.log("🚀 ~ file: ClientComponent.tsx:29 ~ getBlog ~ idx:", idx);
-  //     const docSnap = await getDoc(docRef);
-  //     console.log(
-  //       "🚀 ~ file: ClientComponent.tsx:31 ~ getBlog ~ docSnap:",
-  //       docSnap.data()
-  //     );
-
-  //     if (docSnap.exists()) {
-  //       // console.log("Document data:");
-  //       setuserProfile({ ...docSnap.data(), idx: docSnap.id });
-  //     } else {
-  //       // docSnap.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   };
-  //   getBlog();
-  // }, [idx]);
 
   return (
     <>

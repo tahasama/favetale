@@ -2,14 +2,13 @@ import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
 import Link from "next/link";
-import { Playball, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import StoryCard from "@/app/explore/(components)/stories/StoryCard";
 import WriteBlogButton from "@/app/dashboard/ContentModeration/stories/WriteBlogButton";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 
 async function getData(id: any) {
-  console.log("🚀 ~ file: page.tsx:11 ~ getData ~ id:", id);
   const StoriesData: any[] = [];
   const StoryRef = query(
     collection(db, "storys"),
@@ -28,7 +27,6 @@ async function getData(id: any) {
 }
 const Stories = async ({ params: { id } }: any) => {
   const meetupsData: any = await getData(id);
-  console.log("🚀 ~ file: page.tsx:31 ~ Stories ~ meetupsData:", meetupsData);
 
   return (
     <div className="m-6 flex flex-wrap flex-col md:flex-row h-full gap-10 justify-center relative">
@@ -70,7 +68,6 @@ const Stories = async ({ params: { id } }: any) => {
             </div>
           </div>
         )}
-      {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
       {meetupsData &&
         meetupsData?.filter(
           (meetups: any) => meetups.writer.id === id && meetups.draft === true

@@ -1,9 +1,8 @@
 import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
-import BlogCard from "@/app/explore/(components)/blogs/BlogCard";
 import Link from "next/link";
-import { Playball, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import DiscussionCard from "./DiscussionCard";
 import ClientComponentButtuns from "@/app/community/(components)/forums/[id]/ClientComponentButtons";
 
@@ -65,7 +64,6 @@ const Discussions = async ({ params: { id } }: any) => {
             </div>
           </div>
         )}
-      {/* <div className=" border-r-2 mx-5 border-slate-300"></div> */}
 
       {meetupsData &&
         meetupsData?.filter((meet: any) => meet.participants.includes(id))

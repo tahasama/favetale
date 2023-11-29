@@ -3,7 +3,7 @@ import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
 
-import { Playball, Roboto_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import Link from "next/link";
 import WriteQuestionButton from "@/app/dashboard/ContentModeration/questions/WriteQuestionButton";
 
@@ -32,10 +32,6 @@ async function getData(id: any) {
 }
 const Questions = async ({ params: { id } }: any) => {
   const meetupsData = await getData(id);
-  console.log(
-    "🚀 ~ file: page.tsx:34 ~ Questions ~ meetupsData:",
-    meetupsData?.filter((meetups: any) => meetups.answerers.includes(id))
-  );
 
   return (
     <div className="m-6 flex  flex-col md:flex-row h-full gap-10 justify-center relative">
