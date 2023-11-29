@@ -1,10 +1,5 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import ViewClient from "../ViewClient";
-import ImageClient from "../ImageClient";
 import ActionsClient from "../ActionsClient";
-import { isAbsolute } from "path";
 import Link from "next/link";
 import { fetchComments, getDiscussionsData } from "@/app/api/GerData";
 import ClientComponentButtuns from "@/app/community/(components)/forums/[id]/ClientComponentButtons";
@@ -39,7 +34,6 @@ const Discussions = async () => {
       <table className="w-full max-h-[400px] overflow-y-auto border-collapse border border-gray-300 text-xs md:text-sm lg:text-base">
         <thead className="bg-gray-100">
           <tr className="text-xs md:text-base">
-            {/* <th className="p-2 border border-gray-300">Image</th> */}
             <th className="p-2 border border-gray-300">Title</th>
             <th className="p-2 border border-gray-300">User</th>
             <th className="p-2 border border-gray-300">Posted</th>
@@ -59,7 +53,6 @@ const Discussions = async () => {
                   index % 2 !== 0 ? "bg-white" : "bg-teal-50"
                 }`}
               >
-                {/* <ImageClient image={image} index={index} /> */}
                 <td className="max-w-[5rem] text-sky-600 underline cursor-pointer border border-gray-300">
                   <Link
                     href={`community/forums/${Object.keys(

@@ -1,6 +1,5 @@
 "use client";
 
-import BlogModal from "@/app/explore/(components)/blogs/BlogModal";
 import StoryModal from "@/app/explore/(components)/stories/StoryModal";
 import { useCart } from "@/app/provider/CartProvider";
 

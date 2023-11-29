@@ -1,17 +1,11 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import ViewClient from "../ViewClient";
-import ImageClient from "../ImageClient";
 import ActionsClient from "../ActionsClient";
-import { isAbsolute } from "path";
 import Link from "next/link";
 import { fetchComments, getGatheringsData } from "@/app/api/GerData";
 import WriteMeetupButton from "./WriteMeetupButton";
 
 const Meetups = async () => {
   const MeetupsData: any = await getGatheringsData();
-  console.log("🚀 ~ file: page.tsx:13 ~ Meetups ~ MeetupsData:", MeetupsData);
 
   const comms: any = [];
   for (const blog of MeetupsData) {
@@ -23,7 +17,6 @@ const Meetups = async () => {
     <div className="bg-tealLight px-0">
       <div className="flex justify-between items-center">
         <h2 className="text-center py-6 w-10/12">Meetups</h2>
-        {/* <ClientComponentButtuns buttonStyle={buttonStyle} /> */}
         <WriteMeetupButton />
       </div>
 

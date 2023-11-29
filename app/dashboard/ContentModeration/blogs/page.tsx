@@ -1,13 +1,8 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import ViewClient from "../ViewClient";
 import ImageClient from "../ImageClient";
 import ActionsClient from "../ActionsClient";
-import { isAbsolute } from "path";
 import Link from "next/link";
 import { fetchComments, getBlogsData } from "@/app/api/GerData";
-import BlogModal from "@/app/explore/(components)/blogs/BlogModal";
 import WriteBlogButton from "./WriteBlogButton";
 
 const Blogs = async () => {

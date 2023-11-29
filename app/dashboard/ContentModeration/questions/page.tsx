@@ -1,10 +1,5 @@
-import { db } from "@/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
-import ViewClient from "../ViewClient";
-import ImageClient from "../ImageClient";
 import ActionsClient from "../ActionsClient";
-import { isAbsolute } from "path";
 import Link from "next/link";
 import { IoMdArrowDown, IoMdArrowUp } from "react-icons/io";
 import { fetchComments, getQuestionsData } from "@/app/api/GerData";
@@ -12,7 +7,6 @@ import WriteQuestionButton from "./WriteQuestionButton";
 
 const Questions = async () => {
   const blogsData: any = await getQuestionsData();
-  console.log("🚀 ~ file: page.tsx:14 ~ Questions ~ blogsData:", blogsData);
 
   const comms: any = [];
   for (const blog of blogsData) {
@@ -24,7 +18,6 @@ const Questions = async () => {
     <div className="bg-tealLight px-0">
       <div className="flex justify-between items-center">
         <h2 className="text-center py-6 w-10a/12">Questions</h2>
-        {/* <ClientComponentButtuns buttonStyle={buttonStyle} /> */}
         <WriteQuestionButton />
       </div>
 

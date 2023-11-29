@@ -1,14 +1,6 @@
-import { db } from "@/firebase";
-import { collection, getDocs } from "firebase/firestore";
 import ImageClient from "../ImageClient";
 import ViewClient from "../ViewClient";
 import ImageModal from "@/app/explore/(components)/gallery/ImageModal";
-import {
-  AiFillDelete,
-  AiOutlineFlag,
-  AiOutlineHolder,
-  AiTwotoneFlag,
-} from "react-icons/ai";
 import ActionsClient from "../ActionsClient";
 import { fetchComments, getGalleryData } from "@/app/api/GerData";
 import UploadImageModal from "@/app/explore/(components)/gallery/UploadImageModal";
@@ -16,7 +8,6 @@ import UploadpetModalOpenButton from "@/app/explore/(components)/gallery/Uploadp
 
 const Gallery = async () => {
   const petImages: any = await getGalleryData();
-  console.log("🚀 ~ file: page.tsx:17 ~ Gallery ~ petImages:", petImages);
 
   const comms: any = [];
   for (const blog of petImages) {
