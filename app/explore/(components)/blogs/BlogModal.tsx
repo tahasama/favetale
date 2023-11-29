@@ -1,15 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import styles
-import ReactMarkdown from "react-markdown";
-import grayMatter from "gray-matter";
-import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
-import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
-
-import Quill from "quill";
 import dynamic from "next/dynamic";
 import {
   addDoc,
@@ -27,7 +19,6 @@ import Link from "next/link";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const BlogModal = ({ isOpen, onClose, blog }: any) => {
-  console.log("🚀 ~ file: BlogModal.tsx:41 ~ BlogModal ~ isOpen:", isOpen);
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
@@ -39,13 +30,12 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      onClose();
     }
   };
-  const [title, setTitle] = useState(""); // State to hold the title
-
-  const [tags, setTags] = useState<string[]>([]); // State to hold tags
-  const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState<string>("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -64,7 +54,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
   const addTag = () => {
     if (newTag) {
       setTags([...tags, newTag]);
-      setNewTag(""); // Clear the input field after adding a tag
+      setNewTag("");
     }
   };
 
@@ -79,10 +69,8 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // console.log("Document data:");
       setSelectedImage({ ...docSnap.data(), id: docSnap.id });
     } else {
-      // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
   };
@@ -99,12 +87,9 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
       const updateData: any = {};
 
       if (isDraft) {
-        // Logic to save as a draft
-        // For example, you can add/update the draft property in your blogData
         updateData.draft = true;
       } else {
-        // Logic to publish
-        updateData.draft = false; // Set draft to false for publishing
+        updateData.draft = false;
       }
 
       const storage = getStorage();
@@ -120,7 +105,6 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
           : blog?.image;
 
         if (blog?.id) {
-          // If updating an existing blog post
           const blogRef = doc(db, "blogs", blog.id);
 
           if (title) {
@@ -140,10 +124,8 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
           }
 
           await updateDoc(blogRef, updateData);
-          // router.push(`/explore/blogs/${blog.id}`);
           getBlog(blog.id);
         } else {
-          // If creating a new blog post
           const blogData = {
             writer: userx,
             title,
@@ -153,14 +135,10 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
             likes: [],
             hearts: [],
             createdAt: serverTimestamp(),
-            ...updateData, // Add the draft property
+            ...updateData,
           };
 
           const blog = await addDoc(collection(db, "blogs"), blogData);
-          console.log(
-            "🚀 ~ file: BlogModal.tsx:148 ~ publishBlog ~ blog:",
-            blog.id
-          );
           router.push(`/explore/blogs/${blog.id}`);
         }
 
@@ -173,7 +151,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
         setTitle("");
         setError("");
       } catch (error) {
-        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+        console.log(error);
         setLoading(false);
         setLoading2(false);
       }
@@ -190,7 +168,7 @@ const BlogModal = ({ isOpen, onClose, blog }: any) => {
   };
 
   const config: any = {
-    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+    readonly: false,
     placeholder: `
         <h3>Start your blog...</h3>
       `,

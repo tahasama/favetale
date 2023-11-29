@@ -16,7 +16,6 @@ const ClientComponent = () => {
         exit={{ opacity: 0, y: 1000 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Prominent Call-to-Action */}
         <div className="mb-6">
           <div className="bg-sky-600 p-6 sm:p-12 rounded-lg text-left leading-loose tracking-wide  ">
             <h2 className="text-2xl sm:text-4xl font-semibold text-white mb-5">

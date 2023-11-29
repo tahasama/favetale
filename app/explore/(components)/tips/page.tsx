@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import veterinary from "../../../images/coverImages/veterinary.jpg";
 import food from "../../../images/coverImages/food.jpg";
 import sport from "../../../images/coverImages/sport3.jpg";
@@ -11,15 +11,7 @@ import safe from "../../../images/coverImages/safe2.jpg";
 import care from "../../../images/coverImages/care.jpg";
 import para from "../../../images/coverImages/para3.jpg";
 import time from "../../../images/coverImages/time.jpg";
-import {
-  AnimatePresence,
-  MotionValue,
-  motion,
-  useAnimation,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { Mousewheel, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -115,8 +107,6 @@ const Tips = () => {
   useEffect(() => {
     controls.stop();
     controls.set({ opacity: 0, y: 500 });
-
-    // Start the animation
     controls.start({ opacity: 1, y: -70 });
   }, []);
 
@@ -124,16 +114,11 @@ const Tips = () => {
     console.log("uuuuuu");
     controls.stop();
     controls.set({ opacity: 0, y: 500 });
-
-    // Start the animation
     controls.start({ opacity: 1, y: -70 });
   };
 
-  const u = [1, 2, 3, 4, 5, 6];
-
   return (
     <div className="h-[81.8vh] xl:h-[85.5vh]  flex items-center justify-center flex-col mt-0 ">
-      {/* <h2 className="text-3xl font-semibold mb-6">Advice & Tips</h2> */}
       <Swiper
         direction={"vertical"}
         slidesPerView={1}
@@ -157,7 +142,7 @@ const Tips = () => {
             />
             <motion.div
               animate={controls}
-              transition={{ duration: 0.7 }} // Animation duration and delay
+              transition={{ duration: 0.7 }}
               className=" bg-white bg-opacity-80 rounded-lg shadow-md bottom-0 xl:bottom-3 p-5  sm:mx-5 md:p-7 xl:p-7 text-left left-0  w-full sm:w-5/6 lg:w-4/6 transition-all duration-200 absolute sm:right-5"
             >
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-2 md:mb-3 lg:mb-4">

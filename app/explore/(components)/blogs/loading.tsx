@@ -1,7 +1,4 @@
-"use client";
-
 export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
   const blogs = [1, 2, 3];
   return (
     <>

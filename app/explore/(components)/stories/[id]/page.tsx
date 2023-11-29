@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 
 import {
-  FieldValue,
   addDoc,
   arrayUnion,
   collection,
@@ -193,12 +192,10 @@ function Story() {
   // ];
 
   const { id } = useParams();
-  // console.log("🚀 ~ file: page.tsx:453 ~ Story ~ id:", typeof id);
   const {
     userx,
     setSelectedImage,
     selectedImage,
-    setImageModalOpen,
     uploadpetModalOpen,
     setUploadpetModalOpen,
   } = useCart();
@@ -209,46 +206,25 @@ function Story() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        // console.log("Document data:");
         setSelectedImage({ ...docSnap.data(), id: docSnap.id });
       } else {
-        // docSnap.data() will be undefined in this case
         console.log("No such document!");
       }
     };
     getStory();
   }, [id]);
 
-  // const StoryData = StorysData.filter((Story: any) => Story.id === Number(id))[0];
-
-  // State to handle adding comments
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState<any[]>([]);
-
   const commentsSectionRef = useRef<any>(null);
 
   const scrollToComments = () => {
     commentsSectionRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Function to add a new comment
-  // const handleAddComment = () => {
-  //   if (newComment.trim() !== "") {
-  //     const newCommentObj = {
-  //       text: newComment,
-  //       user: {
-  //         name: "Your Name",
-  //         image: "/path/to/your/image.jpg",
-  //       },
-  //     };
-  //     setComments((prevComments) => [...prevComments, newCommentObj]);
-  //     setNewComment("");
-  //   }
-  // };
   const fetchComments = async () => {
     try {
       if (id) {
-        // Check if selectedImage.id is defined
         const q = query(collection(db, "comments"), where("imageId", "==", id));
         const querySnapshot = await getDocs(q);
 
@@ -259,17 +235,12 @@ function Story() {
         });
 
         setComments(fetchedComments);
-        console.log(
-          "🚀 ~ file: page.tsx:512 ~ fetchComments ~ fetchedComments:",
-          fetchedComments
-        );
       }
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
   };
 
-  // Fetch comments when the component mounts
   useEffect(() => {
     id && fetchComments();
   }, [id]);
@@ -277,7 +248,6 @@ function Story() {
   const removeImage = async () => {
     console.log("lets delete", comments);
     try {
-      // Step 2: Iterate through the comments and delete each comment document
       const deleteCommentPromises: any[] = [];
       comments.forEach((commentDoc: any) => {
         const deleteCommentPromise = deleteDoc(
@@ -285,21 +255,10 @@ function Story() {
         );
         deleteCommentPromises.push(deleteCommentPromise);
       });
-      console.log(
-        "🚀 ~ file: page.tsx:598 ~ comments.forEach ~ deleteCommentPromises:"
-      );
 
-      // Step 3: Delete the selected image document
-      const deleteImagePromise = deleteDoc(doc(db, "storys", selectedImage.id)); // Assuming 'petImages' is the collection name for images
-
-      // Wait for all comment deletions to complete
+      const deleteImagePromise = deleteDoc(doc(db, "storys", selectedImage.id));
       await Promise.all(deleteCommentPromises);
-
-      // After all comments are deleted, delete the image
       await deleteImagePromise;
-
-      // Optionally, you can handle success or show a message here
-      console.log("Image and related comments deleted successfully.");
     } catch (error) {
       console.error("Error deleting image and related comments:", error);
     }
@@ -322,10 +281,7 @@ function Story() {
             commenters: arrayUnion(userx.id),
           });
         } catch (error) {
-          console.log(
-            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
-            error
-          );
+          console.log(error);
         }
       } else {
         try {
@@ -335,7 +291,7 @@ function Story() {
           setNewComment("");
           setUpdatedComment(null);
         } catch (error) {
-          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+          console.log(error);
         }
       }
     }
@@ -357,40 +313,19 @@ function Story() {
     const petImageData = documentSnapshot.data();
 
     try {
-      // Get the current document data
-
       if (petImageData) {
         const currentLikes = petImageData.likes || [];
-        console.log(
-          "🚀 ~ file: page.tsx:561 ~ updateLikes ~ currentLikes:",
-          currentLikes
-        );
 
-        // Check if userToAdd is already in the array
         if (currentLikes.includes(userx.id)) {
-          // Remove the user from the array on the client side
           const updatedLikes = currentLikes.filter(
             (userId: any) => userId !== userx.id
           );
-
-          // Update the local data immediately
           setSelectedImage({ ...selectedImage, likes: updatedLikes });
-
-          // Update the document on Firestore in the background
           await updateDoc(likeRef, { likes: updatedLikes });
-
-          console.log("Like removed successfully.");
         } else {
-          // Add the user to the array on the client side
           const updatedLikes = [...currentLikes, userx.id];
-
-          // Update the local data immediately
           setSelectedImage({ ...selectedImage, likes: updatedLikes });
-
-          // Update the document on Firestore in the background
           await updateDoc(likeRef, { likes: updatedLikes });
-
-          console.log("Like added successfully.");
         }
       } else {
         console.log("Document not found or data is null.");
@@ -401,7 +336,6 @@ function Story() {
   };
   return (
     <div className="max-w-3xl mx-auto p-4 mt-6 bg-white">
-      {/* Story Title */}
       <div className="h-fit">
         <StoryModal
           isOpen={uploadpetModalOpen}
@@ -410,7 +344,6 @@ function Story() {
         />
         <h1 className="text-3xl font-bold mb-4">{selectedImage.title}</h1>
 
-        {/* Writer's Information */}
         <div className="flex items-center mb-4 gap-2">
           {selectedImage.writer && selectedImage.writer.image ? (
             <Image
@@ -427,19 +360,13 @@ function Story() {
             <span className="text-gray-600 scale-105 ">
               {selectedImage.writer && selectedImage.writer.name}
             </span>
-
-            {/* <span className="text-green-900">26 July 2023</span> */}
           </div>
         </div>
         <p className="text-green-800 indent-4 ">
-          {/* {new Date(
-                selectedImage.createdAt.seconds * 1000
-              ).toLocaleString()} */}
           {selectedImage.createdAt &&
             selectedImage.createdAt.toDate().toDateString()}
         </p>
 
-        {/* Likes and Comments */}
         <div className="flex justify-between">
           <div className="my-6 flex items-center space-x-4 text-gray-600">
             <div
@@ -482,22 +409,18 @@ function Story() {
           )}
         </div>
 
-        {/* Story Image */}
         <img
           src={selectedImage.image}
           alt={selectedImage.title}
           className="w-full rounded-lg mb-6"
         />
 
-        {/* Story Content */}
         <div className="prose max-w-none">
           <div className="w-full mt-4">
             {parse(selectedImage.content ?? "")}
           </div>
-          {/* <ReactMarkdown>{selectedImage.content}</ReactMarkdown> */}
         </div>
       </div>
-      {/* Add Comment */}
       <div className="mt-12">
         {userx.id && (
           <div className="flex items-start space-x-4">
@@ -531,7 +454,6 @@ function Story() {
         )}
       </div>
 
-      {/* Comments */}
       <div className="mt-6" ref={commentsSectionRef}>
         {comments.map((comment, index) => (
           <div key={index} className="mb-4">

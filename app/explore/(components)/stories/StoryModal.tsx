@@ -1,15 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import styles
-import ReactMarkdown from "react-markdown";
-import grayMatter from "gray-matter";
-import remarkGfm from "remark-gfm";
 import parse from "html-react-parser";
-import { Montserrat, Roboto, Lato, Open_Sans } from "next/font/google";
-
-import Quill from "quill";
 import dynamic from "next/dynamic";
 import {
   addDoc,
@@ -24,19 +16,7 @@ import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useCart } from "@/app/provider/CartProvider";
 import Link from "next/link";
-// import JoditEditor from "jodit-react";
 
-// const JoditEditor = React.lazy(() => import("jodit-react"));
-
-// const MemoizedJoditEditor = React.memo(
-//   ({ content, setContent, config }: any) => {
-//     const editor = useRef(null);
-
-//     return (
-//
-//     );
-//   }
-// );
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const StoryModal = ({ isOpen, onClose, story }: any) => {
   console.log("🚀 ~ file: storyModal.tsx:34 ~ storyModal ~ story:", story);
@@ -51,13 +31,13 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
 
   const handleModalClick = (e: any) => {
     if (e.target.classList.contains("modal-overlay")) {
-      onClose(); // Call the onClose function to close the modal
+      onClose();
     }
   };
-  const [title, setTitle] = useState(""); // State to hold the title
+  const [title, setTitle] = useState("");
 
-  const [tags, setTags] = useState<string[]>([]); // State to hold tags
-  const [newTag, setNewTag] = useState<string>(""); // State for adding new tags
+  const [tags, setTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState<string>("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -75,7 +55,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
   const addTag = () => {
     if (newTag) {
       setTags([...tags, newTag]);
-      setNewTag(""); // Clear the input field after adding a tag
+      setNewTag("");
     }
   };
 
@@ -90,10 +70,8 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // console.log("Document data:");
       setSelectedImage({ ...docSnap.data(), id: docSnap.id });
     } else {
-      // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
   };
@@ -106,12 +84,9 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
       const updateData: any = {};
 
       if (isDraft) {
-        // Logic to save as a draft
-        // For example, you can add/update the draft property in your storyData
         updateData.draft = true;
       } else {
-        // Logic to publish
-        updateData.draft = false; // Set draft to false for publishing
+        updateData.draft = false;
       }
 
       const storage = getStorage();
@@ -127,7 +102,6 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
           : story?.image;
 
         if (story?.id) {
-          // If updating an existing story post
           const storyRef = doc(db, "storys", story.id);
 
           if (title) {
@@ -150,7 +124,6 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
           router.push(`/explore/stories/${story.id}`);
           getStory(story.id);
         } else {
-          // If creating a new story post
           const storyData = {
             writer: userx,
             title,
@@ -160,7 +133,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
             draft: isDraft,
             createdAt: serverTimestamp(),
             likes: [],
-            ...updateData, // Add the draft property
+            ...updateData,
           };
 
           const story = await addDoc(collection(db, "storys"), storyData);
@@ -176,7 +149,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
         setTitle("");
         setError("");
       } catch (error) {
-        console.log("🚀 UploadImageModal.tsx:66 ~ error:", error);
+        console.log(error);
         setLoading(false);
         setLoading2(false);
       }
@@ -193,7 +166,7 @@ const StoryModal = ({ isOpen, onClose, story }: any) => {
   };
 
   const config: any = {
-    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+    readonly: false,
     placeholder: `
         <h3>Start your story...</h3>
       `,

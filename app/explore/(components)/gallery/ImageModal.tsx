@@ -1,12 +1,9 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/app/provider/CartProvider";
 import {
-  DocumentData,
-  DocumentReference,
   addDoc,
-  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
@@ -14,7 +11,6 @@ import {
   getDoc,
   getDocs,
   query,
-  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -25,8 +21,8 @@ import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en.json";
-import UploadImageModal from "./UploadImageModal";
 import Link from "next/link";
+
 TimeAgo.addDefaultLocale(en);
 
 const ImageModal = () => {
@@ -44,11 +40,9 @@ const ImageModal = () => {
     selectedImage?.poster?.id
   );
 
-  // Function to fetch comments
   const fetchComments = async () => {
     try {
       if (selectedImage.id) {
-        // Check if selectedImage.id is defined
         const q = query(
           collection(db, "comments"),
           where("imageId", "==", selectedImage.id)
@@ -68,7 +62,6 @@ const ImageModal = () => {
     }
   };
 
-  // Fetch comments when the component mounts
   useEffect(() => {
     fetchComments();
   }, [selectedImage.id]);
@@ -103,10 +96,7 @@ const ImageModal = () => {
             commenters: arrayUnion(userx.id),
           });
         } catch (error) {
-          console.log(
-            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
-            error
-          );
+          console.log(error);
         }
       } else {
         try {
@@ -116,7 +106,7 @@ const ImageModal = () => {
           setNewComment("");
           setUpdatedComment(null);
         } catch (error) {
-          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+          console.log(error);
         }
       }
     }
@@ -135,41 +125,24 @@ const ImageModal = () => {
   };
 
   const updateLikes = async () => {
-    const likeRef = doc(db, "petImages", selectedImage.id); // Assuming 'db' is your Firestore instance
+    const likeRef = doc(db, "petImages", selectedImage.id);
     const documentSnapshot = await getDoc(likeRef);
     const petImageData = documentSnapshot.data();
 
     try {
-      // Get the current document data
-
       if (petImageData) {
         const currentLikes = petImageData.likes;
 
-        // Check if userToAdd is already in the array
         if (currentLikes.includes(userx.id)) {
-          // Remove the user from the array on the client side
           const updatedLikes = currentLikes.filter(
             (userId: any) => userId !== userx.id
           );
-
-          // Update the local data immediately
           setSelectedImage({ ...selectedImage, likes: updatedLikes });
-
-          // Update the document on Firestore in the background
           await updateDoc(likeRef, { likes: updatedLikes });
-
-          console.log("Like removed successfully.");
         } else {
-          // Add the user to the array on the client side
           const updatedLikes = [...currentLikes, userx.id];
-
-          // Update the local data immediately
           setSelectedImage({ ...selectedImage, likes: updatedLikes });
-
-          // Update the document on Firestore in the background
           await updateDoc(likeRef, { likes: updatedLikes });
-
-          console.log("Like added successfully.");
         }
       } else {
         console.log("Document not found or data is null.");
@@ -180,41 +153,23 @@ const ImageModal = () => {
   };
 
   const updateHearts = async () => {
-    const heartRef = doc(db, "petImages", selectedImage.id); // Assuming 'db' is your Firestore instance
+    const heartRef = doc(db, "petImages", selectedImage.id);
     const documentSnapshot = await getDoc(heartRef);
     const petImageData = documentSnapshot.data();
 
     try {
-      // Get the current document data
-
       if (petImageData) {
         const currentHearts = petImageData.hearts;
-
-        // Check if userToAdd is already in the array
         if (currentHearts.includes(userx.id)) {
-          // Remove the user from the array on the client side
           const updatedHearts = currentHearts.filter(
             (userId: any) => userId !== userx.id
           );
-
-          // Update the local data immediately
           setSelectedImage({ ...selectedImage, hearts: updatedHearts });
-
-          // Update the document on Firestore in the background
           await updateDoc(heartRef, { hearts: updatedHearts });
-
-          console.log("Heart removed successfully.");
         } else {
-          // Add the user to the array on the client side
           const updatedHearts = [...currentHearts, userx.id];
-
-          // Update the local data immediately
           setSelectedImage({ ...selectedImage, hearts: updatedHearts });
-
-          // Update the document on Firestore in the background
           await updateDoc(heartRef, { hearts: updatedHearts });
-
-          console.log("Heart added successfully.");
         }
       } else {
         console.log("Document not found or data is null.");
@@ -225,25 +180,21 @@ const ImageModal = () => {
   };
 
   const updateFlag = async () => {
-    const likeRef = doc(db, "petImages", selectedImage.id); // Assuming 'db' is your Firestore instance
-    const documentSnapshot = await getDoc(likeRef);
-    const petImageData = documentSnapshot.data();
+    const likeRef = doc(db, "petImages", selectedImage.id);
+    // const documentSnapshot = await getDoc(likeRef);
+    // const petImageData = documentSnapshot.data();
 
     try {
-      // Get the current document data
-
-      // Update the document on Firestore in the background
       await updateDoc(likeRef, { flag: true });
     } catch (error) {
       console.error("Error updating heart:", error);
     }
   };
 
-  const { imageModalOpen, setImageModalOpen } = useCart();
+  const { setImageModalOpen } = useCart();
 
   const removeImage = async () => {
     try {
-      // Step 2: Iterate through the comments and delete each comment document
       const deleteCommentPromises: any[] = [];
       comments.forEach((commentDoc: any) => {
         const deleteCommentPromise = deleteDoc(
@@ -252,19 +203,12 @@ const ImageModal = () => {
         deleteCommentPromises.push(deleteCommentPromise);
       });
 
-      // Step 3: Delete the selected image document
       const deleteImagePromise = deleteDoc(
         doc(db, "petImages", selectedImage.id)
-      ); // Assuming 'petImages' is the collection name for images
+      );
 
-      // Wait for all comment deletions to complete
       await Promise.all(deleteCommentPromises);
-
-      // After all comments are deleted, delete the image
       await deleteImagePromise;
-
-      // Optionally, you can handle success or show a message here
-      console.log("Image and related comments deleted successfully.");
     } catch (error) {
       console.error("Error deleting image and related comments:", error);
     }
@@ -349,7 +293,6 @@ const ImageModal = () => {
                 />
               )}
             </p>
-            {/* {new Date(selectedImage?.poster?.postedOn)} */}
           </Link>
 
           <div className="absolute bottom-3 right-2 text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-lg px-1.5 py-0.5">
@@ -405,7 +348,7 @@ const ImageModal = () => {
                   <div className="flex justify-between w-full">
                     <div className="flex  mb-1">
                       <img
-                        src={"commenterImage"} // Replace with the actual source of the commenter's image
+                        src={"commenterImage"}
                         alt="Commenter"
                         className="w-10 h-10 rounded-full mr-3"
                       />

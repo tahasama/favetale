@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-
 import ClientComponent from "./ClientComponent";
 import ServerComponent from "./ServerComponent";
 import Loading from "./loading";

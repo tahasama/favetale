@@ -125,6 +125,7 @@ const Forum = async ({ params: { id } }: any) => {
       discussions: [],
     },
   ];
+
   const forumData = forumsData.filter(
     (forum: any) => forum.id === Number(id)
   )[0];

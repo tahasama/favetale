@@ -1,17 +1,11 @@
 "use client";
-import Link from "next/link";
 
 import story1 from "../../../images/stories/story1.jpg";
 import story2 from "../../../images/stories/story2.jpg";
 import story3 from "../../../images/stories/story3.jpg";
 import story4 from "../../../images/stories/story4.jpg";
-import story5 from "../../../images/stories/story5.jpg";
-import story6 from "../../../images/stories/story6.jpg";
-import story7 from "../../../images/stories/story7.jpg";
-import { motion } from "framer-motion";
-import Image from "next/image";
+
 import { Suspense, useState } from "react";
-import StoryModal from "./StoryModal";
 import ServerComponent from "./ServerComponent";
 import ClientComponent from "./ClientComponent";
 import Loading from "./loading";
@@ -48,7 +42,6 @@ const Stories = () => {
       image: story4.src,
     },
   ];
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   return (
     <div className="z-10  mb-20  w-full">

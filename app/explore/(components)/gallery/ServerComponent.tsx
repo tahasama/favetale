@@ -1,6 +1,4 @@
-import React, { useMemo } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/firebase";
+import React from "react";
 
 import PetImages from "./PetImages";
 import ImageModal from "./ImageModal";

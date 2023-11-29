@@ -434,7 +434,8 @@ Remember that the quality of time you spend with your pet matters more than the 
     offset: ["start start", "end start"],
   });
   const backgroundTranslateY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 100]); // Adjust the range and values for text
+  const textTranslateY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+
   return (
     <div>
       <div

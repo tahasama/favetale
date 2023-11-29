@@ -1,17 +1,10 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaLightbulb } from "react-icons/fa";
-import {
-  FiMessageSquare,
-  FiUsers,
-  FiCalendar,
-  FiHelpCircle,
-  FiClipboard,
-  FiBook,
-  FiImage,
-} from "react-icons/fi";
+import { FiClipboard, FiBook, FiImage } from "react-icons/fi";
+
 const ExploreClient = () => {
   const pathName = usePathname();
   const [activeTab, setActiveTab] = useState<string>(
@@ -49,7 +42,7 @@ const TabButton = ({ tabName, isActive, onClick, icon }: any) => {
   return (
     <Link
       href={`/explore/${tabName}`}
-      className={`flex mt-8 items-center justify-center w-full py-3 border-l-2 group  bg-indigo-50 text-gray-600 rounded-t-lg ${
+      className={`flex mt-8 items-center justify-center w-full py-3 border-l-2 group bg-indigo-50 text-gray-600 rounded-t-lg ${
         isActive
           ? "bg-violet-100  border-l-2 border-l-gray-300 flex-col transition-all ease-in-out duration-1000"
           : "border-slate-200"

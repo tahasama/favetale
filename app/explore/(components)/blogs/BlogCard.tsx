@@ -1,16 +1,10 @@
-"use client";
+// "use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const BlogCard = ({ blog, index }: any) => {
+const BlogCard = ({ blog }: any) => {
   return (
-    // <motion.div
-    //   key={blog.id}
-    //   initial={{ opacity: 0, x: index * 20 + 50 }} // Initial state (hidden and slightly moved down)
-    //   animate={{ opacity: 1, x: 0 }} // Animation state (visible and at normal position)
-    //   transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
-    // >
     <Link
       href={`/explore/blogs/${blog.id}`}
       className="flex flex-col  -z-50 overflow-hidden w-[100%] rounded-t-lg shadow-lg  hover:scale-[1.007] transition-all duration-300"
@@ -35,7 +29,6 @@ const BlogCard = ({ blog, index }: any) => {
         </div>
       </div>
     </Link>
-    // </motion.div>
   );
 };
 

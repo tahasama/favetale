@@ -12,14 +12,12 @@ const StoryCard = ({ story, index }: any) => {
       initial={{
         opacity: 0,
         y: index * 100 + 100,
-        // transform: "scale(1.1)",
-      }} // Initial state (hidden and slightly moved down)
+      }}
       animate={{
         opacity: 1,
         y: 0,
-        // transform: "scale(1)",
-      }} // Animation state (visible and at normal position)
-      transition={{ duration: 0.75, delay: 0.75 }} // Animation duration
+      }}
+      transition={{ duration: 0.75, delay: 0.75 }}
     >
       <Link href={`/explore/stories/${story.id}`} className="block mb-4">
         <div

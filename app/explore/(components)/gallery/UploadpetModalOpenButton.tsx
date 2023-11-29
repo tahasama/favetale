@@ -10,7 +10,6 @@ const UploadpetModalOpenButton = ({ buttonStyle }: any) => {
   return (
     <button
       onClick={() => {
-        // userx.id ? setImageModalOpen(true) : router.push("/auth");
         setImageModalOpen(true);
       }}
       className={`${
