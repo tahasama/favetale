@@ -6,10 +6,6 @@ import { getProductsData } from "@/app/api/GerData";
 
 const ServerComponent = async () => {
   const productsData = await getProductsData();
-  console.log(
-    "🚀 ~ file: ServerComponent.tsx:13 ~ ServerComponent ~ productsData:",
-    productsData
-  );
 
   return (
     <tbody className="mt-10">

@@ -30,19 +30,12 @@ const productModal = () => {
     cart,
     setCart,
     uploadpetModalOpen,
-    setProduct,
     product,
     setUploadpetModalOpen,
     userx,
   } = useCart();
-  console.log(
-    "🚀 ~ file: ProductModal.tsx:21 ~ productModal ~ product:",
-    product?.rating
-  );
 
   const [rating, setRating] = useState<any[]>(product?.rating);
-  const [reviewText, setReviewText] = useState("");
-  const [reviews, setReviews] = useState<any>([]);
   const [index, setIndex] = useState<any>(0);
 
   const handleImageChange = (index: any) => {
@@ -166,10 +159,6 @@ const productModal = () => {
         });
 
         setComments(fetchedComments);
-        console.log(
-          "🚀 ~ file: page.tsx:512 ~ fetchComments ~ fetchedComments:",
-          fetchedComments
-        );
       }
     } catch (error) {
       console.error("Error fetching comments:", error);

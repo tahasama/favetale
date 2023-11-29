@@ -35,10 +35,6 @@ const ImageModal = () => {
   } = useCart();
 
   const [comments, setComments] = useState<any[]>([]);
-  console.log(
-    "🚀 ~ file: ImageModal.tsx:47 ~ fetchComments ~ selectedImage:",
-    selectedImage?.poster?.id
-  );
 
   const fetchComments = async () => {
     try {
@@ -79,10 +75,6 @@ const ImageModal = () => {
   const handleAddComment = async () => {
     if (newComment) {
       if (updatedComment === null) {
-        console.log(
-          "🚀 ~ file: ImageModal.tsx:89 ~ handleAddComment ~ updatedComment:",
-          updatedComment
-        );
         const commentRef = await addDoc(collection(db, "comments"), {
           comment: newComment,
           commenter: userx,

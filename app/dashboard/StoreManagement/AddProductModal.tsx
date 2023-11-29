@@ -67,7 +67,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
           setImagesArrayDatas([...imagesArray]);
 
           const storageRef = ref(storage, `products/${file.name}`);
-          console.log("Before uploading:", file.name);
           const uploadTask = uploadBytesResumable(storageRef, file);
           uploadTask.on(
             "state_changed",
@@ -80,7 +79,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
               console.error("Error during upload:", error);
             }
           );
-          console.log("After uploading:", file.name);
           const imageUrls = await getDownloadURL(storageRef);
           imagesArrays.push(imageUrls);
         });

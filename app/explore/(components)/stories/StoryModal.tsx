@@ -19,7 +19,6 @@ import Link from "next/link";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const StoryModal = ({ isOpen, onClose, story }: any) => {
-  console.log("🚀 ~ file: storyModal.tsx:34 ~ storyModal ~ story:", story);
   const router = useRouter();
 
   const { userx, setUploadpetModalOpen, setSelectedImage } = useCart();
