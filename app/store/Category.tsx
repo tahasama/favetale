@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
-import cat from "../images/category/cat.png";
-import dog from "../images/category/dog.png";
-import rabbit from "../images/category/rabbit.png";
-import fish from "../images/category/fish.png";
-import bird from "../images/category/bird.png";
+import cat from "../images/category/cat.jpg";
+import dog from "../images/category/dog.jpg";
+import rabbit from "../images/category/rabbit.jpg";
+import fish from "../images/category/fish.jpg";
+import bird from "../images/category/bird.jpg";
 import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({ subsets: ["latin"] });

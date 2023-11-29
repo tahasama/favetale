@@ -7,24 +7,14 @@ import { AiFillDelete, AiOutlineFlag, AiTwotoneFlag } from "react-icons/ai";
 
 const ActionsClient = ({ image, collectionName }: any) => {
   const [deleted, setDeleted] = useState(false);
-  const [flagClient, setFlagClient] = useState(
-    // client: image.id,
-    image.flag
-  );
-  console.log(
-    "🚀 ~ file: ActionsClient.tsx:13 ~ ActionsClient ~ flagClient:",
-    flagClient
-  );
+  const [flagClient, setFlagClient] = useState(image.flag);
 
   const updateFlag = async () => {
-    const likeRef = doc(db, collectionName, image.id); // Assuming 'db' is your Firestore instance
+    const likeRef = doc(db, collectionName, image.id);
     const documentSnapshot = await getDoc(likeRef);
     const petImageData: any = documentSnapshot.data();
 
     try {
-      // Get the current document data
-
-      // Update the document on Firestore in the background
       petImageData.flag
         ? await updateDoc(likeRef, { flag: false }).then(() =>
             setFlagClient(!petImageData.flag)
@@ -38,7 +28,7 @@ const ActionsClient = ({ image, collectionName }: any) => {
   };
 
   const deletImage = async () => {
-    const likeRef = doc(db, collectionName, image.id); // Assuming 'db' is your Firestore instance
+    const likeRef = doc(db, collectionName, image.id);
     await deleteDoc(likeRef).then(() => setDeleted(true));
   };
 
