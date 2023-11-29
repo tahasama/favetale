@@ -8,14 +8,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 const EditDeleteProduct = ({ product }: any) => {
   const [deleted, setDeleted] = useState(false);
 
-  const {
-    uploadpetModalOpen,
-    setUploadpetModalOpen,
-    imageModalOpen,
-    setImageModalOpen,
-    setSelectedImage,
-    selectedImage,
-  } = useCart();
+  const { setImageModalOpen, setSelectedImage, selectedImage } = useCart();
 
   const handleEditProduct = () => {
     setImageModalOpen(true);
@@ -23,7 +16,7 @@ const EditDeleteProduct = ({ product }: any) => {
   };
 
   const handleDeleteProduct = async () => {
-    const likeRef = doc(db, "products", selectedImage.id || product.id); // Assuming 'db' is your Firestore instance
+    const likeRef = doc(db, "products", selectedImage.id || product.id);
     await deleteDoc(likeRef)
       .then(() => setDeleted(true))
       .finally(() => setSelectedImage(null));

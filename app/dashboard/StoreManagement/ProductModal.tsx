@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +23,6 @@ import en from "javascript-time-ago/locale/en.json";
 import { useCart } from "@/app/provider/CartProvider";
 
 const productModal = () => {
-  const router = useRouter();
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const {
     cartItems,
@@ -32,19 +30,12 @@ const productModal = () => {
     cart,
     setCart,
     uploadpetModalOpen,
-    setProduct,
     product,
     setUploadpetModalOpen,
     userx,
   } = useCart();
-  console.log(
-    "🚀 ~ file: ProductModal.tsx:21 ~ productModal ~ product:",
-    product?.rating
-  );
 
   const [rating, setRating] = useState<any[]>(product?.rating);
-  const [reviewText, setReviewText] = useState("");
-  const [reviews, setReviews] = useState<any>([]);
   const [index, setIndex] = useState<any>(0);
 
   const handleImageChange = (index: any) => {
@@ -74,7 +65,6 @@ const productModal = () => {
   };
 
   useEffect(() => {
-    // Check if the product is already in the cart and update the button state
     if (product && product.id) {
       setIsAddedToCart(cart.some((item: any) => item.id === product.id));
     }
@@ -99,7 +89,6 @@ const productModal = () => {
       setCartItems(updatedCartItems);
       setIsAddedToCart(true);
 
-      // Save the updated cart items to local storage
       localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     }
   };
@@ -126,17 +115,13 @@ const productModal = () => {
           likes: [],
           dislikes: [],
         });
-        let idx: any = product.id;
 
         try {
           await updateDoc(doc(db, "products", product.id), {
             commenters: arrayUnion(userx.id),
           });
         } catch (error) {
-          console.log(
-            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
-            error
-          );
+          console.log(error);
         }
       } else {
         try {
@@ -146,7 +131,7 @@ const productModal = () => {
           setNewComment("");
           setUpdatedComment(null);
         } catch (error) {
-          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+          console.log(error);
         }
       }
     }
@@ -162,7 +147,6 @@ const productModal = () => {
   const fetchComments = async () => {
     try {
       if (product.id) {
-        // Check if selectedImage.id is defined
         const q = query(
           collection(db, "comments"),
           where("imageId", "==", product.id)
@@ -176,10 +160,6 @@ const productModal = () => {
         });
 
         setComments(fetchedComments);
-        console.log(
-          "🚀 ~ file: page.tsx:512 ~ fetchComments ~ fetchedComments:",
-          fetchedComments
-        );
       }
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -206,7 +186,6 @@ const productModal = () => {
     >
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
         <div className="flex flex-col md:flex-row gap-8 lg:p- shadow-md lg:min-h-[80vh] bg-sky-50">
-          {/* Left side of the modal with images and product details */}
           <div className="flex justify-center md:w-1/2">
             <div className=" flex flex-col items-center justify-center w-full">
               <Image
@@ -321,7 +300,6 @@ const productModal = () => {
             </div>
           )}
 
-          {/* Right side of the modal with reviews */}
           <h3 className="text-lg font-semibold mb-2 mt-4 text-left">
             Customer Reviews
           </h3>

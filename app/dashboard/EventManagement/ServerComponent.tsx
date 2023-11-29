@@ -1,6 +1,4 @@
 import React from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/firebase";
 import FilterComponent from "./FilterComponent";
 import { getEventsData, getGatheringsData } from "@/app/api/GerData";
 

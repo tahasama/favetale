@@ -38,7 +38,7 @@ const FilterComponent = ({ meetupsData }: any) => {
   };
   return (
     <div className="flex flex-col w-full">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-1 p-6 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-1 p-6">
         <div>
           <label
             htmlFor="country"
@@ -121,7 +121,7 @@ const FilterComponent = ({ meetupsData }: any) => {
         <div className="col-span-full">
           <button
             onClick={handleSearch}
-            className="bg-violet-600 hover:bg-violet-700  text-white text-lg font-bold py-2 px-0  rounded w-full sm:w-[18%] shadow-slate-700 shadow-md hover:animate-bounceQ active:animate-bounceQ"
+            className="bg-violet-600 hover:bg-violet-700  text-white text-lg font-bold py-2 px-0 rounded w-full sm:w-[18%] shadow-slate-700 shadow-md hover:animate-bounceQ active:animate-bounceQ"
           >
             Search
           </button>

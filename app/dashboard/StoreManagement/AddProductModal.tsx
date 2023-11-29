@@ -12,17 +12,10 @@ import {
 import React, { ChangeEvent, useState } from "react";
 
 const AddProductModal = ({ isOpen, onClose }: any) => {
-  const abortController = new AbortController();
-
   const { selectedImage, setSelectedImage } = useCart();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
-  const [imagesArrayData, setImagesArrayData] = useState<string[]>([]);
   const [imagesArrayDatas, setImagesArrayDatas] = useState<string[]>([]);
-  console.log(
-    "🚀 ~ file: AddProductModal.tsx:20 ~ AddProductModal ~ imagesArrayDatas:",
-    imagesArrayDatas
-  );
 
   const [product, setProduct] = useState<any>({
     name: "",
@@ -33,7 +26,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
     cumulativeStock: 0,
     description: "",
     stock: 0,
-    timestamp: Date.now(), // replace with your timestamp logic
+    timestamp: Date.now(),
     reviews: [],
   });
 
@@ -71,7 +64,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
         const uploadPromises = Array.from(files).map(async (file: any) => {
           const imageUrl = URL.createObjectURL(file);
           imagesArray.push(imageUrl);
-          setImagesArrayDatas([...imagesArray]); // Update state before promise
+          setImagesArrayDatas([...imagesArray]);
 
           const storageRef = ref(storage, `products/${file.name}`);
           console.log("Before uploading:", file.name);
@@ -96,7 +89,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
 
         setProduct((prevProduct: any) => ({
           ...prevProduct,
-          images: imagesArrays, // Update images with the download URLs
+          images: imagesArrays,
         }));
       } catch (error) {
         console.error("Error uploading images:", error);
@@ -104,7 +97,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
     }
 
     setLoading2(false);
-    setUploadProgress(0); // Reset progress after upload completion
+    setUploadProgress(0);
   };
 
   const handleAddOrUpdateProduct = async (e: any) => {
@@ -115,7 +108,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
       const productsCollection = collection(db, "products");
 
       if (selectedImage) {
-        // Update existing product
         const updatedProductData = {
           name: product.name || selectedImage?.name,
           images: product.images || selectedImage?.images,
@@ -135,9 +127,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
         await updateDoc(productRef, updatedProductData)
           .then(() => onClose())
           .finally(() => setSelectedImage(null));
-        // Add any additional logic if needed after updating a product
       } else {
-        // Add new product
         const newProductData = {
           name: product.name,
           images: product.images,
@@ -150,10 +140,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
           updateted: Date.now(),
           reviews: product.reviews,
         };
-        console.log(
-          "🚀 ~ file: AddProductModal.tsx:143 ~ handleAddOrUpdateProduct ~ newProductData:",
-          newProductData.images
-        );
 
         const newProduct = await addDoc(productsCollection, newProductData)
           .then(() => setLoading(false))
@@ -263,7 +249,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
                 id="image"
                 accept="image/*"
                 onChange={handleImageChange}
-                multiple // Add the multiple attribute here
+                multiple
                 required
                 className="w-full bg-indigo-100 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-400"
               />
@@ -302,7 +288,6 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
                 )}
               </div>
             </div>
-            {/* Add or modify any other fields as needed */}
             <div className="mb-6  flex justify-center lg:justify-end space-x-5 lg:space-x-4">
               <button
                 type="submit"

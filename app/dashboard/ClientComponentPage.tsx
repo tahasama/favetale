@@ -1,12 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import { HiMenu } from "react-icons/hi";
-
 import Link from "next/link";
-import { Aboreto, Roboto, Abhaya_Libre, Montaga } from "next/font/google";
+import { Roboto, Abhaya_Libre, Montaga } from "next/font/google";
 
-// const aboreto = Abhaya_Libre({ weight: "400", subsets: ["latin"] });
 const montaga = Montaga({ weight: "400", subsets: ["latin"] });
 const abhaya = Abhaya_Libre({ weight: "700", subsets: ["latin"] });
 const roboto = Roboto({ weight: "700", subsets: ["latin"] });

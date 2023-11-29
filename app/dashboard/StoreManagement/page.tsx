@@ -3,14 +3,9 @@ import React, { Suspense } from "react";
 import cage from "../../images/store/cage.jpg";
 import feeder from "../../images/store/feeder.jpg";
 import scratch from "../../images/store/scratch.jpg";
-import Image from "next/image";
-import ProductModal from "./ProductModal";
-import { useCart } from "@/app/provider/CartProvider";
-import { FaInfo, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import ServerComponent from "./ServerComponent";
 import Loading from "../EventManagement/loading";
 import AddProduct from "./AddProduct";
-import AddProductModal from "./AddProductModal";
 
 function StoreManagement() {
   const discountProducts = [
@@ -114,7 +109,6 @@ function StoreManagement() {
     <div className="bg-tealLight relative">
       <h2 className="text-center pt-6 mb-9">Store Management</h2>
       <AddProduct />
-      {/* Product List */}
       <div className="text-xs md:text-sm lg:text-base overflow-x-auto mx-1">
         <table className="w-full max-h-[400px] border-collapse border border-gray-300">
           <thead className="bg-gray-100">
@@ -136,9 +130,6 @@ function StoreManagement() {
           </Suspense>
         </table>
       </div>
-      ;{/* Product Details */}
-      {/* Product Actions */}
-      {/* <div className="inset-0 absolute bg-pink-400">hhh</div> */}
     </div>
   );
 }

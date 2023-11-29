@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import ActionsClient from "../ContentModeration/ActionsClient";
 const MeetupTable = ({ searchResults }: any) => {
