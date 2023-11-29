@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword } from "@firebase/auth"; // Import the necessary Firebase authentication function
+import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth, db } from "@/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
@@ -19,7 +19,6 @@ const SignUp = () => {
   const provider = new GoogleAuthProvider();
   const { setUserx } = useCart();
 
-  // State for user input
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,9 +33,8 @@ const SignUp = () => {
         password
       );
       const user = userCredential.user;
-      console.log("🚀 ~ file: page.tsx:22 ~ handleSignUp ~ user:", user);
-      // Store additional user information in Firestore
-      const userRef = doc(db, "users", user.uid); // Assuming you have a 'users' collection
+
+      const userRef = doc(db, "users", user.uid);
       const userData = {
         name: username,
         email: email,
@@ -50,11 +48,7 @@ const SignUp = () => {
 
       return user;
     } catch (error: any) {
-      const errorCode = error.code;
-      console.log(
-        "🚀 ~ file: page.tsx:26 ~ handleSignUp ~ errorCode:",
-        errorCode
-      );
+      // const errorCode = error.code;
       const errorMessage = error.message;
       setError(errorMessage);
     }
@@ -68,17 +62,12 @@ const SignUp = () => {
         password
       );
       const user = userCredential.user;
-      console.log("🚀 ~ file: page.tsx:22 ~ handleSignUp ~ user:", user);
       setUserx(user);
       router.push(`/profile/${user.uid}`);
 
       return user;
     } catch (error: any) {
-      const errorCode = error.code;
-      console.log(
-        "🚀 ~ file: page.tsx:26 ~ handleSignUp ~ errorCode:",
-        errorCode
-      );
+      // const errorCode = error.code;
       const errorMessage = error.message;
       setError(errorMessage);
     }
@@ -95,14 +84,11 @@ const SignUp = () => {
           if (user && user.uid) {
             const userRef = doc(db, "users", user.uid);
 
-            // Check if the user document already exists in Firestore
             const userDoc = await getDoc(userRef);
 
             if (userDoc.exists()) {
-              // User document already exists; redirect to profile page
               router.push(`/profile/${user.uid}`);
             } else {
-              // User document doesn't exist; create it in Firestore
               await setDoc(userRef, {
                 name: user.displayName,
                 email: user.email,
@@ -114,7 +100,6 @@ const SignUp = () => {
                 .then(async () => await getDoc(userRef))
                 .finally(() => setUserx(user));
 
-              // Redirect to the profile page
               router.push(`/profile/${user.uid}`);
             }
           } else {
@@ -126,7 +111,7 @@ const SignUp = () => {
       }
     };
     handleSignInRedirect();
-  }, []); // Only runs once when the component mounts
+  }, []);
 
   return (
     <div className="h-[calc(100vh-70px)] flex flex-row items-center justify-center">
