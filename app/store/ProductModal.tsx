@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useCart } from "../provider/CartProvider";
@@ -16,7 +15,6 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { fetchComments } from "../api/GerData";
 import { db } from "@/firebase";
 import ReactTimeAgo from "react-time-ago";
 import TimeAgo from "javascript-time-ago";
@@ -25,7 +23,6 @@ TimeAgo.addDefaultLocale(en);
 import en from "javascript-time-ago/locale/en.json";
 
 const productModal = () => {
-  const router = useRouter();
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const {
     cartItems,
@@ -75,7 +72,6 @@ const productModal = () => {
   };
 
   useEffect(() => {
-    // Check if the product is already in the cart and update the button state
     if (product && product.id) {
       setIsAddedToCart(cart.some((item: any) => item.id === product.id));
     }
@@ -99,8 +95,6 @@ const productModal = () => {
       const updatedCartItems = [...cart, { ...product, quantity: 1 }];
       setCartItems(updatedCartItems);
       setIsAddedToCart(true);
-
-      // Save the updated cart items to local storage
       localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     }
   };
@@ -127,17 +121,12 @@ const productModal = () => {
           likes: [],
           dislikes: [],
         });
-        let idx: any = product.id;
-
         try {
           await updateDoc(doc(db, "products", product.id), {
             commenters: arrayUnion(userx.id),
           });
         } catch (error) {
-          console.log(
-            "🚀 ~ file: ImageModal.tsx:106 ~ handleAddComment ~ error:",
-            error
-          );
+          console.log(error);
         }
       } else {
         try {
@@ -147,7 +136,7 @@ const productModal = () => {
           setNewComment("");
           setUpdatedComment(null);
         } catch (error) {
-          console.log("🚀 ~ file: page.tsx:236 ~ addAnswer ~ error:", error);
+          console.log(error);
         }
       }
     }

@@ -1,6 +1,6 @@
 "use client";
 import { auth, db } from "@/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -26,10 +26,7 @@ export const CartProvider = ({ children }: any) => {
   const [comments, setComments] = useState<any[]>([]);
   const [filterImage, setFilterImage] = useState<any>("");
 
-  // const [petModalOpen, setPetModalOpen] = useState(false);
-
   useEffect(() => {
-    // localStorage.clear();
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
       setCart(JSON.parse(savedCartItems));
@@ -42,7 +39,6 @@ export const CartProvider = ({ children }: any) => {
         const userData = await getDoc(userRef);
 
         if (userData.exists()) {
-          // const user: any = userData.data();
           const userz: any = {
             ...userData.data(),
             id: userData.id,

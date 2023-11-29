@@ -1,17 +1,7 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { useCart } from "@/app/provider/CartProvider";
-import stripe from "stripe";
-
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(
-  "pk_test_51NjYqEBOXs6fP5LSV7Nl077GJlha66OR3nsOtdfJPzujg6h6nplxMqEWJEwnGQbGepMWptEvtUGxvraFw1kYpO10002ZKw2YEM"
-);
 
 export default function App() {
   const { total, cart, quantities } = useCart();
-  console.log("🚀 ~ file: Payment.tsx:14 ~ App ~ cart:", cart);
 
   const adaptedCart = cart.map((item: any) => ({
     price_data: {
@@ -20,7 +10,7 @@ export default function App() {
         name: item.name,
         description: `${item.quantity} x ${item.name}`,
       },
-      unit_amount: item.price * 100, // Convert price to cents
+      unit_amount: item.price * 100,
     },
     quantity: quantities[item.id],
   }));

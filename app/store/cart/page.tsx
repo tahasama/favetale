@@ -17,11 +17,8 @@ const CartPage = () => {
 
   const handleRemoveItem = (itemId: any) => {
     localStorage.setItem(`quantity_${itemId}`, String(1));
-    // Remove the item from the cart
     const updatedCart = cart.filter((item: any) => item.id !== itemId);
     setCart(updatedCart);
-
-    // Update local storage with the updated cart
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 

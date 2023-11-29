@@ -1,17 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import scratch from "../images/store/scratch.jpg";
-import feeder from "../images/store/feeder.jpg";
-
 import logo from "../logo.png";
-import logoPets from "../images/logoPets.png";
 
 const Purshase = ({ purchase }: any) => {
-  console.log("🚀 ~ file: Purshase.tsx:10 ~ Purshase ~ purchase:", purchase);
-  // console.log(
-  //   "🚀 ~ file: Purshase.tsx:10 ~ Purshase ~ purchase:",
-  //   purchase.cart
-  // );
   // const purchase = {
   //   address: {
   //     city: "paris",

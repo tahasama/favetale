@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const SearchModal = ({ isOpen, onClose }: any) => {
   const router = useRouter();
@@ -8,10 +7,7 @@ const SearchModal = ({ isOpen, onClose }: any) => {
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    // Add event listener when the component mounts
     document.addEventListener("keydown", handleKeyPress);
-
-    // Remove event listener when the component unmounts
     return () => {
       document.removeEventListener("keydown", handleButtonClick);
     };
@@ -38,7 +34,6 @@ const SearchModal = ({ isOpen, onClose }: any) => {
       router.push("/search?q=" + inputRef?.current?.value);
     inputRef.current.value = "";
     onClose();
-    // Do something with the value, such as using it in a search or submitting a form
   };
 
   return (

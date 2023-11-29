@@ -66,7 +66,6 @@ const ContactUs = () => {
             knowledge about pet care and well-being. Follow our social media
             channels for event announcements and updates.
           </p>
-          {/* Add images or event-related content */}
         </div>
       </div>
       <footer className="bg-teal-900 text-white text-center py-6">

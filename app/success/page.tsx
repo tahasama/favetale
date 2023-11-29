@@ -1,16 +1,12 @@
 "use client";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import stripe from "stripe";
-import Stripe from "stripe";
 import { useCart } from "../provider/CartProvider";
 import PurchasePage from "./Purshase";
 import {
   addDoc,
   collection,
   doc,
-  getDoc,
   getDocs,
   query,
   serverTimestamp,
@@ -33,7 +29,6 @@ const Success = ({ searchParams: { session_id } }: any) => {
       });
       return K;
     }, []);
-    console.log("🚀 ~ file: page.tsx:33 ~ Q ~ Q:", Q);
     Q.map(async (product) => {
       await updateDoc(doc(db, "products", product.id), {
         stock: product.stock - product.quantity,

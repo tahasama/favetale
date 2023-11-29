@@ -1,19 +1,7 @@
 import Link from "next/link";
-
-import { motion } from "framer-motion";
-import { useCart } from "../provider/CartProvider";
-
 import cage from "../images/store/cage.jpg";
 import feeder from "../images/store/feeder.jpg";
 import scratch from "../images/store/scratch.jpg";
-import collar from "../images/store/collar.jpg";
-import leash from "../images/store/leash.jpg";
-import shampoo from "../images/store/shampoo.jpg";
-import catfood from "../images/store/catfood.jpg";
-import toy from "../images/store/toy.jpg";
-import bed from "../images/store/bed.jpg";
-
-import Image from "next/image";
 import ProductModal from "./ProductModal";
 import ProductCard from "./ProductCard";
 import { getProductsData } from "../api/GerData";
@@ -127,7 +115,6 @@ const Products = async () => {
           <div className="bg-teal-500 h-1 w-40 ml-2 mt-3"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-10 lg:gap-6 text-start">
-          {/* Trending Products with Discounts */}
           {productsData
             .filter((product: any) => product.discount !== 0)
             .slice(0, 3)

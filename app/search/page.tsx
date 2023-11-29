@@ -8,7 +8,6 @@ const Search = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("q");
-  console.log("🚀 ~ file: page.tsx:9 ~ Search ~ search:", search);
   return (
     <div>
       <Suspense fallback={<Loading />}>

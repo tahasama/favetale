@@ -1,6 +1,4 @@
 import React from "react";
-import heroBackground from "../images/10.jpg";
-import store4 from "../images/store4.jpg";
 import store5 from "../images/store5.jpg";
 import Link from "next/link";
 
@@ -14,10 +12,6 @@ const Hero = () => {
     <section
       style={heroStyle}
       className={`bg-blue-900 text-white mt-20 h-[50vh] flex items-end justify-start w-full `}
-      // style={{
-      //   backgroundImage:
-      //     "url(https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg)",
-      // }}
     >
       <div className="container p-6 w-12/12 lg:w-6/12 h-8/12  backdrop-blur-sm">
         <h1 className="text-4xl md:xl:text-4xl lg:text-5xl xl:text-6xl md:text-5xl text-emerald-50 font-semibold mb-4 ">

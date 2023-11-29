@@ -20,7 +20,7 @@ const CartItem = ({ item, onRemove }: any) => {
     } else {
       setQuantities((prevQuantities: any) => ({
         ...prevQuantities,
-        [item.id]: 1, // Default quantity is 1 if not found in local storage
+        [item.id]: 1,
       }));
     }
   }, [item.id, setQuantities]);

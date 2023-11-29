@@ -9,7 +9,6 @@ const Services = () => {
           Services and Benefits
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Excellent Customer Support */}
           <div className="bg-white p-6 rounded-md shadow-md">
             <span className="text-3xl">📞</span>
             <h3 className="text-xl font-semibold mb-4">
@@ -21,7 +20,6 @@ const Services = () => {
             </p>
           </div>
 
-          {/* Easy Returns and Refunds */}
           <div className="bg-white p-6 rounded-md shadow-md">
             <span className="text-3xl">🔄</span>
             <h3 className="text-xl font-semibold mb-4">
@@ -33,7 +31,6 @@ const Services = () => {
             </p>
           </div>
 
-          {/* Fast and Reliable Delivery */}
           <div className="bg-white p-6 rounded-md shadow-md">
             <span className="text-3xl">🚚</span>
             <h3 className="text-xl font-semibold mb-4">

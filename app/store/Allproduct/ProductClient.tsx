@@ -1,29 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import ProductModal from "../ProductModal";
-
-import cage from "../../images/store/cage.jpg";
-import feeder from "../../images/store/feeder.jpg";
-import scratch from "../../images/store/scratch.jpg";
-import { useSearchParams } from "next/navigation";
-
-import cat from "../../images/category/cat.png";
-import dog from "../images/category/dog.png";
-import rabbit from "../images/category/rabbit.png";
-import fish from "../images/category/fish.png";
-import bird from "../images/category/bird.png";
 import { useCart } from "@/app/provider/CartProvider";
 
 const ProductClient = ({ products }: any) => {
-  const {
-    setSelectedImage,
-    setUploadpetModalOpen,
-    uploadpetModalOpen,
-    filterImage,
-    setFilterImage,
-    setProduct,
-  } = useCart();
+  const { setUploadpetModalOpen, setProduct } = useCart();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [filterOptions, setFilterOptions] = useState({
     category: "",
@@ -33,20 +15,13 @@ const ProductClient = ({ products }: any) => {
     minRating: "",
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = (product: any) => {
     setProduct(product), setUploadpetModalOpen(true);
   };
 
-  const closeModal = () => {
-    setSelectedProduct(null);
-    setIsModalOpen(false);
-  };
-
   const averageRating = (ratings: any) => {
     if (ratings.length === 0) {
-      return 0; // Return 0 if there are no ratings to avoid division by zero
+      return 0;
     }
 
     const sum = ratings.reduce((total: any, rating: any) => total + rating, 0);
@@ -138,7 +113,6 @@ const ProductClient = ({ products }: any) => {
             />
           </div>
 
-          {/* Min Rating Filter */}
           <div className="flex items-center">
             <label className="mr-2 text-lg">Min Rating:</label>
             <input
@@ -156,8 +130,7 @@ const ProductClient = ({ products }: any) => {
           </div>
         </div>
       </div>
-      {/* Discount Filter */}
-      <div className="flex items-center my-4  bg-sky-100 rounded-md p-2 w-fit">
+      <div className="flex items-center my-4 bg-sky-100 rounded-md p-2 w-fit">
         <input
           type="checkbox"
           className="mr-2 h-6 w-6"
@@ -178,7 +151,6 @@ const ProductClient = ({ products }: any) => {
             onClick={() => openModal(product)}
             className="bg-white relative p-4 mx-3 rounded-lg shadow-md hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer"
           >
-            {/* Product Image */}
             <div className="w-auto  flex justify-center ">
               <Image
                 src={product.images[0]}
@@ -188,22 +160,15 @@ const ProductClient = ({ products }: any) => {
                 width={500}
               />
             </div>
-
-            {/* Product Name */}
             <h3 className="text-lg font-semibold mt-4">{product.name}</h3>
-
-            {/* Product Price */}
             <p className={` dh{"text-gray-600"} text-xl my-1`}>
               {product.price} Dhs
             </p>
-
-            {/* Discount (if applicable) */}
             {product.discount > 0 && (
               <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
                 {product.discount}% OFF
               </p>
             )}
-            {/* Rating (if applicable) */}
             {product.rating.length !== 0 && (
               <p className="my-1 absolute top-2 flex items-center justify-center left-2 bg-pink-50 w-20">
                 <p className="p-1">
@@ -213,18 +178,13 @@ const ProductClient = ({ products }: any) => {
               </p>
             )}
 
-            {/* Add to Cart Button */}
             <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 mt-2 rounded-md cursor-pointer hover:animate-buttonHover">
               {isAddedToCart ? "Added to Cart" : "Add to Cart"}
             </button>
           </div>
         ))}
       </div>
-
-      <ProductModal
-      // product={selectedProduct}
-      // onClose={closeModal}
-      />
+      <ProductModal />
     </div>
   );
 };
