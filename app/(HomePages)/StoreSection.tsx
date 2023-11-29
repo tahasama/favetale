@@ -1,46 +1,44 @@
 "use client";
 
 import Image from "next/image";
-import Store1 from "../images/store1.jpg";
-import Store2 from "../images/store2.jpg";
-import Store3 from "../images/store3.jpg";
-import StoreL2 from "../images/store/store2.jpg";
 import Link from "next/link";
 
 import { Vollkorn } from "next/font/google";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
+import StoreL2 from "../images/store2.jpg";
+
 const StorySection = () => {
-  const products = [
-    {
-      images: [Store3],
-      name: "Pet Toy",
-      price: 19.99,
-      id: 10,
-      reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
-      rating: 5,
-      discount: 0,
-    },
-    {
-      images: [Store2],
-      name: "Premium Pet Food",
-      price: 29.99,
-      id: 11,
-      reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
-      rating: 5,
-      discount: 0,
-    },
-    {
-      images: [Store1],
-      name: "Pet Grooming Kit",
-      price: 39.99,
-      id: 12,
-      reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
-      rating: 5,
-      discount: 0,
-    },
-  ];
+  // const products = [
+  //   {
+  //     images: [Store3],
+  //     name: "Pet Toy",
+  //     price: 19.99,
+  //     id: 10,
+  //     reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
+  //     rating: 5,
+  //     discount: 0,
+  //   },
+  //   {
+  //     images: [Store2],
+  //     name: "Premium Pet Food",
+  //     price: 29.99,
+  //     id: 11,
+  //     reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
+  //     rating: 5,
+  //     discount: 0,
+  //   },
+  //   {
+  //     images: [Store1],
+  //     name: "Pet Grooming Kit",
+  //     price: 39.99,
+  //     id: 12,
+  //     reviews: ["ggggggg", "ttttttt", "yyyyyyyy"],
+  //     rating: 5,
+  //     discount: 0,
+  //   },
+  // ];
 
   return (
     <section className="bg-tealLight">
