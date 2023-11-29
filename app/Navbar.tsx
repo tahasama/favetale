@@ -1,5 +1,5 @@
 "use client";
-import { Cormorant, Work_Sans, Alegreya } from "next/font/google";
+import { Alegreya } from "next/font/google";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import SearchModal from "./search/SearchModal";
@@ -9,9 +9,6 @@ import { useCart } from "./provider/CartProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase";
 
-// const cormorant = Cormorant({ subsets: ["latin"] });
-// const cormorant2 = Cormorant({ subsets: ["latin-ext"], weight: "600" });
-// const work = Work_Sans({ subsets: ["latin"], weight: "300" });
 const alegreya = Alegreya({ subsets: ["latin"], weight: "400" });
 const Navbar = () => {
   const [loggedIn, setloggedIn] = useState(true);
@@ -19,7 +16,7 @@ const Navbar = () => {
 
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
-  const { cart, setCart, quantities, userx, setUserx } = useCart();
+  const { cart, setCart, userx, setUserx } = useCart();
 
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
@@ -48,11 +45,10 @@ const Navbar = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target)
       ) {
-        // Delay the closing of the dropdown to allow for navigation
         setTimeout(() => {
           setIsDropdownOpen2(false);
           setIsDropdownOpen(false);
-        }, 250); // Adjust the delay time as needed
+        }, 250);
       } else if (
         dropdownRef2.current &&
         !dropdownRef2.current.contains(event.target)
@@ -80,7 +76,6 @@ const Navbar = () => {
       <div className={`flex items-center ${alegreya.className}`}>
         <div>
           <span
-            // onClick={toggleDropdown2}
             ref={dropdownRef2}
             onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}
             className="cursor-pointer sm:pr-8   scale-110  md:scale-100 md:hidden block"
@@ -241,7 +236,6 @@ const Navbar = () => {
             >
               {isDropdownOpen && (
                 <div className=" absolute right-0 mt-2  bg-slate-100 rounded-lg shadow-lg">
-                  {/* Dropdown menu for logged-in users */}
                   {userx.id ? (
                     <>
                       <Link
