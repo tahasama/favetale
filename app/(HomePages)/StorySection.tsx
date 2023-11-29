@@ -2,10 +2,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-import pet5 from "../images/5.jpg";
-import pet6 from "../images/6.jpg";
-import pet7 from "../images/7.jpg";
-
 import user1 from "../images/users/user1.jpg";
 import user2 from "../images/users/user2.jpg";
 import user3 from "../images/users/user3.jpg";
@@ -15,7 +11,6 @@ import user5 from "../images/users/user5.jpg";
 import story1 from "../images/stories/story1.jpg";
 import story2 from "../images/stories/story2.jpg";
 import story3 from "../images/stories/story3.jpg";
-import story4 from "../images/stories/story4.jpg";
 
 import Link from "next/link";
 import { Vollkorn } from "next/font/google";
@@ -173,22 +168,14 @@ const StorySection = () => {
             "overflow-hidden h-full flex justify-center group items-center"
           }
         >
-          {/* <div className="bg-red-400 h-[100vh] w-[25%]"></div> */}
-          {/* Featured Story 1 */}
           <div
-            //  -rotate-[68deg]
             className={
               "lg-mt-0 md:mt-0 xl:-mt-6 relative w-[100vw] md:mr-40 flex justify-center group items-center  h-[60vh] sm:h-[85vh] lg:h-[100vh]"
-            }
-            style={
-              {
-                // transform: !hoveredCard ? `rotate(-70deg)` : "",
-              }
             }
             onMouseEnter={() => setHoveredCard(true)}
             onMouseLeave={() => setHoveredCard(false)}
           >
-            <div className="-ml-10 md:ml-10 scale-50% sm:scale-75 md:scale-75 lg:scale-100 -mt-20 relative w-[100vw]  flex justify-center  items-center  h-[100vh]">
+            <div className="-ml-10 md:ml-10 scale-50% sm:scale-75 md:scale-75 lg:scale-90 -mt-20 relative w-[100vw] xl:-mt-10 flex justify-center  items-center  h-[100vh]">
               {stories.map((story: any, i: any) => (
                 <div
                   className="grid place-items-center mt-48 -ml-10"
@@ -196,12 +183,9 @@ const StorySection = () => {
                     transform: `rotate(-70deg)`,
                     transformOrigin: "bottom left",
                     zIndex: i === hoveredCards ? 999 : i,
-
-                    // transition: "z-index 3s ease",
                   }}
                 >
                   <div
-                    // top-56 right-96
                     className={"absolute transition-all duration-75 "}
                     style={{
                       transform:
@@ -209,7 +193,6 @@ const StorySection = () => {
                           ? `rotate(${(i + 0.1) * 28}deg)`
                           : `rotate(${24}deg) translate(120px, 140px)`,
                       transformOrigin: "bottom left",
-                      // transition: "z-index 3s ease",
                     }}
                     key={i}
                     onMouseEnter={() => setHoveredCards(i)}
@@ -259,11 +242,10 @@ const StorySection = () => {
               ))}
             </div>
           </div>
-          {/* <div className="bg-red-400 h-[100vh] w-[25%]">weeeeeeeee</div> */}
         </div>
 
         <Link href="/explore?section=Stories">
-          <button className="hover:animate-buttonHover relative -top-20 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-6 py-3.5 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
+          <button className="hover:animate-buttonHover relative -top-20 xl:-top-16 bg-gradient-to-r from-indigo-500 to-indigo-300 text-white px-6 py-3.5 sm:px-12 sm:py-4 shadow-xl rounded-3xl">
             Check stories
           </button>
         </Link>

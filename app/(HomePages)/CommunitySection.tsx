@@ -108,7 +108,6 @@ const CommunitySection = () => {
             ))}
           </div>
           <div className=" flex-col hidden lg:flex md:w-1/2 md:justify-start items-center gap-8">
-            {/* User Contributions */}
             {communityContributions2.map((contribution: any, i: any) => (
               <Link
                 href={"/community/forums"}
@@ -160,7 +159,6 @@ const CommunitySection = () => {
           </div>
         </div>
 
-        {/* Testimonials or Quotes */}
         <div className="mt-10">
           <div className="p-2 sm:p-5 flex flex-col items-center space-y-5">
             <p

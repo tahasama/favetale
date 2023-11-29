@@ -1,8 +1,5 @@
 import React from "react";
-// import heroImage from "../images/hero-image.jpg";
-// import heroImage from "../images/pets5.jpg";
 import heroImage from "../images/pets7.jpg";
-// import heroImage from "../images/pets4.jpg";
 import Image from "next/image";
 import { Old_Standard_TT } from "next/font/google";
 import Link from "next/link";
@@ -18,7 +15,6 @@ const HeroSection = () => {
         Embark on Your Pet's Journey
       </h1>
       <div className="container text-center flex flex-col md:flex-row md:text-sm lg:text-lg lg:-mt-10 xl:-mt-12">
-        {/* Layout for larger screens (tablets and laptops) */}
         <div className="md:flex hidden flex-col justify-between items-center mx-6 my-6 md:my-10 md:w-[25%] mt-8 sm:mt-0 space-y-8 order-2 md:order-1">
           <div className="animate-fadeIn flex flex-col items-center group cursor-pointer delay-1000">
             <span className="text-6xl sm:text-5xl mb-2">🐾</span>
