@@ -7,7 +7,7 @@ import { Vollkorn } from "next/font/google";
 
 const vollkorn = Vollkorn({ subsets: ["latin"], weight: "400" });
 
-import StoreL2 from "../images/store2.jpg";
+import StoreL2 from "../images/store.jpg";
 
 const StorySection = () => {
   // const products = [
@@ -42,7 +42,7 @@ const StorySection = () => {
 
   return (
     <section className="bg-tealLight">
-      <div className=" px-1 sm:px-3 lg:px-6 py-12">
+      <div className=" px-1 sm:px-3 lg:px-0 xl:px-6 py-12">
         <div className="grid place-items-center">
           <div className="bg-teal-500 h-1 w-40 ml-2 mb-5"></div>
 
@@ -54,7 +54,7 @@ const StorySection = () => {
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 mt-4  md:order-1 order-2">
             <div className="lg:ml-20 flex flex-col items-center md:items-start justify-start">
-              <p className="text-lg text-slate-600 mb-8 sm:ml-20 indent-4 mt-4 mx-2 md:mx-0">
+              <p className="text-lg text-slate-600 mb-6 sm:ml-20 indent-4 mt-4 mx-2 md:mx-0">
                 Welcome to our store, where you can find a wide selection of
                 high-quality pet products to cater to all your furry friend's
                 needs. From toys and accessories to premium pet food and care
@@ -69,7 +69,7 @@ const StorySection = () => {
                 </button>
               </Link>
             </div>
-            <div className="visible md:hidden lg:block flex flex-col justify-center space-y-4 mt-6">
+            <div className="visible md:hidden lg:block flex flex-col justify-center space-y-4 mt-8">
               <div className="bg-white shadow-lg p-4 rounded-lg lg:ml-20">
                 <p className="text-xl text-gray-800 mb-2">
                   🎉 Monthly Special: 15% Off!
@@ -90,7 +90,7 @@ const StorySection = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 grid place-items-center order-1 md:order-2">
+          <div className="md:w-[70%] xl:w-[50%] mt-7 grid place-items-center order-1 md:order-2">
             <Image
               src={StoreL2}
               width={800}
