@@ -20,7 +20,7 @@ const DashboardOverview = () => {
       </h2>
       <div className="flex flex-col w-full gap-">
         <div className="flex flex-row flex-wrap w-full items-center gap-3 md:gap-4 mb-4 text-center justify-around scale-95">
-          <div className="bg-emerald-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-emerald-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-40 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Total Users
               <Suspense fallback={<Loading />}>
@@ -28,7 +28,7 @@ const DashboardOverview = () => {
               </Suspense>
             </h3>
           </div>
-          <div className="bg-indigo-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-indigo-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-40 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Content Submissions
             </h3>
@@ -36,7 +36,7 @@ const DashboardOverview = () => {
               <ContentSubmissions />
             </Suspense>
           </div>{" "}
-          <div className="bg-sky-500 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-sky-500 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-40 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Users interactions
             </h3>
@@ -44,7 +44,7 @@ const DashboardOverview = () => {
               <UserInreraction />
             </Suspense>
           </div>
-          <div className="bg-purple-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-60 flex-grow">
+          <div className="bg-purple-400 p-1 md:p-3 rounded-lg shadow-lg w-52 xl:w-40 flex-grow">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Total Sold{" "}
             </h3>

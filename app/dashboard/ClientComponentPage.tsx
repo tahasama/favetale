@@ -29,11 +29,6 @@ const ClientComponentPage = () => {
 
   const [open, setOpen] = useState(false);
 
-  const handleMenuItemClick = (menuItem: any) => {
-    setSelectedMenuItem(menuItem);
-    setOpen(!open);
-  };
-
   return (
     <header className="bg-teal-500 py-1 text-white relative mt-0 ">
       <nav className="ml-3 flex items-center gap-4">
