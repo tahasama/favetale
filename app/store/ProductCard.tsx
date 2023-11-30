@@ -20,6 +20,19 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
     }
   }, [cartItems]);
 
+  const averageRating = (ratings: any) => {
+    if (ratings.length === 0) {
+      return 0;
+    }
+
+    const sum = ratings.reduce(
+      (total: any, rating: any) => total + rating.points,
+      0
+    );
+    const average = sum / ratings.length;
+    return average;
+  };
+
   return (
     <div
       onClick={() => {
@@ -54,6 +67,13 @@ const ProductCard = ({ product, isTrending, discounted }: any) => {
       {discounted && product.discount && (
         <p className="my-1 absolute top-2 right-2 bg-amber-500 p-2">
           {product.discount}% OFF
+        </p>
+      )}
+
+      {product.rating.length !== 0 && (
+        <p className="my-1 absolute top-2 flex items-center justify-center left-2 bg-pink-50 w-20">
+          <p className="p-1">{averageRating(product.rating).toFixed(0)} / 5</p>
+          <span className="text-lg">⭐</span>
         </p>
       )}
 

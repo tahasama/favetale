@@ -24,7 +24,10 @@ const ProductClient = ({ products }: any) => {
       return 0;
     }
 
-    const sum = ratings.reduce((total: any, rating: any) => total + rating, 0);
+    const sum = ratings.reduce(
+      (total: any, rating: any) => total + rating.points,
+      0
+    );
     const average = sum / ratings.length;
     return average;
   };
@@ -172,7 +175,7 @@ const ProductClient = ({ products }: any) => {
             {product.rating.length !== 0 && (
               <p className="my-1 absolute top-2 flex items-center justify-center left-2 bg-pink-50 w-20">
                 <p className="p-1">
-                  {averageRating(product.rating).toFixed(1)} / 5
+                  {averageRating(product.rating).toFixed(0)} / 5
                 </p>
                 <span className="text-lg">⭐</span>
               </p>
