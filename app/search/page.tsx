@@ -9,7 +9,7 @@ const Search = () => {
 
   const search = searchParams.get("q");
   return (
-    <div>
+    <div className="">
       <Suspense fallback={<Loading />}>
         <SearchData q={search} />
       </Suspense>

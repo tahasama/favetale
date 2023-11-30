@@ -72,9 +72,11 @@ const SearchData = async ({ q }: any) => {
     return `/default/${collectionName}`;
   };
   return (
-    <div className="mt-8">
-      <h2 className="text-3xl font-bold mb-4">Search Results</h2>
-      <table className="min-w-full bg-white border border-gray-300 shadow-md">
+    <div className="mt-28">
+      <h2 className="text-sm md:text-lg indent-7 font-semibold text-slate-600 mb-4">
+        Search Results : {q}
+      </h2>
+      <table className="min-w-full mt-7 bg-white text-sm md:text-sm border border-gray-300 shadow-md">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Title</th>
