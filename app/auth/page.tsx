@@ -23,7 +23,28 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  console.log("🚀 ~ file: page.tsx:26 ~ SignUp ~ error:", error);
   const [login, setLogin] = useState(true);
+
+  const errorMessage =
+    error === "Firebase: Error (auth/user-not-found)"
+      ? "Wrong email, please try again"
+      : error === "Firebase: Error (auth/invalid-login-credentials)."
+      ? "Wrong email or password, please try again"
+      : error === "Firebase: Error (auth/wrong-password)"
+      ? "Wrong password, please try again"
+      : error === "Firebase: Error (auth/invalid-email)."
+      ? "Please provide a valid email"
+      : error === "Firebase: Error (auth/internal-error)"
+      ? "Please provide a valid password"
+      : error === "Firebase: Error (auth/network-request-failed)"
+      ? "Failed to login, please try again"
+      : error === "Firebase: Error (storage/object-not-found)" ||
+        error === "Firebase: Error (auth/popup-closed-by-user)"
+      ? ""
+      : "An unexpected error occurred";
+
+  // Assuming setErrorM is a function to set the error message somewhere
 
   const handleSignUp = async () => {
     try {
@@ -123,7 +144,7 @@ const SignUp = () => {
         {login ? null : (
           <>
             <h1 className="text-2xl font-semibold">Sign Up</h1>
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500">{errorMessage}kkk</p>}
             <div>
               <label htmlFor="Username" className="block text-gray-600">
                 Username
@@ -189,7 +210,7 @@ const SignUp = () => {
             {" "}
             <div>
               <h1 className="text-2xl font-semibold">Sign In</h1>
-              {error && <p className="text-red-500">{error}</p>}
+              {error && <p className="text-red-500">{errorMessage}</p>}
             </div>
             <div>
               <label htmlFor="email" className="block text-gray-600">
