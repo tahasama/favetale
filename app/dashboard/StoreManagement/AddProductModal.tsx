@@ -80,6 +80,7 @@ const AddProductModal = ({ isOpen, onClose }: any) => {
             }
           );
           const imageUrls = await getDownloadURL(storageRef);
+
           imagesArrays.push(imageUrls);
         });
 

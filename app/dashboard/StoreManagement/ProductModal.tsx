@@ -62,6 +62,7 @@ const productModal = () => {
         rating: updatedRating,
       });
     }
+    setRateIt(false);
   };
 
   useEffect(() => {
@@ -167,6 +168,7 @@ const productModal = () => {
   };
 
   const [updatedComment, setUpdatedComment] = useState<any>(null);
+  const [rateIt, setRateIt] = useState<boolean>(false);
 
   const updateComment = async (reply: any) => {
     setNewComment(reply.comment);
@@ -185,7 +187,7 @@ const productModal = () => {
       onClick={handleModalClick}
     >
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
-        <div className="flex flex-col md:flex-row gap-8 lg:p- shadow-md lg:min-h-[80vh] bg-sky-50">
+        <div className="flex flex-col md:flex-row gap-8 shadow-md bg-sky-50">
           <div className="flex justify-center md:w-1/2">
             <div className=" flex flex-col items-center justify-center w-full">
               <Image
@@ -195,7 +197,7 @@ const productModal = () => {
                 height={1000}
                 className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
               />
-              <div className="flex mt-4">
+              <div className="flex my-4">
                 {product?.images.map((image: any, index: any) => (
                   <img
                     key={index}
@@ -222,26 +224,38 @@ const productModal = () => {
             <div className=" text-start flex justify-center items-center gap-5">
               <p className="text-gray-700">
                 Rating:{" "}
-                {product?.rating?.reduce(
-                  (acc: any, rate: any) => acc + rate.points,
-                  0
-                ) / product?.rating.length}{" "}
+                {product?.rating.length
+                  ? product?.rating?.reduce(
+                      (acc: any, rate: any) => acc + rate.points,
+                      0
+                    ) / product?.rating.length
+                  : 0}{" "}
                 / 5
               </p>
               {product?.rating.map((rate: any) => rate.userId !== userx.id) && (
-                <select
-                  value={rating}
-                  onChange={handleRatingChange}
-                  className="border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
+                <p
+                  onClick={() => setRateIt(!rateIt)}
+                  className="text-sky-700 underline cursor-pointer"
                 >
-                  <option value={0}>Select Rating </option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
+                  rate?
+                </p>
               )}
+
+              <select
+                value={rating}
+                onChange={handleRatingChange}
+                disabled={!rateIt && true}
+                className={`${
+                  rateIt ? "visible" : "opacity-0"
+                } border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500 mt-2`}
+              >
+                <option value={0}>Select Rating </option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
             </div>
 
             <div className="mt-3">
@@ -262,7 +276,7 @@ const productModal = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white p-3 lg:px-8 relative">
+        <div className="bg-white px-3 pb-3 lg:px-8 relative">
           {userx.id && (
             <div className="mt-12">
               <div className="flex items-start space-x-4">
@@ -271,11 +285,12 @@ const productModal = () => {
                     href="/profile"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="w-10 h-10 bg-red-500 rounded-full"
                   >
                     <img
                       src={userx.image}
                       alt="Your Name"
-                      className="w-10 h-10 rounded-full"
+                      className="rounded-full w-10 h-10 object-cover"
                     />
                   </Link>
                 ) : (

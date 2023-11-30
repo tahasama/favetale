@@ -28,16 +28,18 @@ const ServerComponent = async () => {
           <DisplayProduct product={product} />
 
           <td className="max-w-4xl h-full hidden md:block">
-            <p className="line-clamp-3 w-full relative -top-5">
+            <p className="line-clamp-1 w-full relative -top-0">
               {product.description}
             </p>
           </td>
           <td className="border border-gray-300">
-            {product?.rating?.reduce(
-              (acc: any, rate: any) => acc + rate.points,
-              0
-            ) / product?.rating.length}
-            &nbsp;/ 5
+            {product?.rating.length
+              ? product?.rating?.reduce(
+                  (acc: any, rate: any) => acc + rate.points,
+                  0
+                ) / product?.rating.length
+              : 0}{" "}
+            / 5
           </td>
           <td className="border border-gray-300 px-0.5">
             {product.price}&nbsp;Dh
