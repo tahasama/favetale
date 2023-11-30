@@ -25,7 +25,6 @@ import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import StoryModal from "../StoryModal";
 
 function Story() {
-  // Sample story data (replace with your own)
   // const storiesData = [
   //   {
   //     id: 1,

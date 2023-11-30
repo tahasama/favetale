@@ -170,73 +170,7 @@ const Blog = () => {
   //       // More comments for the second blog post
   //     ],
   //   },
-  //   {
-  //     id: 3,
-  //     title: "Creating a Pet-Friendly Home Environment",
-  //     excerpt:
-  //       "Transform your living space into a safe and welcoming haven for your pets...",
-  //     image: blog3.src,
-  //     writer: {
-  //       name: "Sarah Williams",
-  //       image: user5.src,
-  //     },
-  //     likes: 56,
-  //     content: `
-  // When you bring a pet into your home, you're not just providing them with shelter; you're welcoming them into your family. To ensure their well-being and happiness, it's essential to create a pet-friendly home environment. In this article, we'll explore various aspects of making your home the perfect space for your furry friend.
 
-  // ## Safety First
-
-  // Safety is a top priority when it comes to your pets. Start by identifying and securing potential hazards. Remove toxic substances, secure electrical cords, and ensure that your trash cans have lids.
-
-  // ## Comfortable Sleeping Areas
-
-  // Every pet needs a comfortable and cozy place to rest. Whether it's a plush bed for your dog or a warm nook for your cat, these designated sleeping areas should be their safe havens for relaxation.
-
-  // ## Pet-Friendly Furniture
-
-  // Invest in pet-friendly furniture that's resistant to scratches and easy to clean. This allows your pets to share your living space without causing damage.
-
-  // ## Interactive Toys
-
-  // Stimulate your pets' minds and keep them engaged with interactive toys. Look for toys that dispense treats or challenge them mentally. These toys can provide hours of entertainment and mental exercise.
-
-  // ## Designated Play Zones
-
-  // Set up designated play zones where your pets can have fun without restrictions. These areas can include scratching posts, climbing structures, and a variety of toys. These zones encourage play and help your pets burn off excess energy.
-
-  // ## Outdoor Access
-
-  // If you have outdoor space, create a secure area for your pets to enjoy the fresh air. Ensure that the area is escape-proof and offers shade and water. Outdoor access allows your pets to explore and exercise outdoors safely.
-
-  // ## Regular Exercise
-
-  // Exercise is crucial for your pets' physical and mental health. Make time for daily walks, playtime, and activities that cater to their natural instincts. Regular exercise contributes to a happy and healthy pet.
-
-  // ## Love and Attention
-
-  // Above all, your pets crave your love and attention. Spend quality time with them, show affection, and build strong bonds. The love you give is reciprocated in ways that make your home feel complete.
-
-  // In conclusion, creating a pet-friendly home environment is an act of love and care for your furry companions. It's about ensuring their safety, comfort, and happiness within your shared space. By following these tips, you'll provide a loving home that your pets will appreciate and thrive in.
-
-  //           `,
-  //     comments: [
-  //       {
-  //         text: "I never thought about pet-proofing my home. Thanks for the tips!",
-  //         user: {
-  //           name: "Olivia Rodriguez",
-  //           image: user3.src,
-  //         },
-  //       },
-  //       {
-  //         text: "My pets love the changes I made to my home after reading this article.",
-  //         user: {
-  //           name: "Michael Clark",
-  //           image: user2.src,
-  //         },
-  //       },
-  //       // More comments for the third blog post
-  //     ],
-  //   },
   //   {
   //     id: 4,
   //     title: "Exploring the Benefits of Pet Socialization",
@@ -367,81 +301,7 @@ const Blog = () => {
   //       // More comments for the fifth blog post
   //     ],
   //   },
-  //   {
-  //     id: 6,
-  //     title: "Preparing for a New Puppy: Tips for First-Time Owners",
-  //     excerpt:
-  //       "Get ready to welcome a new puppy into your home with these helpful tips...",
-  //     image: blog6.src,
-  //     writer: {
-  //       name: "Laura Anderson",
-  //       image: user1.src,
-  //     },
-  //     likes: 105,
-  //     content: `
-  // The decision to bring a new puppy into your home is an exciting one, but it also comes with responsibilities and preparations. In this article, we'll provide valuable tips for first-time puppy owners to ensure a smooth transition and a happy, healthy start for your new furry family member.
 
-  // ## Choosing the Right Puppy
-
-  // Before you bring a puppy home, take time to research and choose the right breed for your lifestyle. Consider factors such as size, energy level, and temperament. Visit reputable breeders or rescue organizations to find a puppy that suits your family.
-
-  // ## Puppy-Proofing Your Home
-
-  // Puppies are naturally curious, and they love to explore. Puppy-proof your home by removing hazards like toxic plants, chemicals, and small objects that could be swallowed. Use safety gates to restrict access to certain areas.
-
-  // ## Preparing Supplies
-
-  // Gather essential supplies before your puppy's arrival. These include:
-
-  // - **Crate:** A safe and comfortable space for your puppy to rest and sleep.
-  // - **Food and Water Bowls:** Choose stainless steel or ceramic bowls that are easy to clean.
-  // - **Quality Puppy Food:** Consult your veterinarian for recommendations.
-  // - **Leash and Collar:** Start leash training early for walks.
-  // - **Toys:** Provide a variety of toys to keep your puppy mentally and physically engaged.
-  // - **Puppy Training Pads:** Helpful for housebreaking.
-  // - **Grooming Supplies:** Depending on the breed, you may need brushes, nail clippers, and shampoo.
-
-  // ## Establishing Routine
-
-  // Puppies thrive on routine. Establish a regular schedule for feeding, playtime, bathroom breaks, and sleep. Consistency helps with housebreaking and creates a sense of security for your puppy.
-
-  // ## Socialization and Training
-
-  // Early socialization is crucial for a well-adjusted adult dog. Introduce your puppy to various people, pets, and environments. Enroll in puppy training classes to build essential skills and strengthen your bond.
-
-  // ## Vet Visits
-
-  // Schedule a vet appointment shortly after bringing your puppy home. Your vet will set a vaccination schedule and discuss preventive care. Keep up with regular check-ups and vaccinations to ensure your puppy's health.
-
-  // ## Patience and Love
-
-  // Above all, remember that raising a puppy takes patience and love. Be prepared for occasional challenges, accidents, and puppy behavior. Offer praise and positive reinforcement to encourage good behavior.
-
-  // ## Share Your Experience
-
-  // Are you a seasoned dog owner with tips for first-time puppy parents? Share your insights in the comments below. Together, we can support and guide those embarking on this wonderful journey of puppy parenthood.
-
-  // In conclusion, preparing for a new puppy is an exciting adventure filled with love and joy. With the right preparations, patience, and commitment, you'll provide your new furry friend with a happy and healthy start in your loving home.
-
-  //     `,
-  //     comments: [
-  //       {
-  //         text: "I'm about to get my first puppy, so these tips are invaluable!",
-  //         user: {
-  //           name: "Noah Garcia",
-  //           image: user2.src,
-  //         },
-  //       },
-  //       {
-  //         text: "Great article for first-time puppy owners like me. Thanks!",
-  //         user: {
-  //           name: "Ava Martin",
-  //           image: user3.src,
-  //         },
-  //       },
-  //       // More comments for the sixth blog post
-  //     ],
-  //   },
   //   // You can continue to add more blog posts in the same structure
   // ];
 
@@ -600,7 +460,6 @@ const Blog = () => {
           onClose={() => setUploadpetModalOpen(false)}
           blog={selectedImage}
         />
-
         <h1 className="text-3xl font-bold mb-4">{selectedImage.title}</h1>
 
         <div className="flex items-center mb-4 gap-2">

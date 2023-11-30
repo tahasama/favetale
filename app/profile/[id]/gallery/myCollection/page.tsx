@@ -3,6 +3,7 @@ import { db } from "@/firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import React from "react";
 import { Roboto_Mono } from "next/font/google";
+import ImageModal from "@/app/explore/(components)/gallery/ImageModal";
 
 const font = Roboto_Mono({ subsets: ["latin"], weight: "600" });
 async function getData(userx: any) {
@@ -32,7 +33,7 @@ const myCollection = async ({ params: { id } }: any) => {
   return (
     <div className="flex flex-col mt-24">
       <p
-        className={`text-base lg:text-xl ${font.className} underline underline-offset-2 text-center`}
+        className={`text-base lg:text-xl ${font.className} underline underline-offset-2 text-center indent-10`}
       >
         My Gallery
       </p>
@@ -47,6 +48,7 @@ const myCollection = async ({ params: { id } }: any) => {
             <PetImages image={meetup} index={index} />
           ))}
       </div>
+      <ImageModal />
     </div>
   );
 };

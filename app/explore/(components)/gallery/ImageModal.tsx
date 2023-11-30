@@ -260,19 +260,19 @@ const ImageModal = () => {
             href={`/profile/${selectedImage?.poster?.id}`}
             className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md cursor-pointer"
           >
-            <Image
+            {/* <Image
               src={selectedImage?.poster?.image || ""}
               alt="image"
               className={`${
                 selectedImage?.poster?.image ? "visible" : "hidden"
               }`}
-            />
+            /> */}
 
             <p className="text-slate-300 ">
               Posted by :{" "}
               <Link
                 href={`/profile/${selectedImage?.poster?.id}`}
-                className="capitalize text-sky-500 underline underline-offset-2"
+                className="capitalize text-sky-700 underline underline-offset-2"
               >
                 {" "}
                 {selectedImage?.poster?.name}{" "}

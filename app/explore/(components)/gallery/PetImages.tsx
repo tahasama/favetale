@@ -2,6 +2,7 @@
 import { useCart } from "@/app/provider/CartProvider";
 import { motion } from "framer-motion";
 import React from "react";
+import Image from "next/image";
 
 const petImages = ({ image, index }: any) => {
   const { setSelectedImage, setUploadpetModalOpen, filterImage } = useCart();
@@ -24,10 +25,12 @@ const petImages = ({ image, index }: any) => {
           setSelectedImage(image), setUploadpetModalOpen(true);
         }}
       >
-        <img
+        <Image
           src={image.image}
           alt={`Pet Image ${1}`}
           className="w-full h-40 lg:h-[55vh]  object-cover cursor-pointer"
+          width={500}
+          height={700}
         />
       </div>
     </motion.div>
