@@ -21,7 +21,7 @@ const MeetupTable = ({ searchResults }: any) => {
             key={index}
             className={`border-b ${meetup?.official && "bg-sky-300"} `}
           >
-            <td className="p-3 border-r text-center">
+            <td className="p-3 border-r text-center underline underline-offset-2 text-sky-700">
               <Link href={`/community/events/${meetup.id}`}>
                 {meetup?.title}
               </Link>
