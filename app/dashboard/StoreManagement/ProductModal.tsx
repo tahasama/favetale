@@ -212,69 +212,74 @@ const productModal = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 flex flex-col justify-between lg:h-[60vh] items-start px-3 lg:p-0">
+          <div className="md:w-1/2 flex flex-col justify-between items-start  mx-2 px-3 lg:p-0 lg:m-0 overflow-auto">
             <h2 className="text-2xl font-semibold  my-4 ">{product?.name}</h2>
-            <h2 className="text-lg text-left font-serif indent-6">
+            <h2 className="text-base lg:text-lg text-left font-serif indent-6">
               {product?.description}
             </h2>
-            <p className="text-lg my-3 font-serif tracking-wider underline underline-offset-4">
-              ${product?.price}{" "}
-              <span className="text-red-400">
-                {product?.discount !== 0 && `with ${product?.discount}% Off`}{" "}
-              </span>
-            </p>
-            <div className=" text-start flex justify-center items-center gap-5">
-              <p className="text-gray-700">
-                Rating:{" "}
-                {product?.rating.length !== 0
-                  ? product?.rating?.reduce(
-                      (acc: any, rate: any) => acc + rate.points,
-                      0
-                    ) / product?.rating.length
-                  : 1}{" "}
-                / 5 <span className="text-lg">⭐</span>
-              </p>
-              {product?.rating.map((rate: any) => rate.userId !== userx.id) && (
-                <p
-                  onClick={() => setRateIt(!rateIt)}
-                  className="text-sky-700 underline cursor-pointer"
-                >
-                  rate?
+            <div className="flex flex-col lg:flex-row justify-between w-full">
+              <div>
+                <p className="text-lg my-3 text-start font-serif tracking-wider underline underline-offset-4">
+                  ${product?.price}{" "}
+                  <span className="text-red-400">
+                    {product?.discount !== 0 &&
+                      `with ${product?.discount}% Off`}{" "}
+                  </span>
                 </p>
-              )}
+                <div className=" text-start flex justify-start mb-4 lg:justify-center items-center gap-2 md:gap-5 w-full">
+                  <p className="text-gray-700 text-xs w-10 md:w-14 md:text-base">
+                    {product?.rating.length !== 0
+                      ? product?.rating?.reduce(
+                          (acc: any, rate: any) => acc + rate.points,
+                          0
+                        ) / product?.rating.length
+                      : 1}
+                    /5 <span className="text-sm md:text-base">⭐</span>
+                  </p>
+                  {product?.rating.map(
+                    (rate: any) => rate.userId !== userx.id
+                  ) && (
+                    <p
+                      onClick={() => setRateIt(!rateIt)}
+                      className="text-sky-700 underline cursor-pointer"
+                    >
+                      rate?
+                    </p>
+                  )}
 
-              <select
-                value={rating}
-                onChange={handleRatingChange}
-                disabled={!rateIt && true}
-                className={`${
-                  rateIt ? "visible" : "opacity-0"
-                } border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500 mt-2`}
-              >
-                <option value={0}>Select Rating </option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-              </select>
-            </div>
-
-            <div className="mt-3">
-              <button
-                onClick={addToCart}
-                className={`bg-blue-500 px-7 py-3 mb-3 lg:mb-0 rounded-md text-white  hover:bg-blue-600 ${
-                  (product?.stock === 0 || isAddedToCart) &&
-                  "bg-slate-400 hover:bg-slate-400 cursor-pointer"
-                }`}
-                disabled={product?.stock === 0 || isAddedToCart}
-              >
-                {isAddedToCart
-                  ? "Added to Cart"
-                  : product?.stock === 0
-                  ? "Out of stock"
-                  : "Add to Cart"}
-              </button>
+                  <select
+                    value={rating}
+                    onChange={handleRatingChange}
+                    disabled={!rateIt && true}
+                    className={`${
+                      rateIt ? "visible" : "opacity-0"
+                    } border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500 mt-2`}
+                  >
+                    <option value={0}>Select Rating </option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+              </div>
+              <div className="m-0 lg:m-4  flex justify-start">
+                <button
+                  onClick={addToCart}
+                  className={`bg-blue-500 px-7 py-3 mb-3 lg:mb-0 rounded-md text-white  hover:bg-blue-600 ${
+                    (product?.stock === 0 || isAddedToCart) &&
+                    "bg-slate-400 hover:bg-slate-400 cursor-pointer"
+                  }`}
+                  disabled={product?.stock === 0 || isAddedToCart}
+                >
+                  {isAddedToCart
+                    ? "Added to Cart"
+                    : product?.stock === 0
+                    ? "Out of stock"
+                    : "Add to Cart"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
