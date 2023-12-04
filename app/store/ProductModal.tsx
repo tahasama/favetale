@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useCart } from "../provider/CartProvider";
 import Link from "next/link";
 import { AiFillDelete, AiOutlineEdit } from "react-icons/ai";
 import {
@@ -21,6 +20,7 @@ import TimeAgo from "javascript-time-ago";
 TimeAgo.addDefaultLocale(en);
 
 import en from "javascript-time-ago/locale/en.json";
+import { useCart } from "@/app/provider/CartProvider";
 
 const productModal = () => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -62,6 +62,7 @@ const productModal = () => {
         rating: updatedRating,
       });
     }
+    setRateIt(false);
   };
 
   useEffect(() => {
@@ -88,6 +89,7 @@ const productModal = () => {
       const updatedCartItems = [...cart, { ...product, quantity: 1 }];
       setCartItems(updatedCartItems);
       setIsAddedToCart(true);
+
       localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     }
   };
@@ -114,6 +116,7 @@ const productModal = () => {
           likes: [],
           dislikes: [],
         });
+
         try {
           await updateDoc(doc(db, "products", product.id), {
             commenters: arrayUnion(userx.id),
@@ -145,7 +148,6 @@ const productModal = () => {
   const fetchComments = async () => {
     try {
       if (product.id) {
-        // Check if selectedImage.id is defined
         const q = query(
           collection(db, "comments"),
           where("imageId", "==", product.id)
@@ -166,6 +168,7 @@ const productModal = () => {
   };
 
   const [updatedComment, setUpdatedComment] = useState<any>(null);
+  const [rateIt, setRateIt] = useState<boolean>(false);
 
   const updateComment = async (reply: any) => {
     setNewComment(reply.comment);
@@ -184,18 +187,17 @@ const productModal = () => {
       onClick={handleModalClick}
     >
       <div className="overflow-y-auto flex flex-col h-full lg:w-11/12 relative  lg:rounded-lg lg:scrollbar scrollbar-thumb-slate-300 scrollbar-track-gray-100">
-        <div className="flex flex-col md:flex-row gap-8 lg:p- shadow-md lg:min-h-[80vh] bg-sky-50">
-          {/* Left side of the modal with images and product details */}
+        <div className="flex flex-col md:flex-row gap-8 shadow-md bg-sky-50">
           <div className="flex justify-center md:w-1/2">
-            <div className=" flex flex-col items-center justify-center w-full">
+            <div className=" flex flex-col items-center justify-center w-full lg:rounded-lg bg-slate-300">
               <Image
                 src={product?.images[index]}
                 alt={product?.name}
                 width={1000}
                 height={1000}
-                className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain !rounded-sm"
+                className="lg:rounded-lg w-full h-full lg:max-h-[66vh] object-contain p-2 !rounded-sm"
               />
-              <div className="flex mt-4">
+              <div className="flex my-4">
                 {product?.images.map((image: any, index: any) => (
                   <img
                     key={index}
@@ -211,37 +213,51 @@ const productModal = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col justify-between lg:h-[60vh] items-start px-3 lg:p-0">
-            <h2 className="text-2xl font-semibold mb-2 mt-4 ">
-              {product?.name}
-            </h2>
-            <h2 className="text-xl text-left font-semibold ">
+            <h2 className="text-2xl font-semibold  my-4 ">{product?.name}</h2>
+            <h2 className="text-lg text-left font-serif indent-6">
               {product?.description}
             </h2>
-            <p className="text-lg ">${product?.price}</p>
-            <p className="text-lg ">-{product?.discount}%</p>
+            <p className="text-lg my-3 font-serif tracking-wider underline underline-offset-4">
+              ${product?.price}{" "}
+              <span className="text-red-400">
+                {product?.discount !== 0 && `with ${product?.discount}% Off`}{" "}
+              </span>
+            </p>
             <div className=" text-start flex justify-center items-center gap-5">
               <p className="text-gray-700">
                 Rating:{" "}
-                {product?.rating?.reduce(
-                  (acc: any, rate: any) => acc + rate.points,
-                  0
-                ) / product?.rating.length}{" "}
-                / 5
+                {product?.rating.length !== 0
+                  ? product?.rating?.reduce(
+                      (acc: any, rate: any) => acc + rate.points,
+                      0
+                    ) / product?.rating.length
+                  : 1}{" "}
+                / 5 <span className="text-lg">⭐</span>
               </p>
               {product?.rating.map((rate: any) => rate.userId !== userx.id) && (
-                <select
-                  value={rating}
-                  onChange={handleRatingChange}
-                  className="border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500"
+                <p
+                  onClick={() => setRateIt(!rateIt)}
+                  className="text-sky-700 underline cursor-pointer"
                 >
-                  <option value={0}>Select Rating </option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
+                  rate?
+                </p>
               )}
+
+              <select
+                value={rating}
+                onChange={handleRatingChange}
+                disabled={!rateIt && true}
+                className={`${
+                  rateIt ? "visible" : "opacity-0"
+                } border rounded-md bg-white text-gray-800 p-2 focus:outline-none focus:border-blue-500 mt-2`}
+              >
+                <option value={0}>Select Rating </option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
             </div>
 
             <div className="mt-3">
@@ -262,7 +278,7 @@ const productModal = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white p-3 lg:px-8 relative">
+        <div className="bg-white px-3 pb-3 lg:px-8 relative">
           {userx.id && (
             <div className="mt-12">
               <div className="flex items-start space-x-4">
@@ -271,11 +287,12 @@ const productModal = () => {
                     href="/profile"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="w-10 h-10 bg-red-500 rounded-full"
                   >
                     <img
                       src={userx.image}
                       alt="Your Name"
-                      className="w-10 h-10 rounded-full"
+                      className="rounded-full w-10 h-10 object-cover"
                     />
                   </Link>
                 ) : (
@@ -300,7 +317,6 @@ const productModal = () => {
             </div>
           )}
 
-          {/* Right side of the modal with reviews */}
           <h3 className="text-lg font-semibold mb-2 mt-4 text-left">
             Customer Reviews
           </h3>
