@@ -65,7 +65,7 @@ const Gallery = async () => {
                 <td className="border border-gray-300">
                   {image.comments.length}
                 </td>
-                <ActionsClient image={image} collectionName={"gallery"} />
+                <ActionsClient image={image} collectionName={"petImages"} />
               </tr>
             ))}
         </tbody>

@@ -7,7 +7,9 @@ import { AiFillDelete, AiOutlineFlag, AiTwotoneFlag } from "react-icons/ai";
 
 const ActionsClient = ({ image, collectionName }: any) => {
   const [deleted, setDeleted] = useState(false);
-  const [flagClient, setFlagClient] = useState(image.flag);
+  const [flagClient, setFlagClient] = useState(
+    image.flag !== undefined ? image.flag : false
+  );
 
   const updateFlag = async () => {
     const likeRef = doc(db, collectionName, image.id);
@@ -15,13 +17,14 @@ const ActionsClient = ({ image, collectionName }: any) => {
     const petImageData: any = documentSnapshot.data();
 
     try {
-      petImageData.flag
-        ? await updateDoc(likeRef, { flag: false }).then(() =>
-            setFlagClient(!petImageData.flag)
-          )
-        : await updateDoc(likeRef, { flag: true }).then(() =>
-            setFlagClient(!petImageData.flag)
-          );
+      const currentFlagValue =
+        petImageData && petImageData.flag !== undefined
+          ? petImageData.flag
+          : false;
+
+      await updateDoc(likeRef, { flag: !currentFlagValue }).then(() => {
+        setFlagClient(!currentFlagValue);
+      });
     } catch (error) {
       console.error("Error updating heart:", error);
     }
@@ -45,8 +48,8 @@ const ActionsClient = ({ image, collectionName }: any) => {
       </button>
 
       <button
-        onClick={() => updateFlag()}
-        className="text-xl md:text-2xl text-fuchsia-400 m-2 hover:scale-110"
+        onClick={updateFlag}
+        className="text-xl md:text-2xl text-fuchsia-400 m-2 hover:scale-110 active:scale-125"
       >
         {flagClient ? <AiTwotoneFlag /> : <AiOutlineFlag />}
       </button>

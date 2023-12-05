@@ -35,6 +35,7 @@ const ImageModal = () => {
   } = useCart();
 
   const [comments, setComments] = useState<any[]>([]);
+  const [flagged, setFlagged] = useState<boolean>(selectedImage.flag);
 
   const fetchComments = async () => {
     try {
@@ -178,6 +179,7 @@ const ImageModal = () => {
 
     try {
       await updateDoc(likeRef, { flag: true });
+      setFlagged(true);
     } catch (error) {
       console.error("Error updating heart:", error);
     }
@@ -290,9 +292,9 @@ const ImageModal = () => {
             <button
               onClick={updateFlag}
               className=" scale-75 hover:scale-90 active:scale-100 transition-all duration-300"
-              title={!selectedImage.flag ? "report?" : "un-flag?"}
+              title={!flagged ? "report?" : "flagged"}
             >
-              {!selectedImage.flag ? " 🚩" : "🏳️"}
+              {!flagged ? " 🚩" : "🏳️"}
             </button>
             {selectedImage && selectedImage?.poster?.id === userx.id && (
               <>
