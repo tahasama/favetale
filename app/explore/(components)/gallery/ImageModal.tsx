@@ -201,6 +201,7 @@ const ImageModal = () => {
 
       await Promise.all(deleteCommentPromises);
       await deleteImagePromise;
+      setImageModalOpen(false);
     } catch (error) {
       console.error("Error deleting image and related comments:", error);
     }
@@ -238,27 +239,25 @@ const ImageModal = () => {
           <div className="absolute bottom-3 flex left-2 py-0.5">
             <button
               onClick={updateHearts}
-              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-l-lg px-1.5 py-0.5"
+              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-l-lg px-1.5 py-1.5"
             >
-              <span className="text-slate-300 text-base md:text-xl ">
-                {selectedImage.hearts ? selectedImage.hearts.length : 0}
+              <span className="text-slate-300 text-base md:text-xl indent-1">
+                {selectedImage.hearts ? selectedImage.hearts.length : 0} ❤️
               </span>
-              ❤️
             </button>
             <button
               onClick={updateLikes}
-              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-r-lg px-1.5 py-0.5 -ml-[.7px]"
+              className="text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-r-lg px-1.5 py-1.5 -ml-[.7px]"
             >
-              <span className="text-slate-300 text-base md:text-xl">
-                {selectedImage.likes ? selectedImage.likes.length : 0}
+              <span className="text-slate-300 text-base md:text-xl indent-1">
+                {selectedImage.likes ? selectedImage.likes.length : 0} 👍
               </span>
-              👍
             </button>
           </div>
 
           <Link
             href={`/profile/${selectedImage?.poster?.id}`}
-            className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-75 rounded-md cursor-pointer"
+            className="absolute top-3 gap-2 items-center flex left-2 px-2 text-sm md:text-lg  py-0.5 text-sky-400 backdrop-brightness-50 rounded-md cursor-pointer"
           >
             {/* <Image
               src={selectedImage?.poster?.image || ""}
@@ -272,7 +271,7 @@ const ImageModal = () => {
               Posted by :{" "}
               <Link
                 href={`/profile/${selectedImage?.poster?.id}`}
-                className="capitalize text-sky-700 underline underline-offset-2"
+                className="capitalize text-sky-400 underline underline-offset-2"
               >
                 {" "}
                 {selectedImage?.poster?.name}{" "}
@@ -287,22 +286,28 @@ const ImageModal = () => {
             </p>
           </Link>
 
-          <div className="absolute bottom-3 right-2 text-xl flex justify-center items-center md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300 backdrop-blur-sm backdrop-brightness-75 rounded-lg px-1.5 py-0.5">
-            <button onClick={updateFlag}>🚩</button>
+          <div className="absolute bottom-3 right-2 text-xl flex justify-center items-center md:text-3xl backdrop-blur-sm backdrop-brightness-75 rounded-lg px-1.5 py-0.5">
+            <button
+              onClick={updateFlag}
+              className=" scale-75 hover:scale-90 active:scale-100 transition-all duration-300"
+              title={!selectedImage.flag ? "report?" : "un-flag?"}
+            >
+              {!selectedImage.flag ? " 🚩" : "🏳️"}
+            </button>
             {selectedImage && selectedImage?.poster?.id === userx.id && (
               <>
                 <button
                   onClick={() => setImageModalOpen(true)}
-                  className="text-xl md:text-3xl  hover:scale-105 active:scale-110 transition-all duration-300"
+                  className="text-xl md:text-3xl mr-2 hover:scale-110 active:scale-125 transition-all duration-300"
                 >
-                  <span className="text-slate-300 text-base md:text-xl"></span>
+                  <span className="text-slate-300 hover:text-sky-400 text-base md:text-xl"></span>
                   <AiOutlineEdit color={"#d4dae2"} size={24} />
                 </button>
                 <button
                   onClick={removeImage}
-                  className="text-xl md:text-3xl hover:scale-105 active:scale-110 transition-all duration-300"
+                  className="text-xl md:text-3xl hover:scale-110 active:scale-125 transition-all duration-300"
                 >
-                  <span className="text-slate-300 text-base md:text-xl"></span>
+                  <span className="text-slate-300 hover:text-sky-400 text-base md:text-xl"></span>
                   <AiFillDelete color={"#d4dae2"} size={24} />
                 </button>
               </>
