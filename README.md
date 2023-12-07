@@ -1,4 +1,6 @@
-## FaveTale
+# FaveTale
+
+## An app for pet owners for sharing interacting and buying pets stuff
    
    <img width="932" alt="40" src="https://github.com/tahasama/favetale/assets/69104880/028e2048-f09f-4ded-8829-66be5d4d4357">
 
@@ -20,7 +22,7 @@ A web application for :
   - Forums and discussions.
   - Events and meetings.
   - General questions.
- 
+  - 
 
    <img width="470" alt="44" src="https://github.com/tahasama/favetale/assets/69104880/8445f09c-c186-4889-814b-0c1ae4b1b979">
    <img width="470" alt="47" src="https://github.com/tahasama/favetale/assets/69104880/fed96edb-9734-4f6f-95c2-b1ebeb08880f">
