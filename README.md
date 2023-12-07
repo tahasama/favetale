@@ -1,4 +1,4 @@
-## Fave Tale
+## FaveTale
 
 A web application for :
 
