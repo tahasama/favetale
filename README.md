@@ -1,5 +1,6 @@
 ## FaveTale
-<img width="932" alt="40" src="https://github.com/tahasama/favetale/assets/69104880/028e2048-f09f-4ded-8829-66be5d4d4357">
+   
+   <img width="932" alt="40" src="https://github.com/tahasama/favetale/assets/69104880/028e2048-f09f-4ded-8829-66be5d4d4357">
 
 A web application for :
 
