@@ -10,10 +10,10 @@ A web application for :
 
 - Sharing stories amd writing blogs.
 
-  <img width="946" alt="42" src="https://github.com/tahasama/favetale/assets/69104880/1100ba4a-b9f9-45d5-83b7-5b19baecf3ce">
+  <img width="540" alt="42" src="https://github.com/tahasama/favetale/assets/69104880/1100ba4a-b9f9-45d5-83b7-5b19baecf3ce">
 
 
-  <img width="948" alt="43" src="https://github.com/tahasama/favetale/assets/69104880/66763a88-019d-4588-9210-abf2dac969e9">
+  <img width="540" alt="43" src="https://github.com/tahasama/favetale/assets/69104880/66763a88-019d-4588-9210-abf2dac969e9">
 
   
 - Getting tips.
