@@ -46,8 +46,9 @@ A web application for :
    <img width="400" alt="51" src="https://github.com/tahasama/favetale/assets/69104880/8203b546-05ce-4e00-8abf-e1116fc37df8">
    <img width="400" alt="45" src="https://github.com/tahasama/favetale/assets/69104880/9917b0c4-6259-4783-b144-ba511923e450">
 </p>
+
 - Manage own Profile.
 
-   <img width="800" alt="50" src="https://github.com/tahasama/favetale/assets/69104880/43f9f374-8b67-4d9c-821f-0be399a289fc">
+<img width="800" alt="50" src="https://github.com/tahasama/favetale/assets/69104880/43f9f374-8b67-4d9c-821f-0be399a289fc">
 
   
