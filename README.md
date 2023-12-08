@@ -1,8 +1,8 @@
 # FaveTale
 
-## An app for pet owners for sharing interacting and buying pets stuff
+### An app for pet owners for sharing interacting and buying pets stuff
 
-### Made With Next,js 13 (Server and Client Components), and FireBase (Storage, Auth, FireStore)
+Made With Next,js 13 (Server and Client Components), and FireBase (Storage, Auth, FireStore)
    
    <img width="800" alt="40" src="https://github.com/tahasama/favetale/assets/69104880/028e2048-f09f-4ded-8829-66be5d4d4357">
 
